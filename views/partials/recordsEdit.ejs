@@ -670,6 +670,7 @@
             </div>
         </div>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
+        <button onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
     <br>
     <p></p>
      <button type="submit" class="btn inline btn-success" style="width: 100%">Submit</button>
@@ -762,6 +763,14 @@
         tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
+    }
+
+    function removeGoods() {
+        var removeRow = document.getElementById("goodsTable");
+        //var tr = document.removeChild('tr');
+        //tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        var templength = removeRow.rows.length;
+        removeRow.deleteRow(templength - 1);
     }
 
     function autoCodeCustomProcedure() {
