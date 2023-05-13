@@ -218,7 +218,7 @@
                     <td class="stretchy">C05-000000</td>
                     <td class="stretchy"></td>
                     <td class="stretchy">
-                      <button type="submit" id="downloadXML2">DOWNLOAD</button>
+                      <button type="submit" id="downloadXML2_<%= declaration3[i]._id %>">DOWNLOAD</button>
                     </td>
                   </tr>
                 </form>
@@ -384,7 +384,7 @@
     
     //window.location = "www.google.com";
     //window.location.href = "/downloadXML/" + selectedId.dataset.value;
-    document.getElementById("downloadXML2" + selectedId.dataset.value).submit
+    document.getElementById("downloadXML2_" + selectedId.dataset.value).submit
     return false;
   }
 </script>
