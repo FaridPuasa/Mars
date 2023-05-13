@@ -647,7 +647,7 @@
         <button onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
     <br>
     <p></p>
-     <button type="submit" class="btn inline btn-success" style="width: 100%">Submit</button>
+     <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
 </div>
@@ -661,6 +661,12 @@
 <script>
     //Page function
     
+    function clicked(e) {
+        if(!confirm('Are you sure?')) {
+            e.preventDefault();
+        }
+    }
+
     var currentDecPage = 0; // Current page is set to be the first page (0)
     showDecPage(currentDecPage); // Display the current page
     
