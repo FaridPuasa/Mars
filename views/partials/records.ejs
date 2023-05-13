@@ -112,7 +112,7 @@
                   <tbody>
                   <% if (declaration3) { %> 
                     <% for (var i = 0; i < declaration3.length; i++) { %>
-                      <form action="/downloadXML" method="POST" >
+                      <form id="downloadXML" action="/downloadXML/<%= declaration3[i]._id %>" method="POST" >
                   <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>" data-value="<%= declaration3[i]._id %>">
                     <td style="display:none">
                       <input name="selectId" value="<%= declaration3[i]._id %>" readonly/>
@@ -218,7 +218,7 @@
                     <td class="stretchy">C05-000000</td>
                     <td class="stretchy"></td>
                     <td class="stretchy">
-                      <button type="submit">DOWNLOAD</button>
+                      <button type="submit" id="downloadXML2">DOWNLOAD</button>
                     </td>
                   </tr>
                 </form>
@@ -382,9 +382,9 @@
       alert("Please Select Row")
     }
     
-    
     //window.location = "www.google.com";
-    window.location.href = "/downloadXML/" + selectedId.dataset.value;
+    //window.location.href = "/downloadXML/" + selectedId.dataset.value;
+    document.getElementById("downloadXML2" + selectedId.dataset.value).submit
     return false;
   }
 </script>
