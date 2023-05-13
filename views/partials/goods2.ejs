@@ -1,0 +1,81 @@
+<div id="Goods">
+                        
+    <h3>Goods</h3>
+    <form id ="goods" action = "/goods" method="POST">
+
+        <!-- PAGE 1 -->
+        <div class="goodsPage">
+        <div class="row">
+            <div class="col leftcolumn">
+                <div>
+                    <label for="date">Date:</label>
+                    <% var todayDate = new Date(); %>
+                    <% var dd = String(todayDate.getDate()).padStart(2, '0'); %>
+                    <% var mm = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0! %>
+                    <% var yyyy = todayDate.getFullYear(); %>
+
+                    <% todayDate = yyyy + "-" + mm + "-" + dd; %>
+                    <input type="date" id="goodsDate" name="goodsDate" value="<%= todayDate %>" size="30"/>
+                </div>
+                <table class="table table-striped table-sm table-bordered">
+                    <tr>
+                        <th scope="row">Item</th>
+                        <td>No Package</td>
+                        <td>Package Unit</td>
+                        <td>O. Country</td>
+                        <td>Code</td>
+                        <td>HS Code</td>
+                        <td>Sub Code</td>
+                        <td>Goods</td>
+                        <td>C</td>
+                        <td>Unit</td>
+                        <td>Code</td>
+                        <td>Qty</td>
+                        <td>Weight</td>
+                        <td>Amount</td>
+                        <td>CIF</td>
+                        <td>Duty</td>
+                        <td>Duty Amount</td>
+                        <td>LNo</td>
+                        <td>Shipping Mark</td>
+                        <td>Container No</td>
+                        <td>Invoice No</td>
+                        <td>Control</td>
+                        <td>Import Duty</td>
+                        <td>Excise Duty</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><input type="text" id="goodsSerialNo" name="goodsSerialNo" size="1" value="1" readonly/></th>
+                        <td><input type="text" name="packageNo" size="1"/></td>
+                        <td><input type="text" name="packageUnit" size="3"/></td>
+                        <td><input type="text" name="country" size="3"/></td>
+                        <td><input type="text" name="countryCode" size="3"/></td>
+                        <td><input type="text" name="hsCode" size="8"/></td>
+                        <td><input type="text" name="subCode" size="8"/></td>
+                        <td><input type="text" name="goodsName"/></td>
+                        <td><input type="text" name="c" size="3"/></td>
+                        <td><input type="text" name="cUnit" size="1"/></td>
+                        <td><input type="text" name="cCode" size="3"/></td>
+                        <td><input type="text" name="goodsQuantity" size="1"/></td>
+                        <td><input type="text" name="goodsWeight" size="3"/></td>
+                        <td><input type="text" name="goodsAmount" size="3"/></td>
+                        <td><input type="text" name="goodsCif" size="1"/></td>
+                        <td><input type="text" name="goodsDuty" size="1"/></td>
+                        <td><input type="text" name="goodsDutyAmount" size="1"/></td>
+                        <td><input type="text" name="goodsLNo" size="1"/></td>
+                        <td><input type="text" name="shippingMark"/></td>
+                        <td><input type="text" name="goodsContainerNo" size="1"/></td>
+                        <td><input type="text" name="goodsInvoiceNo"/></td>
+                        <td><input type="text" name="goodsControl"/></td>
+                        <td><input type="text" name="importDuty" size="1"/></td>
+                        <td><input type="text" name="exciseDUty" size="1"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+        </div>
+        </div>
+    </form>
+  
+  
+</div>

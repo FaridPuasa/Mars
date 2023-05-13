@@ -1,0 +1,42 @@
+<title>Register</title>
+
+<h1>Create an account</h1>
+<form action="/register" method="POST">
+  <div>
+    <label htmlFor="name">Name</label>
+    <input type="text" id="name" name="name" />
+  </div>
+  <div>
+    <label htmlFor="email">Username/Email</label>
+    <input type="text" id="email" name="email" />
+  </div>
+  <div>
+    <label htmlFor="password">Password</label>
+    <input type="password" id="password" name="password" />
+  </div>
+  <div>
+    <label htmlFor="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" />
+  </div>
+  <div>
+    <label htmlFor="idType">ID Type</label>
+    <select>
+      <option value="IC">IC</option>
+      <option value="PP">PP</option>
+    </select>
+  </div>
+  <div>
+    <label htmlFor="icNo">IC</label>
+    <input type="text" id="icNo" name="icNo" />
+  </div>
+  <div>
+    <label htmlFor="icColor">IC Color</label>
+    <input type="text" id="icColor" name="icColor" />
+  </div>
+  <div>
+    <label htmlFor="designation">Designation</label>
+    <input type="text" id="designation" name="designation" />
+  </div>
+  <button type="submit">Register</button>
+  <p>Already a user? <a href="/login">Login</a></p>
+</form>

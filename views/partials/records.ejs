@@ -1,0 +1,374 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<div id="myRecords" class="container-fluid" style="padding-top: 50px">
+  <div class="row align-items-start">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="overflow: scroll; border: 1px solid black">
+      <div id="Records">
+        
+        
+        <h3>Records</h3>
+        <!-- <form id="records" action="/records" method="POST"> -->
+          <!-- PAGE 1 -->
+          <div class="recordsPage">
+            <div class="row">
+              <div class="col leftcolumn">
+                <table
+                  id="tableId"
+                  class="table table-sm table-striped table-responsive table-bordered"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="row"></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td colspan="2" style="text-align: center">Date</td>
+                      <td></td>
+                      <td colspan="2" style="text-align: center">Importer</td>
+                      <td style="text-align: center">IC</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td colspan="2" style="text-align: center">Country</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td colspan="4" style="text-align: center">
+                        Declaration
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Lock</th>
+                      <td>Form</td>
+                      <td>Procedure</td>
+                      <td>T</td>
+                      <td>Arrival</td>
+                      <td>Declare</td>
+                      <td>Invoice</td>
+                      <td class="stretchy">Name</td>
+                      <td>Type</td>
+                      <td class="stretchy">Color</td>
+                      <td class="stretchy">Posted By</td>
+                      <td>Vessel</td>
+                      <td>Voyage</td>
+                      <td class="stretchy">BL/DO/AWB No</td>
+                      <td>HB/HAWB</td>
+                      <td class="stretchy">Agent</td>
+                      <td>PI</td>
+                      <td>PCD</td>
+                      <td>Name</td>
+                      <td>Code</td>
+                      <td>CCY</td>
+                      <td>Rate</td>
+                      <td>RDA</td>
+                      <td>CEPT</td>
+                      <td>INS</td>
+                      <td>FRG</td>
+                      <td>OTH</td>
+                      <td>INSC</td>
+                      <td>FRGC</td>
+                      <td>OTHE</td>
+                      <td>OTHC</td>
+                      <td>PN</td>
+                      <td>TPKG</td>
+                      <td>PG1</td>
+                      <td>PG2</td>
+                      <td>IDA</td>
+                      <td>PORT</td>
+                      <td class="stretchy">Staff Name</td>
+                      <td>IV</td>
+                      <td>Color</td>
+                      <td>Designation</td>
+                      <td>Bill</td>
+                      <td>BTH</td>
+                      <td class="stretchy">Download XML</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% if (declaration3) { %> 
+                    <% for (var i = 0; i < declaration3.length; i++) { %>
+                      <form action="/downloadXML" method="POST" >
+                  <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>" data-value="<%= declaration3[i]._id %>">
+                    <td style="display:none">
+                      <input name="selectId" value="<%= declaration3[i]._id %>" readonly/>
+                    </td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Procedure.customsProcedureCode %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Procedure.dutiableIndicatorCode %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.arrivalDate %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].declarationDate %>
+                    </td>
+                    <td class="stretchy">
+                      <input name="selectedInvoice" value="<%= declaration3[i].Goods[0].goodsInvoiceNo %>" readonly />
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Importer.importerName %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Importer.importerType %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Importer.importerICColor %>
+                    </td>
+                    <td class="stretchy"><%= declaration3[i].postedBy %></td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.vesselNo %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.vesselName %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.bldoawb %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.hbhawb %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Agent.agentName %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Procedure.clearanceStation %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Procedure.clearanceStationCode %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.countryShipment %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Transport.countryShipmentCode %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].SupportingDocuments.exchangeCurrency
+                      %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].SupportingDocuments.exchangeRate %>
+                    </td>
+                    <td class="stretchy"><%= declaration3[i].dateGranted %></td>
+                    <td class="stretchy"><%= declaration3[i].cept %></td>
+                    <td class="stretchy">
+                      <%= declaration3[i].DeclarationGoods.insuranceAmount %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].DeclarationGoods.freightAmount %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].DeclarationGoods.otherCharges %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].DeclarationGoods.insuranceCurrency %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].DeclarationGoods.freightCurrency %>
+                    </td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Declarant.declarantName %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Declarant.declarantICNo %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Declarant.declarantICColor %>
+                    </td>
+                    <td class="stretchy">
+                      <%= declaration3[i].Declarant.declarantDesignation %>
+                    </td>
+                    <td class="stretchy">C05-000000</td>
+                    <td class="stretchy"></td>
+                    <td class="stretchy">
+                      <button type="submit">DOWNLOAD</button>
+                    </td>
+                  </tr>
+                </form>
+                  <% } %> <% } %>
+                </tbody>
+                </table>
+              </div>
+              <!-- end left col-->
+            </div>
+          </div>
+        <!-- </form> -->
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <!-- GOODS -->
+
+  <div class="row align-items-start">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="overflow: scroll; border: 1px solid black">
+      <div id="Goods">
+        <div class="row align-items-start">
+          <div class="col" style="overflow: scroll; border: 1px solid black">
+            <h3>Goods</h3>
+            <form id="goods" action="/goods" method="POST">
+                <div class="row">
+                  <div class="col">
+                    <table class="table table-striped table-sm table-bordered">
+                      <tr>
+                        <th scope="row">Item</th>
+                        <td class="stretchy">No Package</td>
+                        <td class="stretchy">Package Unit</td>
+                        <td class="stretchy">O. Country</td>
+                        <td>Code</td>
+                        <td class="stretchy">HS Code</td>
+                        <td class="stretchy">Sub Code</td>
+                        <td>Goods</td>
+                        <td>C</td>
+                        <td>Unit</td>
+                        <td>Code</td>
+                        <td>Qty</td>
+                        <td>Weight</td>
+                        <td>Amount</td>
+                        <td>CIF</td>
+                        <td>Duty</td>
+                        <td class="stretchy">Duty Amount</td>
+                        <td>LNo</td>
+                        <td class="stretchy">Shipping Mark</td>
+                        <td class="stretchy">Container No</td>
+                        <td class="stretchy">Invoice No</td>
+                        <td>Control</td>
+                        <td class="stretchy">Import Duty</td>
+                        <td class="stretchy">Excise Duty</td>
+                      </tr>
+
+                      <div class="accordion-group">
+                      <% for (var j=0; j< declaration3.length; j++) { %>
+                      
+                        <% for (var k=0; k< declaration3[j].Goods.length; k++) { %>
+                        <tr id="collapseExample<%=j%>" class="collapse indent" data-bs-parent="#myRecords">
+                        <th scope="row"><%= declaration3[j].Goods[k].goodsSerialNo %></th>
+                        <td><%= declaration3[j].Goods[k].goodsPackageNo %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsPackageUnit %>
+                        </td>
+                        <td><%= declaration3[j].Goods[k].countryOrigin %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].countryCode %>
+                        </td>
+                        <td class="stretchy"><%= declaration3[j].Goods[k].hsCode %></td>
+                        <td><%= declaration3[j].Goods[k].subCode %></td>
+                        <td class="stretchy"><%= declaration3[j].Goods[k].goodsDescription %></td>
+                        <td><%= declaration3[j].Goods[k].goodsC %></td>
+                        <td><%= declaration3[j].Goods[k].goodsUnit %></td>
+                        <td><%= declaration3[j].Goods[k].goodsCode %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsQuantity %>
+                        </td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsWeight %>
+                        </td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsAmount %>
+                        </td>
+                        <td><%= declaration3[j].Goods[k].goodsCIF %></td>
+                        <td><%= declaration3[j].Goods[k].goodsDuty %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsDutyAmount %>
+                        </td>
+                        <td><%= declaration3[j].Goods[k].goodsLNo %></td>
+                        <td class="stretchy"><%= declaration3[j].Goods[k].goodsShippingMark %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsContainerNo %>
+                        </td>
+                        <td class="stretchy"><%= declaration3[j].Goods[k].goodsInvoiceNo %></td>
+                        <td><%= declaration3[j].Goods[k].goodsControl %></td>
+                        <td>
+                          <%= declaration3[j].Goods[k].goodsImportDuty %>
+                        </td>
+                        <td><%= declaration3[j].Goods[k].goodsExciseDuty %></td>
+                        
+                      </tr>
+                      
+                    </div>
+                        <% } %>
+                      <% } %>
+                    </table>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+<script>
+  //Page function
+
+  function myFunction() {
+    var x = document.getElementsByClassName("city");
+    for (var i = 0; i < x.length; i++) {
+      if (x[i].style.display == "none") {
+        x[i].style.display = "block";
+      } else {
+        x[i].style.display = "none";
+      }
+    }
+  }
+
+  $('#tableId').on('click', 'tbody tr', function(event) {
+    $(this).addClass('highlight').siblings().removeClass('highlight');
+  });
+
+  function getDataValue() {
+    var selectedId = document.querySelector(".highlight");
+    //var theId = selectedId.getAttribute('data-value');
+    if (selectedId) {
+      alert("ID is " + selectedId.dataset.value)
+    }
+    else {
+      alert("Please Select Row")
+    }
+    
+    
+    //window.location = "www.google.com";
+    window.location.href = "/bdnswedit/" + selectedId.dataset.value;
+    return false;
+  }
+</script>

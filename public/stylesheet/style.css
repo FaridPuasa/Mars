@@ -1,0 +1,187 @@
+.navbar {
+    background-color: rgb(37, 37, 37);
+    padding-left: 10px;
+}
+
+.navright {
+    float:right;
+}
+
+.navbar-brand {
+    padding-left: 10px;
+}
+
+head {
+    position: fixed;
+    top: 0;
+}
+
+body {
+    margin-top: 100px;
+    padding-bottom: 50px;
+}
+
+footer {
+    position:fixed;
+    bottom: 0;
+    text-align: center;
+    height: 50px;
+    width:100%;
+    background-color: rgb(211, 227, 241);
+}
+
+figcaption {
+    text-align: center;
+}
+
+input[readonly] {
+    background-color: #b4b4b4;
+}
+
+.errorMessage:empty {
+    display: none;
+}
+
+.errorMessage {
+    background-color: rgb(155, 236, 155);
+    padding: 20px;
+    border: 3px solid grey;
+}
+
+.nav-item {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mynavlink {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+.mynavlink:hover:not(.active) {
+    background-color: #111;
+}
+  
+.active {
+    background-color: #04AA6D;
+}
+
+.container {
+    padding: 50px;
+    justify-content: center;
+    background-color:rgb(180, 246, 246);
+    border: 2px solid black;
+}
+
+.container1 {
+    padding:200px;
+}
+
+.container2 {
+    padding-top: 200px;
+    background-position: center center;
+}
+
+.container3 {
+    padding-top: 100px;
+}
+
+.declarationPage {
+    display: none;
+}
+
+.declaration2Page {
+    display: none;
+}
+
+.invoicesPage {
+    display: none;
+}
+
+.recordsEditPage {
+    display: none;
+}
+
+.goodsPage {
+    display: none;
+}
+
+.page {
+    display: none;
+}
+
+.buttonlike {
+    display:inline;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    padding: 0!important;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+
+.imgbutton {
+    display: block;
+    margin: auto;
+    height: 200px;
+    width: 200px;
+
+}
+
+/* Style the tab for Single Window page*/
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+
+  .stretchy {
+    white-space: nowrap;
+    overflow:hidden;
+
+  }
+
+  .highlight {
+    background-color: lightblue;
+    border: solid black
+  }
+
+  input:read-only {
+    background-color: white;
+    border: none;
+  }

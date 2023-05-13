@@ -1,0 +1,954 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
+<div id="Declaration3">
+    <div class = "container-fluid" style="padding-top: 50px">
+        <div class = "row align-items-start">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="border: 1px solid black">
+                        
+    <h3>Declaration</h3>
+    <form id ="declaration" action = "/declaration3" method="POST">
+
+        <!-- PAGE 1 -->
+        <div class="declarationPage">
+        <div class="row">
+            <div class="col leftcolumn">
+                <div>
+                    <label for="date">Date Granted:</label>
+                    <% var todayDate = new Date(); %>
+                    <% var dd = String(todayDate.getDate()).padStart(2, '0'); %>
+                    <% var mm = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0! %>
+                    <% var yyyy = todayDate.getFullYear(); %>
+
+                    <% todayDate = yyyy + "-" + mm + "-" + dd; %>
+                    <input type="date" id="dateGranted" name="dateGranted" value="<%= todayDate %>" size="30"/>
+                    <label for="date">Departure Date:</label>
+                    <input type="date" id="departureDate" name="departureDate" size="30"/>
+                    <!--CEPT Option Normal/Cept-->
+                    <label for="date">CEPT:</label>
+                    <select name="cept" id="cept">
+                        <option value="normal">Normal</option>
+                        <option value="cept">CEPT</option>
+                    </select>
+                </div>
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Procedure</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Custom Procedure:<i class="bi bi-star-fill" style="color: red;"></i></td>
+                        <td>
+                            <select name="customsProcedure" id="customsProcedure" onchange="autoCodeCustomProcedure()">
+                                <optgroup label="-">
+                                    <!--code 05--><option value="IMP">IMPORT</option>
+                                    <!--code 07--><option value="REIMP">RE-IMPORT</option>
+                                    <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
+                                    <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
+                                    <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
+                                    <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
+                                </optgroup>
+                                <optgroup label="-">
+                                    <!--code 06--><option value="EXP">EXPORT</option>
+                                    <!--code 08--><option value="REEXP">RE-EXPORT</option>
+                                    <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
+                                    <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
+                                </optgroup>
+                                    <!--code 12--><option value="TRANSIT">TRANSIT</option>
+                                    <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
+                            </select>
+                            Code: <input type="text" id="customsProcedureCode" name="customsProcedureCode" size="3" value="05"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Prev Procedure: </td>
+                        <td>
+                            <select name="previousProcedure" id="previousProcedure" onchange="autoCodePrevProcedure()">
+                                    <option value=""></option>
+                                <optgroup label="-">
+                                    <!--code 05--><option value="IMP">IMPORT</option>
+                                    <!--code 07--><option value="REIMP">RE-IMPORT</option>
+                                    <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
+                                    <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
+                                    <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
+                                    <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
+                                </optgroup>
+                                <optgroup label="-">
+                                    <!--code 06--><option value="EXP">EXPORT</option>
+                                    <!--code 08--><option value="REEXP">RE-EXPORT</option>
+                                    <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
+                                    <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
+                                </optgroup>
+                                    <!--code 12--><option value="TRANSIT">TRANSIT</option>
+                                    <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
+                            </select>
+                            Code: <input type="text" id="previousProcedureCode" name="previousProcedureCode" size="3"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Dutiable Indicator:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td>
+                            <select name="dutiableIndicator" id="dutiableIndicator" onchange="autoCodeDutiable()">
+                                <!--code A--><option value="A">AIR</option>
+                                <!--code B--><option value="N">SEA</option>
+                                <!--code C--><option value="L">LAND</option>
+                                <!--code D--><option value="P">POSTAL</option>
+                            </select>
+                            Code: <input type="text" id="dutiableIndicatorCode" name="dutiableIndicatorCode" size="3" value="A"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Clearance Station:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td>
+                            <select name="clearanceStation" id="clearanceStation" onchange="autoCodeClearance()">
+                                <!--code 611--><option value="BSB">BSB</option>
+                                <!--code 603--><option value="BSP WHARF">BSP WHARF</option>
+                                <!--code 611--><option value="BSP WHARF + LONG ROOM">BSP WHARF + LONG ROOM</option>
+                                <!--code 600--><option value="CUSTOMS HEADQUARTERS">CUSTOMS HEADQUARTERS</option>
+                                <!--code 601--><option value="INTERNATIONAL AIRPORT (CARGO)">INTERNATIONAL AIRPORT (CARGO)</option>
+                                <!--code 609--><option value="INTERNATIONAL AIRPORT (PASSENGER)">INTERNATIONAL AIRPORT (PASSENGER)</option>
+                                <!--code 622--><option value="KUALA BELAIT POST OFFICE">KUALA BELAIT POST OFFICE</option>
+                                <!--code 602--><option value="KUALA BELAIT WHARF">KUALA BELAIT WHARF</option>
+                                <!--code 631--><option value="KUALA LURAH">KUALA LURAH</option>
+                                <!--code 621--><option value="MAIL PROCESSING CENTRE">MAIL PROCESSING CENTRE</option>
+                                <!--code 616--><option value="MUARA CONTAINER">MUARA CONTAINER</option>
+                                <!--code 617--><option value="MUARA GUARD HOUSE">MUARA GUARD HOUSE</option>
+                                <!--code 605--><option value="MUARA PORT">MUARA PORT</option>
+                                <!--code 615--><option value="MUARA POST OFFICE">MUARA POST OFFICE</option>
+                                <!--code 620--><option value="PUTAT">PUTAT</option>
+                                <!--code 608--><option value="SERASA FERRY TERMINAL">SERASA FERRY TERMINAL</option>
+                                <!--code 618--><option value="SERASA FERRY NEW TERMINAL">SERASA NEW FERRY TERMINAL</option>
+                                <!--code 623--><option value="SERIA POST OFFICE">SERIA POST OFFICE</option>
+                                <!--code 612--><option value="SUNGAI TUJOH">SUNGAI TUJOH</option>
+                                <!--code 634--><option value="TEMBURONG LABU">TEMBURONG LABU</option>
+                                <!--code 614--><option value="TEMBURONG POST OFFICE">TEMBURONG POST OFFICE</option>
+                                <!--code 604--><option value="TEMBURONG WHARF (BANGAR)">TEMBURONG WHARF (BANGAR)</option>
+                                <!--code 607--><option value="TUTONG POST OFFICE">TUTONG POST OFFICE</option>
+                            </select>
+                            Code: <input type="text" id="clearanceStationCode" name="clearanceStationCode" size="3" value="611" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Exporter/Consigner</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Name: </td>
+                        <td><input type="text" id="exporterName" name="exporterName" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Address: </td>
+                        <td><input type="text" id="exporterAddress" name="exporterAddress" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>Registration: </td>
+                        <td><input type="text" id="exporterRegistration" name="exporterRegistration" size="20"/>  Country <input type="text" id="exporterCountry" name="exporterCountry" size="10"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>Telephone: </td>
+                        <td><input type="text" id="exporterPhone" name="exporterPhone" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>Postal: </td>
+                        <td><input type="text" id="exporterPostal" name="exporterPostal" size="20"/>  Transport <input type="text" id="exporterTransport" name="exporterTransport" size="10"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+            <div class="col rightcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Importer/Consignee</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Type:<i class="bi bi-star-fill" style="color: red;"></i></td>
+                        <td>
+                            <select name="importerType" id="importerType">
+                                <!--code 611--><option value="TRDR">TRDR</option>
+                                <!--code 603--><option value="INDV">INDV</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="importerName" name="importerName" size="30" required/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">11</th>
+                        <td>Address:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><textarea id="importerAddress" name="importerAddress" cols="50" row="2" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">12</th>
+                        <td>IC/PP:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td>
+                            <input type="text" id="importerRegistration" name="importerRegistration" size="20" required/> IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">13</th>
+                        <td>Telephone:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td>
+                            <input type="text" id="importerPhone" name="importerPhone" size="10"/>
+                            <span style="font-weight:bold">14.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="importerPostal" name="importerPostal" size="10"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Agent</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">15</th>
+                        <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="agentName" name="agentName" size="30" value="GLOBEX GLOBAL LOGISTICS SDN BHD"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">16</th>
+                        <td>Address:<i class="bi bi-star-fill" style="color: red;"></i></td>
+                        <td><input type="text" id="agentAddress" name="agentAddress" size="30" value="UNIT 9, BLOCK A, SPG 188 JALAN BABU RAJA"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">17</th>
+                        <td>Registration:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="agentRegistration" name="agentRegistration" size="30" value="RC/00007286"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">18</th>
+                        <td>Telephone:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td>
+                            <input type="text" id="agentPhone" name="agentPhone" size="10" value="2332065"/>
+                            <span style="font-weight:bold">19.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="agentPostal" name="agentPostal" size="10" value="BE1318"/>
+                        </td>
+                    </tr>
+                </table>
+                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                -->
+                <p></p>
+            </div>
+        </div>
+        </div>
+        <!-- PAGE 1 ENDS -->
+        <!-- PAGE 2 -->
+        <div class="declarationPage">
+        <div class="row">
+            <div class="col leftcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Transport</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">20</th>
+                        <td>Arrival Date:<i class="bi bi-star-fill" style="color: red;"></i></td>
+                        <td><input type="date" id="arrivalDate" name="arrivalDate" size="8" required/> <span style="font-weight:bold"> 21.</span> Container No: <input type="text" id="containerNo" name="containerNo" size="8"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">22</th>
+                        <td>Vessel Number:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="vesselNo" name="vesselNo" size="8" required/><span style="font-weight:bold"> 23.</span> Vessel Name:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="vesselName" name="vesselName" size="8" required/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">24</th>
+                        <td>BL/DO/AWB:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="bldoawb" name="bldoawb" size="8" required/><span style="font-weight:bold"> 25.</span> HB/HAWB: <input type="text" id="hbhawb" name="hbhawb" size="8"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">26</th>
+                        <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="countryShipment" name="countryShipment" oninput="autoPortCodeShipment()" size="8" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">27</th>
+                        <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="countryDestination" name="countryDestination" onchange="autoPortCodeDestination()" size="8" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">28</th>
+                        <td>Port of Entry:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="portOfEntry" name="portOfEntry" onchange="autoPortCodePort()"size="8" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">29</th>
+                        <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">30</th>
+                        <td>Place Release: </td>
+                        <td><input type="text" id="placeRelease" name="placeRelease" size="8"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">31</th>
+                        <td>Place Receipt: </td>
+                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+            <div class="col rightcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Supporting Documents</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">32</th>
+                        <td>Exchange Rate:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                        <td><input type="text" id="exchangeCurrency" name="exchangeCurrency" size="4" placeholder="Currency"/> <input type="text" id="exchangeRate" name="exchangeRate" size="10" placeholder="Rate"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">33</th>
+                        <td>Prev Declaration No: </td>
+                        <td><input type="text" id="prevDeclarationNo" name="prevDeclarationNo" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Duty Exem: </td>
+                        <td><select name="dutyExem">
+                                <option></option>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                            <!--unknown LETTER yet-->
+                            Letter <input type="text" id="letter" name="letter" size="20"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">31a.</th>
+                        <td>Port Of Exit: </td>
+                        <td><input type="text" id="portOfExit" name="portOfExit" size="8"/>        Code: <input type="text" id="portOfExitCode" name="portOfExitCode" size="8"/></td>
+                    </tr>
+                </table>
+                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                -->
+                <p></p>
+            </div>
+        </div>
+        </div>
+        <!--Page 2 Ends-->
+        <!-- PAGE 3 -->
+        <div class="declarationPage">
+            <div class="row">
+                <div class="col leftcolumn">
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <th scope="row"></th>
+                            <td style="font-weight: bold;">for Temporary Import</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">43</th>
+                            <td>Type of Application:</td>
+                            <td>
+                                <select name="typeOfApplication">
+                                    <option value=""></option>
+                                    <option value="DEM">DEM</option>
+                                    <option value="TSP">TSP</option>
+                                    <option value="ESH">ESH</option>
+                                    <option value="LSP">LSP</option>
+                                </select>
+                                <span style="font-weight:bold"> 44.</span> Granted Period (Mon): <input type="text" id="grantedPeriod" name="grantedPeriod" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">45</th>
+                            <td>Est. Date of Export: </td>
+                            <td><input type="date" id="estDateOfExport" name="estDateOfExport" size="8"/><span style="font-weight:bold"> 46.</span> Place Export: <input type="text" id="placeExport" name="placeExport" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">47</th>
+                            <td>Project Name: </td>
+                            <td><input type="text" id="projectName" name="projectName" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">48</th>
+                            <td>Project Date From: </td>
+                            <td><input type="date" id="projectDateFrom" name="projectDateFrom" size="8"/> 49: Date to: <input type="date" id="projectDateTo" name="projectDateTo" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td style="font-weight: bold;">for Transit</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">50</th>
+                            <td>Mode of Transport: </td>
+                            <td>
+                                <select name="modeTransport">
+                                    <option value=""></option>
+                                    <option value="L">L</option>
+                                    <option value="S">S</option>
+                                </select>
+                                <span style="font-weight:bold"> 51.</span> Mean of Transport: <input type="text" id="meanTransport" name="meanTransport" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">52</th>
+                            <td>Office of Dept (1st Check): </td>
+                            <td><input type="text" id="officeDeptFirst" name="officeDeptFirst" size="8"/>        Code: <input type="text" id="officeDeptFirstCode" name="officeDeptFirstCode" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">53</th>
+                            <td>Office of Dept (Last): </td>
+                            <td><input type="text" id="officeDeptLast" name="officeDeptLast" size="8"/>        Code: <input type="text" id="officeDeptLastCode" name="officeDeptLastCode" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">54</th>
+                            <td>Office of Dept (2nd Check): </td>
+                            <td><input type="text" id="officeDeptSecond" name="officeDeptSecond" size="8"/>        Code: <input type="text" id="officeDeptSecondCode" name="officeDeptSecondCode" size="8"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">55</th>
+                            <td>Office of Dept (3rd Check): </td>
+                            <td><input type="text" id="officeDeptThird" name="officeDeptThird" size="8"/>        Code: <input type="text" id="officeDeptThirdCode" name="officeDeptThirdCode" size="8"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- end left col-->
+                <div class="col rightcolumn">
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <th scope="row"></th>
+                            <td style="font-weight: bold;">Security Deposit</td>
+                            <td>(For Transit & Temporary Import Only)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">56</th>
+                            <td>Type of Deposit: </td>
+                            <td>
+                                <select name="depositType">
+                                    <option value=""></option>
+                                    <option value="Cash">CASH</option>
+                                    <option value="Cheque">CHEQUE</option>
+                                    <option value="Bank Guarantee">BANK GUARANTEE</option>
+                                </select>
+                                <span style="font-weight:bold"> 57.</span> Amount: <input type="text" id="depositAmount" name="depositAmount" size="8"/> 
+                        </tr>
+                        <tr>
+                            <th scope="row">58</th>
+                            <td>Bank Guarantee Amt: </td>
+                            <td><input type="text" id="bankGuaranteeAmount" name="bankGuaranteeAmount" size="8" value="0.00"/><span style="font-weight:bold"> 59.</span> BG/Cheque No: <input type="text" id="bankGuaranteeNo" name="bankGuaranteeNo" size="8"/> </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">60</th>
+                            <td>Bank Name: </td>
+                            <td>
+                                <input type="text" id="bankName" name="bankName" size="8"/>        Code: <input type="text" id="bankCode" name="bankCode" size="8"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td style="font-weight: bold;">Goods</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">61.</th>
+                            <td>Total Gross Weight:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                            <td>
+                                <input type="text" id="totalGrossWeight" name="totalGrossWeight" size="3" required/>
+                                <select name="grossWeightUnit">
+                                    <option value="KG">KG</option>
+                                    <option value="TN">TN</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">62.</th>
+                            <td>Total No of Packages:<i class="bi bi-star-fill" style="color: red;"></i> </td>
+                            <td>
+                                <input type="text" id="totalPackagesNo" name="totalPackagesNo" size="3" required/>
+                                <select name="packageNoUnit">
+                                    <option value="CTN">CTN</option>
+                                    <option value="PCS">PCS</option>
+                                    <option value="CAS">CAS</option>
+                                    <option value="UNT">UNT</option>
+                                    <option value="BTL">BTL</option>
+                                    <option value="LOT">LOT</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">63</th>
+                            <td>Total Invoice Amount: </td>
+                            <td>
+                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">64</th>
+                            <td>Insurance: </td>
+                            <td>
+                                <select name="invoiceInsuranceType">
+                                    <option value="F">F</option>
+                                    <option value="P">P</option>
+                                </select>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">65</th>
+                            <td>Freight Chg: </td>
+                            <td>
+                                <select name="freightType">
+                                    <option value=""></option>
+                                    <option value="F">F</option>
+                                </select>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">66</th>
+                            <td>Other Charges (B$): </td>
+                            <td>
+                                <input type="text" id="otherCharges" name="otherCharges" size="8"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
+                                <select name="otherChargesType">
+                                    <option value="CFR">CFR</option>
+                                    <option value="CIF">CIF</option>
+                                    <option value="FOB">FOB</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                    -->
+                    <p></p>
+                </div>
+            </div>
+            </div>
+            <!--Page 3 Ends-->
+            <!-- PAGE 4 -->
+        <div class="declarationPage">
+            <div class="row">
+                <div class="col leftcolumn">
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <th scope="row"></th>
+                            <td style="font-weight: bold;">Declaration</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">79</th>
+                            <td>Name:</td>
+
+                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="declarantName" name="declarantName" value="<%=username.name %>" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">80</th>
+                            <td>ID Type: </td>
+                            <td><i class="bi bi-star-fill" style="color: red;"></i>
+                                <select name="declarantID">
+                                    <option value="IC">IC</option>
+                                    <option value="PP">PP</option>
+                                </select> 
+                        </tr>
+                        <tr>
+                            <th scope="row">81</th>
+                            <td>IC No: </td>
+                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="declarantICNo" name="declarantICNo" size="10" value="<%= username.icNo %>"/><i class="bi bi-star-fill" style="color: red;"></i><span style="font-weight:bold"> 82.</span> IC Color <input type="text" id="declarantICColor" name="declarantICColor" size="10" value="<%=username.icColor%>"/></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">83</th>
+                            <td>Designation: </td>
+                            <td><input type="text" id="declarantDesignation" name="declarantDesignation" size="30" value="<%=username.designation%>"/></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <!-- end left col-->
+                <div class="col rightcolumn">
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <th scope="row">84</th>
+                            <td>Date Declare: </td>
+                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="date" id="declarationDate" name="declarationDate" required/> 
+                        </tr>
+                        <br>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Shipping Mark: </td>
+                            <td>
+                                <input type="text" id="shippingMark" name="shippingMark" size="30" required/>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <th scope="row"></th>
+                            <td>Posted by: </td>
+                            <td>
+                                <input type="text" name="postedBy" value="<%= username.email %>" size="30"/>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                    -->
+                    <p></p>
+                </div>
+            </div>
+            </div>
+            <!--Page 4 Ends-->
+        <div style="overflow:auto;">
+            <div style="float:right;">
+              <button type="button" id="prevDecBtn" onclick="nextDecPrev(-1)">Previous</button>
+              <button type="button" id="nextDecBtn" onclick="nextDecPrev(1)">Next</button>
+            </div>
+          </div>
+
+          <div class = "row align-items-start" style="overflow: scroll; border: 1px solid black">
+                <table class="table table-striped table-sm table-bordered" id="goodsTable">
+                    
+                    <tr>
+                        <th scope="row">Item</th>
+                        <td>No Package</td>
+                        <td>Package Unit</td>
+                        <td>O. Country</td>
+                        <td>Code</td>
+                        <td>HS Code</td>
+                        <td>Sub Code</td>
+                        <td>Goods</td>
+                        <td>C</td>
+                        <td>Unit</td>
+                        <td>Code</td>
+                        <td>Qty</td>
+                        <td>Weight</td>
+                        <td>Amount</td>
+                        <td>CIF</td>
+                        <td>Duty</td>
+                        <td>Duty Amount</td>
+                        <td>LNo</td>
+                        <td>Shipping Mark</td>
+                        <td>Container No</td>
+                        <td>Invoice No</td>
+                        <td>Control</td>
+                        <td>Import Duty</td>
+                        <td>Excise Duty</td>
+                    </tr>
+                    
+                </table>
+                
+            </div>
+        </div>
+        <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
+        <button onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
+    <br>
+    <p></p>
+     <button type="submit" class="btn inline btn-success" style="width: 100%">Submit</button>
+     <p></p>
+    </form>
+</div>
+<div class="col-md-1"></div>
+</div>
+
+</div>
+    
+</div>
+
+<script>
+    //Page function
+    
+    var currentDecPage = 0; // Current page is set to be the first page (0)
+    showDecPage(currentDecPage); // Display the current page
+    
+    function showDecPage(nd) {
+        // This function will display the specified page of the form ...
+        var jd = document.getElementsByClassName("declarationPage");
+        jd[nd].style.display = "block";
+        // ... and fix the Previous/Next buttons:
+        if (nd == 0) {
+            document.getElementById("prevDecBtn").style.display = "none";
+        } else {
+            document.getElementById("prevDecBtn").style.display = "inline";
+        }
+        if (nd == (jd.length - 1)) {
+            document.getElementById("nextDecBtn").style.display = "none";
+            document.getElementById("nextDecBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextDecBtn").style.display = "inline";
+            document.getElementById("nextDecBtn").innerHTML = "Next";
+        }
+
+    }
+
+    
+
+    function nextDecPrev(nd) {
+        // This function will figure out which page to display
+        var jd = document.getElementsByClassName("declarationPage");
+        // Exit the function if any field in the current page is invalid:
+        //if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        jd[currentDecPage].style.display = "none";
+        // Increase or decrease the current page by 1:
+        currentDecPage = currentDecPage + nd;
+        // if you have reached the end of the form... :
+        if (currentDecPage == jd.length) {
+            //...the form gets submitted:
+            document.getElementById("declaration").submit();
+            document.getElementById("nextDecBtn").innerHTML = "Return to Home Page";
+            //return false;
+            if (document.getElementById("nextDecBtn").innerHTML == "Return to Home Page"){
+                setTimeout(function(){
+                    document.getElementById("declaration").action = "/declaration3";
+                    document.getElementById("declaration").submit();
+                },3000);
+                
+            }
+        }
+        if (currentDecPage > jd.length) {
+            //...the form gets submitted:
+            //document.getElementById("nextBtn").innerHTML = "Return to Home Page";
+            document.getElementById("declaration").action = "/declaration3";
+            //document.getElementById("declaration").submit();
+            
+            return "/";
+        }
+        // Otherwise, display the correct page:
+        showDecPage(currentDecPage);
+        
+    }
+    //var x = 1;
+    if (document.getElementsByClassName("goodsSerialNoClass").length) {
+        var x = document.getElementsByClassName("goodsSerialNoClass").length;
+        onload=addGoods();
+    } else {
+        var x = 0;
+        onload=addGoods();
+    }
+    
+
+    function addGoods() {
+        x++
+        var addRow = document.getElementById("goodsTable");
+        var tr = document.createElement('tr');
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        
+        addRow.appendChild(tr);
+    }
+
+    function removeGoods() {
+        var removeRow = document.getElementById("goodsTable");
+        //var tr = document.removeChild('tr');
+        //tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        var templength = removeRow.rows.length;
+        removeRow.deleteRow(templength - 1);
+    }
+
+    function autoCodeCustomProcedure() {
+        document.getElementById("customsProcedureCode").value = "";
+        if((document.getElementById("customsProcedure").value)==="IMP"){
+            document.getElementById("customsProcedureCode").value = "05";
+        }
+        else if((document.getElementById("customsProcedure").value)==="REIMP"){
+            document.getElementById("customsProcedureCode").value = "07";
+        }
+        else if((document.getElementById("customsProcedure").value)==="ENTRYTOBOND"){
+            document.getElementById("customsProcedureCode").value = "10";
+        }
+        else if((document.getElementById("customsProcedure").value)==="TEMPIMP"){
+            document.getElementById("customsProcedureCode").value = "11";
+        }
+        else if((document.getElementById("customsProcedure").value)==="TEMPIMPEXT"){
+            document.getElementById("customsProcedureCode").value = "15";
+        }
+        else if((document.getElementById("customsProcedure").value)==="IMPFROMBOND"){
+            document.getElementById("customsProcedureCode").value = "09";
+        }
+        else if((document.getElementById("customsProcedure").value)==="EXP"){
+            document.getElementById("customsProcedureCode").value = "06";
+        }
+        else if((document.getElementById("customsProcedure").value)==="REEXP"){
+            document.getElementById("customsProcedureCode").value = "08";
+        }
+        else if((document.getElementById("customsProcedure").value)==="TEMPEXP"){
+            document.getElementById("customsProcedureCode").value = "16";
+        }
+        else if((document.getElementById("customsProcedure").value)==="TRANSIT"){
+            document.getElementById("customsProcedureCode").value = "12";
+        }
+        else if((document.getElementById("customsProcedure").value)==="BONDEDMOVGOODS"){
+            document.getElementById("customsProcedureCode").value = "13";
+        }
+        else if((document.getElementById("customsProcedure").value)==="EXPFROMBOND"){
+            document.getElementById("customsProcedureCode").value = "14";
+        }
+    }
+
+    function autoCodePrevProcedure() {
+        document.getElementById("previousProcedureCode").value = "";
+        if((document.getElementById("previousProcedure").value)==="IMP"){
+            document.getElementById("previousProcedureCode").value = "05";
+        }
+        else if((document.getElementById("previousProcedure").value)==="REIMP"){
+            document.getElementById("previousProcedureCode").value = "07";
+        }
+        else if((document.getElementById("previousProcedure").value)==="ENTRYTOBOND"){
+            document.getElementById("previousProcedureCode").value = "10";
+        }
+        else if((document.getElementById("previousProcedure").value)==="TEMPIMP"){
+            document.getElementById("previousProcedureCode").value = "11";
+        }
+        else if((document.getElementById("previousProcedure").value)==="TEMPIMPEXT"){
+            document.getElementById("previousProcedureCode").value = "15";
+        }
+        else if((document.getElementById("previousProcedure").value)==="IMPFROMBOND"){
+            document.getElementById("previousProcedureCode").value = "09";
+        }
+        else if((document.getElementById("previousProcedure").value)==="EXP"){
+            document.getElementById("previousProcedureCode").value = "06";
+        }
+        else if((document.getElementById("previousProcedure").value)==="REEXP"){
+            document.getElementById("previousProcedureCode").value = "08";
+        }
+        else if((document.getElementById("previousProcedure").value)==="TEMPEXP"){
+            document.getElementById("previousProcedureCode").value = "16";
+        }
+        else if((document.getElementById("previousProcedure").value)==="TRANSIT"){
+            document.getElementById("previousProcedureCode").value = "12";
+        }
+        else if((document.getElementById("previousProcedure").value)==="BONDEDMOVGOODS"){
+            document.getElementById("previousProcedureCode").value = "13";
+        }
+        else if((document.getElementById("previousProcedure").value)==="EXPFROMBOND"){
+            document.getElementById("previousProcedureCode").value = "14";
+        }
+    }
+
+    function autoCodeDutiable() {
+        document.getElementById("dutiableIndicatorCode").value = "";
+        if((document.getElementById("dutiableIndicator").value)==="A"){
+            document.getElementById("dutiableIndicatorCode").value = "A";
+        }
+        else if((document.getElementById("dutiableIndicator").value)==="N"){
+            document.getElementById("dutiableIndicatorCode").value = "B";
+        }
+        else if((document.getElementById("dutiableIndicator").value)==="L"){
+            document.getElementById("dutiableIndicatorCode").value = "C";
+        }
+        else if((document.getElementById("dutiableIndicator").value)==="P"){
+            document.getElementById("dutiableIndicatorCode").value = "D";
+        }
+    }
+
+    function autoCodeClearance() {
+        document.getElementById("clearanceStationCode").value = "";
+        if((document.getElementById("clearanceStation").value)==="BSB"){
+            document.getElementById("clearanceStationCode").value = "611";
+        }
+        else if((document.getElementById("clearanceStation").value)==="BSP WHARF"){
+            document.getElementById("clearanceStationCode").value = "603";
+        }
+        else if((document.getElementById("clearanceStation").value)==="BSP WHARF + LONG ROOM"){
+            document.getElementById("clearanceStationCode").value = "611";
+        }
+        else if((document.getElementById("clearanceStation").value)==="CUSTOMS HEADQUARTERS"){
+            document.getElementById("clearanceStationCode").value = "600";
+        }
+        else if((document.getElementById("clearanceStation").value)==="INTERNATIONAL AIRPORT (CARGO)"){
+            document.getElementById("clearanceStationCode").value = "601";
+        }
+        else if((document.getElementById("clearanceStation").value)==="INTERNATIONAL AIRPORT (PASSENGER)"){
+            document.getElementById("clearanceStationCode").value = "609";
+        }
+        else if((document.getElementById("clearanceStation").value)==="KUALA BELAIT POST OFFICE"){
+            document.getElementById("clearanceStationCode").value = "622";
+        }
+        else if((document.getElementById("clearanceStation").value)==="KUALA BELAIT WHARF"){
+            document.getElementById("clearanceStationCode").value = "602";
+        }
+        else if((document.getElementById("clearanceStation").value)==="KUALA LURAH"){
+            document.getElementById("clearanceStationCode").value = "631";
+        }
+        else if((document.getElementById("clearanceStation").value)==="MAIL PROCESSING CENTRE"){
+            document.getElementById("clearanceStationCode").value = "621";
+        }
+        else if((document.getElementById("clearanceStation").value)==="MUARA CONTAINER"){
+            document.getElementById("clearanceStationCode").value = "616";
+        }
+        else if((document.getElementById("clearanceStation").value)==="MUARA GUARD HOUSE"){
+            document.getElementById("clearanceStationCode").value = "617";
+        }
+        else if((document.getElementById("clearanceStation").value)==="MUARA PORT"){
+            document.getElementById("clearanceStationCode").value = "605";
+        }
+        else if((document.getElementById("clearanceStation").value)==="MUARA POST OFFICE"){
+            document.getElementById("clearanceStationCode").value = "615";
+        }
+        else if((document.getElementById("clearanceStation").value)==="PUTAT"){
+            document.getElementById("clearanceStationCode").value = "620";
+        }
+        else if((document.getElementById("clearanceStation").value)==="SERASA FERRY TERMINAL"){
+            document.getElementById("clearanceStationCode").value = "608";
+        }
+        else if((document.getElementById("clearanceStation").value)==="SERASA FERRY NEW TERMINAL"){
+            document.getElementById("clearanceStationCode").value = "618";
+        }
+        else if((document.getElementById("clearanceStation").value)==="SERIA POST OFFICE"){
+            document.getElementById("clearanceStationCode").value = "623";
+        }
+        else if((document.getElementById("clearanceStation").value)==="SUNGAI TUJOH"){
+            document.getElementById("clearanceStationCode").value = "612";
+        }
+        else if((document.getElementById("clearanceStation").value)==="TEMBURONG LABU"){
+            document.getElementById("clearanceStationCode").value = "634";
+        }
+        else if((document.getElementById("clearanceStation").value)==="TEMBURONG POST OFFICE"){
+            document.getElementById("clearanceStationCode").value = "614";
+        }
+        else if((document.getElementById("clearanceStation").value)==="TEMBURONG WHARF (BANGAR)"){
+            document.getElementById("clearanceStationCode").value = "604";
+        }
+        else if((document.getElementById("clearanceStation").value)==="TUTONG POST OFFICE"){
+            document.getElementById("clearanceStationCode").value = "607";
+        }
+    }
+// countryDestination
+// portOfEntry
+    function autoPortCodeShipment() {
+        for(var i = 0; i < port_code.length; i++){
+            //document.getElementById("countryShipment").value = "";
+            if((document.getElementById("countryShipment").value)===port_code[i].country){
+                document.getElementById("countryShipmentCode").value = port_code[i].port_code;
+            }
+            else{
+                
+            };
+        }
+        
+    }
+
+    function autoPortCodeDestination() {
+        //document.getElementById("countryDestination").value = "";
+        for(var i = 0; i < port_code.length; i++){
+            if((document.getElementById("countryDestination").value)===port_code[i].country){
+                document.getElementById("countryDestinationCode").value = port_code[i].port_code;
+            }
+        }
+        
+    }
+
+    function autoPortCodePort() {
+        //document.getElementById("portOfEntry").value = "";
+        for(var k = 0; k < port_code.length; k++){
+            if((document.getElementById("portOfEntry").value)===port_code[k].country){
+                document.getElementById("portOfEntryCode").value = port_code[k].port_code;
+            }
+        }
+        
+    }
+
+</script>

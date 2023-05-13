@@ -1,0 +1,156 @@
+<div id="Invoices" class="tabcontent">
+                        
+    <h3>Invoices</h3>
+    <form id ="invoices" action = "/invoices" method="POST">
+
+        <!-- PAGE 1 -->
+        <div class="invoicesPage">
+        <div class="row">
+            <div class="col leftcolumn">
+                <div>
+                    <label for="date">Date:</label>
+                    <% var todayDate = new Date(); %>
+                    <% var dd = String(todayDate.getDate()).padStart(2, '0'); %>
+                    <% var mm = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0! %>
+                    <% var yyyy = todayDate.getFullYear(); %>
+
+                    <% todayDate = yyyy + "-" + mm + "-" + dd; %>
+                    <input type="date" id="invoicesDate" name="invoicesDate" value="<%= todayDate %>" size="30"/>
+                </div>
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Invoice No:</td>
+                        <td><input type="text" id="invoiceNumber" name="invoiceNumber" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Invoice Date: </td>
+                        <td><input type="date" id="invoiceDate" name="invoiceDate" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Term Type: </td>
+                        <td><input type="text" id="termType" name="termType" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Invoice Amount: </td>
+                        <td><input type="text" id="invoiceAmount" name="invoiceAmount" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Invoice Currency: </td>
+                        <td><input type="text" id="invoiceCurrency" name="invoiceCurrency" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Freight Amount: </td>
+                        <td><input type="text" id="freightAmount" name="freightAmount" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>Freight Currency: </td>
+                        <td><input type="text" id="freightCurrency" name="freightCurrency" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>Insurance Amount: </td>
+                        <td><input type="text" id="insuranceAmount" name="insuranceAmount" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>Insurance Currency: </td>
+                        <td><input type="text" id="insuranceCurrency" name="insuranceCurrency" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>Other Amount: </td>
+                        <td><input type="text" id="otherAmount" name="otherAmount" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">11</th>
+                        <td>Other Amount Currency: </td>
+                        <td><input type="text" id="otherAmountCurrency" name="otherAmountCurrency" size="30"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+        </div>
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+              <button type="button" id="prevInvBtn" onclick="nextInvPrev(-1)">Previous</button>
+              <button type="button" id="nextInvBtn" onclick="nextInvPrev(1)">Next</button>
+            </div>
+          </div>
+    </form>
+  
+  
+</div>
+
+<script>
+    //Page function
+    
+    var currentInvoicesPage = 0; // Current page is set to be the first page (0)
+    showInvoicesPage(currentInvoicesPage); // Display the current page
+    
+    function showInvoicesPage(ni) {
+        // This function will display the specified page of the form ...
+        var ji = document.getElementsByClassName("invoicesPage");
+        ji[ni].style.display = "block";
+        // ... and fix the Previous/Next buttons:
+        if (ni == 0) {
+            document.getElementById("prevInvBtn").style.display = "none";
+        } else {
+            document.getElementById("prevInvBtn").style.display = "inline";
+        }
+        if (ni == (ji.length - 1)) {
+            document.getElementById("nextInvBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextInvBtn").innerHTML = "Next";
+        }
+
+    }
+
+    
+
+    function nextInvPrev(ni) {
+        // This function will figure out which page to display
+        var ji = document.getElementsByClassName("invoicesPage");
+        // Exit the function if any field in the current page is invalid:
+        //if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        ji[currentInvoicesPage].style.display = "none";
+        // Increase or decrease the current page by 1:
+        currentInvoicesPage = currentInvoicesPage + ni;
+        // if you have reached the end of the form... :
+        if (currentInvoicesPage == ji.length) {
+            //...the form gets submitted:
+            document.getElementById("invoices").submit();
+            document.getElementById("nextInvBtn").innerHTML = "Return to Home Page";
+            document.getElementById("invoices").action = "/";
+            //return false;
+            if (document.getElementById("nextInvBtn").innerHTML == "Return to Home Page"){
+                setTimeout(function(){
+                    document.getElementById("invoices").action = "/";
+                    document.getElementById("invoices").submit();
+                },3000);
+                
+            }
+        }
+        if (currentInvoicesPage > ji.length) {
+            //...the form gets submitted:
+            //document.getElementById("nextBtn").innerHTML = "Return to Home Page";
+            document.getElementById("invoices").action = "/";
+            document.getElementById("invoices").submit();
+            
+            return "/";
+        }
+        // Otherwise, display the correct page:
+        showInvoicesPage(currentInvoicesPage);
+        
+    }
+
+    
+</script>

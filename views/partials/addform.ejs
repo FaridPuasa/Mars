@@ -1,0 +1,362 @@
+<div id="Add" class="tabcontent">
+                        
+    <h3>Add</h3>
+    <form id ="addForm" action = "/bdnsw" method="POST">
+
+        <!-- PAGE 1 -->
+        <div class="page">
+        <div class="row">
+            <div class="col leftcolumn">
+                <div>
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" size="30"/>
+                </div>
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Procedure</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Customs Procedure:</td>
+                        <td><input type="text" id="customsProcedure" name="customsProcedure" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>???: </td>
+                        <td><input type="text" id="somethingProcedure" name="somethingProcedure" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Transport Mode: </td>
+                        <td><input type="text" id="transportProcedure" name="transportProcedure" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Clearance Station (IMPORT): </td>
+                        <td><input type="text" id="clearanceProcedure" name="clearanceProcedure" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Exporter/Consigner</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Name: </td>
+                        <td><input type="text" id="exporterName" name="exporterName" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Address: </td>
+                        <td><input type="text" id="exporterAddress" name="exporterAddress" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>Registration: </td>
+                        <td><input type="text" id="exporterRegistration" name="exporterRegistration" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>Telephone: </td>
+                        <td><input type="text" id="exporterPhone" name="exporterPhone" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>???: </td>
+                        <td><input type="text" id="exporterSomething" name="exporterSomething" size="30"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+            <div class="col rightcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Importer/Consignee </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>Name:</td>
+                        <td><input type="text" id="importerName" name="importerName" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">11</th>
+                        <td>Address: </td>
+                        <td><input type="text" id="importerAddress" name="importerAddress" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">12</th>
+                        <td>Registration: </td>
+                        <td><input type="text" id="importerRegistration" name="importerRegistration" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">13</th>
+                        <td>Telephone: </td>
+                        <td><input type="text" id="importerPhone" name="importerPhone" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">14</th>
+                        <td>???: </td>
+                        <td><input type="text" id="importerSomething" name="importerSomething" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Agent</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">15</th>
+                        <td>Name: <%= username.name %> </td>
+                        <td>
+                            <select name="agentName">
+                                <!-- async cause value to be empty. Try using forLoop for the time being
+                                <% user.forEach(function(name){ %> 
+                                    <option value="<%= user.name %>"><%= user.name %>, <%= user.email %></option>
+                                <% }); %>
+                                -->
+                                <option value="<%= username.name %>"><%= username.name %>, <%= username.email %></option>
+                                <% for (var i = 0; i<user.length; i++){ %>
+                                    <% if (user[i].name != username.name) { %>
+                                        <option value="<%= user[i].name %>"><%= user[i].name %>, <%= user[i].email %></option>
+                                    <% } %>
+                                <% }%>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">16</th>
+                        <td>Address: </td>
+                        <td><input type="text" id="agentAddress" name="agentAddress" size="30" value="<%= username.address %>"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">17</th>
+                        <td>Registration: </td>
+                        <td><input type="text" id="agentRegistration" name="agentRegistration" size="30" value="<%= username.registration %>"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">18</th>
+                        <td>Telephone: </td>
+                        <td><input type="text" id="agentPhone" name="agentPhone" size="30" value="<%= username.phone %>"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">19</th>
+                        <td>Post Code: </td>
+                        <td><input type="text" id="agentPost" name="agentPost" size="30" value="<%= username.post %>"/></td>
+                    </tr>
+                </table>
+                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                -->
+                <p></p>
+            </div>
+        </div>
+        </div>
+        <!-- PAGE 2 -->
+        <div class="page">
+        <div class="row">
+            <div class="col leftcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row">20</th>
+                        <td>Arrival Date:</td>
+                        <td><input type="text" id="arrivalDate" name="arrivalDate" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">21</th>
+                        <td>something21:</td>
+                        <td><input type="text" id="something21" name="something21" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">22</th>
+                        <td>Vessel Number: </td>
+                        <td><input type="text" id="vesselNum" name="vesselNum" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">23</th>
+                        <td>Vessel Name: </td>
+                        <td><input type="text" id="vesselName" name="vesselName" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">24</th>
+                        <td>BL/DO/AWB: </td>
+                        <td><input type="text" id="billType" name="billType" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">25</th>
+                        <td>HB/HAWB</td>
+                        <td><input type="text" id="houseBill" name="houseBill" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">26</th>
+                        <td>Country of Shipment: </td>
+                        <td><input type="text" id="transitCountry" name="transitCountry" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">27</th>
+                        <td>Country of Destination: </td>
+                        <td><input type="text" id="destinationCountry" name="destinationCountry" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">28</th>
+                        <td>Port of Entry: </td>
+                        <td><input type="text" id="entryPort" name="entryPort" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">29</th>
+                        <td>Port of Discharge: </td>
+                        <td><input type="text" id="dischargePort" name="dischargePort" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">30</th>
+                        <td>Port of Something: </td>
+                        <td><input type="text" id="something30" name="something30" size="30"/></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- end left col-->
+            <div class="col rightcolumn">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th scope="row">31</th>
+                        <td style="font-weight: bold;">Port of Exit (Air only): </td>
+                        <td><input type="text" id="exitPort" name="exitPort" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">32</th>
+                        <td>Exchange Rate:</td>
+                        <td><input type="text" id="exchangeRate" name="exchangeRate" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Check Exchange Rate: </td>
+                        <td><a href="https://www.xe.com/currencyconverter/">BDNSW Exchange Rate</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">33</th>
+                        <td>Currency Code (From): </td>
+                        <td><input type="text" id="currencyFrom" name="currencyFrom" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">34</th>
+                        <td>Currency Code (To): </td>
+                        <td><input type="text" id="currencyTo" name="currencyTo" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">35</th>
+                        <td>Stop until Currency Code: </td>
+                        <td><input type="text" name="placeholder9" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Placeholder</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">36</th>
+                        <td>Placeholder: </td>
+                        <td><input type="text" id="xxx" name="xxx" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">37</th>
+                        <td>Placeholder: </td>
+                        <td><input type="text" name="Placeholder" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">38</th>
+                        <td>Placeholder: </td>
+                        <td><input type="text" name="Placeholder2" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">39</th>
+                        <td>Placeholder: </td>
+                        <td><input type="text" name="Placeholder3" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">40</th>
+                        <td>Placeholder: </td>
+                        <td><input type="text" name="Placeholder4" size="30"/></td>
+                    </tr>
+                </table>
+                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
+                -->
+                <p></p>
+            </div>
+        </div>
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+          </div>
+    </form>
+  
+  
+</div>
+
+<script>
+    //Page function
+    var currentPage = 0; // Current page is set to be the first page (0)
+    showPage(currentPage); // Display the current page
+    
+    function showPage(n) {
+        // This function will display the specified page of the form ...
+        var j = document.getElementsByClassName("page");
+        j[n].style.display = "block";
+        // ... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (j.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+
+    }
+
+    
+
+    function nextPrev(n) {
+        // This function will figure out which page to display
+        var j = document.getElementsByClassName("page");
+        // Exit the function if any field in the current page is invalid:
+        //if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        j[currentPage].style.display = "none";
+        // Increase or decrease the current page by 1:
+        currentPage = currentPage + n;
+        // if you have reached the end of the form... :
+        if (currentPage == j.length) {
+            //...the form gets submitted:
+            document.getElementById("addForm").submit();
+            document.getElementById("nextBtn").innerHTML = "Return to Home Page";
+            document.getElementById("addForm").action = "/";
+            //return false;
+            if (document.getElementById("nextBtn").innerHTML == "Return to Home Page"){
+                setTimeout(function(){
+                    document.getElementById("addForm").action = "/";
+                    document.getElementById("addForm").submit();
+                },3000);
+                
+            }
+        }
+        if (currentPage > j.length) {
+            //...the form gets submitted:
+            //document.getElementById("nextBtn").innerHTML = "Return to Home Page";
+            document.getElementById("addForm").action = "/";
+            document.getElementById("addForm").submit();
+            
+            return "/";
+        }
+        // Otherwise, display the correct page:
+        showPage(currentPage);
+        
+    }
+
+    
+</script>
