@@ -360,7 +360,7 @@
     var selectedId = document.querySelector(".highlight");
     //var theId = selectedId.getAttribute('data-value');
     if (selectedId) {
-      alert("ID is " + selectedId.dataset.value)
+      //alert("ID is " + selectedId.dataset.value)
     }
     else {
       alert("Please Select Row")
@@ -369,6 +369,22 @@
     
     //window.location = "www.google.com";
     window.location.href = "/bdnswedit/" + selectedId.dataset.value;
+    return false;
+  }
+
+  function getDataValueDownload() {
+    var selectedId = document.querySelector(".highlight");
+    //var theId = selectedId.getAttribute('data-value');
+    if (selectedId) {
+      //alert("ID is " + selectedId.dataset.value)
+    }
+    else {
+      alert("Please Select Row")
+    }
+    
+    
+    //window.location = "www.google.com";
+    window.location.href = "/downloadXML/" + selectedId.dataset.value;
     return false;
   }
 </script>
