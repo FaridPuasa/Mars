@@ -113,7 +113,7 @@
                   <% if (declaration3) { %> 
                     <% for (var i = 0; i < declaration3.length; i++) { %>
                       <form id="downloadXML" action="/downloadXML/<%= declaration3[i]._id %>" method="POST" >
-                  <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>" data-value="<%= declaration3[i]._id %>">
+                  <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>" data-value="<%= declaration3[i]._id %>" data-invoice="<%= declaration3[i].Goods[0].goodsInvoiceNo %>">
                     <td style="display:none">
                       <input name="selectId" value="<%= declaration3[i]._id %>" readonly/>
                     </td>
@@ -376,15 +376,16 @@
     var selectedId = document.querySelector(".highlight");
     //var theId = selectedId.getAttribute('data-value');
     if (selectedId) {
-      //alert("ID is " + selectedId.dataset.value)
+      alert("ID is " + selectedId.dataset.value + " & invoice " + selectedId.dataset.invoice)
     }
     else {
       alert("Please Select Row")
     }
     
     //window.location = "www.google.com";
-    //window.location.href = "/downloadXML/" + selectedId.dataset.value;
-    document.getElementById("downloadXML2_" + selectedId.dataset.value).submit
+    window.location.href = "/downloadXML/" + selectedId.dataset.value + "/" + selectedId.dataset.invoice;
+    //document.getElementById("downloadXML2_" + selectedId.dataset.value).submit
     return false;
   }
+  var idfordownloadxml = document.querySelector(".highlight").dataset.value;
 </script>

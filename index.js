@@ -1451,13 +1451,14 @@ app.post("/downloadXML", async (req, res) => {
 });
 
 //copy for dashboard
-app.post("/downloadXML/(:id)", async (req, res) => {
-  const {
-    selectId,
-    selectedInvoice
-  } = req.body;
+app.get("/downloadXML/:id/:invoice", async (req, res) => {
+  // const {
+  //   selectId,
+  //   selectedInvoice
+  // } = req.body;
+  const selectedInvoice = req.params.invoice;
 
-  const declaration3 = await Declaration3.findOne({'_id' : req.body.selectId}, { _id: 0, __v: 0});
+  const declaration3 = await Declaration3.findOne({'_id' : req.params.id}, { _id: 0, __v: 0});
   const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryShipment, "i") } } );
   const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryDestination, "i") } } );
 
@@ -1467,9 +1468,9 @@ app.post("/downloadXML/(:id)", async (req, res) => {
   //console.log("Checking countrycode of: " + 'iso_countrycodes.name' + "/" + declaration3.Transport.countryShipment + " and " + 'iso_countrycodes.alpha_2');
   //console.log("Checking item with invoice number: " + selectedInvoice);
   //console.log("Dec3 Goods " + declaration3.Goods); //scrapped. make new array incase of multiple invoices
-  const Goods = await Declaration3.find({'goodsInvoiceNo' : req.body.selectedInvoice}, { _id: 0, __v: 0});
+  const Goods = await Declaration3.find({'goodsInvoiceNo' : req.params.invoice}, { _id: 0, __v: 0});
 
-  //countrySHipment & Destination to COUNTRY CODE
+  //countryShipment & Destination to COUNTRY CODE
 
 
 
