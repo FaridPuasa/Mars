@@ -581,7 +581,7 @@
                             <th scope="row"></th>
                             <td>Shipping Mark: </td>
                             <td>
-                                <input type="text" id="shippingMark" name="shippingMark" size="30" value="<%= declaration3.shippingMark %>"required/>
+                                <input type="text" id="shippingMark" name="shippingMark" size="30" value="<%= declaration3.shippingMark %>" oninput="autoShippingMark()" required/>
                             </td>
                         </tr>
                         <tr style="display:none;">
@@ -652,11 +652,11 @@
                         <td><input type='text' name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
                         <td><input type='text' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
                         <td><input type='text' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' required/></td>
-                        <td><input type='text' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>'/></td>
-                        <td><input type='text' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>'/></td>
+                        <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' oninput='calculateDuty()'/></td>
+                        <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' oninput='calculateDuty()'/></td>
                         <td><input type='text' name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
                         <td><input type='text' name='goodsLNo' size='1' value='<%= declaration3.Goods[j].goodsLNo %>'/></td>
-                        <td><input type='text' name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
+                        <td><input type='text' class="goodsShippingMark" name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
                         <td><input type='text' name='goodsContainerNo' size='1' value='<%= declaration3.Goods[j].goodsContainerNo %>'/></td>
                         <td><input type='text' name='goodsInvoiceNo' value='<%= declaration3.Goods[j].goodsInvoiceNo %>' required/></td>
                         <td><input type='text' name='goodsControl' value='<%= declaration3.Goods[j].goodsControl %>'/></td>
@@ -686,6 +686,7 @@
     onload=autoCodePrevProcedure();
     onload=autoCodeDutiable();
     onload=autoCodeClearance();
+    onload=autoShippingMark();
     
     function clicked(e) {
         if(!confirm('Are you sure?')) {
@@ -765,7 +766,7 @@
         x++
         var addRow = document.getElementById("goodsTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
     }
@@ -944,6 +945,24 @@
         }
         else if((document.getElementById("clearanceStation").value)==="TUTONG POST OFFICE"){
             document.getElementById("clearanceStationCode").value = "607";
+        }
+    }
+
+    function calculateDuty() {
+        var classDuty = document.getElementsByClassName("goodsDutyAmount");
+        var classGoodsCif = document.getElementsByClassName("goodsCif")
+        var classGoodsDuty = document.getElementsByClassName("goodsDuty")
+        
+        for(var k = 0; k < classDuty.length; k++) {
+            classDuty[k].value = classGoodsCif[k].value * classGoodsDuty[k].value
+        }
+    }
+
+    function autoShippingMark() {
+        //document.getElementById("shippingMark").value = "";
+        var goodsInputShippingMark = document.getElementsByClassName('goodsShippingMark');
+        for(var m = 0; m < goodsInputShippingMark.length; m++) {
+            goodsInputShippingMark[m].value = document.getElementById("shippingMark").value;
         }
     }
 

@@ -171,7 +171,7 @@ app.get("/singlewindow", requireLogin, async (req, res) => {
 
 app.get("/bdnsw", requireLogin, async (req, res) => {
   const user = await User.find({});
-  const declaration3 = await Declaration3.find({});
+  const declaration3 = await Declaration3.find({}).sort({Transport:-1});
   res.render("bdnsw.ejs", {user: user, declaration3: declaration3})
 })
 
@@ -235,240 +235,123 @@ app.post("/profileupdate", async (req, res) => {
     res.redirect("/profile");
 });
 
-
-//BDNSW form UNUSED
-/*
-app.post("/bdnsw", async (req, res) => {
-  const { 
-    date,
-    customsProcedure, 
-    somethingProcedure, 
-    transportProcedure, 
-    clearanceProcedure,
-    exporterName,
-    exporterAddress,
-    exporterRegistration,
-    exporterPhone,
-    exporterSomething,
-    importerName,
-    importerAddress,
-    importerRegistration,
-    importerPhone,
-    importerSomething,
-    agentName,
-    agentAddress,
-    agentRegistration,
-    agentPhone,
-    agentPost,
-    arrivalDate,
-    something21,
-    vesselNum,
-    vesselName,
-    billType,
-    houseType,
-    transitCountry,
-    destinationCountry,
-    entryPort,
-    dischargePort,
-    something30,
-    exitPort,
-    exchangeRate,
-    currencyFrom,
-    currencyTo,
-    placeholder
-  } = req.body;
-  
-  const bdnsw = new Bdnsw ({ 
-    date,
-    customsProcedure, 
-    somethingProcedure, 
-    transportProcedure, 
-    clearanceProcedure,
-    exporterName,
-    exporterAddress,
-    exporterRegistration,
-    exporterPhone,
-    exporterSomething,
-    importerName,
-    importerAddress,
-    importerRegistration,
-    importerPhone,
-    importerSomething,
-    agentName,
-    agentAddress,
-    agentRegistration,
-    agentPhone,
-    agentPost,
-    arrivalDate,
-    something21,
-    vesselNum,
-    vesselName,
-    billType,
-    houseType,
-    transitCountry,
-    destinationCountry,
-    entryPort,
-    dischargePort,
-    something30,
-    exitPort,
-    exchangeRate,
-    currencyFrom,
-    currencyTo,
-    placeholder
-  });
-
-  //format a date
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-
-  today = mm + "" + dd + "" + yyyy;
-
-  //format xml file
-  let req_name = today+'';
-  const root = create({ version: '1.0', encoding: "UTF-8", standalone: "yes" })
-    .ele('Javascript', { async: 'false', continueOnError: "false", enabled: "true", timeLimit: "200", name:req_name})                        
-             .ele('DisplayName').txt(req_name).up()                        
-             .ele('Properties').up()                        
-             .ele('ResourceURL').txt('jsc://'+req_name+'.js').up()     
-             .ele(bdnsw).up()               
-             .up();  
-
-  // convert the XML tree to string
-  var xml = root.end({ prettyPrint: true });
-  //console.log(xml);
-  let full_file_name = "./" + today + ".xml";
-  fs.writeFileSync(full_file_name, xml, function(err) {
-    if (err) throw err;
-  });
-
-  res.download(today+'.xml');
-  
-  await bdnsw.save();
-  res.download(today+'.xml');
-  //res.redirect("/"); one res(response, header) per function
-  
-});
-*/
-
 //DECLARATION POST
-app.post("/declaration", async (req, res) => {
-  const { 
-    declarationDate,
-    //Header Details
-    declarationType,
-    customsProcedure, 
-    dutiableIndicator, 
-    transportMode, 
-    countryShipment,
-    countryDestination,
-    portDischarge,
-    portEntry,
-    clearanceStationCode,
-    remarks,
-    //Party Details
-    traderType,
-    regTraderCoyRegNo,
-    individualTraderICNo,
-    individualTraderIDType,
-    individualTraderICColour,
-    individualAddress,
-    traderName,
-    consigneeCompanyRegNo,
-    consigneeName,
-    dutyExemptIndicator,
-    ceptSchemeIndicator,
-    //Bill of Lading Details
-    masterBillNo,
-    vesselFlightVehicleNo,
-    vesselName,
-    vesselFlightArrivalDate,
-    containerTransportIndicator,
-    totalGrossWeight,
-    totalGrossWeightUnit,
-    totalNoPackages,
-    totalNoPackagesUnit,
-    //Transit Details
-    //Guarantee Details
-    bgAmount
-  } = req.body;
+// app.post("/declaration", async (req, res) => {
+//   const { 
+//     declarationDate,
+//     //Header Details
+//     declarationType,
+//     customsProcedure, 
+//     dutiableIndicator, 
+//     transportMode, 
+//     countryShipment,
+//     countryDestination,
+//     portDischarge,
+//     portEntry,
+//     clearanceStationCode,
+//     remarks,
+//     //Party Details
+//     traderType,
+//     regTraderCoyRegNo,
+//     individualTraderICNo,
+//     individualTraderIDType,
+//     individualTraderICColour,
+//     individualAddress,
+//     traderName,
+//     consigneeCompanyRegNo,
+//     consigneeName,
+//     dutyExemptIndicator,
+//     ceptSchemeIndicator,
+//     //Bill of Lading Details
+//     masterBillNo,
+//     vesselFlightVehicleNo,
+//     vesselName,
+//     vesselFlightArrivalDate,
+//     containerTransportIndicator,
+//     totalGrossWeight,
+//     totalGrossWeightUnit,
+//     totalNoPackages,
+//     totalNoPackagesUnit,
+//     //Transit Details
+//     //Guarantee Details
+//     bgAmount
+//   } = req.body;
   
-  const declaration = new Declaration ({ 
-    declarationDate,
-    //Header Details
-    declarationType,
-    customsProcedure, 
-    dutiableIndicator, 
-    transportMode, 
-    countryShipment,
-    countryDestination,
-    portDischarge,
-    portEntry,
-    clearanceStationCode,
-    remarks,
-    //Party Details
-    traderType,
-    regTraderCoyRegNo,
-    individualTraderICNo,
-    individualTraderIDType,
-    individualTraderICColour,
-    individualAddress,
-    traderName,
-    consigneeCompanyRegNo,
-    consigneeName,
-    dutyExemptIndicator,
-    ceptSchemeIndicator,
-    //Bill of Lading Details
-    masterBillNo,
-    vesselFlightVehicleNo,
-    vesselName,
-    vesselFlightArrivalDate,
-    containerTransportIndicator,
-    totalGrossWeight,
-    totalGrossWeightUnit,
-    totalNoPackages,
-    totalNoPackagesUnit,
-    //Transit Details
-    //Guarantee Details
-    bgAmount
-  });
-});
+//   const declaration = new Declaration ({ 
+//     declarationDate,
+//     //Header Details
+//     declarationType,
+//     customsProcedure, 
+//     dutiableIndicator, 
+//     transportMode, 
+//     countryShipment,
+//     countryDestination,
+//     portDischarge,
+//     portEntry,
+//     clearanceStationCode,
+//     remarks,
+//     //Party Details
+//     traderType,
+//     regTraderCoyRegNo,
+//     individualTraderICNo,
+//     individualTraderIDType,
+//     individualTraderICColour,
+//     individualAddress,
+//     traderName,
+//     consigneeCompanyRegNo,
+//     consigneeName,
+//     dutyExemptIndicator,
+//     ceptSchemeIndicator,
+//     //Bill of Lading Details
+//     masterBillNo,
+//     vesselFlightVehicleNo,
+//     vesselName,
+//     vesselFlightArrivalDate,
+//     containerTransportIndicator,
+//     totalGrossWeight,
+//     totalGrossWeightUnit,
+//     totalNoPackages,
+//     totalNoPackagesUnit,
+//     //Transit Details
+//     //Guarantee Details
+//     bgAmount
+//   });
+// });
 
 //Invoices POST unused
-app.post("/invoices", async (req, res) => {
-    const { 
-      invoiceNumber,
-      invoiceDate,
-      termType, 
-      invoiceAmount, 
-      invoiceCurrency, 
-      freightAmount,
-      freightCurrency,
-      insuranceAmount,
-      insuranceCurrency,
-      otherAmount,
-      otherAmountCurrency
-    } = req.body;
+// app.post("/invoices", async (req, res) => {
+//     const { 
+//       invoiceNumber,
+//       invoiceDate,
+//       termType, 
+//       invoiceAmount, 
+//       invoiceCurrency, 
+//       freightAmount,
+//       freightCurrency,
+//       insuranceAmount,
+//       insuranceCurrency,
+//       otherAmount,
+//       otherAmountCurrency
+//     } = req.body;
     
-    const invoices = new Invoices ({ 
-      invoiceNumber,
-      invoiceDate,
-      termType, 
-      invoiceAmount, 
-      invoiceCurrency, 
-      freightAmount,
-      freightCurrency,
-      insuranceAmount,
-      insuranceCurrency,
-      otherAmount,
-      otherAmountCurrency
-    });
+//     const invoices = new Invoices ({ 
+//       invoiceNumber,
+//       invoiceDate,
+//       termType, 
+//       invoiceAmount, 
+//       invoiceCurrency, 
+//       freightAmount,
+//       freightCurrency,
+//       insuranceAmount,
+//       insuranceCurrency,
+//       otherAmount,
+//       otherAmountCurrency
+//     });
 
-  await invoices.save();
-  res.redirect("/singlewindow");
+//   await invoices.save();
+//   res.redirect("/singlewindow");
   
-});
+// });
 
 //declaration3 POST
 
