@@ -650,7 +650,7 @@
                         <td><input type='text' name='goodsUnit' size='1' value='<%= declaration3.Goods[j].goodsUnit %>'/></td>
                         <td><input type='text' name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
                         <td><input type='text' name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
-                        <td><input type='text' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
+                        <td><input type='text' class='goodsWeight' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
                         <td><input type='text' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' required/></td>
                         <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' oninput='calculateDuty()'/></td>
                         <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' oninput='calculateDuty()'/></td>
@@ -948,6 +948,7 @@
         }
     }
 
+    //not working
     function calculateDuty() {
         var classDuty = document.getElementsByClassName("goodsDutyAmount");
         var classGoodsCif = document.getElementsByClassName("goodsCif")
@@ -958,11 +959,46 @@
         }
     }
 
+    //working
     function autoShippingMark() {
         //document.getElementById("shippingMark").value = "";
         var goodsInputShippingMark = document.getElementsByClassName('goodsShippingMark');
         for(var m = 0; m < goodsInputShippingMark.length; m++) {
             goodsInputShippingMark[m].value = document.getElementById("shippingMark").value;
+        }
+    }
+
+    //popup to enter HSCode, automate duty, permit, etc //not working yet
+    function hsCodeForm() {
+        document.getElementById("hsCodeInputForm").style.display = "block";
+    }
+
+    function hsCodeFormClose() {
+        document.getElementById("hsCodeInputForm").style.display = "none";
+    }
+
+    function countryCodeOpen() {
+        document.getElementById("countryCodeForm").style.display = "block";
+    }
+
+    function countryCodeClose() {
+        document.getElementById("countryCodeForm").style.display = "none";
+    }
+
+    //calculate CIF //not working yet
+    function calculateCifPerKg(){
+        //formulae might be different based on grossWeightUnit
+        var weight = document.getElementById("totalGrossWeight").value;
+        var cost = document.getElementById("invoiceAmount").value * document.getElementById("invoiceRate").value;
+        var insurance = document.getElementById("insuranceAmount").value * document.getElementById("insuranceRate").value;
+        var freight = document.getElementById("freightAmount").value * document.getElementById("freightRate").value;
+        var othercharges = document.getElementById("otherCharges").value;
+        var cifPerKg = (cost + insurance + freight + othercharges) / weight;
+        document.getElementById("totalCif").value = cifPerKg;
+        var oneGoodsWeight = document.getElementsByClassName("goodsWeight");
+        var oneGoodsCif = document.getElementsByClassName("goodsCif");
+        for (var n = 0; n < oneGoodsWeight.length; n++){
+            oneGoodsCif[n].value = oneGoodsWeight[n].value * cifPerKg;
         }
     }
 
