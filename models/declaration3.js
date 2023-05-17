@@ -80,6 +80,9 @@ const declaration3Schema = new mongoose.Schema({
         importerAddress: {
             type: String,
         },
+        regTraderCoyRegNo: {
+            type: String,
+        },
         importerRegistration: {
             type: String,
         },

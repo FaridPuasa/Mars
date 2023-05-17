@@ -175,7 +175,7 @@
                         <th scope="row"></th>
                         <td>Type:<i class="bi bi-star-fill" style="color: red;"></i></td>
                         <td>
-                            <select name="importerType" id="importerType">
+                            <select name="importerType" id="importerType" onchange="autoImporterIdReg()">
                                 <!--code 611--><option value="TRDR">TRDR</option>
                                 <!--code 603--><option value="INDV">INDV</option>
                             </select>
@@ -191,12 +191,17 @@
                         <td>Address:<i class="bi bi-star-fill" style="color: red;"></i> </td>
                         <td><textarea id="importerAddress" name="importerAddress" cols="50" row="2" required><%= declaration3.Importer.importerAddress %></textarea></td>
                     </tr>
-                    <tr>
+                    <tr id="importer12">
                         <th scope="row">12</th>
-                        <td>IC/PP:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <input type="text" id="importerRegistration" name="importerRegistration" size="20" value="<%= declaration3.Importer.importerRegistration %>" required/> IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10" value="<%= declaration3.Importer.importerICColor %>" required/>
+                        <td><p id="importerTRDR1">Reg:<i class="bi bi-star-fill" style="color: red;"></i></p><p id="importerINDV1" style="display:none">IC/PP:<i class="bi bi-star-fill" style="color: red;"></i></p></td>
+                        <td id="importerTRDR2">
+                            <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" size="20" value="<%= declaration3.Importer.importerRegistration %>"/>
                         </td>
+                        <td id="importerINDV2" style="display:none">
+                            <input type="text" id="importerRegistration" name="importerRegistration" size="20" value="<%= declaration3.Importer.importerRegistration %>"/>
+                            IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10" value="<%= declaration3.Importer.importerICColor %>"/>
+                        </td>
+                        
                     </tr>
                     <tr>
                         <th scope="row">13</th>
@@ -612,13 +617,13 @@
                     
                     <tr>
                         <th scope="row">Item</th>
-                        <td>No Package</td>
-                        <td>Package Unit</td>
-                        <td>O. Country</td>
+                        <td style="min-width:20px; max-width:20px;">No Package</td>
+                        <td class="column-3">Package Unit</td>
+                        <td style="min-width:20px; max-width:20px;">O. Country</td>
                         <td>Code</td>
                         <td>HS Code</td>
                         <td>Sub Code</td>
-                        <td>Goods</td>
+                        <td style="min-width:20px; max-width:20px;">Goods</td>
                         <td>C</td>
                         <td>Unit</td>
                         <td>Code</td>
@@ -627,10 +632,10 @@
                         <td>Amount</td>
                         <td>CIF</td>
                         <td>Duty</td>
-                        <td>Duty Amount</td>
+                        <td style="min-width:20px; max-width:20px;">Duty Amount</td>
                         <td>LNo</td>
                         <td>Shipping Mark</td>
-                        <td>Container No</td>
+                        <td style="min-width:80px; max-width:80px;">Container No</td>
                         <td>Invoice No</td>
                         <td>Control</td>
                         <td>Import Duty</td>
@@ -666,11 +671,41 @@
                     <% } %>
                     
                 </table>
+                <table class="table table-striped table-sm table-bordered" id="totalsTable">
+                    
+                    <tr>
+                        <th scope="row" class="goodsSerialNoTotal"><input type='text' style='border-color:transparent;background:transparent' name='goodsSerialNo' size='1' value='' readonly/></th>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsPackageNo' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsPackageUnit' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='countryOrigin' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='countryCode' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='hsCode' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='subCode' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsDescription' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsC' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsUnit' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsCode' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsQuantity' size='1' value='' readonly/></td>
+                        <td><input type='text' class='goodsTotalWeight' name='goodsWeight' size='3' value='' readonly/></td>
+                        <td><input type='text' class='goodsTotalAmount' name='goodsAmount' size='3' value='' readonly/></td>
+                        <td><input type='text' class='goodsTotalCif' name='goodsCIF' size='2' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' class='goodsDuty' name='goodsDuty' size='1' value='' readonly/></td>
+                        <td><input type='text' name='goodsDutyAmount' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsLNo' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsShippingMark' value='' readonly/></td>
+                        <td style="min-width:80px; max-width:80px;"><input type='text' style='border:transparent;background:transparent' name='goodsContainerNo' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsInvoiceNo' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsControl' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsImportDuty' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsExciseDuty' size='1' value='' readonly/></td>
+                    </tr>
+                    
+                </table>
                 
             </div>
         </div>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
-        <button onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
+        <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
     <br>
     <p></p>
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
@@ -687,7 +722,10 @@
     onload=autoCodeDutiable();
     onload=autoCodeClearance();
     onload=autoShippingMark();
+    onload=autoImporterIdReg();
     
+    window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
     function clicked(e) {
         if(!confirm('Are you sure?')) {
             e.preventDefault();
@@ -945,6 +983,25 @@
         }
         else if((document.getElementById("clearanceStation").value)==="TUTONG POST OFFICE"){
             document.getElementById("clearanceStationCode").value = "607";
+        }
+    }
+
+    function autoImporterIdReg() {
+        var importerTRDR1 = document.getElementById('importerTRDR1');
+        var importerTRDR2 = document.getElementById('importerTRDR2');
+        var importerINDV1 = document.getElementById('importerINDV1');
+        var importerINDV = document.getElementById('importerINDV2');
+        if((document.getElementById("importerType").value)==="TRDR"){
+            importerINDV1.style="display:none";
+            importerINDV2.style="display:none";
+            importerTRDR1.style="";
+            importerTRDR2.style="";
+        }
+        else if((document.getElementById("importerType").value)==="INDV"){
+            importerINDV1.style="";
+            importerINDV2.style="";
+            importerTRDR1.style="display:none";
+            importerTRDR2.style="display:none";
         }
     }
 
