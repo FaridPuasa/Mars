@@ -384,6 +384,7 @@ app.post("/declaration3", async (req, res) => {
     
     //Importer
     importerType,
+    regTraderCoyRegNo,
     importerName,
     importerAddress,
     importerRegistration,
@@ -518,33 +519,36 @@ app.post("/declaration3", async (req, res) => {
   var declarationGoods = [];
   for (var i = 0; i < goodsSerialNo.length; i++){
     console.log(goodsSerialNo[i]);
-    declarationGoods.push({
-      goodsSerialNo: goodsSerialNo[i],
-      goodsPackageNo: goodsPackageNo[i],
-      goodsPackageUnit: goodsPackageUnit[i],
-      countryOrigin: countryOrigin[i],
-      countryCode: countryCode[i],
-      hsCode: hsCode[i],
-      subCode: subCode[i],
-      goodsDescription: goodsDescription[i],
-      goodsC: goodsC[i],
-      goodsUnit: goodsUnit[i],
-      goodsCode: goodsCode[i],
-      goodsQuantity: goodsQuantity[i],
-      goodsWeight: goodsWeight[i],
-      goodsAmount: goodsAmount[i],
-      goodsCIF: goodsCIF[i],
-      goodsDuty: goodsDuty[i],
-      goodsDutyAmount: goodsDutyAmount[i],
-      goodsLNo: goodsLNo[i],
-      goodsShippingMark: goodsShippingMark[i],
-      goodsContainerNo: goodsContainerNo[i],
-      goodsInvoiceNo: goodsInvoiceNo[i],
-      goodsControl: goodsControl[i],
-      goodsImportDuty: goodsImportDuty[i],
-      goodsExciseDuty: goodsExciseDuty[i],
-
-  });
+    if(goodsSerialNo[i]){
+      declarationGoods.push({
+        goodsSerialNo: goodsSerialNo[i],
+        goodsPackageNo: goodsPackageNo[i],
+        goodsPackageUnit: goodsPackageUnit[i],
+        countryOrigin: countryOrigin[i],
+        countryCode: countryCode[i],
+        hsCode: hsCode[i],
+        subCode: subCode[i],
+        goodsDescription: goodsDescription[i],
+        goodsC: goodsC[i],
+        goodsUnit: goodsUnit[i],
+        goodsCode: goodsCode[i],
+        goodsQuantity: goodsQuantity[i],
+        goodsWeight: goodsWeight[i],
+        goodsAmount: goodsAmount[i],
+        goodsCIF: goodsCIF[i],
+        goodsDuty: goodsDuty[i],
+        goodsDutyAmount: goodsDutyAmount[i],
+        goodsLNo: goodsLNo[i],
+        goodsShippingMark: goodsShippingMark[i],
+        goodsContainerNo: goodsContainerNo[i],
+        goodsInvoiceNo: goodsInvoiceNo[i],
+        goodsControl: goodsControl[i],
+        goodsImportDuty: goodsImportDuty[i],
+        goodsExciseDuty: goodsExciseDuty[i],
+  
+      });
+    }
+    
 }
 
   const declaration3 = new Declaration3 ({ 
@@ -575,6 +579,7 @@ app.post("/declaration3", async (req, res) => {
 
     Importer: {
       importerType,
+      regTraderCoyRegNo,
       importerName,
       importerAddress,
       importerRegistration,
@@ -760,6 +765,7 @@ app.post("/recordsEdit", async (req, res) => {
     
     //Importer
     importerType,
+    regTraderCoyRegNo,
     importerName,
     importerAddress,
     importerRegistration,
@@ -893,34 +899,37 @@ app.post("/recordsEdit", async (req, res) => {
   
   var declarationGoods = [];
   for (var i = 0; i < goodsSerialNo.length; i++){
-    console.log(goodsSerialNo[i]);
-    declarationGoods.push({
-      goodsSerialNo: goodsSerialNo[i],
-      goodsPackageNo: goodsPackageNo[i],
-      goodsPackageUnit: goodsPackageUnit[i],
-      countryOrigin: countryOrigin[i],
-      countryCode: countryCode[i],
-      hsCode: hsCode[i],
-      subCode: subCode[i],
-      goodsDescription: goodsDescription[i],
-      goodsC: goodsC[i],
-      goodsUnit: goodsUnit[i],
-      goodsCode: goodsCode[i],
-      goodsQuantity: goodsQuantity[i],
-      goodsWeight: goodsWeight[i],
-      goodsAmount: goodsAmount[i],
-      goodsCIF: goodsCIF[i],
-      goodsDuty: goodsDuty[i],
-      goodsDutyAmount: goodsDutyAmount[i],
-      goodsLNo: goodsLNo[i],
-      goodsShippingMark: goodsShippingMark[i],
-      goodsContainerNo: goodsContainerNo[i],
-      goodsInvoiceNo: goodsInvoiceNo[i],
-      goodsControl: goodsControl[i],
-      goodsImportDuty: goodsImportDuty[i],
-      goodsExciseDuty: goodsExciseDuty[i],
-
-  });
+    //console.log(goodsSerialNo[i]);
+    if(goodsSerialNo[i]) {
+      declarationGoods.push({
+        goodsSerialNo: goodsSerialNo[i],
+        goodsPackageNo: goodsPackageNo[i],
+        goodsPackageUnit: goodsPackageUnit[i],
+        countryOrigin: countryOrigin[i],
+        countryCode: countryCode[i],
+        hsCode: hsCode[i],
+        subCode: subCode[i],
+        goodsDescription: goodsDescription[i],
+        goodsC: goodsC[i],
+        goodsUnit: goodsUnit[i],
+        goodsCode: goodsCode[i],
+        goodsQuantity: goodsQuantity[i],
+        goodsWeight: goodsWeight[i],
+        goodsAmount: goodsAmount[i],
+        goodsCIF: goodsCIF[i],
+        goodsDuty: goodsDuty[i],
+        goodsDutyAmount: goodsDutyAmount[i],
+        goodsLNo: goodsLNo[i],
+        goodsShippingMark: goodsShippingMark[i],
+        goodsContainerNo: goodsContainerNo[i],
+        goodsInvoiceNo: goodsInvoiceNo[i],
+        goodsControl: goodsControl[i],
+        goodsImportDuty: goodsImportDuty[i],
+        goodsExciseDuty: goodsExciseDuty[i],
+  
+      });
+    }
+    
 }
 
   await Declaration3.updateMany ({ _id:req.body._id},
@@ -957,6 +966,7 @@ app.post("/recordsEdit", async (req, res) => {
         importerType : importerType,
         importerName : importerName,
         importerAddress : importerAddress,
+        regTraderCoyRegNo : regTraderCoyRegNo,
         importerRegistration : importerRegistration,
         importerICColor : importerICColor,
         importerPhone : importerPhone,
@@ -1301,9 +1311,78 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   }
   //console.log("Total Amount is " + totalAmount);
   //console.log(declaration3.Goods.length)
-  var goodsShenanigans = ".ele(declaration3.Goods[0]).up()"
   //var root = create({})
-  var root = builder.create('Declaration', { encoding: 'utf-8' })
+  
+  //IF TRDR
+  if(declaration3.Importer.regTraderCoyRegNo){
+    var root = builder.create('Declaration', { encoding: 'utf-8' })
+  
+  
+      .ele('General')
+        .com(' Header Details ')
+        .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
+        .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
+        .ele('dutiableIndicator').txt(declaration3.Procedure.dutiableIndicator).up()
+        .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
+        .ele('countryShipment').txt(iso_countrycodes.alpha_2).up()
+        .ele('countryDestination').txt(iso_countrycodes2.alpha_2).up()
+        .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
+        .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
+        .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
+        .ele('remarks').txt('FOB INV ' + declaration3.Importer.importerType + ' ( NON-DUTIABLE ' + declaration3.DeclarationGoods.invoiceCurrency + ' ' + totalAmount.toFixed(2) + ' / DUTIABLE- EXCISE )').up()
+        
+        .com(' Party Details ')
+        .ele('traderType').txt(declaration3.Importer.importerType).up()
+        .ele('regTraderCoyRegNo').txt(declaration3.Importer.regTraderCoyRegNo).up()
+        
+        .ele('individualTraderICNo').txt(declaration3.Importer.importerRegistration).up()
+        .ele('indivdualTraderIDType').txt('IC').up()
+        .ele('individualTraderICColour').txt(declaration3.Importer.importerICColor).up()
+        .ele('individualAddress').txt(declaration3.Importer.importerAddress).up()
+        .ele('traderName').txt(declaration3.Importer.importerName).up()
+        .ele('consigneeCompanyRegNo').txt(declaration3.Importer.importerRegistration).up()
+        .ele('consigneeName').txt(declaration3.Importer.importerName).up()
+        .ele('dutyExemptIndicator').txt('N').up()
+        .ele('ceptSchemeIndicator').txt('N').up()
+        
+        .com(' BillOfLadingDetails ')
+        .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up()
+        .ele('vesselFlightVehicleNo').txt(declaration3.Transport.vesselNo).up()
+        .ele('vesselName').txt(declaration3.Transport.vesselName).up()
+        .ele('vesselFlightArrivalDate').txt(declaration3.Transport.arrivalDate).up()
+        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight).up()
+        .ele('totalGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
+        .ele('totalNoPackages').txt(declaration3.DeclarationGoods.totalPackagesNo).up()
+        .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up()
+        
+        .com(' TransitDetails ')
+        
+        .com(' Guarantee Details ')
+        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount).up()
+
+      .up()    
+      for(var j = 0; j < tempInvoice.length; j++){
+        console.log("J is = " + j)
+        root.ele('invoices')
+          .ele('invoiceNumber').txt(tempInvoice[j]).up()
+          .ele('invoiceDate').txt(declaration3.dateGranted).up()
+          .ele('termType').txt(declaration3.DeclarationGoods.otherChargesType).up()
+          .ele('invoiceAmount').txt(tempInvoiceAmount[j].toFixed(2)).up()
+          .ele('invoiceCurrency').txt(declaration3.DeclarationGoods.invoiceCurrency).up()
+          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge).up()
+          .ele('freightCurrency').txt(declaration3.DeclarationGoods.freightCurrency).up()
+          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount).up()
+          .ele('insuranceCurrency').txt(declaration3.DeclarationGoods.insuranceCurrency).up()
+          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges).up()
+          .ele('otherAmountCurrency').txt('BND').up()
+        .up()
+        
+        
+      }
+  }
+  // IF INDV
+  else {
+    var root = builder.create('Declaration', { encoding: 'utf-8' })
   
   
       .ele('General')
@@ -1365,8 +1444,11 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         
         
       }
+  }
+  
       for(var i = 0; i < declaration3.Goods.length; i++){
-        root.ele('Goods')
+        if(typeof declaration3.Goods[i].goodsSerialNo !== 'undefined') {
+          root.ele('Goods')
               .ele('goodsSerialNo').txt(declaration3.Goods[i].goodsSerialNo).up()
               .ele('goodsDescription').txt(declaration3.Goods[i].goodsDescription).up()
               .ele('goodsHSCode').txt(declaration3.Goods[i].hsCode).up()
@@ -1381,6 +1463,8 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
               .ele('goodsGrossWeight').txt(declaration3.Goods[i].goodsWeight).up()
               .ele('goodsGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
             .up()
+        }
+        
       }
   // convert the XML tree to string
   

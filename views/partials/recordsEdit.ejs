@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheet/style.css">
 
 <div id="editRecords">
                         
@@ -195,7 +194,7 @@
                         <th scope="row">12</th>
                         <td><p id="importerTRDR1">Reg:<i class="bi bi-star-fill" style="color: red;"></i></p><p id="importerINDV1" style="display:none">IC/PP:<i class="bi bi-star-fill" style="color: red;"></i></p></td>
                         <td id="importerTRDR2">
-                            <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" size="20" value="<%= declaration3.Importer.importerRegistration %>"/>
+                            <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" size="20" value="<%= declaration3.Importer.regTraderCoyRegNo %>"/>
                         </td>
                         <td id="importerINDV2" style="display:none">
                             <input type="text" id="importerRegistration" name="importerRegistration" size="20" value="<%= declaration3.Importer.importerRegistration %>"/>
@@ -490,7 +489,7 @@
                             <th scope="row">63</th>
                             <td>Total Invoice Amount: </td>
                             <td>
-                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" value="<%= declaration3.DeclarationGoods.totalInvoiceAmount %>" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" value="<%= declaration3.DeclarationGoods.invoiceCurrency %>" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3" value="<%= declaration3.DeclarationGoods.invoiceRate %>"/>
+                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" value="<%= declaration3.DeclarationGoods.totalInvoiceAmount %>" onchange="calculateCifPerKg()" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" value="<%= declaration3.DeclarationGoods.invoiceCurrency %>" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3" value="<%= declaration3.DeclarationGoods.invoiceRate %>"/>
                             </td>
                         </tr>
                         <tr>
@@ -501,7 +500,7 @@
                                     <option value="F">F</option>
                                     <option value="P">P</option>
                                 </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" value="<%= declaration3.DeclarationGoods.insuranceAmount %>" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" value="<%= declaration3.DeclarationGoods.insuranceCurrency %>" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3" value="<%= declaration3.DeclarationGoods.insuranceRate %>"/>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" value="<%= declaration3.DeclarationGoods.insuranceAmount %>" onchange="calculateCifPerKg()" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" value="<%= declaration3.DeclarationGoods.insuranceCurrency %>" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3" value="<%= declaration3.DeclarationGoods.insuranceRate %>"/>
                             </td>
                         </tr>
                         <tr>
@@ -512,14 +511,14 @@
                                     <option value=""></option>
                                     <option value="F">F</option>
                                 </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" value="<%= declaration3.DeclarationGoods.freightCharge %>" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" value="<%= declaration3.DeclarationGoods.freightCurrency %>" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3" value="<%= declaration3.DeclarationGoods.freightRate %>"/>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" value="<%= declaration3.DeclarationGoods.freightCharge %>" onchange="calculateCifPerKg()" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" value="<%= declaration3.DeclarationGoods.freightCurrency %>" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3" value="<%= declaration3.DeclarationGoods.freightRate %>"/>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">66</th>
                             <td>Other Charges (B$): </td>
                             <td>
-                                <input type="text" id="otherCharges" name="otherCharges" size="8" value="<%= declaration3.DeclarationGoods.otherCharges %>"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
+                                <input type="text" id="otherCharges" name="otherCharges" size="8" value="<%= declaration3.DeclarationGoods.otherCharges %>" onchange="calculateCifPerKg()"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
                                 <select name="otherChargesType">
                                     <option value="CFR">CFR</option>
                                     <option value="CIF">CIF</option>
@@ -655,10 +654,10 @@
                         <td><input type='text' name='goodsUnit' size='1' value='<%= declaration3.Goods[j].goodsUnit %>'/></td>
                         <td><input type='text' name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
                         <td><input type='text' name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
-                        <td><input type='text' class='goodsWeight' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
-                        <td><input type='text' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' required/></td>
-                        <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' oninput='calculateDuty()'/></td>
-                        <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' oninput='calculateDuty()'/></td>
+                        <td><input type='text' class='goodsWeight' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' onkeyup='calculateCifPerKg()' required/></td>
+                        <td><input type='text' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' onkeyup='calculateCifPerKg()' required/></td>
+                        <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' onchange='calculateDuty()'/></td>
+                        <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' onchange='calculateDuty()'/></td>
                         <td><input type='text' name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
                         <td><input type='text' name='goodsLNo' size='1' value='<%= declaration3.Goods[j].goodsLNo %>'/></td>
                         <td><input type='text' class="goodsShippingMark" name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
@@ -671,6 +670,8 @@
                     <% } %>
                     
                 </table>
+
+                <!-- //totals table -->
                 <table class="table table-striped table-sm table-bordered" id="totalsTable">
                     
                     <tr>
@@ -686,9 +687,9 @@
                         <td><input type='text' style='border-color:transparent;background:transparent' name='goodsUnit' size='1' value='' readonly/></td>
                         <td><input type='text' style='border-color:transparent;background:transparent' name='goodsCode' size='3' value='' readonly/></td>
                         <td><input type='text' style='border-color:transparent;background:transparent' name='goodsQuantity' size='1' value='' readonly/></td>
-                        <td><input type='text' class='goodsTotalWeight' name='goodsWeight' size='3' value='' readonly/></td>
-                        <td><input type='text' class='goodsTotalAmount' name='goodsAmount' size='3' value='' readonly/></td>
-                        <td><input type='text' class='goodsTotalCif' name='goodsCIF' size='2' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalWeight' name='goodsWeight' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalAmount' name='goodsAmount' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalCif' name='goodsCIF' size='2' value='' readonly/></td>
                         <td><input type='text' style='border-color:transparent;background:transparent' class='goodsDuty' name='goodsDuty' size='1' value='' readonly/></td>
                         <td><input type='text' name='goodsDutyAmount' size='1' value='' readonly/></td>
                         <td><input type='text' style='border-color:transparent;background:transparent' name='goodsLNo' size='1' value='' readonly/></td>
@@ -996,12 +997,19 @@
             importerINDV2.style="display:none";
             importerTRDR1.style="";
             importerTRDR2.style="";
+            document.getElementById('regTraderCoyRegNo').value = "<%= declaration3.Importer.regTraderCoyRegNo %>";
+            document.getElementById('importerRegistration').value = "<%= declaration3.Declarant.declarantICNo %>";
+            document.getElementById('importerICColor').value = "<%= declaration3.Declarant.declarantICColor %>";
+             
         }
         else if((document.getElementById("importerType").value)==="INDV"){
             importerINDV1.style="";
             importerINDV2.style="";
             importerTRDR1.style="display:none";
             importerTRDR2.style="display:none";
+            document.getElementById('regTraderCoyRegNo').value = "";
+            document.getElementById('importerRegistration').value = "<%= declaration3.Importer.importerRegistration %>";
+            document.getElementById('importerICColor').value = "<%= declaration3.Importer.importerICColor %>";
         }
     }
 
@@ -1046,16 +1054,19 @@
     function calculateCifPerKg(){
         //formulae might be different based on grossWeightUnit
         var weight = document.getElementById("totalGrossWeight").value;
-        var cost = document.getElementById("invoiceAmount").value * document.getElementById("invoiceRate").value;
-        var insurance = document.getElementById("insuranceAmount").value * document.getElementById("insuranceRate").value;
-        var freight = document.getElementById("freightAmount").value * document.getElementById("freightRate").value;
-        var othercharges = document.getElementById("otherCharges").value;
-        var cifPerKg = (cost + insurance + freight + othercharges) / weight;
-        document.getElementById("totalCif").value = cifPerKg;
+        var cost = Number(document.getElementById("invoiceAmount").value) * Number(document.getElementById("invoiceRate").value);
+        var insurance = Number(document.getElementById("insuranceAmount").value) * Number(document.getElementById("insuranceRate").value);
+        var freight = Number(document.getElementById("freightAmount").value) * Number(document.getElementById("freightRate").value);
+        var othercharges = Number(document.getElementById("otherCharges").value);
+        var totalCif = cost + insurance + freight + othercharges;
+        var cifPerKg = totalCif / weight;
+        console.log("CIF is " + totalCif)
+        document.getElementById("goodsTotalCif").value = totalCif;
         var oneGoodsWeight = document.getElementsByClassName("goodsWeight");
         var oneGoodsCif = document.getElementsByClassName("goodsCif");
         for (var n = 0; n < oneGoodsWeight.length; n++){
             oneGoodsCif[n].value = oneGoodsWeight[n].value * cifPerKg;
+            console.log("CIF per kg is " + cifPerKg)
         }
     }
 
