@@ -655,10 +655,10 @@
                         <td><input type='text' name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
                         <td><input type='text' name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
                         <td><input type='text' class='goodsWeight' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' onkeyup='calculateCifPerKg()' required/></td>
-                        <td><input type='text' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' onkeyup='calculateCifPerKg()' required/></td>
+                        <td><input type='text' class='goodsAmount' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' onkeyup='calculateCifPerKg()' required/></td>
                         <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' onchange='calculateDuty()'/></td>
                         <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' onchange='calculateDuty()'/></td>
-                        <td><input type='text' name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
+                        <td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
                         <td><input type='text' name='goodsLNo' size='1' value='<%= declaration3.Goods[j].goodsLNo %>'/></td>
                         <td><input type='text' class="goodsShippingMark" name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
                         <td><input type='text' name='goodsContainerNo' size='1' value='<%= declaration3.Goods[j].goodsContainerNo %>'/></td>
@@ -676,29 +676,29 @@
                     
                     <tr>
                         <th scope="row" class="goodsSerialNoTotal"><input type='text' style='border-color:transparent;background:transparent' name='goodsSerialNo' size='1' value='' readonly/></th>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsPackageNo' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsPackageUnit' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='countryOrigin' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='countryCode' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='hsCode' size='8' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='subCode' size='8' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsDescription' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsC' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsUnit' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsCode' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsQuantity' size='1' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalWeight' name='goodsWeight' size='3' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalAmount' name='goodsAmount' size='3' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalCif' name='goodsCIF' size='2' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' class='goodsDuty' name='goodsDuty' size='1' value='' readonly/></td>
-                        <td><input type='text' name='goodsDutyAmount' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsLNo' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsShippingMark' value='' readonly/></td>
-                        <td style="min-width:80px; max-width:80px;"><input type='text' style='border:transparent;background:transparent' name='goodsContainerNo' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsInvoiceNo' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsControl' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsImportDuty' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' name='goodsExciseDuty' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalWeight' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalAmount' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalCif' size='2' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' class='goodsDuty' size='1' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalDutyAmount' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td style="min-width:80px; max-width:80px;"><input type='text' style='border:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
                     </tr>
                     
                 </table>
@@ -712,6 +712,8 @@
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
+    <button type="button" onclick="calculateSomething()">ACTION</button>
+    <button type="button" onclick="calculateCif()">ACTION</button>
     
     
 </div>
@@ -1019,8 +1021,11 @@
         var classGoodsCif = document.getElementsByClassName("goodsCif")
         var classGoodsDuty = document.getElementsByClassName("goodsDuty")
         
+        
         for(var k = 0; k < classDuty.length; k++) {
-            classDuty[k].value = classGoodsCif[k].value * classGoodsDuty[k].value
+            var duty = classGoodsDuty[k].value.replace(/%/g,'');
+            var result1 = (Number(classGoodsCif[k].value)) * (Number(duty)/100);
+            classDuty[k].value =  result1.toFixed(2);
         }
     }
 
@@ -1053,10 +1058,54 @@
     //calculate CIF //not working yet
     function calculateCifPerKg(){
         //formulae might be different based on grossWeightUnit
-        var weight = document.getElementById("totalGrossWeight").value;
+        var weight = Number(document.getElementById("totalGrossWeight").value);
         var cost = Number(document.getElementById("invoiceAmount").value) * Number(document.getElementById("invoiceRate").value);
         var insurance = Number(document.getElementById("insuranceAmount").value) * Number(document.getElementById("insuranceRate").value);
         var freight = Number(document.getElementById("freightAmount").value) * Number(document.getElementById("freightRate").value);
+        var othercharges = Number(document.getElementById("otherCharges").value);
+        var totalCif = cost + insurance + freight + othercharges;
+        var cifPerKg = totalCif / weight;
+        console.log("CIF is " + totalCif)
+        document.getElementById("goodsTotalCif").value = totalCif;
+        var oneGoodsWeight = document.getElementsByClassName("goodsWeight");
+        var oneGoodsCif = document.getElementsByClassName("goodsCif");
+        for (var n = 0; n < oneGoodsWeight.length; n++){
+            oneGoodsCif[n].value = oneGoodsWeight[n].value * cifPerKg;
+            console.log("CIF per kg is " + cifPerKg)
+        }
+    }
+
+    function calculateSomething(){
+        //weight
+        var goodsTotalWeight = document.getElementById('goodsTotalWeight');
+        var oneWeight = document.getElementsByClassName("goodsWeight");
+        goodsTotalWeight.value = 0;
+        //amount
+        var goodsTotalAmount = document.getElementById('goodsTotalAmount');
+        var oneAmount = document.getElementsByClassName("goodsAmount");
+        goodsTotalAmount.value = 0;
+        //cif
+        var goodsTotalCif = document.getElementById('goodsTotalCif');
+        var oneCif = document.getElementsByClassName("goodsCif");
+        goodsTotalCif.value = 0;
+        //duty
+        var goodsTotalDuty = document.getElementById('goodsTotalDutyAmount');
+        var oneDuty = document.getElementsByClassName("goodsDutyAmount");
+        goodsTotalDuty.value = 0;
+        for (var aa = 0; aa < oneWeight.length; aa++){
+            goodsTotalWeight.value = Number(goodsTotalWeight.value) + Number(oneWeight[aa].value);
+            goodsTotalAmount.value = Number(goodsTotalAmount.value) + Number(oneAmount[aa].value);
+            goodsTotalCif.value = Number(goodsTotalCif.value) + Number(oneCif[aa].value);
+            goodsTotalDuty.value = Number(goodsTotalDuty.value) + Number(oneDuty[aa].value);
+        }
+    }
+
+    function calculateCif(){
+        //formulae might be different based on grossWeightUnit
+        var weight = Number(document.getElementById("totalGrossWeight").value);
+        var cost = Number(document.getElementById("totalInvoiceAmount").value) * Number(document.getElementById("invoiceRate").value);
+        var insurance = Number(document.getElementById("insuranceAmount").value) * Number(document.getElementById("insuranceRate").value);
+        var freight = Number(document.getElementById("freightCharge").value) * Number(document.getElementById("freightRate").value);
         var othercharges = Number(document.getElementById("otherCharges").value);
         var totalCif = cost + insurance + freight + othercharges;
         var cifPerKg = totalCif / weight;
