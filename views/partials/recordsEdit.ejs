@@ -1100,23 +1100,24 @@
         }
     }
 
-    function calculateCif(){
-        //formulae might be different based on grossWeightUnit
-        var weight = Number(document.getElementById("totalGrossWeight").value);
-        var cost = Number(document.getElementById("totalInvoiceAmount").value) * Number(document.getElementById("invoiceRate").value);
-        var insurance = Number(document.getElementById("insuranceAmount").value) * Number(document.getElementById("insuranceRate").value);
-        var freight = Number(document.getElementById("freightCharge").value) * Number(document.getElementById("freightRate").value);
-        var othercharges = Number(document.getElementById("otherCharges").value);
-        var totalCif = cost + insurance + freight + othercharges;
-        var cifPerKg = totalCif / weight;
-        console.log("CIF is " + totalCif)
-        document.getElementById("goodsTotalCif").value = totalCif;
-        var oneGoodsWeight = document.getElementsByClassName("goodsWeight");
-        var oneGoodsCif = document.getElementsByClassName("goodsCif");
-        for (var n = 0; n < oneGoodsWeight.length; n++){
-            oneGoodsCif[n].value = oneGoodsWeight[n].value * cifPerKg;
-            console.log("CIF per kg is " + cifPerKg)
-        }
-    }
+    //CIF FORMULA IN PROGRESS
+    // function calculateCif(){
+    //     //formulae might be different based on grossWeightUnit
+    //     var weight = Number(document.getElementById("totalGrossWeight").value);
+    //     var cost = Number(document.getElementById("totalInvoiceAmount").value) * Number(document.getElementById("invoiceRate").value);
+    //     var insurance = Number(document.getElementById("insuranceAmount").value) * Number(document.getElementById("insuranceRate").value);
+    //     var freight = Number(document.getElementById("freightCharge").value) * Number(document.getElementById("freightRate").value);
+    //     var othercharges = Number(document.getElementById("otherCharges").value);
+    //     var totalCif = cost + insurance + freight + othercharges;
+    //     var cifPerKg = totalCif / weight;
+    //     console.log("CIF is " + totalCif)
+    //     document.getElementById("goodsTotalCif").value = totalCif;
+    //     var oneGoodsWeight = document.getElementsByClassName("goodsWeight");
+    //     var oneGoodsCif = document.getElementsByClassName("goodsCif");
+    //     for (var n = 0; n < oneGoodsWeight.length; n++){
+    //         oneGoodsCif[n].value = oneGoodsWeight[n].value * cifPerKg;
+    //         console.log("CIF per kg is " + cifPerKg)
+    //     }
+    // }
 
 </script>

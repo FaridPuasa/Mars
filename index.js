@@ -1340,7 +1340,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('individualTraderICColour').txt(declaration3.Importer.importerICColor).up()
         .ele('individualAddress').txt(declaration3.Importer.importerAddress).up()
         .ele('traderName').txt(declaration3.Importer.importerName).up()
-        .ele('consigneeCompanyRegNo').txt(declaration3.Importer.importerRegistration).up()
+        .ele('consigneeCompanyRegNo').txt(declaration3.Importer.regTraderCoyRegNo).up()
         .ele('consigneeName').txt(declaration3.Importer.importerName).up()
         .ele('dutyExemptIndicator').txt('N').up()
         .ele('ceptSchemeIndicator').txt('N').up()
@@ -1423,7 +1423,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .com(' TransitDetails ')
         
         .com(' Guarantee Details ')
-        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount).up()
+        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
 
       .up()    
       for(var j = 0; j < tempInvoice.length; j++){
