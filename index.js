@@ -1336,7 +1336,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('regTraderCoyRegNo').txt(declaration3.Importer.regTraderCoyRegNo).up()
         
         .ele('individualTraderICNo').txt(declaration3.Importer.importerRegistration).up()
-        .ele('indivdualTraderIDType').txt('IC').up()
+        .ele('individualTraderIDType').txt('IC').up()
         .ele('individualTraderICColour').txt(declaration3.Importer.importerICColor).up()
         .ele('individualAddress').txt(declaration3.Importer.importerAddress).up()
         .ele('traderName').txt(declaration3.Importer.importerName).up()
