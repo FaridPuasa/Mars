@@ -22,13 +22,14 @@ const bcrypt = require("bcryptjs");
 
 //models
 const User = require("./models/user");
-const Bdnsw = require("./models/bdnswdata"); //unused
-const Declaration = require("./models/declaration"); //unused
-const Invoices = require("./models/invoices"); //unused
-const Goods = require("./models/goods");
+//const Bdnsw = require("./models/bdnswdata"); //unused
+//const Declaration = require("./models/declaration"); //unused
+//const Invoices = require("./models/invoices"); //unused
+//const Goods = require("./models/goods");
 //const Declaration2 = require("./models/declaration2");
 const Declaration3 = require("./models/declaration3");
-const Hscode = require("./models/hscode");
+const Hscode = require("./models/hscode"); //ignoreblank
+const Hscode2 = require("./models/hscode2"); //no ignoreblank
 const Port_Code = require("./models/port_code");
 const ISO_CountryCodes = require("./models/iso_countrycodes");
 
@@ -189,11 +190,13 @@ app.get("/bdnswadd", requireLogin, async (req, res) => {
 // })
 
 app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
-  //console.log('Led to here2222 = ' + req.params.id)
   const user = await User.find({});
-  const declaration3 = await Declaration3.findOne({_id : req.params.id})
+  //const hscode = await Hscode.find({HSCode: {$exists: true}});
+  const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
+  const declaration3 = await Declaration3.findOne({_id : req.params.id});
+  
   const port_code = await Port_Code.find({});
-  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, port_code: port_code});
+  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code});
 });
 
 
@@ -487,6 +490,18 @@ app.post("/declaration3", async (req, res) => {
     shippingMark,
     postedBy,
     
+    //Invoice
+    invoiceNo,
+    invoiceDate,
+    invoiceTerm,
+    invoiceCCY,
+    invoiceAmount,
+    invoiceFreightCCY,
+    invoiceFreightAmount,
+    invoiceInsuranceCCY,
+    invoiceInsuranceAmount,
+    invoiceOtherCharges,
+
     //Goods
     goodsSerialNo,
     goodsPackageNo,
@@ -515,6 +530,27 @@ app.post("/declaration3", async (req, res) => {
     
 
   } = req.body;
+  
+  var declarationInvoice = [];
+  for (var i = 0; i < invoiceNo.length; i++){
+    //console.log(goodsSerialNo[i]);
+    if(invoiceNo[i]) {
+      declarationInvoice.push({
+        invoiceNo: invoiceNo[i],
+        invoiceDate : invoiceDate[i],
+        invoiceTerm : invoiceTerm[i],
+        invoiceCCY : invoiceCCY[i],
+        invoiceAmount : invoiceAmount[i],
+        invoiceFreightCCY : invoiceFreightCCY[i],
+        invoiceFreightAmount : invoiceFreightAmount[i],
+        invoiceInsuranceCCY : invoiceInsuranceCCY[i],
+        invoiceInsuranceAmount : invoiceInsuranceAmount[i],
+        invoiceOtherCharges : invoiceOtherCharges[i],
+  
+      });
+    }
+    
+  }
   
   var declarationGoods = [];
   for (var i = 0; i < goodsSerialNo.length; i++){
@@ -691,37 +727,9 @@ app.post("/declaration3", async (req, res) => {
     shippingMark,
     postedBy,
 
+    Invoice: declarationInvoice,
     Goods: declarationGoods,
-    /*
-    Goods: [
-      {
-          goodsSerialNo,
-          goodsPackageNo,
-          goodsPackageUnit,
-          countryOrigin,
-          countryCode,
-          hsCode,
-          subCode,
-          goodsDescription,
-          goodsC,
-          goodsUnit,
-          goodsCode,
-          goodsQuantity,
-          goodsWeight,
-          goodsAmount,
-          goodsCIF,
-          goodsDuty,
-          goodsDutyAmount,
-          goodsLNo,
-          goodsShippingMark,
-          goodsContainerNo,
-          goodsInvoiceNo,
-          goodsControl,
-          goodsImportDuty,
-          goodsExciseDuty,
-      }
-    ],
-    */
+    
     
   });
 
@@ -868,6 +876,18 @@ app.post("/recordsEdit", async (req, res) => {
     shippingMark,
     postedBy,
     
+    //Invoice
+    invoiceNo,
+    invoiceDate,
+    invoiceTerm,
+    invoiceCCY,
+    invoiceAmount,
+    invoiceFreightCCY,
+    invoiceFreightAmount,
+    invoiceInsuranceCCY,
+    invoiceInsuranceAmount,
+    invoiceOtherCharges,
+
     //Goods
     goodsSerialNo,
     goodsPackageNo,
@@ -897,6 +917,27 @@ app.post("/recordsEdit", async (req, res) => {
 
   } = req.body;
   
+  var declarationInvoice = [];
+  for (var i = 0; i < invoiceNo.length; i++){
+    //console.log(goodsSerialNo[i]);
+    if(invoiceNo[i]) {
+      declarationInvoice.push({
+        invoiceNo: invoiceNo[i],
+        invoiceDate : invoiceDate[i],
+        invoiceTerm : invoiceTerm[i],
+        invoiceCCY : invoiceCCY[i],
+        invoiceAmount : invoiceAmount[i],
+        invoiceFreightCCY : invoiceFreightCCY[i],
+        invoiceFreightAmount : invoiceFreightAmount[i],
+        invoiceInsuranceCCY : invoiceInsuranceCCY[i],
+        invoiceInsuranceAmount : invoiceInsuranceAmount[i],
+        invoiceOtherCharges : invoiceOtherCharges[i],
+  
+      });
+    }
+    
+  }
+
   var declarationGoods = [];
   for (var i = 0; i < goodsSerialNo.length; i++){
     //console.log(goodsSerialNo[i]);
@@ -930,7 +971,7 @@ app.post("/recordsEdit", async (req, res) => {
       });
     }
     
-}
+  }
 
   await Declaration3.updateMany ({ _id:req.body._id},
     {$set: {
@@ -1076,6 +1117,7 @@ app.post("/recordsEdit", async (req, res) => {
       shippingMark,
       postedBy,
   
+      Invoice: declarationInvoice,
       Goods: declarationGoods,
 
     }
@@ -1090,7 +1132,7 @@ app.post("/recordsEdit", async (req, res) => {
   
 });
 
-//DOWNLOAD XML (BDNSW PAGE)
+//DOWNLOAD XML (BDNSW PAGE) CURRENTLY UNUSED. SWAPPED WITH XML BELOW
 app.post("/downloadXML", async (req, res) => {
   const {
     selectId,
@@ -1313,6 +1355,12 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   //console.log(declaration3.Goods.length)
   //var root = create({})
   
+  //***auto remarks need to be edited****
+  //based on:
+  // FOB INV USD 18,275.28 BND 24,691.73 ( DUTIABLE-EXCISE USD 18,275.28 BND 24,691.73 ) FRT B$60.80 OTHER CHARGES B$180.00 10
+  // idk fob, idk inv, usd total invoice -- ccy to bnd, ( dutiable amount of items with duty, / non excise items without duty ) freight bnd other charges bnd
+
+
   //IF TRDR
   if(declaration3.Importer.regTraderCoyRegNo){
     var root = builder.create('Declaration', { encoding: 'utf-8' })
@@ -1468,7 +1516,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
       }
   // convert the XML tree to string
   
-  var xml = root.end({ prettyPrint: true });
+  var xml = root.end({ pretty: true });
   //console.log(root.end({ prettyPrint: true }))
   //removes
   //<![CDATA[ [object Object] ]]>

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const hscodeSchema = new mongoose.Schema({
+const hscode2Schema = new mongoose.Schema({
 
     Heading: {
         type: String,
@@ -23,4 +23,4 @@ const hscodeSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("hscode", hscodeSchema);
+module.exports = mongoose.model("hscode2", hscode2Schema);

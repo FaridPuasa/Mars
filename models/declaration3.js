@@ -368,6 +368,39 @@ const declaration3Schema = new mongoose.Schema({
         type: String,
     },
 
+    Invoice: [
+        {
+        invoiceNo: {
+            type: String,
+        },
+        invoiceDate: {
+            type: String,
+        },
+        invoiceTerm: {
+            type: String,
+        },
+        invoiceCCY: {
+            type: String,
+        },
+        invoiceAmount: {
+            type: Number,
+        },
+        invoiceFreightCCY: {
+            type: String,
+        },
+        invoiceFreightAmount: {
+            type: Number,
+        },
+        invoiceInsuranceCCY: {
+            type: String,
+        },
+        invoiceInsuranceAmount: {
+            type: Number,
+        },
+        invoiceOtherCharges: {
+            type: Number,
+        },
+    }],
     Goods: [
         {
             goodsSerialNo: {
