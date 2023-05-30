@@ -40,11 +40,11 @@
   <invoices>
     <invoiceNumber>SC-PL2302210002</invoiceNumber>
     <invoiceDate>2023-05-12</invoiceDate>
-    <termType>CFR</termType>
+    <termType>CIF</termType>
     <invoiceAmount>591.80</invoiceAmount>
     <invoiceCurrency>USD</invoiceCurrency>
     <freightAmount>45</freightAmount>
-    <freightCurrency>BND</freightCurrency>
+    <freightCurrency>USD</freightCurrency>
     <insuranceAmount>0.5</insuranceAmount>
     <insuranceCurrency>USD</insuranceCurrency>
     <otherAmount>180</otherAmount>
@@ -53,11 +53,11 @@
   <invoices>
     <invoiceNumber>SC-PL2303250002</invoiceNumber>
     <invoiceDate>2023-05-12</invoiceDate>
-    <termType>CFR</termType>
+    <termType>CIF</termType>
     <invoiceAmount>1120.12</invoiceAmount>
     <invoiceCurrency>USD</invoiceCurrency>
     <freightAmount>45</freightAmount>
-    <freightCurrency>BND</freightCurrency>
+    <freightCurrency>USD</freightCurrency>
     <insuranceAmount>0.5</insuranceAmount>
     <insuranceCurrency>USD</insuranceCurrency>
     <otherAmount>180</otherAmount>
@@ -66,7 +66,7 @@
   <Goods>
     <goodsSerialNo>1</goodsSerialNo>
     <goodsDescription>BELT TENSIONER</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>4.14</quantity>
@@ -81,7 +81,7 @@
   <Goods>
     <goodsSerialNo>2</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER (IRON L)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>2</quantity>
@@ -96,7 +96,7 @@
   <Goods>
     <goodsSerialNo>3</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER (IRON R)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>2</quantity>
@@ -111,7 +111,7 @@
   <Goods>
     <goodsSerialNo>4</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER (L))</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>2</quantity>
@@ -126,7 +126,7 @@
   <Goods>
     <goodsSerialNo>5</goodsSerialNo>
     <goodsDescription>RADIATOR CAP (1.4BAR)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>2</quantity>
@@ -141,7 +141,7 @@
   <Goods>
     <goodsSerialNo>6</goodsSerialNo>
     <goodsDescription>FRONT WHEEL BEARING FLANGE</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>2</quantity>
@@ -156,7 +156,7 @@
   <Goods>
     <goodsSerialNo>7</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER STRUT BEARING</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -171,7 +171,7 @@
   <Goods>
     <goodsSerialNo>8</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER (IRON R)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -186,7 +186,7 @@
   <Goods>
     <goodsSerialNo>9</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER ADDITIONAL DAMPER (L/R)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -201,7 +201,7 @@
   <Goods>
     <goodsSerialNo>10</goodsSerialNo>
     <goodsDescription>FRONT SHOCK ABSORBER ADDITIONAL DAMPER (L/R)</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -216,7 +216,7 @@
   <Goods>
     <goodsSerialNo>11</goodsSerialNo>
     <goodsDescription>THERMOSTAT PLASTIC</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -231,7 +231,7 @@
   <Goods>
     <goodsSerialNo>12</goodsSerialNo>
     <goodsDescription>FRONT STABILIZER LINK L/R</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -246,7 +246,7 @@
   <Goods>
     <goodsSerialNo>13</goodsSerialNo>
     <goodsDescription>ENGINE OIL PAN GASKET</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -261,7 +261,7 @@
   <Goods>
     <goodsSerialNo>14</goodsSerialNo>
     <goodsDescription>ENGINE OIL PAN GASKET</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -276,7 +276,7 @@
   <Goods>
     <goodsSerialNo>15</goodsSerialNo>
     <goodsDescription>FRONT CONTROL ARM KIT L + R</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -291,7 +291,7 @@
   <Goods>
     <goodsSerialNo>16</goodsSerialNo>
     <goodsDescription>BELT TENSIONER</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -306,7 +306,7 @@
   <Goods>
     <goodsSerialNo>17</goodsSerialNo>
     <goodsDescription>ELECTRIC COOLING FAN</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -321,7 +321,7 @@
   <Goods>
     <goodsSerialNo>18</goodsSerialNo>
     <goodsDescription>ELECTRIC COOLING FAN BLACK PLUG 200W</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -336,7 +336,7 @@
   <Goods>
     <goodsSerialNo>19</goodsSerialNo>
     <goodsDescription>FUEL PUMP</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>
@@ -351,7 +351,7 @@
   <Goods>
     <goodsSerialNo>20</goodsSerialNo>
     <goodsDescription>FRONT LOWER CONTROL ARM MOUNTING</goodsDescription>
-    <goodsHSCode>8708999900</goodsHSCode>
+    <goodsHSCode>87089999</goodsHSCode>
     <shippingMarks>AUTO SPARE PART</shippingMarks>
     <countryOrigin>CN</countryOrigin>
     <quantity>1</quantity>

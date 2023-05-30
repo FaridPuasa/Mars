@@ -32,6 +32,8 @@ const Hscode = require("./models/hscode"); //ignoreblank
 const Hscode2 = require("./models/hscode2"); //no ignoreblank
 const Port_Code = require("./models/port_code");
 const ISO_CountryCodes = require("./models/iso_countrycodes");
+//port2 cleaned from unnecessary headers e.g. location, name2, coordinates
+const Unlocode_port_list2 = require("./models/unlocode_port_list2");
 
 app.set("view-engine", "ejs")
 app.use(express.urlencoded({ extended: false }))
@@ -179,8 +181,11 @@ app.get("/bdnsw", requireLogin, async (req, res) => {
 app.get("/bdnswadd", requireLogin, async (req, res) => {
   const user = await User.find({});
   const declaration3 = await Declaration3.find({});
+  const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
   const port_code = await Port_Code.find({});
-  res.render("bdnswadd.ejs", {user: user, declaration3: declaration3, port_code: port_code})
+  const unlocode_port_list2 = await Unlocode_port_list2.find({});
+  const iso_countrycodes = await ISO_CountryCodes.find({});
+  res.render("bdnswadd.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code, unlocode_port_list2: unlocode_port_list2, iso_countrycodes: iso_countrycodes})
 })
 
 // app.get("/bdnswedit/:id", requireLogin, async (req, res) => {
@@ -196,7 +201,9 @@ app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
   const declaration3 = await Declaration3.findOne({_id : req.params.id});
   
   const port_code = await Port_Code.find({});
-  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code});
+  const unlocode_port_list2 = await Unlocode_port_list2.find({});
+  const iso_countrycodes = await ISO_CountryCodes.find({});
+  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code, unlocode_port_list2: unlocode_port_list2, iso_countrycodes: iso_countrycodes});
 });
 
 
@@ -1140,6 +1147,8 @@ app.post("/downloadXML", async (req, res) => {
   } = req.body;
 
   const declaration3 = await Declaration3.findOne({'_id' : req.body.selectId}, { _id: 0, __v: 0});
+
+  //countryshipment&destination change to alpha-2 code from full country name
   const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryShipment, "i") } } );
   const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryDestination, "i") } } );
 

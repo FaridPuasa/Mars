@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <div id="Declaration3">
     <div class = "container-fluid" style="padding-top: 50px">
@@ -177,9 +178,9 @@
                         <th scope="row"></th>
                         <td>Type:<i class="bi bi-star-fill" style="color: red;"></i></td>
                         <td>
-                            <select name="importerType" id="importerType">
-                                <!--code 611--><option value="TRDR">TRDR</option>
-                                <!--code 603--><option value="INDV">INDV</option>
+                            <select name="importerType" id="importerType" onchange="autoImporterIdReg()">
+                                <option value="TRDR">TRDR</option>
+                                <option value="INDV">INDV</option>
                             </select>
                         </td>
                     </tr>
@@ -193,12 +194,17 @@
                         <td>Address:<i class="bi bi-star-fill" style="color: red;"></i> </td>
                         <td><textarea id="importerAddress" name="importerAddress" cols="50" row="2" required></textarea></td>
                     </tr>
-                    <tr>
+                    <tr id="importer12">
                         <th scope="row">12</th>
-                        <td>IC/PP:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <input type="text" id="importerRegistration" name="importerRegistration" size="20" required/> IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10" required/>
+                        <td><p id="importerTRDR1">Reg:<i class="bi bi-star-fill" style="color: red;"></i></p><p id="importerINDV1" style="display:none">IC/PP:<i class="bi bi-star-fill" style="color: red;"></i></p></td>
+                        <td id="importerTRDR2">
+                            <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" size="20"/>
                         </td>
+                        <td id="importerINDV2" style="display:none">
+                            <input type="text" id="importerRegistration" name="importerRegistration" size="20"/>
+                            IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10"/>
+                        </td>
+                        
                     </tr>
                     <tr>
                         <th scope="row">13</th>
@@ -267,27 +273,27 @@
                     <tr>
                         <th scope="row">24</th>
                         <td>BL/DO/AWB:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="bldoawb" name="bldoawb" size="8" required/><span style="font-weight:bold"> 25.</span> HB/HAWB: <input type="text" id="hbhawb" name="hbhawb" size="8"/></td>
+                        <td><input type="text" id="bldoawb" name="bldoawb" size="8" required/><span style="font-weight:bold"> 25.</span> HB/HAWB: <input type="text" id="hbhawb" name="hbhawb" size="8" /></td>
                     </tr>
                     <tr>
                         <th scope="row">26</th>
                         <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryShipment" name="countryShipment" oninput="autoPortCodeShipment()" size="8" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8"/></td>
+                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8"/></td>
                     </tr>
                     <tr>
                         <th scope="row">27</th>
                         <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryDestination" name="countryDestination" onchange="autoPortCodeDestination()" size="8" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8"/></td>
+                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8"/></td>
                     </tr>
                     <tr>
                         <th scope="row">28</th>
                         <td>Port of Entry:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfEntry" name="portOfEntry" onchange="autoPortCodePort()"size="8" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
+                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">29</th>
                         <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" onchange='automatePortDischarge(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">30</th>
@@ -337,8 +343,6 @@
                         <td><input type="text" id="portOfExit" name="portOfExit" size="8"/>        Code: <input type="text" id="portOfExitCode" name="portOfExitCode" size="8"/></td>
                     </tr>
                 </table>
-                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
-                -->
                 <p></p>
             </div>
         </div>
@@ -466,6 +470,66 @@
                                     <option value="KG">KG</option>
                                     <option value="TN">TN</option>
                                 </select>
+                                <!-- Button trigger modal -->
+                                <button type="button" onclick="getOutsideValue()" data-bs-toggle="modal" data-bs-target="#invoices">
+                                    Invoices
+                                </button>
+  
+                                <!-- The Modal -->
+                                <div class="modal" id="invoices">
+                                    <div class="modal-dialog modal-xl">
+                                      <div class="modal-content">
+  
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Invoices</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+  
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <table class="table table-striped" id="invoiceTable">
+                                            <tr>
+                                                <th style='min-width:100px; max-width:100px;'>Invoice No</th>
+                                                <td style="min-width:80px; max-width:80px;">Date</td>
+                                                <td style="min-width:50px; max-width:50px;">Term</td>
+                                                <td style="min-width:50px; max-width:50px;">CCY</td>
+                                                <td style="min-width:80px; max-width:80px;">Amount</td>
+                                                <td style="min-width:50px; max-width:50px;">FCCY</td>
+                                                <td style="min-width:80px; max-width:80px;">Freight</td>
+                                                <td style="min-width:50px; max-width:50px;">ICCY</td>
+                                                <td style="min-width:80px; max-width:80px;">Insurance</td>
+                                                <td style="min-width:80px; max-width:80px;">Other Chrg (BND)</td>
+                                            </tr>
+                                          </table>
+                                          <table class="table table-striped" id="invoiceTotalTable">
+                                            <!-- HERE -->
+                                            <tr>
+                                                <th scope="row"  style="min-width:100px; max-width:100px;"></th>
+                                                <td style="min-width:80px; max-width:80px;"></td>
+                                                <td style="min-width:50px; max-width:50px;"></td>
+                                                <td style="min-width:50px; max-width:50px;"></td>
+                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceInvoiceAmount' name='totalInvoiceInvoiceAmount' size='5' value=''/></td>
+                                                <td style="min-width:50px; max-width:50px;"></td>
+                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceFreightAmount' name='totalInvoiceFreightAmount' size='5' value=''/></td>
+                                                <td style="min-width:50px; max-width:50px;"></td>
+                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceInsuranceAmount' name='totalInvoiceInsuranceAmount' size='3' value=''/></td>
+                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceOtherCharges' name='totalInvoiceOtherCharges' size='3' value=''/></td>
+                                            </tr>
+                                          </table>
+                                        </div>
+  
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty()">Calculate</button>
+                                            <button type="button" class="btn btn-success" onclick="addInvoice(); getOutsideValue(); calculateInvoice();">Add</button>
+                                            <button type="button" class="btn btn-danger" onclick="removeInvoice()">Remove</button>
+                                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+                                        </div>
+  
+                                      </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -487,18 +551,18 @@
                             <th scope="row">63</th>
                             <td>Total Invoice Amount: </td>
                             <td>
-                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3"/>
+                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" onchange="calculateCif()" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3"/>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">64</th>
                             <td>Insurance: </td>
                             <td>
-                                <select name="invoiceInsuranceType">
+                                <select id="invoiceInsuranceType" name="invoiceInsuranceType">
                                     <option value="F">F</option>
                                     <option value="P">P</option>
                                 </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3"/>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" onchange="calculateCifPerKg()" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3"/>
                             </td>
                         </tr>
                         <tr>
@@ -509,15 +573,15 @@
                                     <option value=""></option>
                                     <option value="F">F</option>
                                 </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3"/>
+                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" onchange="calculateCif()" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3"/>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">66</th>
                             <td>Other Charges (B$): </td>
                             <td>
-                                <input type="text" id="otherCharges" name="otherCharges" size="8"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
-                                <select name="otherChargesType">
+                                <input type="text" id="otherCharges" name="otherCharges" size="8" onchange="calculateCif()"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
+                                <select id="otherChargesType" name="otherChargesType" onchange="getOutsideValue()">
                                     <option value="CFR">CFR</option>
                                     <option value="CIF">CIF</option>
                                     <option value="FOB">FOB</option>
@@ -640,16 +704,99 @@
                     </tr>
                     
                 </table>
-                
+                <!-- //totals table -->
+                <table class="table table-striped table-sm table-bordered" id="totalsTable">
+                    
+                    <tr>
+                        <th scope="row" class="goodsSerialNoTotal"><input type='text' style='border-color:transparent;background:transparent' size='1' readonly/></th>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalWeight' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalAmount' size='3' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalCif' size='2' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' id='goodsTotalDutyAmount' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td style="min-width:80px; max-width:80px;"><input type='text' style='border:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
+                    </tr>
+                    
+                </table>
             </div>
         </div>
+        <button type="button" class="btn inline btn-primary" onclick="calculateSomething(); calculateCif(); calculateDuty()">Calculate</button>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
-        <button onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
+        <button onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
     <br>
     <p></p>
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
+
+    <!-- The Modal for HSCode -->
+    <div class="modal" id="hscodem">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">HS Code</h4>
+              <p id="thevalue"></p>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+            <div style="height: 500px; overflow:auto">
+              <input type="text" id="filterHSCode" onkeyup="filterHSCode()" placeholder="Search HSCode.." title="Filter by HS Code">
+              <table class="table table-striped" id="hscodeTable">
+                <tr>
+                    <th style='min-width:50px; max-width:50px; '>Heading</th>
+                    <td>HS Code</td>
+                    <td>Description</td>
+                    <td>Quantity</td>
+                    <td>Rate of Import Duty</td>
+                    <td>Rate of Excise Duty</td>
+                </tr>
+                <!-- HERE -->
+                <% for (var k=0; k<hscode2.length; k++) { %>
+                    <tr>
+                        <th scope="row"><%= hscode2[k].Heading %></th>
+                        <td class='selectHsCode' ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].HSCode %></td>
+                        <td style="max-width: 250px; word-wrap: break-word;" class="selectDescription" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].Description %></td>
+                        <td class="selectQuantity" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].Quantity %></td>
+                        <td class="selectImportRate" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].ImportDutyRate %></td>
+                        <td class="selectExciseRate" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].ExciseDutyRate %></td>
+                    </tr>
+                <% } %>
+              </table>
+            </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <!-- <button type="button" id='hscodeButton' onclick='openHSCode()'>
+        HSCode
+    </button> -->
+
 </div>
 <div class="col-md-1"></div>
 </div>
@@ -660,7 +807,8 @@
 
 <script>
     //Page function
-    
+    window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
     function clicked(e) {
         if(!confirm('Are you sure?')) {
             e.preventDefault();
@@ -727,7 +875,7 @@
         showDecPage(currentDecPage);
         
     }
-    //var x = 1;
+    //GOODS;
     if (document.getElementsByClassName("goodsSerialNoClass").length) {
         var x = document.getElementsByClassName("goodsSerialNoClass").length;
         onload=addGoods();
@@ -741,7 +889,7 @@
         x++
         var addRow = document.getElementById("goodsTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty("+x+")'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty("+x+")' /></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
     }
@@ -752,6 +900,93 @@
         //tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
         var templength = removeRow.rows.length;
         removeRow.deleteRow(templength - 1);
+    }
+
+    //INVOICE (PROBABLY UNNECESSARY, Y ALWAYS BE = invoiceNo length)
+    if (document.getElementsByClassName("invoiceNo").length) {
+        var y = document.getElementsByClassName("invoiceNo").length;
+    } else {
+        var y = 0;
+    }
+    //INVOICE TABLE
+
+    function getOutsideValue(){
+        for(var k = 0; k<document.getElementsByClassName("invoiceTerm").length; k++){
+            document.getElementsByClassName("invoiceTerm")[k].value = document.getElementById("otherChargesType").value;
+            document.getElementsByClassName("invoiceCCY")[k].value = document.getElementById("invoiceCurrency").value;
+            document.getElementsByClassName("invoiceFreightCCY")[k].value = document.getElementById("freightCurrency").value;
+            document.getElementsByClassName("invoiceInsuranceCCY")[k].value = document.getElementById("insuranceCurrency").value;
+        }
+    }
+
+    function addInvoice() {
+        y++
+        var addRow = document.getElementById("invoiceTable");
+        var tr = document.createElement('tr');
+        tr.innerHTML = "<tr><th scope='row'><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></th><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td></tr>"
+        
+        addRow.appendChild(tr);
+    }
+
+    function removeInvoice() {
+        var removeRow = document.getElementById("invoiceTable");
+        var templength = removeRow.rows.length;
+        removeRow.deleteRow(templength - 1);
+    }
+
+    //ALL SHOVED INTO CALCULATEINVOICE
+    // function calculateFreight(){
+    // }
+    // function calculateInsurance(){
+    // }
+    // function calculateOtherCharges(){
+    // }
+
+    function calculateInvoice() {
+        //CALCULATION HERE IS BEFORE CONVERSION
+        //calculate INVOICE AMOUNT first
+        var totalInvoiceAmount = 0;
+        var invAmt = document.getElementsByClassName('invoiceAmount');
+        
+        for(var ii = 0; ii<document.getElementsByClassName('invoiceAmount').length; ii++){
+            totalInvoiceAmount = totalInvoiceAmount + Number(invAmt[ii].value);
+            document.getElementById('totalInvoiceInvoiceAmount').value = totalInvoiceAmount.toFixed(2);
+        }
+
+        //calculate the rest USING INVOICE AMOUNT result
+        
+        var totalInvoiceInsuranceAmount = 0;
+        var totalInvoiceFreightAmount = 0;
+        var totalInvoiceOtherCharges = 0;
+        
+        var invInAmt = document.getElementsByClassName('invoiceInsuranceAmount');
+        var invFrAmt = document.getElementsByClassName('invoiceFreightAmount');
+        var invOtCh = document.getElementsByClassName('invoiceOtherCharges');
+
+        //INSURANCE
+        if(document.getElementById('invoiceInsuranceType').value == 'F'){
+            //document.getElementById('totalInvoiceInsuranceAmount').value = (Number(document.getElementById('insuranceAmount').value) * Number(document.getElementById('insuranceRate').value)).toFixed(2);
+            document.getElementById('totalInvoiceInsuranceAmount').value = Number(document.getElementById('insuranceAmount').value).toFixed(2);
+        }
+        else {
+            //document.getElementById('totalInvoiceInsuranceAmount').value = (((document.getElementById('totalInvoiceInvoiceAmount').value * Number(document.getElementById('insuranceAmount').value))/100) * Number(document.getElementById('insuranceRate').value)).toFixed(2);
+            document.getElementById('totalInvoiceInsuranceAmount').value = (((document.getElementById('totalInvoiceInvoiceAmount').value * Number(document.getElementById('insuranceAmount').value))/100)).toFixed(2)
+        }
+        //FREIGHT
+        //document.getElementById('totalInvoiceFreightAmount').value = (Number(document.getElementById('freightCharge').value) * Number(document.getElementById('freightRate').value)).toFixed(2);
+        document.getElementById('totalInvoiceFreightAmount').value = Number(document.getElementById('freightCharge').value).toFixed(2);
+
+        //OTHER CHARGES
+        document.getElementById('totalInvoiceOtherCharges').value = (Number(document.getElementById('otherCharges').value)).toFixed(2);
+
+        for(var ij = 0; ij<document.getElementsByClassName('invoiceAmount').length; ij++){
+            invFrAmt[ij].value = (document.getElementById('totalInvoiceFreightAmount').value * (invAmt[ij].value / document.getElementById('totalInvoiceInvoiceAmount').value)).toFixed(2);
+
+            invInAmt[ij].value = (document.getElementById('totalInvoiceInsuranceAmount').value * (invAmt[ij].value / document.getElementById('totalInvoiceInvoiceAmount').value)).toFixed(2);
+
+            invOtCh[ij].value = (document.getElementById('totalInvoiceOtherCharges').value * (invAmt[ij].value / document.getElementById('totalInvoiceInvoiceAmount').value)).toFixed(2);
+        }
+
     }
 
     function autoCodeCustomProcedure() {
@@ -922,54 +1157,174 @@
             document.getElementById("clearanceStationCode").value = "607";
         }
     }
-// countryDestination
-// portOfEntry
-    function autoPortCodeShipment() {
-        for(var i = 0; i < port_code.length; i++){
-            //document.getElementById("countryShipment").value = "";
-            if((document.getElementById("countryShipment").value)===port_code[i].country){
-                document.getElementById("countryShipmentCode").value = port_code[i].port_code;
-            }
-            else{
-                
-            };
+
+    function autoImporterIdReg() {
+        var importerTRDR1 = document.getElementById('importerTRDR1');
+        var importerTRDR2 = document.getElementById('importerTRDR2');
+        var importerINDV1 = document.getElementById('importerINDV1');
+        var importerINDV = document.getElementById('importerINDV2');
+        if((document.getElementById("importerType").value)==="TRDR"){
+            importerINDV1.style="display:none";
+            importerINDV2.style="display:none";
+            importerTRDR1.style="";
+            importerTRDR2.style="";
+            document.getElementById('regTraderCoyRegNo').value = "";
+            document.getElementById('importerRegistration').value = "<%= username.icNo %>";
+            document.getElementById('importerICColor').value = "<%= username.icColor %>";
+             
         }
-        
+        else if((document.getElementById("importerType").value)==="INDV"){
+            importerINDV1.style="";
+            importerINDV2.style="";
+            importerTRDR1.style="display:none";
+            importerTRDR2.style="display:none";
+            document.getElementById('regTraderCoyRegNo').value = "";
+        }
     }
 
-    function autoPortCodeDestination() {
-        //document.getElementById("countryDestination").value = "";
-        for(var i = 0; i < port_code.length; i++){
-            if((document.getElementById("countryDestination").value)===port_code[i].country){
-                document.getElementById("countryDestinationCode").value = port_code[i].port_code;
-            }
-        }
-        
+    //automate port of discharge (based on unlocode_port_list2 database)
+    //not working
+    function automatePortDischarge(thePort){
+        var result = unlocode_port_list2.findOne({Name: thePort})
+        var newValue = result.Country + result.Location;
+        document.getElementById("portOfDischargeCode").value = newValue;
     }
 
-    function autoPortCodePort() {
-        //document.getElementById("portOfEntry").value = "";
-        for(var k = 0; k < port_code.length; k++){
-            if((document.getElementById("portOfEntry").value)===port_code[k].country){
-                document.getElementById("portOfEntryCode").value = port_code[k].port_code;
-            }
-        }
-        
+    //automate country codes (based on PORT_CODE database)
+    //not working
+    function automateCountryCode(){
+        var result = unlocode_port_list2.findOne({Name: thePort})
+        var newValue = result.Country + result.Location;
+        document.getElementById("portOfDischargeCode").value = newValue;
     }
 
-    function calculateDuty(i) {
+    //half working
+    function calculateDuty() {
         var classDuty = document.getElementsByClassName("goodsDutyAmount");
         var classGoodsCif = document.getElementsByClassName("goodsCif")
         var classGoodsDuty = document.getElementsByClassName("goodsDuty")
-        classDuty[i].value = classGoodsCif[i].value * classGoodsDuty[i].value
+        
+        //if duty presented as %, it removed the % and calculate /100.
+        //IF duty presented as per/kg or something similar, the codes arent here yet.
+        for(var k = 0; k < classDuty.length; k++) {
+            var duty = classGoodsDuty[k].value.replace(/%/g,'');
+            var result1 = (Number(classGoodsCif[k].value)) * (Number(duty)/100);
+            classDuty[k].value =  result1.toFixed(2);
+        }
     }
 
+    //working
     function autoShippingMark() {
         //document.getElementById("shippingMark").value = "";
         var goodsInputShippingMark = document.getElementsByClassName('goodsShippingMark');
         for(var m = 0; m < goodsInputShippingMark.length; m++) {
             goodsInputShippingMark[m].value = document.getElementById("shippingMark").value;
         }
+    }
+
+    function calculateSomething(){
+        //weight
+        var goodsTotalWeight = document.getElementById('goodsTotalWeight');
+        var oneWeight = document.getElementsByClassName("goodsWeight");
+        goodsTotalWeight.value = 0;
+        //amount
+        var goodsTotalAmount = document.getElementById('goodsTotalAmount');
+        var oneAmount = document.getElementsByClassName("goodsAmount");
+        goodsTotalAmount.value = 0;
+        //cif
+        var goodsTotalCif = document.getElementById('goodsTotalCif');
+        var oneCif = document.getElementsByClassName("goodsCif");
+        goodsTotalCif.value = 0;
+        //duty
+        var goodsTotalDuty = document.getElementById('goodsTotalDutyAmount');
+        var oneDuty = document.getElementsByClassName("goodsDutyAmount");
+        goodsTotalDuty.value = 0;
+        for (var aa = 0; aa < oneWeight.length; aa++){
+            goodsTotalWeight.value = Number(goodsTotalWeight.value) + Number(oneWeight[aa].value);
+            goodsTotalAmount.value = Number(goodsTotalAmount.value) + Number(oneAmount[aa].value);
+            goodsTotalCif.value = Number(goodsTotalCif.value) + Number(oneCif[aa].value);
+            goodsTotalDuty.value = Number(goodsTotalDuty.value) + Number(oneDuty[aa].value);
+        }
+    }
+                      
+    //CIF FORMULA IN PROGRESS
+    function calculateCif(){
+        //formula still WIP KIV because MARS is a mess
+        //get fields of goods
+        var goodsAmountClass = document.getElementsByClassName('goodsAmount');
+        var goodsCifClass = document.getElementsByClassName('goodsCif');
+        var goodsInvoiceNoClass = document.getElementsByClassName('goodsInvoiceNo');
+
+        //get fields from invoice modal, convert to BND
+        var invoiceNoClass = document.getElementsByClassName('invoiceNo');
+        var invoiceAmountClass = document.getElementsByClassName('invoiceAmount');
+        var invoiceRate = Number(document.getElementById('invoiceRate').value);
+        var invoiceFreightAmountClass = document.getElementsByClassName('invoiceFreightAmount');
+        var freightRate = Number(document.getElementById('freightRate').value);
+        var invoiceInsuranceAmountClass = document.getElementsByClassName('invoiceInsuranceAmount');
+        var insuranceRate = Number(document.getElementById('insuranceRate').value);
+        var invoiceOtherChargesClass = document.getElementsByClassName('invoiceOtherCharges');
+
+        //get total CIF per invoice
+
+        for (var ik = 0; ik < goodsInvoiceNoClass.length; ik++){
+            //get the correct invoice and its values
+            for (var ij = 0; ij < invoiceNoClass.length; ij++){
+                if(goodsInvoiceNoClass[ik].value == invoiceNoClass[ij].value){
+                    var totalCif;
+                    totalCif = (Number(invoiceAmountClass[ij].value) * invoiceRate) + (Number(invoiceFreightAmountClass[ij].value) * freightRate) + (Number(invoiceInsuranceAmountClass[ij].value) * insuranceRate) + Number(invoiceOtherChargesClass[ij].value)
+                    
+                    goodsCifClass[ik].value = ((Number(goodsAmountClass[ik].value) * totalCif) / Number(invoiceAmountClass[ij].value)).toFixed(2);
+                }
+            }
+
+        }
+
+    }
+
+    //HSCode Modal and filtering system.
+    var hsCodeModal = new bootstrap.Modal(document.getElementById('hscodem'))
+
+    function openHSCode(num){
+        document.getElementById('thevalue').innerHTML = num;
+        hsCodeModal.show();
+    }
+
+    function filterHSCode() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filterHSCode");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("hscodeTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent.replace(/[.]/g,"") || td.innerText.replace(/[.]/g,"");
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }       
+        }
+    }
+
+    function selectHSCode(hscodeClassNumber, hscode, quantity, importRate, exciseRate){
+        var hsCodeClass = document.getElementsByClassName('hsCode');
+        var goodsUnitClass = document.getElementsByClassName('goodsUnit');
+        var goodsDutyClass = document.getElementsByClassName('goodsDuty');
+        var goodsImportDutyClass = document.getElementsByClassName('goodsImportDuty');
+        var goodsExciseDutyClass = document.getElementsByClassName('goodsExciseDuty');
+
+        var newHsCode = hscode.replace(/[.]/g,"");
+
+        hsCodeClass[hscodeClassNumber].value = newHsCode;
+        goodsUnitClass[hscodeClassNumber].value = quantity.toUpperCase();
+        goodsDutyClass[hscodeClassNumber].value = exciseRate;
+        goodsImportDutyClass[hscodeClassNumber].value = importRate;
+        goodsExciseDutyClass[hscodeClassNumber].value = exciseRate;
+
+        hsCodeModal.hide();
     }
 
 </script>

@@ -290,7 +290,7 @@
                     <tr>
                         <th scope="row">29</th>
                         <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" onchange='automatePortDischarge(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">30</th>
@@ -781,14 +781,15 @@
                 
             </div>
         </div>
+        <button type="button" onclick="calculateSomething(); calculateCif(); calculateDuty()">Calculate</button>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
-        <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Remove Goods</button>
+        <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
     <br>
     <p></p>
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
-    <button type="button" onclick="calculateSomething(); calculateCif(); calculateDuty()">Calculate</button>
+    
 
 
     <!-- The Modal for HSCode -->
@@ -942,7 +943,7 @@
         x++
         var addRow = document.getElementById("goodsTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
     }
@@ -1237,13 +1238,30 @@
         }
     }
 
+    //automate port of discharge (based on unlocode_port_list2 database)
     //not working
+    function automatePortDischarge(thePort){
+        var result = unlocode_port_list2.findOne({Name: thePort})
+        var newValue = result.Country + result.Location;
+        document.getElementById("portOfDischargeCode").value = newValue;
+    }
+
+    //automate country codes (based on PORT_CODE database)
+    //not working
+    function automateCountryCode(){
+        var result = unlocode_port_list2.findOne({Name: thePort})
+        var newValue = result.Country + result.Location;
+        document.getElementById("portOfDischargeCode").value = newValue;
+    }
+
+    //half working
     function calculateDuty() {
         var classDuty = document.getElementsByClassName("goodsDutyAmount");
         var classGoodsCif = document.getElementsByClassName("goodsCif")
         var classGoodsDuty = document.getElementsByClassName("goodsDuty")
         
-        
+        //if duty presented as %, it removed the % and calculate /100.
+        //IF duty presented as per/kg or something similar, the codes arent here yet.
         for(var k = 0; k < classDuty.length; k++) {
             var duty = classGoodsDuty[k].value.replace(/%/g,'');
             var result1 = (Number(classGoodsCif[k].value)) * (Number(duty)/100);
@@ -1259,23 +1277,6 @@
             goodsInputShippingMark[m].value = document.getElementById("shippingMark").value;
         }
     }
-
-    //popup to enter HSCode, automate duty, permit, etc //not working yet
-    // function hsCodeForm() {
-    //     document.getElementById("hsCodeInputForm").style.display = "block";
-    // }
-
-    // function hsCodeFormClose() {
-    //     document.getElementById("hsCodeInputForm").style.display = "none";
-    // }
-
-    // function countryCodeOpen() {
-    //     document.getElementById("countryCodeForm").style.display = "block";
-    // }
-
-    // function countryCodeClose() {
-    //     document.getElementById("countryCodeForm").style.display = "none";
-    // }
 
     function calculateSomething(){
         //weight
@@ -1337,6 +1338,7 @@
 
     }
 
+    //HSCode Modal and filtering system.
     var hsCodeModal = new bootstrap.Modal(document.getElementById('hscodem'))
 
     function openHSCode(num){
@@ -1380,5 +1382,4 @@
 
         hsCodeModal.hide();
     }
-    //var openHSCode = document.getElementsByClassName('hsCode')
 </script>
