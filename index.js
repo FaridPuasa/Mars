@@ -1559,6 +1559,12 @@ app.get("/hscode", requireLogin, async (req, res) => {
   res.render("hscode.ejs", {hscode: hscode})
 });
 
+//HSCODE PAGE TO LOOK UP HSCODE
+app.get("/unlocodeportlist", requireLogin, async (req, res) => {
+  const unlocode_port_list2 = await Unlocode_port_list2.find({});
+  res.render("unlocodeport.ejs", {unlocode_port_list: unlocode_port_list2})
+});
+
 //HSCODE EDIT PAGE TO ADD/EDIT HSCODE 
 //NOT WORKING
 // app.get("/hscodeedit", requireLogin, async (req, res) => {
