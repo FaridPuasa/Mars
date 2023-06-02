@@ -2,6 +2,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <div id="editRecords">
+    <div class = "container-fluid" style="padding-top: 50px">
+        <div class = "row align-items-start">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="border: 1px solid black">
                         
     <h3>Declaration</h3>
     <form id ="recordsEdit" action = "/recordsEdit" method="POST">
@@ -535,7 +539,7 @@
   
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty()">Calculate</button>
+                                            <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething();">Calculate</button>
                                             <button type="button" class="btn btn-success" onclick="addInvoice(); getOutsideValue(); calculateInvoice();">Add</button>
                                             <button type="button" class="btn btn-danger" onclick="removeInvoice()">Remove</button>
                                             <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
@@ -781,7 +785,7 @@
                 
             </div>
         </div>
-        <button type="button" onclick="calculateSomething(); calculateCif(); calculateDuty()">Calculate</button>
+        <button type="button" class="btn inline ms-auto btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
         <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
     <br>
@@ -838,6 +842,11 @@
 
           </div>
         </div>
+    </div>
+    </div>
+                <div class="col-md-1"></div>
+            </div>
+
     </div>
     
 </div>
