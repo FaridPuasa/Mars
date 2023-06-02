@@ -179,14 +179,14 @@ app.get("/bdnsw", requireLogin, async (req, res) => {
 })
 
 app.get("/bdnswadd", requireLogin, async (req, res) => {
-  const user = await User.find({});
+  //const user = await User.find({});
   const declaration3 = await Declaration3.find({});
   const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
   const port_code = await Port_Code.find({});
-  const unlocode_port_list2 = await Unlocode_port_list2.find({});
-  const iso_countrycodes = await ISO_CountryCodes.find({});
-  res.render("bdnswadd.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code})
-  //unlocode_port_list2: unlocode_port_list2, iso_countrycodes: iso_countrycodes
+  //const unlocode_port_list2 = await Unlocode_port_list2.find({});
+  //const iso_countrycodes = await ISO_CountryCodes.find({});
+  res.render("bdnswadd.ejs", {declaration3: declaration3, hscode2: hscode2, port_code: port_code})
+  //user: user, unlocode_port_list2: unlocode_port_list2, iso_countrycodes: iso_countrycodes
 })
 
 // app.get("/bdnswedit/:id", requireLogin, async (req, res) => {
