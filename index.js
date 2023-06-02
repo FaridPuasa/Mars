@@ -22,7 +22,7 @@ const bcrypt = require("bcryptjs");
 
 //models
 const User = require("./models/user");
-//const Bdnsw = require("./models/bdnswdata"); //unused
+const Bdnsw = require("./models/bdnswdata"); //accounts
 //const Declaration = require("./models/declaration"); //unused
 //const Invoices = require("./models/invoices"); //unused
 //const Goods = require("./models/goods");
@@ -1555,16 +1555,16 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
 
 //HSCODE PAGE TO LOOK UP HSCODE
 app.get("/hscode", requireLogin, async (req, res) => {
-  //provide link to TARIFF 2017 site for download aswell https://tradingacrossborders.mofe.gov.bn/Downloadable/BDTTC%202017.pdf
-  const hscode = await Hscode.find({}).sort({heading: 1, 'description.hscodeentry': 1});
+  const hscode = await Hscode2.find({});
   res.render("hscode.ejs", {hscode: hscode})
 });
 
-//HSCODE EDIT PAGE TO ADD/EDIT HSCODE
-app.get("/hscodeedit", requireLogin, async (req, res) => {
-  const hscode = await Hscode.find({}).sort({heading: 1, 'description.hscodeentry': 1});
-  res.render("hscodeedit.ejs", {hscode: hscode})
-});
+//HSCODE EDIT PAGE TO ADD/EDIT HSCODE 
+//NOT WORKING
+// app.get("/hscodeedit", requireLogin, async (req, res) => {
+//   const hscode = await Hscode.find({}).sort({Heading: 1, 'HSCode': 1});
+//   res.render("hscodeedit.ejs", {hscode: hscode})
+// });
 
 /* HSCODE EDIT POST */
 

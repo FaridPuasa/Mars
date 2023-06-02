@@ -10,7 +10,7 @@
 
 <div class = "container3" style ="margin-left: 100px; margin-right: 100px">
   <h1>HSCode</h1>
-  <a href="https://tradingacrossborders.mofe.gov.bn/Downloadable/BDTTC%202017.pdf">All HSCode are based on Tariff 2017 under MOFE</a>
+  <a href="https://tradingacrossborders.mofe.gov.bn/PublishingImages/SitePages/home/BDTTC%202022.pdf">All HSCode are based on Tariff 2022 under MOFE</a>
   <form action="/addhscode" method="POST">
   
     <div class="row">
@@ -21,68 +21,28 @@
                 <th scope="col">Heading</th>
                 <th scope="col">HSCode</th>
                 <th scope="col">Description</th>
-                <th scope="col">Category</th>
-                <th scope="col">Sub-Category</th>
-                <th scope="col">Sub-Category2</th>
-                <th scope="col">Sub-Category3</th>
-                <th scope="col">Unit of Quantity</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Rate of Import Duty</th>
                 <th scope="col">Rate of Excise Duty</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th><%= hscode[0].heading %></th>
-              <td><%= hscode[0].description.hscodeentry %></td>
-              <th><%= hscode[0].description.name %></th>
-              <td><%= hscode[0].description.category.cat1 %></td>
-              <td><%= hscode[0].description.category.cat2 %></td>
-              <td><%= hscode[0].description.category.cat3 %></td>
-              <td><%= hscode[0].description.category.cat4 %></td>
-              <td><%= hscode[0].description.unitOfQuantity %></td>
-              <td><%= hscode[0].description.rateOfImportDuty %></td>
-              <td><%= hscode[0].description.rateOfExciseDuty %></td>
+              <th><%= hscode[0].Heading %></th>
+              <td><%= hscode[0].HSCode %></td>
+              <th><%= hscode[0].Description %></th>
+              <th><%= hscode[0].Quantity %></th>
+              <td><%= hscode[0].ImportDutyRate %></td>
+              <td><%= hscode[0].ExciseDutyRate %></td>
           </tr>
             <% for (var i = 1; i<hscode.length; i++) { %>
             <tr>
-                <% if (hscode[i].heading == hscode[i-1].heading) { %>
-                  <th></th>
-                <% } else { %>
-                  <th><%= hscode[i].heading %></th>
-                <% } %>
-                <% if (hscode[i].description.hscodeentry == hscode[i-1].description.hscodeentry) { %>
-                  <td></td>
-                <% } else { %>
-                  <td><%= hscode[i].description.hscodeentry %></td>
-                  <% } %>
-                <% if (hscode[i].description.name == hscode[i-1].description.name) { %>
-                  <td></td>
-                <% } else { %>
-                  <th><%= hscode[i].description.name %></th>
-                  <% } %>
-                <% if (hscode[i].description.category.cat1 == hscode[i-1].description.category.cat1) { %>
-                  <td></td>
-                <% } else { %>
-                  <td><%= hscode[i].description.category.cat1 %></td>
-                  <% } %>
-                <% if (hscode[i].description.category.cat2 == hscode[i-1].description.category.cat2) { %>
-                  <td></td>
-                <% } else { %>
-                  <td><%= hscode[i].description.category.cat2 %></td>
-                  <% } %>
-                <% if (hscode[i].description.category.cat3 == hscode[i-1].description.category.cat3) { %>
-                  <td></td>
-                <% } else { %>
-                  <td><%= hscode[i].description.category.cat3 %></td>
-                  <% } %>
-                <% if (hscode[i].description.category.cat4 == hscode[i-1].description.category.cat4) { %>
-                  <td></td>
-                <% } else { %>
-                  <td><%= hscode[i].description.category.cat4 %></td>
-                  <% } %>
-                <td><%= hscode[i].description.unitOfQuantity %></td>
-                <td><%= hscode[i].description.rateOfImportDuty %></td>
-                <td><%= hscode[i].description.rateOfExciseDuty %></td>
+              <td><%= hscode[i].Heading %></td>
+              <td><%= hscode[i].HSCode %></td>
+              <td><%= hscode[i].Description %></td>
+              <td><%= hscode[i].Quantity %></td>
+              <td><%= hscode[i].ImportDutyRate %></td>
+              <td><%= hscode[i].ExciseDutyRate %></td>
             </tr>
             <% } %>
           </tbody>
@@ -94,7 +54,6 @@
 </form>
 
 
-<a href="/hscodeedit">Add HSCode</a>
 
 </div>
 
