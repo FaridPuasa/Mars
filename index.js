@@ -201,10 +201,10 @@ app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
   const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
   const declaration3 = await Declaration3.findOne({_id : req.params.id});
   
-  // const port_code = await Port_Code.find({}); //not working yet
+  const port_code = await Port_Code.find({}); //not working yet
   // const unlocode_port_list2 = await Unlocode_port_list2.find({}); //not working yet
   // const iso_countrycodes = await ISO_CountryCodes.find({}); //not working yet
-  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2});
+  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code});
 });
 
 

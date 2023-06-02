@@ -279,7 +279,7 @@
                     <tr>
                         <th scope="row">26</th>
                         <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" value="<%= declaration3.Transport.countryShipment %>" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>"/></td>
+                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" value="<%= declaration3.Transport.countryShipment %>" onchange='automateCountryCode(this.value)' required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">27</th>
@@ -294,7 +294,7 @@
                     <tr>
                         <th scope="row">29</th>
                         <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" onchange='automatePortDischarge(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" onchange='getPort(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">30</th>
@@ -1244,20 +1244,25 @@
         }
     }
 
-    //automate port of discharge (based on unlocode_port_list2 database)
-    //not working
-    function automatePortDischarge(thePort){
-        var result = unlocode_port_list2.findOne({Name: thePort})
-        var newValue = result.Country + result.Location;
-        document.getElementById("portOfDischargeCode").value = newValue;
+    //cancelled -- automate port of discharge (based on unlocode_port_list2 database)
+    //using UNLOCODE API instead
+    function getPort(x){
+        var myUrl = "https://port-api.com/unlocode/suggest/" + x;
+        var theResponse = fetch(myUrl)
+            .then(response=>response.json())
+            .then(data=>{ 
+                document.getElementById("portOfDischargeCode").value = data.features[0].properties.un_locode; 
+            })
     }
 
     //automate country codes (based on PORT_CODE database)
     //not working
-    function automateCountryCode(){
-        var result = unlocode_port_list2.findOne({Name: thePort})
-        var newValue = result.Country + result.Location;
-        document.getElementById("portOfDischargeCode").value = newValue;
+    function automateCountryCode(thePort){
+        for(var i = 0; i<port_code.length; i++){
+            if(thePort == port_code.country){
+                document.getElementById("countryShipmentCode").value = port_code_port_code;
+            }
+        }
     }
 
     //half working
@@ -1388,4 +1393,6 @@
 
         hsCodeModal.hide();
     }
+
+    
 </script>
