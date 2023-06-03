@@ -278,32 +278,33 @@
                     <tr>
                         <th scope="row">26</th>
                         <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8"/></td>
+                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" value="<%= declaration3.Transport.countryShipment %>" ondblclick="openShipmentCode('countryShipment', 'countryShipmentCode')" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>"/></td>
                     </tr>
+                    
                     <tr>
                         <th scope="row">27</th>
                         <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8"/></td>
+                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" value="<%= declaration3.Transport.countryDestination %>" ondblclick="openShipmentCode('countryDestination', 'countryDestinationCode')" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" value="<%= declaration3.Transport.countryDestinationCode %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">28</th>
                         <td>Port of Entry:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
+                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" value="<%= declaration3.Transport.portOfEntry %>" ondblclick="openShipmentCode('portOfEntry', 'portOfEntryCode')" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" value="<%= declaration3.Transport.portOfEntryCode %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">29</th>
                         <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" onchange='automatePortDischarge(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" onchange='getPort(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">30</th>
                         <td>Place Release: </td>
-                        <td><input type="text" id="placeRelease" name="placeRelease" size="8"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8"/></td>
+                        <td><input type="text" id="placeRelease" name="placeRelease" size="8" value="<%= declaration3.Transport.placeRelease %>"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8" value="<%= declaration3.Transport.placeReleaseCode %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">31</th>
                         <td>Place Receipt: </td>
-                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8"/></td>
+                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8" value="<%= declaration3.Transport.placeReceipt %>"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8" value="<%= declaration3.Transport.placeReceiptCode %>"/></td>
                     </tr>
                 </table>
             </div>
@@ -521,7 +522,7 @@
   
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty()">Calculate</button>
+                                            <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething();">Calculate</button>
                                             <button type="button" class="btn btn-success" onclick="addInvoice(); getOutsideValue(); calculateInvoice();">Add</button>
                                             <button type="button" class="btn btn-danger" onclick="removeInvoice()">Remove</button>
                                             <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
@@ -737,7 +738,7 @@
                 </table>
             </div>
         </div>
-        <button type="button" class="btn inline btn-primary" onclick="calculateSomething(); calculateCif(); calculateDuty()">Calculate</button>
+        <button type="button" class="btn inline ms-auto btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
         <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
         <button onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
     <br>
@@ -745,6 +746,48 @@
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
+
+    <!-- The Modal for countryCode -->
+    <div class="modal" id="countryShipmentm">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Country Shipment</h4>
+              <p id="shipmentCountryValue"></p>
+              <p id="shipmentCodeValue"></p>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+            <div style="height: 500px; overflow:auto">
+              <!-- <input type="text" id="filterHSCode" onkeyup="filterHSCode()" placeholder="Search HSCode.." title="Filter by HS Code"> -->
+              <table class="table table-striped" id="countryShipmentTable">
+                <tr>
+                    <th>Country</th>
+                    <th>Code</th>
+                </tr>
+                <!-- HERE -->
+                <% for (var j=0; j<port_code.length; j++) { %>
+                    <tr>
+                        <th scope="row" class="selectCountry" ondblclick="selectCountryCode(document.getElementsByClassName('selectCountry')[<%=j%>].innerHTML, document.getElementsByClassName('selectCountryCode')[<%=j%>].innerHTML)"><%= port_code[j].country %></th>
+                        <td class='selectCountryCode' ondblclick="selectCountryCode(document.getElementsByClassName('selectCountry')[<%=j%>].innerHTML, document.getElementsByClassName('selectCountryCode')[<%=j%>].innerHTML)"><%= port_code[j].port_code %></td>
+                    </tr>
+                <% } %>
+              </table>
+            </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <!-- Modal Ends -->
 
     <!-- The Modal for HSCode -->
     <div class="modal" id="hscodem">
@@ -1182,21 +1225,26 @@
         }
     }
 
-    //automate port of discharge (based on unlocode_port_list2 database)
-    //not working
-    function automatePortDischarge(thePort){
-        var result = unlocode_port_list2.findOne({Name: thePort})
-        var newValue = result.Country + result.Location;
-        document.getElementById("portOfDischargeCode").value = newValue;
+    //cancelled -- automate port of discharge (based on unlocode_port_list2 database)
+    //using UNLOCODE API instead
+    function getPort(x){
+        var myUrl = "https://port-api.com/unlocode/suggest/" + x;
+        var theResponse = fetch(myUrl)
+            .then(response=>response.json())
+            .then(data=>{ 
+                document.getElementById("portOfDischargeCode").value = data.features[0].properties.un_locode; 
+            })
     }
 
     //automate country codes (based on PORT_CODE database)
     //not working
-    function automateCountryCode(){
-        var result = unlocode_port_list2.findOne({Name: thePort})
-        var newValue = result.Country + result.Location;
-        document.getElementById("portOfDischargeCode").value = newValue;
-    }
+    // function automateCountryCode(thePort){
+    //     for(var i = 0; i<port_code.length; i++){
+    //         if(thePort == port_code[i].country){
+    //             document.getElementById("countryShipmentCode").value = port_code.port_code;
+    //         }
+    //     }
+    // }
 
     //half working
     function calculateDuty() {
@@ -1280,6 +1328,25 @@
 
         }
 
+    }
+
+    //CountryCode Modal and filtering system.
+    var countryShipmentModal = new bootstrap.Modal(document.getElementById('countryShipmentm'))
+
+    function openShipmentCode(theID, codeID){
+        document.getElementById('shipmentCountryValue').innerHTML = theID;
+        document.getElementById('shipmentCodeValue').innerHTML = codeID;
+        countryShipmentModal.show();
+    }
+
+    function selectCountryCode(selectCountry, selectCode){
+        var selectedIDcountry = document.getElementById('shipmentCountryValue').innerHTML;
+        var selectedIDcode = document.getElementById('shipmentCodeValue').innerHTML;
+
+        document.getElementById(selectedIDcountry).value = selectCountry;
+        document.getElementById(selectedIDcode).value = selectCode;
+
+        countryShipmentModal.hide();
     }
 
     //HSCode Modal and filtering system.
