@@ -741,7 +741,7 @@ app.post("/declaration3", async (req, res) => {
   await declaration3.save();
   
 
-  res.redirect("/bdnswadd");
+  res.redirect("/bdnsw");
   
 });
 
