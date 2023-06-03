@@ -278,33 +278,33 @@
                     <tr>
                         <th scope="row">26</th>
                         <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" value="<%= declaration3.Transport.countryShipment %>" ondblclick="openShipmentCode('countryShipment', 'countryShipmentCode')" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>"/></td>
+                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" ondblclick="openShipmentCode('countryShipment', 'countryShipmentCode')" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8"/></td>
                     </tr>
                     
                     <tr>
                         <th scope="row">27</th>
                         <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" value="<%= declaration3.Transport.countryDestination %>" ondblclick="openShipmentCode('countryDestination', 'countryDestinationCode')" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" value="<%= declaration3.Transport.countryDestinationCode %>"/></td>
+                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" ondblclick="openShipmentCode('countryDestination', 'countryDestinationCode')" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" /></td>
                     </tr>
                     <tr>
                         <th scope="row">28</th>
                         <td>Port of Entry:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" value="<%= declaration3.Transport.portOfEntry %>" ondblclick="openShipmentCode('portOfEntry', 'portOfEntryCode')" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" value="<%= declaration3.Transport.portOfEntryCode %>" required/></td>
+                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" ondblclick="openShipmentCode('portOfEntry', 'portOfEntryCode')" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">29</th>
                         <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" value="<%= declaration3.Transport.portOfDischarge %>" onchange='getPort(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" value="<%= declaration3.Transport.portOfDischargeCode %>" required/></td>
+                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" onchange='getPort(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">30</th>
                         <td>Place Release: </td>
-                        <td><input type="text" id="placeRelease" name="placeRelease" size="8" value="<%= declaration3.Transport.placeRelease %>"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8" value="<%= declaration3.Transport.placeReleaseCode %>"/></td>
+                        <td><input type="text" id="placeRelease" name="placeRelease" size="8"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8"/></td>
                     </tr>
                     <tr>
                         <th scope="row">31</th>
                         <td>Place Receipt: </td>
-                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8" value="<%= declaration3.Transport.placeReceipt %>"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8" value="<%= declaration3.Transport.placeReceiptCode %>"/></td>
+                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8"/></td>
                     </tr>
                 </table>
             </div>

@@ -1301,13 +1301,13 @@
 
     //automate country codes (based on PORT_CODE database)
     //not working
-    function automateCountryCode(thePort){
-        for(var i = 0; i<port_code.length; i++){
-            if(thePort == port_code[i].country){
-                document.getElementById("countryShipmentCode").value = port_code.port_code;
-            }
-        }
-    }
+    // function automateCountryCode(thePort){
+    //     for(var i = 0; i<port_code.length; i++){
+    //         if(thePort == port_code[i].country){
+    //             document.getElementById("countryShipmentCode").value = port_code.port_code;
+    //         }
+    //     }
+    // }
 
     //half working
     function calculateDuty() {
@@ -1393,7 +1393,7 @@
 
     }
 
-    //HSCode Modal and filtering system.
+    //CountryCode Modal and filtering system.
     var countryShipmentModal = new bootstrap.Modal(document.getElementById('countryShipmentm'))
 
     function openShipmentCode(theID, codeID){
