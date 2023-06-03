@@ -295,40 +295,40 @@ const declaration3Schema = new mongoose.Schema({
             type: String,
         },
         totalInvoiceAmount: {
-            type: String,
+            type: Number,
         },
         invoiceCurrency: {
             type: String,
         },
         invoiceRate: {
-            type: String,
+            type: Number,
         },
         invoiceInsuranceType: {
             type: String,
         },
         insuranceAmount: {
-            type: String,
+            type: Number,
         },
         insuranceCurrency: {
             type: String,
         },
         insuranceRate: {
-            type: String,
+            type: Number,
         },
         freightType: {
             type: String,
         },
         freightCharge: {
-            type: String,
+            type: Number,
         },
         freightCurrency: {
             type: String,
         },
         freightRate: {
-            type: String,
+            type: Number,
         },
         otherCharges: {
-            type: String,
+            type: Number,
         },
         otherChargesType: {
             type: String,
@@ -383,22 +383,22 @@ const declaration3Schema = new mongoose.Schema({
             type: String,
         },
         invoiceAmount: {
-            type: Number,
+            type: String,
         },
         invoiceFreightCCY: {
             type: String,
         },
         invoiceFreightAmount: {
-            type: Number,
+            type: String,
         },
         invoiceInsuranceCCY: {
             type: String,
         },
         invoiceInsuranceAmount: {
-            type: Number,
+            type: String,
         },
         invoiceOtherCharges: {
-            type: Number,
+            type: String,
         },
     }],
     Goods: [
