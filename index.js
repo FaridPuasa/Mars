@@ -201,8 +201,6 @@ app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
   res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code});
 });
 
-
-
 //edit profile
 app.get("/profile", requireLogin, async (req, res) => {
   const user = await User.find({});
@@ -360,9 +358,9 @@ app.post("/profileupdate", async (req, res) => {
 
 //declaration3 POST
 
+//bdnswadd's post
 app.post("/declaration3", async (req, res) => {
 
-  
   const { 
     dateGranted,
     departureDate,
@@ -734,9 +732,6 @@ app.post("/declaration3", async (req, res) => {
     
     
   });
-
-  
-  
   
   await declaration3.save();
   
@@ -748,7 +743,6 @@ app.post("/declaration3", async (req, res) => {
 //bdnswedit
 app.post("/recordsEdit", async (req, res) => {
 
-  
   const { 
     dateGranted,
     departureDate,
@@ -1359,6 +1353,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   //console.log(declaration3.Goods.length)
   //var root = create({})
   
+  //dutiable indicator auto set to N
   //***auto remarks need to be edited****
   //based on:
   // FOB INV USD 18,275.28 BND 24,691.73 ( DUTIABLE-EXCISE USD 18,275.28 BND 24,691.73 ) FRT B$60.80 OTHER CHARGES B$180.00 10
@@ -1374,7 +1369,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .com(' Header Details ')
         .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
         .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
-        .ele('dutiableIndicator').txt(declaration3.Procedure.dutiableIndicator).up()
+        .ele('dutiableIndicator').txt('N').up()
         .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
         .ele('countryShipment').txt(iso_countrycodes.alpha_2).up()
         .ele('countryDestination').txt(iso_countrycodes2.alpha_2).up()
