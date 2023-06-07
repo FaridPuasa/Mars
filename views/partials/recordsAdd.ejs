@@ -607,7 +607,7 @@
                                         <div class="modal-body">
                                           <div>
                                             <p>Current:</p>
-                                            <textarea style="width:100%" id="remarks" name="remarks"><%= declaration3.DeclarationGoods.remarks %></textarea>
+                                            <textarea style="width:100%" id="remarks" name="remarks"></textarea>
                                             <p>New:</p>
                                             <textarea style="width:100%" id="newRemarks" name="newRemarks">abc</textarea>
                                           </div>
@@ -1322,7 +1322,7 @@
     function saveRemarks(){
         document.getElementById('remarks').value = document.getElementById('newRemarks').value
     }
-    
+
     //cancelled -- automate port of discharge (based on unlocode_port_list2 database)
     //using UNLOCODE API instead
     function getPort(x){
