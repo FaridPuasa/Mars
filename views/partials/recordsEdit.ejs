@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
+
 
 <div id="editRecords">
     <div class = "container-fluid" style="padding-top: 50px">
@@ -493,7 +495,7 @@
                                         <div class="modal-body">
                                           <table class="table table-striped" id="invoiceTable">
                                             <tr>
-                                                <th style='min-width:100px; max-width:100px;'>Invoice No</th>
+                                                <td style='min-width:100px; max-width:100px;'>Invoice No</td>
                                                 <td style="min-width:80px; max-width:80px;">Date</td>
                                                 <td style="min-width:50px; max-width:50px;">Term</td>
                                                 <td style="min-width:50px; max-width:50px;">CCY</td>
@@ -504,10 +506,11 @@
                                                 <td style="min-width:80px; max-width:80px;">Insurance</td>
                                                 <td style="min-width:80px; max-width:80px;">Other Chrg (BND)</td>
                                             </tr>
+                                            
                                             <!-- HERE -->
                                             <% for (var j=0; j<declaration3.Invoice.length; j++) { %>
                                                 <tr>
-                                                    <th scope="row"><input type='text' class="invoiceNo" name='invoiceNo' size='6' value="<%= declaration3.Invoice[j].invoiceNo %>"/></th>
+                                                    <td><input type='text' class="invoiceNo" name='invoiceNo' size='6' value="<%= declaration3.Invoice[j].invoiceNo %>"/></td>
                                                     <td><input type='text' name='invoiceDate' size='3' value='<%= declaration3.Invoice[j].invoiceDate %>'/></td>
                                                     <td><input type='text' class='invoiceTerm' name='invoiceTerm' size='1' value='<%= declaration3.Invoice[j].invoiceTerm %>'/></td>
                                                     <td><input type='text' class='invoiceCCY' name='invoiceCCY' size='1' value='<%= declaration3.Invoice[j].invoiceCCY %>'/></td>
@@ -523,7 +526,8 @@
                                           <table class="table table-striped" id="invoiceTotalTable">
                                             <!-- HERE -->
                                             <tr>
-                                                <th scope="row"  style="min-width:100px; max-width:100px;"></th>
+                                                <th scope="row"  style="min-width:10px; max-width:10px;"></th>
+                                                <td scope="row"  style="min-width:100px; max-width:100px;"></td>
                                                 <td style="min-width:80px; max-width:80px;"></td>
                                                 <td style="min-width:50px; max-width:50px;"></td>
                                                 <td style="min-width:50px; max-width:50px;"></td>
@@ -548,6 +552,7 @@
                                       </div>
                                     </div>
                                 </div>
+                                <!-- End Modal -->
                             </td>
                         </tr>
                         <tr>
@@ -604,6 +609,42 @@
                                     <option value="CIF" <%= declaration3.DeclarationGoods.otherChargesType==='CIF' ? 'selected' : '' %>>CIF</option>
                                     <option value="FOB" <%= declaration3.DeclarationGoods.otherChargesType==='FOB' ? 'selected' : '' %>>FOB</option>
                                 </select>
+                                <!-- Button trigger modal -->
+                                <button type="button" onclick="openRemarks()" data-bs-toggle="modal" data-bs-target="#remarksModal">
+                                    Remarks
+                                </button>
+  
+                                <!-- The Modal -->
+                                <div class="modal" id="remarksModal">
+                                    <div class="modal-dialog modal-m">
+                                      <div class="modal-content">
+  
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Remarks</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+  
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <div>
+                                            <p>Current:</p>
+                                            <textarea style="width:100%" id="remarks" name="remarks"><%= declaration3.DeclarationGoods.remarks %></textarea>
+                                            <p>New:</p>
+                                            <textarea style="width:100%" id="newRemarks" name="newRemarks">abc</textarea>
+                                          </div>
+                                        </div>
+  
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" onclick='saveRemarks()' data-bs-dismiss="modal">Save</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+  
+                                      </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal -->
                             </td>
                         </tr>
                     </table>
@@ -692,14 +733,14 @@
           </div>
 
           <div class = "row align-items-start" style="max-height: 600px ;overflow: scroll; border: 1px solid black">
-                <table class="table table-striped table-sm table-bordered" id="goodsTable">
-                    
+                <table id="goodsTable" class="table table-striped table-sm table-bordered">
+                    <thead>
                     <tr>
                         <th scope="row">Item</th>
-                        <td style="min-width:20px; max-width:20px;">No Package</td>
+                        <td>No Package</div></td>
                         <td class="column-3" style="min-width:60px; max-width:60px;">Package Unit</td>
                         <td style="min-width:20px; max-width:20px;">O. Country</td>
-                        <td>Code</td>
+                        <td data-rtc-resizable="code">Code</td>
                         <td>HS Code</td>
                         <td>Sub Code</td>
                         <td style="min-width:20px; max-width:20px;">Goods</td>
@@ -720,6 +761,7 @@
                         <td>Import Duty</td>
                         <td>Excise Duty</td>
                     </tr>
+                    </thead>
                     <% for (var j=0; j<declaration3.Goods.length; j++) { %>
                     <tr>
                         <th scope="row" class="goodsSerialNoClass"><input type='text' name='goodsSerialNo' size='1' value="<%= declaration3.Goods[j].goodsSerialNo %>" readonly/></th>
@@ -912,6 +954,7 @@
     onload=autoCodeClearance();
     onload=autoShippingMark();
     onload=autoImporterIdReg();
+    onload=tableResizer();
     
     window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
@@ -998,6 +1041,17 @@
     }
     
 //GOODS TABLE
+    function tableResizer() {
+        let resizable = ColumnResizer.default;
+        
+          new resizable(document.querySelector("#goodsT"),{
+              liveDrag:true,
+              draggingClass:"rangeDrag",
+              gripInnerHtml:"<div class='rangeGrip'></div>",
+              minWidth:8
+          });
+    };
+
     function addGoods() {
         x++
         var addRow = document.getElementById("goodsTable");
@@ -1051,7 +1105,7 @@
         y++
         var addRow = document.getElementById("invoiceTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<tr><th scope='row'><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></th><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td></tr>"
+        tr.innerHTML = "<td><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></td><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td>"
         
         addRow.appendChild(tr);
     }
@@ -1312,6 +1366,56 @@
         }
     }
 
+    // FOB INV USD 18,275.28 BND 24,691.73 ( DUTIABLE-EXCISE USD 18,275.28 BND 24,691.73 ) FRT B$60.80 OTHER CHARGES B$180.00 10
+  // idk fob, idk inv, usd total invoice -- ccy to bnd, ( dutiable amount of items with duty, / non excise items without duty ) freight bnd other charges bnd
+    //REMARKS
+    function openRemarks(){
+        
+        var totalis;
+
+        if(document.getElementById('invoiceCurrency').value === "BND"){
+            totalis = "BND " + document.getElementById('totalInvoiceAmount').value
+        }
+
+        else{
+            var foreignCurrency = document.getElementById('invoiceCurrency').value + " " + document.getElementById('totalInvoiceAmount').value;
+            var localCurrency = "BND " + (document.getElementById('totalInvoiceAmount').value * document.getElementById('invoiceRate').value).toFixed(2);
+            totalis = foreignCurrency + " " +localCurrency;
+
+            var localFreight = (document.getElementById('freightCharge').value * document.getElementById('freightRate').value).toFixed(2);
+            //get amount of Goods that has duty
+            var dutiableGoods = 0;
+            var nondutiableGoods = 0;
+            for(var ia = 0; ia < document.getElementsByClassName('goodsAmount').length; ia++){
+                var thethingy = document.getElementsByClassName('goodsDuty');
+                if(thethingy[ia].value === ''){
+                    nondutiableGoods = (Number(nondutiableGoods) + Number(document.getElementsByClassName('goodsAmount')[ia].value));                    
+                } else {
+                    dutiableGoods = (Number(dutiableGoods) + Number(document.getElementsByClassName('goodsAmount')[ia].value));                    
+                }
+            }
+
+            var inBracket;
+            //Number causing errror here**
+            if(nondutiableGoods !== 0 && dutiableGoods !== 0){
+                inBracket = " ( NON DUTIABLE " + document.getElementById('invoiceCurrency').value + " " + nondutiableGoods.toFixed(2) + " BND " + (nondutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " DUTIABLE-EXCISE "  + document.getElementById('invoiceCurrency').value + " " + dutiableGoods + " BND " + ((dutiableGoods * Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+            else if(nondutiableGoods == 0){
+                inBracket = " ( DUTIABLE-EXCISE "  + document.getElementById('invoiceCurrency').value + " " + dutiableGoods.toFixed(2) + " BND " + (dutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+            else{
+                inBracket = " ( NON DUTIABLE " + document.getElementById('invoiceCurrency').value + " " + nondutiableGoods.toFixed(2) + " BND " + (nondutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+        }
+
+        document.getElementById('newRemarks').innerHTML = "FOB INV " + totalis + inBracket + " FRT B$" + localFreight + " OTHER CHARGES B$" + document.getElementById('otherCharges').value + " " + document.getElementById('totalPackagesNo').value;
+        
+    }
+
+    function saveRemarks(){
+        document.getElementById('remarks').value = document.getElementById('newRemarks').value
+    }
+
     //cancelled -- automate port of discharge (based on unlocode_port_list2 database)
     //using UNLOCODE API instead
     function getPort(x){
@@ -1342,9 +1446,12 @@
         //if duty presented as %, it removed the % and calculate /100.
         //IF duty presented as per/kg or something similar, the codes arent here yet.
         for(var k = 0; k < classDuty.length; k++) {
-            var duty = classGoodsDuty[k].value.replace(/%/g,'');
-            var result1 = (Number(classGoodsCif[k].value)) * (Number(duty)/100);
-            classDuty[k].value =  result1.toFixed(2);
+            if(classGoodsDuty[k].value.includes("%")){
+                var duty = classGoodsDuty[k].value.replace(/%/g,'');
+                var result1 = (Number(classGoodsCif[k].value)) * (Number(duty)/100);
+                classDuty[k].value =  result1.toFixed(2);
+            }
+            
         }
     }
 
@@ -1377,7 +1484,7 @@
         for (var aa = 0; aa < oneWeight.length; aa++){
             goodsTotalWeight.value = Number(goodsTotalWeight.value) + Number(oneWeight[aa].value);
             goodsTotalAmount.value = Number(goodsTotalAmount.value) + Number(oneAmount[aa].value);
-            goodsTotalCif.value = Number(goodsTotalCif.value) + Number(oneCif[aa].value);
+            goodsTotalCif.value = (Number(goodsTotalCif.value) + Number(oneCif[aa].value)).toFixed(2);
             goodsTotalDuty.value = Number(goodsTotalDuty.value) + Number(oneDuty[aa].value);
         }
     }

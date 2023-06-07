@@ -1,0 +1,76 @@
+$cursorResize: col-resize;
+$handleWidth: 2.5px;
+$handleMargin: 2px;
+
+.rtc-hidden {
+  display: none !important;
+}
+
+.rtc-wrapper {
+  position: relative;
+  overflow-x: auto;
+
+  table.rtc-table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    white-space: nowrap;
+    margin: 0;
+    width: auto;
+
+    thead,
+    tbody,
+    tfoot {
+      margin: 0;
+
+      tr {
+        margin: 0;
+
+        th,
+        td {
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    &.rtc-table-resizing {
+      cursor: $cursorResize;
+
+      thead,
+      thead > th,
+      thead > th > a {
+        cursor: $cursorResize;
+      }
+    }
+
+    thead tr.invisible,
+    thead tr.invisible th {
+      border: none;
+      margin: 0;
+      padding: 0;
+      height: 0 !important;
+    }
+  }
+
+  .rtc-handle-container {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    .rtc-handle {
+      position: absolute;
+      width: 2 * $handleMargin + $handleWidth;
+      margin-left: -1.1 * ($handleMargin + $handleWidth/2);
+      z-index: 2;
+      cursor: $cursorResize;
+
+      &:last-of-type {
+        width: $handleMargin + $handleWidth;
+        margin-left: -1.1 * ($handleMargin + $handleWidth);
+      }
+    }
+  }
+}

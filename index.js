@@ -9,6 +9,7 @@ var xml = require('xml');
 var builder = require('xmlbuilder');
 const { create } = require('xmlbuilder2');
 const { DOMParser } = require("@oozcitak/dom");
+const ColumnResizer = require('column-resizer');
 let fs = require('fs');
 
 initializePassport(passport);
@@ -70,7 +71,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(function(req, res, next) {
   if (req.user){
     res.locals.username = req.user;
-    console.log("req.user.name = " + req.user.name + " & req.user.email = " + req.user.email);
+    //console.log("req.user.name = " + req.user.name + " & req.user.email = " + req.user.email);
   }
   else{
     console.log("Not logged in")
@@ -238,124 +239,6 @@ app.post("/profileupdate", async (req, res) => {
     res.redirect("/profile");
 });
 
-//DECLARATION POST
-// app.post("/declaration", async (req, res) => {
-//   const { 
-//     declarationDate,
-//     //Header Details
-//     declarationType,
-//     customsProcedure, 
-//     dutiableIndicator, 
-//     transportMode, 
-//     countryShipment,
-//     countryDestination,
-//     portDischarge,
-//     portEntry,
-//     clearanceStationCode,
-//     remarks,
-//     //Party Details
-//     traderType,
-//     regTraderCoyRegNo,
-//     individualTraderICNo,
-//     individualTraderIDType,
-//     individualTraderICColour,
-//     individualAddress,
-//     traderName,
-//     consigneeCompanyRegNo,
-//     consigneeName,
-//     dutyExemptIndicator,
-//     ceptSchemeIndicator,
-//     //Bill of Lading Details
-//     masterBillNo,
-//     vesselFlightVehicleNo,
-//     vesselName,
-//     vesselFlightArrivalDate,
-//     containerTransportIndicator,
-//     totalGrossWeight,
-//     totalGrossWeightUnit,
-//     totalNoPackages,
-//     totalNoPackagesUnit,
-//     //Transit Details
-//     //Guarantee Details
-//     bgAmount
-//   } = req.body;
-  
-//   const declaration = new Declaration ({ 
-//     declarationDate,
-//     //Header Details
-//     declarationType,
-//     customsProcedure, 
-//     dutiableIndicator, 
-//     transportMode, 
-//     countryShipment,
-//     countryDestination,
-//     portDischarge,
-//     portEntry,
-//     clearanceStationCode,
-//     remarks,
-//     //Party Details
-//     traderType,
-//     regTraderCoyRegNo,
-//     individualTraderICNo,
-//     individualTraderIDType,
-//     individualTraderICColour,
-//     individualAddress,
-//     traderName,
-//     consigneeCompanyRegNo,
-//     consigneeName,
-//     dutyExemptIndicator,
-//     ceptSchemeIndicator,
-//     //Bill of Lading Details
-//     masterBillNo,
-//     vesselFlightVehicleNo,
-//     vesselName,
-//     vesselFlightArrivalDate,
-//     containerTransportIndicator,
-//     totalGrossWeight,
-//     totalGrossWeightUnit,
-//     totalNoPackages,
-//     totalNoPackagesUnit,
-//     //Transit Details
-//     //Guarantee Details
-//     bgAmount
-//   });
-// });
-
-//Invoices POST unused
-// app.post("/invoices", async (req, res) => {
-//     const { 
-//       invoiceNumber,
-//       invoiceDate,
-//       termType, 
-//       invoiceAmount, 
-//       invoiceCurrency, 
-//       freightAmount,
-//       freightCurrency,
-//       insuranceAmount,
-//       insuranceCurrency,
-//       otherAmount,
-//       otherAmountCurrency
-//     } = req.body;
-    
-//     const invoices = new Invoices ({ 
-//       invoiceNumber,
-//       invoiceDate,
-//       termType, 
-//       invoiceAmount, 
-//       invoiceCurrency, 
-//       freightAmount,
-//       freightCurrency,
-//       insuranceAmount,
-//       insuranceCurrency,
-//       otherAmount,
-//       otherAmountCurrency
-//     });
-
-//   await invoices.save();
-//   res.redirect("/singlewindow");
-  
-// });
-
 //declaration3 POST
 
 //bdnswadd's post
@@ -477,6 +360,7 @@ app.post("/declaration3", async (req, res) => {
     freightRate,
     otherCharges,
     otherChargesType,
+    remarks,
 
     //Declarant
     declarantName,
@@ -532,60 +416,108 @@ app.post("/declaration3", async (req, res) => {
   } = req.body;
   
   var declarationInvoice = [];
-  for (var i = 0; i < invoiceNo.length; i++){
-    //console.log(goodsSerialNo[i]);
-    if(invoiceNo[i]) {
-      declarationInvoice.push({
-        invoiceNo: invoiceNo[i],
-        invoiceDate : invoiceDate[i],
-        invoiceTerm : invoiceTerm[i],
-        invoiceCCY : invoiceCCY[i],
-        invoiceAmount : invoiceAmount[i],
-        invoiceFreightCCY : invoiceFreightCCY[i],
-        invoiceFreightAmount : invoiceFreightAmount[i],
-        invoiceInsuranceCCY : invoiceInsuranceCCY[i],
-        invoiceInsuranceAmount : invoiceInsuranceAmount[i],
-        invoiceOtherCharges : invoiceOtherCharges[i],
-  
-      });
-    }
+  if(typeof(invoiceNo)=="string"){
+    declarationInvoice.push({
+      invoiceNo: invoiceNo,
+      invoiceDate : invoiceDate,
+      invoiceTerm : invoiceTerm,
+      invoiceCCY : invoiceCCY,
+      invoiceAmount : invoiceAmount,
+      invoiceFreightCCY : invoiceFreightCCY,
+      invoiceFreightAmount : invoiceFreightAmount,
+      invoiceInsuranceCCY : invoiceInsuranceCCY,
+      invoiceInsuranceAmount : invoiceInsuranceAmount,
+      invoiceOtherCharges : invoiceOtherCharges,
+
+    });
+  } else {
+    for (var i = 0; i < invoiceNo.length; i++){
+      if(invoiceNo[i]) {
+        declarationInvoice.push({
+          invoiceNo: invoiceNo[i],
+          invoiceDate : invoiceDate[i],
+          invoiceTerm : invoiceTerm[i],
+          invoiceCCY : invoiceCCY[i],
+          invoiceAmount : invoiceAmount[i],
+          invoiceFreightCCY : invoiceFreightCCY[i],
+          invoiceFreightAmount : invoiceFreightAmount[i],
+          invoiceInsuranceCCY : invoiceInsuranceCCY[i],
+          invoiceInsuranceAmount : invoiceInsuranceAmount[i],
+          invoiceOtherCharges : invoiceOtherCharges[i],
     
+        });
+      }
+      
+    }
   }
   
-  var declarationGoods = [];
-  for (var i = 0; i < goodsSerialNo.length; i++){
-    console.log(goodsSerialNo[i]);
-    if(goodsSerialNo[i]){
-      declarationGoods.push({
-        goodsSerialNo: goodsSerialNo[i],
-        goodsPackageNo: goodsPackageNo[i],
-        goodsPackageUnit: goodsPackageUnit[i],
-        countryOrigin: countryOrigin[i],
-        countryCode: countryCode[i],
-        hsCode: hsCode[i],
-        subCode: subCode[i],
-        goodsDescription: goodsDescription[i],
-        goodsC: goodsC[i],
-        goodsUnit: goodsUnit[i],
-        goodsCode: goodsCode[i],
-        goodsQuantity: goodsQuantity[i],
-        goodsWeight: goodsWeight[i],
-        goodsAmount: goodsAmount[i],
-        goodsCIF: goodsCIF[i],
-        goodsDuty: goodsDuty[i],
-        goodsDutyAmount: goodsDutyAmount[i],
-        goodsLNo: goodsLNo[i],
-        goodsShippingMark: goodsShippingMark[i],
-        goodsContainerNo: goodsContainerNo[i],
-        goodsInvoiceNo: goodsInvoiceNo[i],
-        goodsControl: goodsControl[i],
-        goodsImportDuty: goodsImportDuty[i],
-        goodsExciseDuty: goodsExciseDuty[i],
   
-      });
-    }
+  
+
+  var declarationGoods = [];
+  if(typeof(goodsSerialNo)=="string"){
+    declarationGoods.push({
+      goodsSerialNo: goodsSerialNo[i],
+      goodsPackageNo: goodsPackageNo[i],
+      goodsPackageUnit: goodsPackageUnit[i],
+      countryOrigin: countryOrigin[i],
+      countryCode: countryCode[i],
+      hsCode: hsCode[i],
+      subCode: subCode[i],
+      goodsDescription: goodsDescription[i],
+      goodsC: goodsC[i],
+      goodsUnit: goodsUnit[i],
+      goodsCode: goodsCode[i],
+      goodsQuantity: goodsQuantity[i],
+      goodsWeight: goodsWeight[i],
+      goodsAmount: goodsAmount[i],
+      goodsCIF: goodsCIF[i],
+      goodsDuty: goodsDuty[i],
+      goodsDutyAmount: goodsDutyAmount[i],
+      goodsLNo: goodsLNo[i],
+      goodsShippingMark: goodsShippingMark[i],
+      goodsContainerNo: goodsContainerNo[i],
+      goodsInvoiceNo: goodsInvoiceNo[i],
+      goodsControl: goodsControl[i],
+      goodsImportDuty: goodsImportDuty[i],
+      goodsExciseDuty: goodsExciseDuty[i],
+
+    });
+  } else {
+    for (var i = 0; i < goodsSerialNo.length; i++){
+      //console.log(goodsSerialNo[i]);
+      if(goodsSerialNo[i]) {
+        declarationGoods.push({
+          goodsSerialNo: goodsSerialNo[i],
+          goodsPackageNo: goodsPackageNo[i],
+          goodsPackageUnit: goodsPackageUnit[i],
+          countryOrigin: countryOrigin[i],
+          countryCode: countryCode[i],
+          hsCode: hsCode[i],
+          subCode: subCode[i],
+          goodsDescription: goodsDescription[i],
+          goodsC: goodsC[i],
+          goodsUnit: goodsUnit[i],
+          goodsCode: goodsCode[i],
+          goodsQuantity: goodsQuantity[i],
+          goodsWeight: goodsWeight[i],
+          goodsAmount: goodsAmount[i],
+          goodsCIF: goodsCIF[i],
+          goodsDuty: goodsDuty[i],
+          goodsDutyAmount: goodsDutyAmount[i],
+          goodsLNo: goodsLNo[i],
+          goodsShippingMark: goodsShippingMark[i],
+          goodsContainerNo: goodsContainerNo[i],
+          goodsInvoiceNo: goodsInvoiceNo[i],
+          goodsControl: goodsControl[i],
+          goodsImportDuty: goodsImportDuty[i],
+          goodsExciseDuty: goodsExciseDuty[i],
     
-}
+        });
+      }
+      
+    }
+  }
 
   const declaration3 = new Declaration3 ({ 
     dateGranted,
@@ -713,6 +645,7 @@ app.post("/declaration3", async (req, res) => {
       freightRate,
       otherCharges,
       otherChargesType,
+      remarks,
     },
 
     Declarant: {
@@ -859,6 +792,7 @@ app.post("/recordsEdit", async (req, res) => {
     freightRate,
     otherCharges,
     otherChargesType,
+    remarks,
 
     //Declarant
     declarantName,
@@ -914,60 +848,109 @@ app.post("/recordsEdit", async (req, res) => {
   } = req.body;
   
   var declarationInvoice = [];
-  for (var i = 0; i < invoiceNo.length; i++){
-    //console.log(goodsSerialNo[i]);
-    if(invoiceNo[i]) {
-      declarationInvoice.push({
-        invoiceNo: invoiceNo[i],
-        invoiceDate : invoiceDate[i],
-        invoiceTerm : invoiceTerm[i],
-        invoiceCCY : invoiceCCY[i],
-        invoiceAmount : invoiceAmount[i],
-        invoiceFreightCCY : invoiceFreightCCY[i],
-        invoiceFreightAmount : invoiceFreightAmount[i],
-        invoiceInsuranceCCY : invoiceInsuranceCCY[i],
-        invoiceInsuranceAmount : invoiceInsuranceAmount[i],
-        invoiceOtherCharges : invoiceOtherCharges[i],
-  
-      });
-    }
+  if(typeof(invoiceNo)=="string"){
+    declarationInvoice.push({
+      invoiceNo: invoiceNo,
+      invoiceDate : invoiceDate,
+      invoiceTerm : invoiceTerm,
+      invoiceCCY : invoiceCCY,
+      invoiceAmount : invoiceAmount,
+      invoiceFreightCCY : invoiceFreightCCY,
+      invoiceFreightAmount : invoiceFreightAmount,
+      invoiceInsuranceCCY : invoiceInsuranceCCY,
+      invoiceInsuranceAmount : invoiceInsuranceAmount,
+      invoiceOtherCharges : invoiceOtherCharges,
+
+    });
+  } else {
+    for (var i = 0; i < invoiceNo.length; i++){
+      if(invoiceNo[i]) {
+        declarationInvoice.push({
+          invoiceNo: invoiceNo[i],
+          invoiceDate : invoiceDate[i],
+          invoiceTerm : invoiceTerm[i],
+          invoiceCCY : invoiceCCY[i],
+          invoiceAmount : invoiceAmount[i],
+          invoiceFreightCCY : invoiceFreightCCY[i],
+          invoiceFreightAmount : invoiceFreightAmount[i],
+          invoiceInsuranceCCY : invoiceInsuranceCCY[i],
+          invoiceInsuranceAmount : invoiceInsuranceAmount[i],
+          invoiceOtherCharges : invoiceOtherCharges[i],
     
+        });
+      }
+      
+    }
   }
+  
+  
+  
 
   var declarationGoods = [];
-  for (var i = 0; i < goodsSerialNo.length; i++){
-    //console.log(goodsSerialNo[i]);
-    if(goodsSerialNo[i]) {
-      declarationGoods.push({
-        goodsSerialNo: goodsSerialNo[i],
-        goodsPackageNo: goodsPackageNo[i],
-        goodsPackageUnit: goodsPackageUnit[i],
-        countryOrigin: countryOrigin[i],
-        countryCode: countryCode[i],
-        hsCode: hsCode[i],
-        subCode: subCode[i],
-        goodsDescription: goodsDescription[i],
-        goodsC: goodsC[i],
-        goodsUnit: goodsUnit[i],
-        goodsCode: goodsCode[i],
-        goodsQuantity: goodsQuantity[i],
-        goodsWeight: goodsWeight[i],
-        goodsAmount: goodsAmount[i],
-        goodsCIF: goodsCIF[i],
-        goodsDuty: goodsDuty[i],
-        goodsDutyAmount: goodsDutyAmount[i],
-        goodsLNo: goodsLNo[i],
-        goodsShippingMark: goodsShippingMark[i],
-        goodsContainerNo: goodsContainerNo[i],
-        goodsInvoiceNo: goodsInvoiceNo[i],
-        goodsControl: goodsControl[i],
-        goodsImportDuty: goodsImportDuty[i],
-        goodsExciseDuty: goodsExciseDuty[i],
-  
-      });
-    }
+  if(typeof(goodsSerialNo)=="string"){
+    declarationGoods.push({
+      goodsSerialNo: goodsSerialNo[i],
+      goodsPackageNo: goodsPackageNo[i],
+      goodsPackageUnit: goodsPackageUnit[i],
+      countryOrigin: countryOrigin[i],
+      countryCode: countryCode[i],
+      hsCode: hsCode[i],
+      subCode: subCode[i],
+      goodsDescription: goodsDescription[i],
+      goodsC: goodsC[i],
+      goodsUnit: goodsUnit[i],
+      goodsCode: goodsCode[i],
+      goodsQuantity: goodsQuantity[i],
+      goodsWeight: goodsWeight[i],
+      goodsAmount: goodsAmount[i],
+      goodsCIF: goodsCIF[i],
+      goodsDuty: goodsDuty[i],
+      goodsDutyAmount: goodsDutyAmount[i],
+      goodsLNo: goodsLNo[i],
+      goodsShippingMark: goodsShippingMark[i],
+      goodsContainerNo: goodsContainerNo[i],
+      goodsInvoiceNo: goodsInvoiceNo[i],
+      goodsControl: goodsControl[i],
+      goodsImportDuty: goodsImportDuty[i],
+      goodsExciseDuty: goodsExciseDuty[i],
+
+    });
+  } else {
+    for (var i = 0; i < goodsSerialNo.length; i++){
+      //console.log(goodsSerialNo[i]);
+      if(goodsSerialNo[i]) {
+        declarationGoods.push({
+          goodsSerialNo: goodsSerialNo[i],
+          goodsPackageNo: goodsPackageNo[i],
+          goodsPackageUnit: goodsPackageUnit[i],
+          countryOrigin: countryOrigin[i],
+          countryCode: countryCode[i],
+          hsCode: hsCode[i],
+          subCode: subCode[i],
+          goodsDescription: goodsDescription[i],
+          goodsC: goodsC[i],
+          goodsUnit: goodsUnit[i],
+          goodsCode: goodsCode[i],
+          goodsQuantity: goodsQuantity[i],
+          goodsWeight: goodsWeight[i],
+          goodsAmount: goodsAmount[i],
+          goodsCIF: goodsCIF[i],
+          goodsDuty: goodsDuty[i],
+          goodsDutyAmount: goodsDutyAmount[i],
+          goodsLNo: goodsLNo[i],
+          goodsShippingMark: goodsShippingMark[i],
+          goodsContainerNo: goodsContainerNo[i],
+          goodsInvoiceNo: goodsInvoiceNo[i],
+          goodsControl: goodsControl[i],
+          goodsImportDuty: goodsImportDuty[i],
+          goodsExciseDuty: goodsExciseDuty[i],
     
+        });
+      }
+      
+    }
   }
+  
 
   await Declaration3.updateMany ({ _id:req.body._id},
     {$set: {
@@ -1099,6 +1082,7 @@ app.post("/recordsEdit", async (req, res) => {
         freightRate,
         otherCharges,
         otherChargesType,
+        remarks,
       },
   
       Declarant: {
@@ -1376,7 +1360,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
-        .ele('remarks').txt('FOB INV ' + declaration3.Importer.importerType + ' ( NON-DUTIABLE ' + declaration3.DeclarationGoods.invoiceCurrency + ' ' + totalAmount.toFixed(2) + ' / DUTIABLE- EXCISE )').up()
+        .ele('remarks').txt().up(declaration3.DeclarationGoods.remarks)
         
         .com(' Party Details ')
         .ele('traderType').txt(declaration3.Importer.importerType).up()

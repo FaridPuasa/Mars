@@ -333,7 +333,9 @@ const declaration3Schema = new mongoose.Schema({
         otherChargesType: {
             type: String,
         },
-
+        remarks: {
+            type: String,
+        },
     },
 
     Declarant: {

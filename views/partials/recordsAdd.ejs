@@ -587,6 +587,42 @@
                                     <option value="CIF">CIF</option>
                                     <option value="FOB">FOB</option>
                                 </select>
+                                <!-- Button trigger modal -->
+                                <button type="button" onclick="openRemarks()" data-bs-toggle="modal" data-bs-target="#remarksModal">
+                                    Remarks
+                                </button>
+  
+                                <!-- The Modal -->
+                                <div class="modal" id="remarksModal">
+                                    <div class="modal-dialog modal-m">
+                                      <div class="modal-content">
+  
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Remarks</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+  
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <div>
+                                            <p>Current:</p>
+                                            <textarea style="width:100%" id="remarks" name="remarks"><%= declaration3.DeclarationGoods.remarks %></textarea>
+                                            <p>New:</p>
+                                            <textarea style="width:100%" id="newRemarks" name="newRemarks">abc</textarea>
+                                          </div>
+                                        </div>
+  
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" onclick='saveRemarks()' data-bs-dismiss="modal">Save</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+  
+                                      </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal -->
                             </td>
                         </tr>
                     </table>
@@ -980,7 +1016,7 @@
         y++
         var addRow = document.getElementById("invoiceTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<tr><th scope='row'><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></th><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td></tr>"
+        tr.innerHTML = "<th scope='row'><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></th><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td>"
         
         addRow.appendChild(tr);
     }
@@ -1239,6 +1275,54 @@
         }
     }
 
+    //REMARKS
+    function openRemarks(){
+        
+        var totalis;
+
+        if(document.getElementById('invoiceCurrency').value === "BND"){
+            totalis = "BND " + document.getElementById('totalInvoiceAmount').value
+        }
+
+        else{
+            var foreignCurrency = document.getElementById('invoiceCurrency').value + " " + document.getElementById('totalInvoiceAmount').value;
+            var localCurrency = "BND " + (document.getElementById('totalInvoiceAmount').value * document.getElementById('invoiceRate').value).toFixed(2);
+            totalis = foreignCurrency + " " +localCurrency;
+
+            var localFreight = (document.getElementById('freightCharge').value * document.getElementById('freightRate').value).toFixed(2);
+            //get amount of Goods that has duty
+            var dutiableGoods = 0;
+            var nondutiableGoods = 0;
+            for(var ia = 0; ia < document.getElementsByClassName('goodsAmount').length; ia++){
+                var thethingy = document.getElementsByClassName('goodsDuty');
+                if(thethingy[ia].value === ''){
+                    nondutiableGoods = (Number(nondutiableGoods) + Number(document.getElementsByClassName('goodsAmount')[ia].value));                    
+                } else {
+                    dutiableGoods = (Number(dutiableGoods) + Number(document.getElementsByClassName('goodsAmount')[ia].value));                    
+                }
+            }
+
+            var inBracket;
+            //Number causing errror here**
+            if(nondutiableGoods !== 0 && dutiableGoods !== 0){
+                inBracket = " ( NON DUTIABLE " + document.getElementById('invoiceCurrency').value + " " + nondutiableGoods.toFixed(2) + " BND " + (nondutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " DUTIABLE-EXCISE "  + document.getElementById('invoiceCurrency').value + " " + dutiableGoods + " BND " + ((dutiableGoods * Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+            else if(nondutiableGoods == 0){
+                inBracket = " ( DUTIABLE-EXCISE "  + document.getElementById('invoiceCurrency').value + " " + dutiableGoods.toFixed(2) + " BND " + (dutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+            else{
+                inBracket = " ( NON DUTIABLE " + document.getElementById('invoiceCurrency').value + " " + nondutiableGoods.toFixed(2) + " BND " + (nondutiableGoods * (Number(document.getElementById('invoiceRate').value))).toFixed(2) + " )"; 
+            }
+        }
+
+        document.getElementById('newRemarks').innerHTML = "FOB INV " + totalis + inBracket + " FRT B$" + localFreight + " OTHER CHARGES B$" + document.getElementById('otherCharges').value + " " + document.getElementById('totalPackagesNo').value;
+        
+    }
+
+    function saveRemarks(){
+        document.getElementById('remarks').value = document.getElementById('newRemarks').value
+    }
+    
     //cancelled -- automate port of discharge (based on unlocode_port_list2 database)
     //using UNLOCODE API instead
     function getPort(x){
