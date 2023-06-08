@@ -729,15 +729,15 @@
             </div>
           </div>
 
-          <div class = "row align-items-start" style="max-height:600px; overflow:scroll; border: 1px solid black">
+          <div class="row align-items-start" style="max-height:600px; overflow:scroll; border: 1px solid black">
             <div>
                 <table id="goodsTable" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="row" data-field="goodsSerialNo">Item</th>
-                        <th data-field="goodsPackageNo">No Package</th>
-                        <th class="column-3" style="min-width:60px; max-width:60px;" data-field="goodsPackageUnit">Package Unit</th>
-                        <th style="min-width:20px; max-width:20px;" data-field="countryOrigin">O. Country</th>
+                        <th scope="row">Item</th>
+                        <th>No Package</th>
+                        <th class="column-3">Package Unit</th>
+                        <th style="min-width:20px; max-width:20px;">O. Country</th>
                         <th>Code</th>
                         <th>HS Code</th>
                         <th>Sub Code</th>
@@ -951,7 +951,6 @@
     onload=autoCodeClearance();
     onload=autoShippingMark();
     onload=autoImporterIdReg();
-    onload=tableResizer();
     
     window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
@@ -1037,20 +1036,6 @@
     }
 
 //GOODS
-    
-    
-//GOODS TABLE
-    function tableResizer() {
-        let resizable = ColumnResizer.default;
-        
-          new resizable(document.querySelector("#goodsT"),{
-              liveDrag:true,
-              draggingClass:"rangeDrag",
-              gripInnerHtml:"<div class='rangeGrip'></div>",
-              minWidth:8
-          });
-    };
-    
     
     function addGoods() {
         if (document.getElementsByClassName("goodsSerialNoClass").length) {

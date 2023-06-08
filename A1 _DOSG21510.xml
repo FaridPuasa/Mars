@@ -11,13 +11,13 @@
     <portDischarge>SGJUR</portDischarge>
     <portEntry>605</portEntry>
     <clearanceStationCode>611</clearanceStationCode>
-    <remarks>FOB INV TRDR ( NON-DUTIABLE SGD 1917.00 / DUTIABLE- EXCISE )</remarks>
+    <remarks>FOB INV SGD 1917.00 BND 1917.00 ( NON DUTIABLE SGD 1917.00 BND 1917.00 ) FRT B$45.00 OTHER CHARGES B$180 1</remarks>
     <!--  Party Details  -->
     <traderType>TRDR</traderType>
     <regTraderCoyRegNo>P30006065</regTraderCoyRegNo>
-    <individualTraderICNo/>
+    <individualTraderICNo>01-069715</individualTraderICNo>
     <individualTraderIDType>IC</individualTraderIDType>
-    <individualTraderICColour/>
+    <individualTraderICColour>Y</individualTraderICColour>
     <individualAddress>NO 5 SPG 239 JLN MUARA KG KAPOK BANDAR SERI BEGAWAN</individualAddress>
     <traderName>A1 AUTO COMPANY</traderName>
     <consigneeCompanyRegNo>P30006065</consigneeCompanyRegNo>
@@ -59,7 +59,7 @@
     <quantity>12</quantity>
     <quantityUOM>KG</quantityUOM>
     <noPackages>12</noPackages>
-    <noPackagesUnit>PIECE</noPackagesUnit>
+    <noPackagesUnit>PCS</noPackagesUnit>
     <invoiceNo>DOSG21510</invoiceNo>
     <invoiceAmount>864</invoiceAmount>
     <goodsGrossWeight>12</goodsGrossWeight>
@@ -74,7 +74,7 @@
     <quantity>10</quantity>
     <quantityUOM>KG</quantityUOM>
     <noPackages>10</noPackages>
-    <noPackagesUnit>PIECE</noPackagesUnit>
+    <noPackagesUnit>PCS</noPackagesUnit>
     <invoiceNo>DOSG21510</invoiceNo>
     <invoiceAmount>1053</invoiceAmount>
     <goodsGrossWeight>10</goodsGrossWeight>

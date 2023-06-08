@@ -1360,7 +1360,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
-        .ele('remarks').txt().up(declaration3.DeclarationGoods.remarks)
+        .ele('remarks').txt(declaration3.DeclarationGoods.remarks).up()
         
         .com(' Party Details ')
         .ele('traderType').txt(declaration3.Importer.importerType).up()
@@ -1427,7 +1427,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
-        .ele('remarks').txt('FOB INV ' + declaration3.Importer.importerType + ' ( NON-DUTIABLE ' + declaration3.DeclarationGoods.invoiceCurrency + ' ' + totalAmount.toFixed(2) + ' / DUTIABLE- EXCISE )').up()
+        .ele('remarks').txt(declaration3.DeclarationGoods.remarks).up()
         
         .com(' Party Details ')
         .ele('traderType').txt(declaration3.Importer.importerType).up()
