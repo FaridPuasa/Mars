@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
+
+
 
 
 <div id="editRecords">
@@ -522,22 +521,20 @@
                                                     <td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' size='3' value='<%= declaration3.Invoice[j].invoiceOtherCharges %>'/></td>
                                                 </tr>
                                             <% } %>
-                                          </table>
-                                          <table class="table table-striped" id="invoiceTotalTable">
-                                            <!-- HERE -->
-                                            <tr>
-                                                <th scope="row"  style="min-width:10px; max-width:10px;"></th>
-                                                <td scope="row"  style="min-width:100px; max-width:100px;"></td>
-                                                <td style="min-width:80px; max-width:80px;"></td>
-                                                <td style="min-width:50px; max-width:50px;"></td>
-                                                <td style="min-width:50px; max-width:50px;"></td>
-                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceInvoiceAmount' name='totalInvoiceInvoiceAmount' size='5' value=''/></td>
-                                                <td style="min-width:50px; max-width:50px;"></td>
-                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceFreightAmount' name='totalInvoiceFreightAmount' size='5' value=''/></td>
-                                                <td style="min-width:50px; max-width:50px;"></td>
-                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceInsuranceAmount' name='totalInvoiceInsuranceAmount' size='3' value=''/></td>
-                                                <td style="min-width:80px; max-width:80px;"><input type='text' id='totalInvoiceOtherCharges' name='totalInvoiceOtherCharges' size='3' value=''/></td>
-                                            </tr>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><input type='text' id='totalInvoiceInvoiceAmount' name='totalInvoiceInvoiceAmount' size='5' value=''/></td>
+                                                    <td></td>
+                                                    <td><input type='text' id='totalInvoiceFreightAmount' name='totalInvoiceFreightAmount' size='5' value=''/></td>
+                                                    <td></td>
+                                                    <td><input type='text' id='totalInvoiceInsuranceAmount' name='totalInvoiceInsuranceAmount' size='3' value=''/></td>
+                                                    <td><input type='text' id='totalInvoiceOtherCharges' name='totalInvoiceOtherCharges' size='3' value=''/></td>
+                                                </tr>
+                                            </tfoot>
                                           </table>
                                         </div>
   
@@ -732,39 +729,41 @@
             </div>
           </div>
 
-          <div class = "row align-items-start" style="max-height: 600px ;overflow: scroll; border: 1px solid black">
-                <table id="goodsTable" class="table table-striped table-sm table-bordered">
+          <div class = "row align-items-start" style="max-height:600px; overflow:scroll; border: 1px solid black">
+            <div>
+                <table id="goodsTable" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="row">Item</th>
-                        <td>No Package</div></td>
-                        <td class="column-3" style="min-width:60px; max-width:60px;">Package Unit</td>
-                        <td style="min-width:20px; max-width:20px;">O. Country</td>
-                        <td data-rtc-resizable="code">Code</td>
-                        <td>HS Code</td>
-                        <td>Sub Code</td>
-                        <td style="min-width:20px; max-width:20px;">Goods</td>
-                        <td>C</td>
-                        <td>Unit</td>
-                        <td>Code</td>
-                        <td>Qty</td>
-                        <td>Weight</td>
-                        <td>Amount</td>
-                        <td>CIF</td>
-                        <td>Duty</td>
-                        <td style="min-width:20px; max-width:20px;">Duty Amount</td>
-                        <td>LNo</td>
-                        <td>Shipping Mark</td>
-                        <td style="min-width:80px; max-width:80px;">Container No</td>
-                        <td>Invoice No</td>
-                        <td>Control</td>
-                        <td>Import Duty</td>
-                        <td>Excise Duty</td>
+                        <th scope="row" data-field="goodsSerialNo">Item</th>
+                        <th data-field="goodsPackageNo">No Package</th>
+                        <th class="column-3" style="min-width:60px; max-width:60px;" data-field="goodsPackageUnit">Package Unit</th>
+                        <th style="min-width:20px; max-width:20px;" data-field="countryOrigin">O. Country</th>
+                        <th>Code</th>
+                        <th>HS Code</th>
+                        <th>Sub Code</th>
+                        <th style="min-width:20px; max-width:20px;">Goods</th>
+                        <th>C</th>
+                        <th>Unit</th>
+                        <th>Code</th>
+                        <th>Qty</th>
+                        <th>Weight</th>
+                        <th>Amount</th>
+                        <th>CIF</th>
+                        <th>Duty</th>
+                        <th style="min-width:20px; max-width:20px;">Duty Amount</th>
+                        <th>LNo</th>
+                        <th>Shipping Mark</th>
+                        <th style="min-width:80px; max-width:80px;">Container No</th>
+                        <th>Invoice No</th>
+                        <th>Control</th>
+                        <th>Import Duty</th>
+                        <th>Excise Duty</th>
                     </tr>
                     </thead>
+                    <tbody>
                     <% for (var j=0; j<declaration3.Goods.length; j++) { %>
                     <tr>
-                        <th scope="row" class="goodsSerialNoClass"><input type='text' name='goodsSerialNo' size='1' value="<%= declaration3.Goods[j].goodsSerialNo %>" readonly/></th>
+                        <td scope="row" class="goodsSerialNoClass"><input type='text' name='goodsSerialNo' size='1' value="<%= declaration3.Goods[j].goodsSerialNo %>" readonly/></td>
                         <td><input type='text' name='goodsPackageNo' size='1' value='<%= declaration3.Goods[j].goodsPackageNo %>'/></td>
 
                         <td><select class='goodsPackageUnit' name='goodsPackageUnit'>
@@ -781,7 +780,7 @@
                         <td><input type='text' class='countryCode' name='countryCode' size='3' value='<%= declaration3.Goods[j].countryCode %>'/></td>
                         <td><input type='text' class='hsCode' name='hsCode' size='8' ondblclick='openHSCode(<%=j%>)' value='<%= declaration3.Goods[j].hsCode %>'/></td>
                         <td><input type='text' name='subCode' size='8' value='<%= declaration3.Goods[j].subCode %>'/></td>
-                        <td><input type='text' name='goodsDescription' value='<%= declaration3.Goods[j].goodsDescription %>'/></td>
+                        <td><input type='text' name='goodsDescription' size='100' value='<%= declaration3.Goods[j].goodsDescription %>'/></td>
                         <td><input type='text' name='goodsC' size='3' value='<%= declaration3.Goods[j].goodsC %>'/></td>
                         <td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value='<%= declaration3.Goods[j].goodsUnit %>'/></td>
                         <td><input type='text' name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
@@ -800,46 +799,43 @@
                         <td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value='<%= declaration3.Goods[j].goodsExciseDuty %>'/></td>
                     </tr>
                     <% } %>
-                    
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="row" class="goodsSerialNoTotal"><input type='text' style='border-color:transparent;background:transparent' size='1' readonly/></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type='text' id='goodsTotalWeight' size='3' value='' readonly/></td>
+                            <td><input type='text' id='goodsTotalAmount' size='3' value='' readonly/></td>
+                            <td><input type='text' id='goodsTotalCif' size='2' value='' readonly/></td>
+                            <td></td>
+                            <td><input type='text' id='goodsTotalDutyAmount' size='1' value='' readonly/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
-
-                <!-- //totals table -->
-                <table class="table table-striped table-sm table-bordered" id="totalsTable">
-                    
-                    <tr>
-                        <th scope="row" class="goodsSerialNoTotal"><input type='text' style='border-color:transparent;background:transparent' size='1' readonly/></th>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='8' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='3' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalWeight' size='3' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalAmount' size='3' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalCif' size='2' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' id='goodsTotalDutyAmount' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
-                        <td style="min-width:80px; max-width:80px;"><input type='text' style='border:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                        <td><input type='text' style='border-color:transparent;background:transparent' size='1' value='' readonly/></td>
-                    </tr>
-                    
-                </table>
-                
             </div>
+            </div>
+            <button type="button" class="btn inline ms-auto btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()" style="width: 100%">Calculate</button>
+            <button type="button" onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
+            <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
         </div>
-        <button type="button" class="btn inline ms-auto btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
-        <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
-        <button type="button" onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
+        
     <br>
     <p></p>
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
@@ -946,6 +942,7 @@
     
 </div>
 
+
 <script>
     //Page function
     onload=autoCodeCustomProcedure();
@@ -964,6 +961,12 @@
         }
     }
 
+    //resizable table only works when on bdnswedit.ejs instead
+    // $(function() {
+    //   $('#goodsTable').bootstrapTable()
+    // })
+
+    
     
     // const myModal = document.getElementById('myModal')
     // const myInput = document.getElementById('myInput')
@@ -1034,11 +1037,7 @@
     }
 
 //GOODS
-    if (document.getElementsByClassName("goodsSerialNoClass").length) {
-        var x = document.getElementsByClassName("goodsSerialNoClass").length;
-    } else {
-        var x = 0;
-    }
+    
     
 //GOODS TABLE
     function tableResizer() {
@@ -1051,12 +1050,18 @@
               minWidth:8
           });
     };
-
+    
+    
     function addGoods() {
+        if (document.getElementsByClassName("goodsSerialNoClass").length) {
+        var x = document.getElementsByClassName("goodsSerialNoClass").length;
+        } else {
+        var x = 0;
+        }
         x++
         var addRow = document.getElementById("goodsTable");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
 

@@ -186,3 +186,9 @@ input[readonly] {
     background-color: white;
     border: none;
   }
+
+  td input {
+    border-color: none;
+    background: transparent;
+    outline: none;
+  }
