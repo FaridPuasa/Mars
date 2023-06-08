@@ -11,13 +11,13 @@
     <portDischarge>SGJUR</portDischarge>
     <portEntry>605</portEntry>
     <clearanceStationCode>611</clearanceStationCode>
-    <remarks>FOB INV SGD 1917.00 BND 1917.00 ( NON DUTIABLE SGD 1917.00 BND 1917.00 ) FRT B$45.00 OTHER CHARGES B$180 1</remarks>
+    <remarks>FOB INV SGD 1917.00 BND 1917.00 ( DUTIABLE-EXCISE SGD 0.00 BND 0.00 ) FRT B$45.00 OTHER CHARGES B$180 1</remarks>
     <!--  Party Details  -->
     <traderType>TRDR</traderType>
     <regTraderCoyRegNo>P30006065</regTraderCoyRegNo>
-    <individualTraderICNo>01-069715</individualTraderICNo>
+    <individualTraderICNo/>
     <individualTraderIDType>IC</individualTraderIDType>
-    <individualTraderICColour>Y</individualTraderICColour>
+    <individualTraderICColour/>
     <individualAddress>NO 5 SPG 239 JLN MUARA KG KAPOK BANDAR SERI BEGAWAN</individualAddress>
     <traderName>A1 AUTO COMPANY</traderName>
     <consigneeCompanyRegNo>P30006065</consigneeCompanyRegNo>
@@ -39,7 +39,7 @@
   </General>
   <invoices>
     <invoiceNumber>DOSG21510</invoiceNumber>
-    <invoiceDate>2023-06-05</invoiceDate>
+    <invoiceDate>2023-06-08</invoiceDate>
     <termType>CIF</termType>
     <invoiceAmount>1917.00</invoiceAmount>
     <invoiceCurrency>SGD</invoiceCurrency>
@@ -54,7 +54,7 @@
     <goodsSerialNo>1</goodsSerialNo>
     <goodsDescription>TUBING</goodsDescription>
     <goodsHSCode>73061190</goodsHSCode>
-    <shippingMarks>TUBING</shippingMarks>
+    <shippingMarks>TUBING </shippingMarks>
     <countryOrigin>SG</countryOrigin>
     <quantity>12</quantity>
     <quantityUOM>KG</quantityUOM>
@@ -69,7 +69,7 @@
     <goodsSerialNo>2</goodsSerialNo>
     <goodsDescription>TUBING</goodsDescription>
     <goodsHSCode>73061190</goodsHSCode>
-    <shippingMarks>TUBING</shippingMarks>
+    <shippingMarks>TUBING </shippingMarks>
     <countryOrigin>SG</countryOrigin>
     <quantity>10</quantity>
     <quantityUOM>KG</quantityUOM>

@@ -5,7 +5,7 @@ const iso_countrycodesSchema = new mongoose.Schema({
     name: {
         type: String,
     },
-    alpha_2: {
+    alpha2: {
         type: String,
     },
     alpha_3: {

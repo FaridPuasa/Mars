@@ -1290,6 +1290,8 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   const declaration3 = await Declaration3.findOne({'_id' : req.params.id}, { _id: 0, __v: 0});
   const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryShipment, "i") } } );
   const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryDestination, "i") } } );
+  // const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : /declaration3.Transport.countryShipment/i  } );
+  // const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : /declaration3.Transport.countryDestination/i  } );
 
   //const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : 'AFGHANSITAN'}, { _id: 0, __v: 0});
 
@@ -1355,8 +1357,8 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
         .ele('dutiableIndicator').txt('N').up()
         .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
-        .ele('countryShipment').txt(iso_countrycodes.alpha_2).up()
-        .ele('countryDestination').txt(iso_countrycodes2.alpha_2).up()
+        .ele('countryShipment').txt(iso_countrycodes.alpha2).up()
+        .ele('countryDestination').txt(iso_countrycodes2.alpha2).up()
         .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
@@ -1422,8 +1424,8 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
         .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
         .ele('dutiableIndicator').txt(declaration3.Procedure.dutiableIndicator).up()
         .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
-        .ele('countryShipment').txt(iso_countrycodes.alpha_2).up()
-        .ele('countryDestination').txt(iso_countrycodes2.alpha_2).up()
+        .ele('countryShipment').txt(iso_countrycodes.alpha2).up()
+        .ele('countryDestination').txt(iso_countrycodes2.alpha2).up()
         .ele('portDischarge').txt(declaration3.Transport.portOfDischargeCode).up()
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
