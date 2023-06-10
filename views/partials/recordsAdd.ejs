@@ -187,7 +187,7 @@
                     <tr>
                         <th scope="row">10</th>
                         <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="importerName" name="importerName" size="30" required/></td>
+                        <td><input type="text" id="importerName" name="importerName" size="30" ondblclick="openImporterRecords()" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">11</th>
@@ -788,6 +788,45 @@
      <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
      <p></p>
     </form>
+
+    <!-- The Modal for Importer/Consignee -->
+    <div class="modal" id="importerRecordsm">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Importer/Consignee Records</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+            <div style="height: 500px; overflow:auto">
+              <!-- <input type="text" id="filterHSCode" onkeyup="filterHSCode()" placeholder="Search HSCode.." title="Filter by HS Code"> -->
+              <table class="table table-striped" id="importerRecordsTable">
+                <tr>
+                    <th>Name</th>
+                </tr>
+                <!-- HERE -->
+                <% for (var j=0; j<consignee.length; j++) { %>
+                    <tr>
+                        <td scope="row" class="selectimporterName" ondblclick="selectImporter('<%= consignee[j].name %>', '<%= consignee[j].address %>', '<%= consignee[j].reg %>', '<%= consignee[j].ic %>', '<%= consignee[j].icColor %>', '<%= consignee[j].telephone %>', '<%= consignee[j].postal %>')"><%= consignee[j].name %></td>
+                        
+                    </tr>
+                <% } %>
+              </table>
+            </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <!-- Modal Ends -->
 
     <!-- The Modal for countryCode -->
     <div class="modal" id="countryShipmentm">
@@ -1445,7 +1484,32 @@
         }
 
     }
+    //Importer/Consignee Records
+    var importerRecordsModal = new bootstrap.Modal(document.getElementById('importerRecordsm'))
 
+    function openImporterRecords(){
+        importerRecordsModal.show();
+    }
+
+    function selectImporter(selectedName, selectedAddress, selectedReg, selectedIc, selectedIcColor, selectedPhone, selectedPostal){
+        // var selectedName = document.getElementById('importerNameRecords').innerHTML;
+        // var selectedAddress = document.getElementById('importerAddressRecords').innerHTML;
+        // var selectedReg = document.getElementById('importerAddressRecords').innerHTML;
+        // var selectedIc = document.getElementById('importerAddressRecords').innerHTML;
+        // var selectedIcColor = document.getElementById('importerAddressRecords').innerHTML;
+        // var selectedPhone = document.getElementById('importerAddressRecords').innerHTML;
+        // var selectedPostal = document.getElementById('importerAddressRecords').innerHTML;
+
+        document.getElementById('importerName').value = selectedName;
+        document.getElementById('importerAddress').value = selectedAddress;
+        document.getElementById('regTraderCoyRegNo').value = selectedReg;
+        document.getElementById('importerRegistration').value = selectedIc;
+        document.getElementById('importerICColor').value = selectedIcColor;
+        document.getElementById('importerPhone').value = selectedPhone;
+        document.getElementById('importerPostal').value = selectedPostal;
+
+        importerRecordsModal.hide();
+    }
     //CountryCode Modal and filtering system.
     var countryShipmentModal = new bootstrap.Modal(document.getElementById('countryShipmentm'))
 
