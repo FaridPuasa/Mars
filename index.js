@@ -1282,7 +1282,7 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
 
       .up()    
       for(var j = 0; j < tempInvoice.length; j++){
-        console.log("J is = " + j)
+        //console.log("J is = " + j)
         root.ele('invoices')
           .ele('invoiceNumber').txt(tempInvoice[j]).up()
           .ele('invoiceDate').txt(declaration3.dateGranted).up()
@@ -1401,8 +1401,8 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   fs.writeFileSync(full_file_name, xml, function(err) {
     if (err) throw err;
   });
-  console.log(selectedInvoice.replace(/-/g, '_'))  
-  console.log("FINAL NAME IS " + get3name + "_" + get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_') +'.xml')  
+  //console.log(selectedInvoice.replace(/-/g, '_'))  
+  //console.log("FINAL NAME IS " + get3name + "_" + get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_') +'.xml')  
   res.download(get3name + "_" + get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_') +'.xml');
 });
 
