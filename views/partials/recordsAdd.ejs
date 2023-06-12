@@ -708,6 +708,12 @@
             </div>
             <!--Page 4 Ends-->
         <div style="overflow:auto;">
+            <div>
+                <button type="button" id="page1" onclick="gotoPage(0);">1</button>
+                <button type="button" id="page2" onclick="gotoPage(1);">2</button>
+                <button type="button" id="page3" onclick="gotoPage(2);">3</button>
+                <button type="button" id="page4" onclick="gotoPage(3);">4</button>
+            </div>
             <div style="float:right;">
               <button type="button" id="prevDecBtn" onclick="nextDecPrev(-1)">Previous</button>
               <button type="button" id="nextDecBtn" onclick="nextDecPrev(1)">Next</button>
@@ -958,6 +964,11 @@
         // This function will display the specified page of the form ...
         var jd = document.getElementsByClassName("declarationPage");
         jd[nd].style.display = "block";
+        document.getElementById("page1").style.opacity = 1;
+        document.getElementById("page2").style.opacity = 1;
+        document.getElementById("page3").style.opacity = 1;
+        document.getElementById("page4").style.opacity = 1;
+        document.getElementById("page"+(nd+1)).style.opacity = 0.6;
         // ... and fix the Previous/Next buttons:
         if (nd == 0) {
             document.getElementById("prevDecBtn").style.display = "none";
@@ -974,7 +985,31 @@
 
     }
 
-    
+    function gotoPage(pageNo) {
+        // This function will display the specified page of the form ...
+        var currentPage = document.getElementsByClassName("recordsEditPage");
+        currentPage[currentDecPage].style.display = "none";
+        currentPage[pageNo].style.display = "block";
+        currentDecPage = pageNo;
+        document.getElementById("page1").style.opacity = 1;
+        document.getElementById("page2").style.opacity = 1;
+        document.getElementById("page3").style.opacity = 1;
+        document.getElementById("page4").style.opacity = 1;
+        document.getElementById("page"+(pageNo+1)).style.opacity = 0.6;
+        
+        if (pageNo == 0) {
+            document.getElementById("prevDecBtn").style.display = "none";
+        } else {
+            document.getElementById("prevDecBtn").style.display = "inline";
+        }
+        if (pageNo == (3)) {
+            document.getElementById("nextDecBtn").style.display = "none";
+        } else {
+            document.getElementById("nextDecBtn").style.display = "inline";
+            document.getElementById("nextDecBtn").innerHTML = "Next";
+        }
+
+    }
 
     function nextDecPrev(nd) {
         // This function will figure out which page to display
