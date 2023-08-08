@@ -16,6 +16,12 @@ head {
     top: 0;
 }
 
+#dropdown{
+    margin: auto;
+    display: block;
+    max-width: fit-content;
+}
+
 body {
     margin-top: 100px;
     padding-bottom: 50px;

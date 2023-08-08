@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="stylesheet/style.css">
+<script src="https://jsuites.net/v4/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+
 
 <title>BDNSW Add</title>
 
@@ -9,11 +12,237 @@
     <%- include('partials/singlewindowdashboard'); %>
 </head>
 
-<body>
-    
+<body>  
+    <br>
+    <div id="dropdown" placeholder= "Search HS Code"></div>
+
                       
                       <%- include('partials/recordsAdd'); %>
                       
+                      <script>
+                        jSuites.dropdown(document.getElementById('dropdown'), {
+    data:[
+    {
+  "group": "Horse",
+  "text": "0101.21.00 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Horse",
+  "text": "0101.29.00 - - Other"
+ },
+ {
+  "group": "Asses",
+  "text": "0101.30.10 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Asses",
+  "text": "0101.30.90 - - Other"
+ },
+ {
+  "group": "Cattle",
+  "text": "0102.21.00 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Male Cattle",
+  "text": "0102.29.11 - - - - Oxen"
+ },
+ {
+  "group": "Male Cattle",
+  "text": "0102.29.19 - - - - Other"
+ },
+ {
+  "group": "Cattle (Other)",
+  "text": "0102.29.90 - - - Other"
+ },
+ {
+  "group": "Buffalo",
+  "text": "0102.31.00 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Buffalo",
+  "text": "0102.39.00 - - Other"
+ },
+ {
+  "group": "Others",
+  "text": "0102.90.10 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Others",
+  "text": "0102.90.90 - - Other"
+ },
+ {
+  "group": "Live Swine",
+  "text": "0103.10.00 - Pure-bred breeding animals"
+ },
+ {
+  "group": "Live Swine (Other)",
+  "text": "0103.91.00 - - Weighing less than 50 kg"
+ },
+ {
+  "group": "Live Swine (Other)",
+  "text": "0103.92.00 - - Weighing 50 kg or more"
+ },
+ {
+  "group": "Sheep",
+  "text": "0104.10.10 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Sheep",
+  "text": "0104.10.90 - - Other"
+ },
+ {
+  "group": "Goat",
+  "text": "0104.20.10 - - Pure-bred breeding animals"
+ },
+ {
+  "group": "Goat",
+  "text": "0104.20.90 - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.11.10 - - - Breeding fowls"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.11.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.12.10 - - - Breeding turkeys"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.12.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.13.10 - - - Breeding ducklings"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.13.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.14.10 - - - Breeding goslings"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.14.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.14.10 - - - Breeding goslings"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.14.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.15.10 - - - Breeding guinea fowls"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (weighing not more than 185 g)",
+  "text": "0105.15.90 - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (others)",
+  "text": "0105.94.10 - - - Breeding fowls, other than fighting cocks"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (others - Fighting Cocks)",
+  "text": "0105.94.41 - - - - Weighing not more than 2 kg"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (others - Fighting Cocks)",
+  "text": "0105.94.49 - - - - Other"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (others - other)",
+  "text": "0105.94.91 - - - - Weighing not more than 2 kg"
+ },
+ {
+  "group": "Fowls of the specieis Gallus domesticus (others - other)",
+  "text": "0105.94.99 - - - - Other"
+ },
+ {
+  "group": "Others (Live poultry)",
+  "text": "0105.99.10 - - - Breeding ducks"
+ },
+ {
+  "group": "Others (Live poultry)",
+  "text": "0105.99.20 - - - Other ducks"
+ },
+ {
+  "group": "Others (Live poultry)",
+  "text": "0105.99.30 - - - Breeding geese, turkeys and guinea fowls"
+ },
+ {
+  "group": "Others (Live poultry)",
+  "text": "0105.99.40 - - - Other geese, turkeys and guinea fowls"
+ },
+ {
+  "group": "Mammals",
+  "text": "0106.11.00 - - Primates"
+ },
+ {
+  "group": "Whales, dolphins and porpoises (mammals of the order Cetacea); manatees and dugongs (mammals of the order Cetacea); manatees and dugongs (mammals of the of the suborder Pinnipedia)",
+  "text": "0106.12.10 - - - Whales, dolphins and porpoises (mammals of theorder Cetacea); manatees and dugongs (mammals of theorder Sirenia)"
+ },
+ {
+  "group": "Whales, dolphins and porpoises (mammals of the order Cetacea); manatees and dugongs (mammals of the order Cetacea); manatees and dugongs (mammals of the of the suborder Pinnipedia)",
+  "text": "0106.12.20 - - - Seals, sea lions and walruses (mammals of thesuborder Pinnipedia)"
+ },
+ {
+  "group": "Camels and other camelids (Camelidae)",
+  "text": "0106.13.00 - - Camels and other camelids (Camelidae)"
+ },
+ {
+  "group": "Rabits and hares",
+  "text": "0106.14.00 - - Rabbits and hares"
+ },
+ {
+  "group": "Others (mammals)",
+  "text": "0106.19.00 - - Other"
+ },
+ {
+  "group": "Reptiles (including snakes and turtles)",
+  "text": "0106.20.00 - Reptiles (including snakes and turtles)"
+ },
+ {
+  "group": "Birds",
+  "text": "0106.31.00 - - Birds of prey"
+ },
+ {
+  "group": "Psittaciformes (including parrots, parakeets, macaws and cockatoos)",
+  "text": "0106.32.00 - - Psittaciformes (including parrots, parakeets, macawsand cockatoos)"
+ },
+ {
+  "group": "Ostriches; emus (Dromaius novaehollandiae)",
+  "text": "0106.33.00 - - Ostriches; emus (Dromaius novaehollandiae)"
+ },
+ {
+  "group": "Others (Birds)",
+  "text": "0106.39.00 - - Other"
+ },
+ {
+  "group": "Insects",
+  "text": "0106.41.00 - - Bees"
+ },
+ {
+  "group": "Insects",
+  "text": "0106.49.00 - - Other"
+ },
+ {
+  "group": "Others (live animals)",
+  "text": "0106.90.00 - Other"
+ }
+],
+    width:'70%',
+    autocomplete: true,
+});
+                      </script>
                 
 </body>
 <footer>
