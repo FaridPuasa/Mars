@@ -1,16 +1,19 @@
 <div id="Profile" class="tabcontent">
-                        
+
     <h3>Profile</h3>
+    <% if (messages.error) { %>
+      <p class="alert alert-danger"><%= messages.error %></p>
+    <% } %>
     <form id ="profileupdate" action = "/profileupdate" method="POST">
 
-        
+
         <div class="row">
             <div class="col leftcolumn">
                 <table class="table table-striped table-sm">
                     <tr>
                         <th scope="row"></th>
                         <td>Name:</td>
-                        <td><input type="text" name="name" size="30" value="<%=username.name%>"/></td>
+                        <td><input type="text" name="name" size="30" value="<%=username.name%>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
@@ -31,21 +34,21 @@
                         <th scope="row"></th>
                         <td>ID Type: </td>
                         <td>
-                            <select name="idType">
-                                <option value="IC">IC</option>
-                                <option value="PP">PP</option>
+                            <select name="idType" required>
+                                <option value="IC" <%= username.idType === 'IC' ? 'selected' : '' %>>IC</option>
+                                <option value="PP" <%= username.idType === 'PP' ? 'selected' : '' %>>PP</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
                         <td>IC Number: </td>
-                        <td><input type="text" name="icNo" size="30" value="<%=username.icNo %>"/></td>
+                        <td><input type="text" name="icNo" size="30" value="<%=username.icNo %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
                         <td>IC Color: </td>
-                        <td><input type="text" name="icColor" size="30" value="<%=username.icColor %>"/></td>
+                        <td><input type="text" name="icColor" size="30" value="<%=username.icColor %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
@@ -60,18 +63,33 @@
                     <tr>
                         <th scope="row"></th>
                         <td>Designation: </td>
-                        <td><input type="text" name="designation" size="30" value="<%=username.designation%>"/></td>
+                        <td><input type="text" name="designation" size="30" value="<%=username.designation%>" required/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td colspan="2" style="font-weight: bold; padding-top: 15px;">Change Password (optional)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Current Password: </td>
+                        <td><input type="password" name="currentPassword" size="30" autocomplete="current-password"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>New Password: </td>
+                        <td><input type="password" name="newPassword" size="30" autocomplete="new-password"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Confirm New Password: </td>
+                        <td><input type="password" name="confirmNewPassword" size="30" autocomplete="new-password"/></td>
                     </tr>
 
                 </table>
-                <button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Update</button>
+                <button type="submit" class="btn btn-mars text-right" style="float: right;">Update</button>
             </div>
         </div>
     </form>
-  
-  
-</div>
 
-<script>
-    
-</script>
+
+</div>

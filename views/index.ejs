@@ -1,97 +1,74 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheet/style.css">
-
-<!-- for resizable table column. not working for input
-    <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="https://unpkg.com/bootstrap-table@1.21.4/src/bootstrap-table.js"></script>
-    <script type="module" src="https://unpkg.com/bootstrap-table@1.21.4/src/extensions/resizable/bootstrap-table-resizable.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.css">
-    <script src="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.min.js"></script> -->
-
-<title>MARS</title>
-
-<head>
-    <%- include('partials/dashboard'); %>
-</head>
-<!--<h1>Hello World</h1>
-
-<h1>Hello There <%= username.name -%></h1>
--->
+<% const title = "MARS" %>
+<%- include('partials/head', { title }); %>
 <body>
-    <div class = "container-fluid" style="padding-top: 50px">
+<%- include('partials/dashboard'); %>
 
-        <div class="row align-items-start">
-            <div class="col-md-3"></div>
-            <div class="col-md-2">
-                <a href="/bdnsw"><img src="images/bdnsw.png" alt="singlewindow" class="imgbutton"></a>
-                <figcaption> Single Window</figcaption>
-            </div>
-            <div class="col-md-2">
-                <a href="/hscode"><img src="images/HSCODE.png" alt="hscode" class="imgbutton" style="display:none"></a>
-                <figcaption style="display:none">HS Code</figcaption>
-            </div>
-            <div class="col-md-2">
-                <a href="/wip"><img src="images/category.png" alt="category" class="imgbutton"></a>
-                <figcaption>Category</figcaption>
-            </div>
-                
-                
-                
-    
+<div class="container py-4">
+  <div class="row g-4 justify-content-center">
+    <div class="col-6 col-md-3">
+      <a href="/bdnsw" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <img src="/images/bdnsw.png" alt="" class="mars-tile-icon mb-2">
+            <div class="card-title fw-semibold text-dark">Single Window</div>
+          </div>
         </div>
-        <div class="row align-items-start">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 imgbutton text-center"><img src="images/bg2.png" style="width: 50%"></div>
-            <div class="col-md-3"></div>
-        </div>
-
-        <div class="row align-items-start">
-            <div class="col-md-3"></div>
-            <div class="col-md-2">
-                <a href="/hscode"><img src="images/HSCODE.png" alt="hscode" class="imgbutton"></a>
-                <figcaption>HS Code</figcaption>
-            </div>
-            <div class="col-md-2">
-                <a href="/unlocodeportlist"><img src="images/ship.png" alt="category" class="imgbutton"></a>
-                <figcaption>Unlocode Port</figcaption>
-            </div>
-            <div class="col-md-2">
-                <a href="/wip"><img src="images/documentation.png" alt="documentation" class="imgbutton"></a>
-                <figcaption>Guide</figcaption>
-            </div>
-                
-                
-                
-    
-        </div>
-        
-        <br>
-        <!-- original logout button
-            <div>
-            <form action="/logout?_method=DELETE" method="POST">
-                <button type="submit">Logout</button>
-            </form>
-        </div>
-        -->
-            
+      </a>
     </div>
-   
-
-</body>
-
-<!--
-<div>
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+    <div class="col-6 col-md-3">
+      <a href="/wip" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <img src="/images/category.png" alt="" class="mars-tile-icon mb-2">
+            <div class="card-title fw-semibold text-dark">Category</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/hscode" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <img src="/images/HSCODE.png" alt="" class="mars-tile-icon mb-2">
+            <div class="card-title fw-semibold text-dark">HS Code</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/unlocodeportlist" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <img src="/images/ship.png" alt="" class="mars-tile-icon mb-2">
+            <div class="card-title fw-semibold text-dark">Unlocode Port</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/customers" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <i class="bi bi-people-fill mars-tile-icon mb-2" style="font-size: 4.5rem; color: var(--mars-blue);"></i>
+            <div class="card-title fw-semibold text-dark">Customers</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="/wip" class="text-decoration-none">
+        <div class="card h-100 text-center border-0 shadow-sm mars-tile">
+          <div class="card-body">
+            <img src="/images/documentation.png" alt="" class="mars-tile-icon mb-2">
+            <div class="card-title fw-semibold text-dark">Guide</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
--->
 
-<footer>
-    <%- include('partials/footer'); %>
-</footer>
+<%- include('partials/footer'); %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

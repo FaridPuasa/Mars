@@ -5,11 +5,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const override = require("method-override");
 const MongoStore = require("connect-mongo");
-var xml = require('xml');
 var builder = require('xmlbuilder');
-const { create } = require('xmlbuilder2');
-const { DOMParser } = require("@oozcitak/dom");
-const ColumnResizer = require('column-resizer');
 let fs = require('fs');
 
 initializePassport(passport);
@@ -24,14 +20,9 @@ const bcrypt = require("bcryptjs");
 //models
 const User = require("./models/user");
 const Bdnsw = require("./models/bdnswdata"); //accounts
-//const Declaration = require("./models/declaration"); //unused
-//const Invoices = require("./models/invoices"); //unused
-//const Goods = require("./models/goods");
-//const Declaration2 = require("./models/declaration2");
 const Declaration3 = require("./models/declaration3");
 const Consignee = require("./models/consignee");
-//const Hscode = require("./models/hscode"); //ignoreblank
-const Hscode2 = require("./models/hscode2"); //no ignoreblank
+const Hscode2 = require("./models/hscode2");
 const Port_Code = require("./models/port_code");
 const ISO_CountryCodes = require("./models/iso_countrycodes");
 //port2 cleaned from unnecessary headers e.g. location, name2, coordinates
@@ -79,7 +70,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(function(req, res, next) {
   if (req.user){
     res.locals.username = req.user;
-    //console.log("req.user.name = " + req.user.name + " & req.user.email = " + req.user.email);
   }
   else{
     console.log("Not logged in")
@@ -94,6 +84,14 @@ function requireLogin(req, res, next) {
       res.redirect("/login");
 }   
 
+function requireAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.designation === "Admin") {
+    return next();
+  }
+  req.flash("error", "Only an Admin can do that.");
+  res.redirect("back");
+}
+
 function requireLogout(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
@@ -107,17 +105,7 @@ app.use(override("_method"));
 
 
 app.get("/", requireLogin, (req, res) => {
-  //console.log("requser " + req.user.name)
-  res.render("index.ejs", 
-  //{ user: req.user}
-  )
-})
-
-app.post("/", requireLogin, (req, res) => {
-  //console.log("requser " + req.user.name)
-  res.render("index.ejs", 
-  //{ user: req.user}
-  )
+  res.render("index.ejs")
 })
 
 app.get("/register", (req, res) => {
@@ -170,17 +158,6 @@ app.post("/login",
     }),
 );
 
-//SINGLEWINDOW PAGE -- WHERE ADD DECLARATION2, GOODS RESIDES. (INVOICE DEPRECIATED INTO DECLARATION2)
-app.get("/singlewindow", requireLogin, async (req, res) => {
-  const user = await User.find({});
-  const bdnsw = await Bdnsw.find({});
-  const declaration = await Declaration.find({});
-  const invoices = await Invoices.find({});
-  //const declaration2 = await Declaration2.find({});
-  const goods = await Goods.find({});
-  //res.render("singlewindow.ejs", {user: user, bdnsw: bdnsw, declaration: declaration, invoices: invoices, declaration2: declaration2, goods: goods})
-})
-
 app.get("/bdnsw", requireLogin, async (req, res) => {
   const user = await User.find({});
   const declaration3 = await Declaration3.find({}).sort({Transport:-1});
@@ -188,28 +165,21 @@ app.get("/bdnsw", requireLogin, async (req, res) => {
 })
 
 app.get("/bdnswadd", requireLogin, async (req, res) => {
-  //const user = await User.find({});
   const declaration3 = await Declaration3.find({});
-  const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
   const port_code = await Port_Code.find({}).sort({country: 1});
   const consignee = await Consignee.find({}).sort({name: 1});
-  //const unlocode_port_list2 = await Unlocode_port_list2.find({});
-  //const iso_countrycodes = await ISO_CountryCodes.find({});
-  res.render("bdnswadd.ejs", {declaration3: declaration3, hscode2: hscode2, port_code: port_code, consignee: consignee})
-  //user: user, unlocode_port_list2: unlocode_port_list2, iso_countrycodes: iso_countrycodes
+  const iso_countrycodes = await ISO_CountryCodes.find({}).sort({name: 1});
+  res.render("bdnswadd.ejs", {declaration3: declaration3, port_code: port_code, consignee: consignee, iso_countrycodes: iso_countrycodes})
 })
 
 
 app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
   const user = await User.find({});
-  //const hscode = await Hscode.find({HSCode: {$exists: true}});
-  const hscode2 = await Hscode2.find({HSCode: {$exists: true, $ne: ""}});
   const declaration3 = await Declaration3.findOne({_id : req.params.id});
   const port_code = await Port_Code.find({}).sort({country: 1});
   const consignee = await Consignee.find({}).sort({name: 1});
-  // const unlocode_port_list2 = await Unlocode_port_list2.find({}); //not working yet
-  // const iso_countrycodes = await ISO_CountryCodes.find({}); //not working yet
-  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, hscode2: hscode2, port_code: port_code, consignee: consignee});
+  const iso_countrycodes = await ISO_CountryCodes.find({}).sort({name: 1});
+  res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, port_code: port_code, consignee: consignee, iso_countrycodes: iso_countrycodes});
 });
 
 //edit profile
@@ -219,40 +189,47 @@ app.get("/profile", requireLogin, async (req, res) => {
   res.render("profile.ejs", {user: user, bdnsw: bdnsw})
 })
 
-app.post("/profileupdate", async (req, res) => {
-  const { name, email, phone, idType, icNo, icColor, designation, address, registration, postcode } = req.body;
-  
-    //let user = await User.findOne({ email: req.body.email });
-    
-    await User.updateMany({ 
-      email:req.body.email
-      },
-      {
-      $set: {
-        name:name,
-        idType:idType,
-        icNo:icNo,
-        icColor:icColor,
-        address:address,
-        phone:phone,
-        designation:designation,
-        registration:registration,
-        postcode:postcode,
-      },
-      },
-      {
-        new: true,
-      }
-    )
-    console.log("Email: " + email + " input IC: " + icNo)
-    console.log("redirecting from updating profile")
-    res.redirect("/profile");
+app.post("/profileupdate", requireLogin, async (req, res) => {
+  const { name, phone, idType, icNo, icColor, designation, address, registration, postcode, currentPassword, newPassword, confirmNewPassword } = req.body;
+
+  if (!name?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
+    req.flash("error", "Name, ID Type, IC Number, IC Color and Designation are required.");
+    return res.redirect("/profile");
+  }
+
+  if (designation.trim() === "Admin" && req.user.designation !== "Admin") {
+    req.flash("error", "You cannot set your own designation to Admin.");
+    return res.redirect("/profile");
+  }
+
+  const update = { name, idType, icNo, icColor, address, phone, designation, registration, postcode };
+
+  if (currentPassword || newPassword || confirmNewPassword) {
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+      req.flash("error", "To change your password, fill in current password, new password and confirmation.");
+      return res.redirect("/profile");
+    }
+    if (newPassword !== confirmNewPassword) {
+      req.flash("error", "New password and confirmation do not match.");
+      return res.redirect("/profile");
+    }
+    const user = await User.findById(req.user._id).select("+password");
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      req.flash("error", "Current password is incorrect.");
+      return res.redirect("/profile");
+    }
+    update.password = await bcrypt.hash(newPassword, 10);
+  }
+
+  await User.findByIdAndUpdate(req.user._id, { $set: update }, { new: true });
+  res.redirect("/profile");
 });
 
 //declaration3 POST
 
 //bdnswadd's post
-app.post("/declaration3", async (req, res) => {
+app.post("/declaration3", requireLogin, async (req, res) => {
 
   const { 
     dateGranted,
@@ -495,7 +472,6 @@ app.post("/declaration3", async (req, res) => {
     });
   } else {
     for (var i = 0; i < goodsSerialNo.length; i++){
-      //console.log(goodsSerialNo[i]);
       if(goodsSerialNo[i]) {
         declarationGoods.push({
           goodsSerialNo: goodsSerialNo[i],
@@ -680,7 +656,7 @@ app.post("/declaration3", async (req, res) => {
   if (checkConsignee) {
     await Consignee.updateMany ({ name: importerName},
       {$set: {
-    
+
         name: importerName,
         address: importerAddress,
         reg: regTraderCoyRegNo,
@@ -688,7 +664,7 @@ app.post("/declaration3", async (req, res) => {
         icColor: importerICColor,
         telephone: importerPhone,
         postal: importerPostal,
-    
+
       }
       },
       {
@@ -697,8 +673,8 @@ app.post("/declaration3", async (req, res) => {
     )
   }
   else {
-    const consignee = new Consignee ({ 
-      
+    const consignee = new Consignee ({
+
       name: importerName,
       address: importerAddress,
       reg: regTraderCoyRegNo,
@@ -706,11 +682,29 @@ app.post("/declaration3", async (req, res) => {
       icColor: importerICColor,
       telephone: importerPhone,
       postal: importerPostal,
-      
+
     });
     await consignee.save();
   }
-  
+
+  if (exporterName?.trim()) {
+    await Consignee.updateOne(
+      { name: exporterName },
+      { $setOnInsert: { name: exporterName },
+        $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
+      { upsert: true }
+    );
+  }
+
+  if (agentName?.trim()) {
+    await Consignee.updateOne(
+      { name: agentName },
+      { $setOnInsert: { name: agentName },
+        $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
+      { upsert: true }
+    );
+  }
+
 
   
   await declaration3.save();
@@ -722,7 +716,7 @@ app.post("/declaration3", async (req, res) => {
 });
 
 //bdnswedit
-app.post("/recordsEdit", async (req, res) => {
+app.post("/recordsEdit", requireLogin, async (req, res) => {
 
   const { 
     dateGranted,
@@ -965,7 +959,6 @@ app.post("/recordsEdit", async (req, res) => {
     });
   } else {
     for (var i = 0; i < goodsSerialNo.length; i++){
-      //console.log(goodsSerialNo[i]);
       if(goodsSerialNo[i]) {
         declarationGoods.push({
           goodsSerialNo: goodsSerialNo[i],
@@ -1157,7 +1150,7 @@ app.post("/recordsEdit", async (req, res) => {
   if (checkConsignee) {
     await Consignee.updateMany ({ name: importerName},
       {$set: {
-    
+
         name: importerName,
         address: importerAddress,
         reg: regTraderCoyRegNo,
@@ -1165,7 +1158,7 @@ app.post("/recordsEdit", async (req, res) => {
         icColor: importerICColor,
         telephone: importerPhone,
         postal: importerPostal,
-    
+
       }
       },
       {
@@ -1174,7 +1167,7 @@ app.post("/recordsEdit", async (req, res) => {
     )
   }
   else {
-    const consignee = new Consignee ({ 
+    const consignee = new Consignee ({
       name: importerName,
       address: importerAddress,
       reg: regTraderCoyRegNo,
@@ -1182,31 +1175,39 @@ app.post("/recordsEdit", async (req, res) => {
       icColor: importerICColor,
       telephone: importerPhone,
       postal: importerPostal,
-      
+
     });
     await consignee.save();
   }
 
-  //console.log("redirecting from bdnswEdit, edited: " + req.body._id)
+  if (exporterName?.trim()) {
+    await Consignee.updateOne(
+      { name: exporterName },
+      { $setOnInsert: { name: exporterName },
+        $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
+      { upsert: true }
+    );
+  }
+
+  if (agentName?.trim()) {
+    await Consignee.updateOne(
+      { name: agentName },
+      { $setOnInsert: { name: agentName },
+        $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
+      { upsert: true }
+    );
+  }
 
   res.redirect("/bdnsw");
-  
 });
 
-
-//copy for dashboard
-app.get("/downloadXML/:id/:invoice", async (req, res) => {
-  // const {
-  //   selectId,
-  //   selectedInvoice
-  // } = req.body;
+app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
   const selectedInvoice = req.params.invoice;
 
   const declaration3 = await Declaration3.findOne({'_id' : req.params.id}, { _id: 0, __v: 0});
   // check country codes (e.g. Singapore. check with db, convert to "SG". Regex i for case insensitive as usually input as caps)
   const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryShipment, "i") } } );
   const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryDestination, "i") } } );
-  //const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : 'AFGHANSITAN'}, { _id: 0, __v: 0});
 
   const Goods = await Declaration3.find({'goodsInvoiceNo' : req.params.invoice}, { _id: 0, __v: 0});
 
@@ -1215,23 +1216,19 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   var tempInvoiceAmount = [];
   tempInvoice[0] = declaration3.Goods[0].goodsInvoiceNo;
   tempInvoiceAmount[0] = Number(declaration3.Goods[0].goodsAmount);
-  //console.log("TEMPINVOICE @0 is " + tempInvoice[0] + ". TEMPAMOUNT @0 is " + tempInvoiceAmount[0]);
   for(var k = 1; k < declaration3.Goods.length; k++){
     if(declaration3.Goods[k].goodsInvoiceNo === declaration3.Goods[k-1].goodsInvoiceNo){
       var a = tempInvoice.length;
       tempInvoiceAmount[a - 1] = tempInvoiceAmount[a - 1] + Number(declaration3.Goods[k].goodsAmount);
-      //console.log("Count up invoiceAmount = " + (tempInvoiceAmount[a - 1]).toFixed(2) + ". Number @" + k + " is " + Number(declaration3.Goods[k].goodsAmount));
     } else {
       var a = tempInvoice.length;
       tempInvoice[a] = declaration3.Goods[k].goodsInvoiceNo;
       tempInvoiceAmount[a] = Number(declaration3.Goods[k].goodsAmount);
-      //console.log("TEMPINVOICE @" + (a) + " is " + tempInvoice[a]);
     }
   }
 
   //format XML
   //get goods's amount for remarks. goods.
-  //console.log("Invoice Amount at 0 is " + declaration3.Goods[0].goodsAmount);
   var totalAmount = 0;
   goodsEntry= '';
   for (var i = 0; i < declaration3.Goods.length; i++) {
@@ -1289,7 +1286,6 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
 
       .up()    
       for(var j = 0; j < tempInvoice.length; j++){
-        //console.log("J is = " + j)
         root.ele('invoices')
           .ele('invoiceNumber').txt(tempInvoice[j]).up()
           .ele('invoiceDate').txt(declaration3.dateGranted).up()
@@ -1397,32 +1393,234 @@ app.get("/downloadXML/:id/:invoice", async (req, res) => {
   
   var xml = root.end({ pretty: true });
 
-  //console.log("Tradername is " + declaration2.General.traderName);
   let get3name = declaration3.Importer.importerName.slice(0, 3);
-  //console.log("Tradername is " + get3name);
   let get10invoice = selectedInvoice.slice(0, 10);
-  //console.log("Invoice is " + get10invoice);
   get10invoice = get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_');
-  //console.log("After .replace, invoice is " + get10invoice);
   let full_file_name = "./" + get3name + "_" + get10invoice +'.xml';
   fs.writeFileSync(full_file_name, xml, function(err) {
     if (err) throw err;
   });
-  //console.log(selectedInvoice.replace(/-/g, '_'))  
-  //console.log("FINAL NAME IS " + get3name + "_" + get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_') +'.xml')  
   res.download(get3name + "_" + get10invoice.replace(/-/g, '_').replace(/\./g, '_').replace(/\//g, '_') +'.xml');
 });
 
-//HSCODE PAGE TO LOOK UP HSCODE
-app.get("/hscode", requireLogin, async (req, res) => {
-  const hscode = await Hscode2.find({});
-  res.render("hscode.ejs", {hscode: hscode})
-});
+const PAGE_SIZE = 50;
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 //HSCODE PAGE TO LOOK UP HSCODE
+app.get("/hscode", requireLogin, async (req, res) => {
+  const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
+  const q = (req.query.q || "").trim();
+
+  let filter = {};
+  if (q) {
+    const rx = new RegExp(escapeRegex(q), "i");
+    filter = { $or: [{ HSCode: rx }, { Heading: rx }, { Description: rx }] };
+  }
+
+  const totalCount = await Hscode2.countDocuments(filter);
+  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
+  const currentPage = Math.min(requestedPage, totalPages);
+
+  const hscode = await Hscode2.find(filter)
+    .sort({ HSCode: 1 })
+    .skip((currentPage - 1) * PAGE_SIZE)
+    .limit(PAGE_SIZE)
+    .lean();
+
+  res.render("hscode.ejs", { hscode, currentPage, totalPages, totalCount, q });
+});
+
+app.post("/hscode/create", requireLogin, async (req, res) => {
+  const { Heading, HSCode, Description, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!Heading?.trim() || !HSCode?.trim() || !Description?.trim()) {
+    req.flash("error", "Heading, HSCode and Description are required.");
+    return res.redirect(redirectUrl);
+  }
+  await Hscode2.create({
+    Heading: Heading.trim(),
+    HSCode: HSCode.trim(),
+    Description: Description.trim(),
+    Quantity: (Quantity || "").trim(),
+    ImportDutyRate: (ImportDutyRate || "").trim(),
+    ExciseDutyRate: (ExciseDutyRate || "").trim(),
+  });
+  res.redirect(redirectUrl);
+});
+
+app.post("/hscode/update", requireLogin, async (req, res) => {
+  const { _id, Heading, HSCode, Description, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!Heading?.trim() || !HSCode?.trim() || !Description?.trim()) {
+    req.flash("error", "Heading, HSCode and Description are required.");
+    return res.redirect(redirectUrl);
+  }
+  const updated = await Hscode2.findByIdAndUpdate(
+    _id,
+    {
+      Heading: Heading.trim(),
+      HSCode: HSCode.trim(),
+      Description: Description.trim(),
+      Quantity: (Quantity || "").trim(),
+      ImportDutyRate: (ImportDutyRate || "").trim(),
+      ExciseDutyRate: (ExciseDutyRate || "").trim(),
+    },
+    { new: true, runValidators: true }
+  );
+  if (!updated) req.flash("error", "HSCode record not found.");
+  res.redirect(redirectUrl);
+});
+
+app.post("/hscode/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  await Hscode2.findByIdAndDelete(req.params.id);
+  const { page, q } = req.query;
+  res.redirect(`/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
+});
+
+app.get("/api/hscode/search", requireLogin, async (req, res) => {
+  const q = (req.query.q || "").trim();
+  let filter = {};
+  if (q) {
+    const rx = new RegExp(escapeRegex(q), "i");
+    filter = { $or: [{ HSCode: rx }, { Heading: rx }, { Description: rx }] };
+  }
+  const results = await Hscode2.find(filter).sort({ HSCode: 1 }).limit(50).lean();
+  res.json(results);
+});
+
+//UNLOCODE PORT LIST PAGE
 app.get("/unlocodeportlist", requireLogin, async (req, res) => {
-  const unlocode_port_list2 = await Unlocode_port_list2.find({});
-  res.render("unlocodeport.ejs", {unlocode_port_list: unlocode_port_list2})
+  const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
+  const q = (req.query.q || "").trim();
+
+  let filter = {};
+  if (q) {
+    const rx = new RegExp(escapeRegex(q), "i");
+    filter = { $or: [{ Name: rx }, { Country: rx }, { Location: rx }] };
+  }
+
+  const totalCount = await Unlocode_port_list2.countDocuments(filter);
+  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
+  const currentPage = Math.min(requestedPage, totalPages);
+
+  const unlocode_port_list = await Unlocode_port_list2.find(filter)
+    .sort({ Name: 1 })
+    .skip((currentPage - 1) * PAGE_SIZE)
+    .limit(PAGE_SIZE)
+    .lean();
+
+  res.render("unlocodeport.ejs", { unlocode_port_list, currentPage, totalPages, totalCount, q });
+});
+
+app.post("/unlocodeportlist/create", requireLogin, async (req, res) => {
+  const { Country, Location, Name, page, q } = req.body;
+  const redirectUrl = `/unlocodeportlist?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!Country?.trim() || !Location?.trim() || !Name?.trim()) {
+    req.flash("error", "Country, Location and Name are required.");
+    return res.redirect(redirectUrl);
+  }
+  await Unlocode_port_list2.create({
+    Country: Country.trim(),
+    Location: Location.trim(),
+    Name: Name.trim(),
+  });
+  res.redirect(redirectUrl);
+});
+
+app.post("/unlocodeportlist/update", requireLogin, async (req, res) => {
+  const { _id, Country, Location, Name, page, q } = req.body;
+  const redirectUrl = `/unlocodeportlist?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!Country?.trim() || !Location?.trim() || !Name?.trim()) {
+    req.flash("error", "Country, Location and Name are required.");
+    return res.redirect(redirectUrl);
+  }
+  const updated = await Unlocode_port_list2.findByIdAndUpdate(
+    _id,
+    { Country: Country.trim(), Location: Location.trim(), Name: Name.trim() },
+    { new: true, runValidators: true }
+  );
+  if (!updated) req.flash("error", "Unlocode record not found.");
+  res.redirect(redirectUrl);
+});
+
+app.post("/unlocodeportlist/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  await Unlocode_port_list2.findByIdAndDelete(req.params.id);
+  const { page, q } = req.query;
+  res.redirect(`/unlocodeportlist?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
+});
+
+//CUSTOMERS PAGE
+app.get("/customers", requireLogin, async (req, res) => {
+  const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
+  const q = (req.query.q || "").trim();
+
+  let filter = {};
+  if (q) {
+    const rx = new RegExp(escapeRegex(q), "i");
+    filter = { $or: [{ name: rx }, { address: rx }, { country: rx }] };
+  }
+
+  const totalCount = await Consignee.countDocuments(filter);
+  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
+  const currentPage = Math.min(requestedPage, totalPages);
+
+  const customers = await Consignee.find(filter)
+    .sort({ name: 1 })
+    .skip((currentPage - 1) * PAGE_SIZE)
+    .limit(PAGE_SIZE)
+    .lean();
+
+  res.render("customers.ejs", { customers, currentPage, totalPages, totalCount, q });
+});
+
+app.post("/customers/create", requireLogin, async (req, res) => {
+  const { name, address, reg, country, telephone, postal, page, q } = req.body;
+  const redirectUrl = `/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!name?.trim() || !address?.trim() || !reg?.trim() || !country?.trim() || !telephone?.trim() || !postal?.trim()) {
+    req.flash("error", "Name, Address, Registration, Country, Telephone and Postal are required.");
+    return res.redirect(redirectUrl);
+  }
+  await Consignee.create({
+    name: name.trim(),
+    address: address.trim(),
+    reg: reg.trim(),
+    country: country.trim(),
+    telephone: telephone.trim(),
+    postal: postal.trim(),
+  });
+  res.redirect(redirectUrl);
+});
+
+app.post("/customers/update", requireLogin, async (req, res) => {
+  const { _id, name, address, reg, country, telephone, postal, page, q } = req.body;
+  const redirectUrl = `/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
+  if (!name?.trim() || !address?.trim() || !reg?.trim() || !country?.trim() || !telephone?.trim() || !postal?.trim()) {
+    req.flash("error", "Name, Address, Registration, Country, Telephone and Postal are required.");
+    return res.redirect(redirectUrl);
+  }
+  const updated = await Consignee.findByIdAndUpdate(
+    _id,
+    {
+      name: name.trim(),
+      address: address.trim(),
+      reg: reg.trim(),
+      country: country.trim(),
+      telephone: telephone.trim(),
+      postal: postal.trim(),
+    },
+    { new: true, runValidators: true }
+  );
+  if (!updated) req.flash("error", "Customer record not found.");
+  res.redirect(redirectUrl);
+});
+
+app.post("/customers/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  await Consignee.findByIdAndDelete(req.params.id);
+  const { page, q } = req.query;
+  res.redirect(`/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
 
 /* HSCODE EDIT POST */
@@ -1465,15 +1663,9 @@ app.post("/addhscode", async (req, res) => {
 
 
 //deleting bdnsw item
-app.get("/delete/:id", async (req, res) => {
-  
-    
-    await Bdnsw.findByIdAndRemove({ 
-      _id:req.params.id
-      },
-    )
-    console.log("redirecting from deleting item")
-    return res.redirect("/singlewindow");
+app.post("/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  await Bdnsw.findByIdAndDelete(req.params.id);
+  res.redirect("/bdnsw");
 });
 
 //unfinished pages

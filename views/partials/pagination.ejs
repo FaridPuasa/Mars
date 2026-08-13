@@ -1,0 +1,44 @@
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+  <form method="GET" action="<%= baseUrl %>" class="d-flex gap-2">
+    <input type="hidden" name="page" value="1">
+    <input type="text" name="q" value="<%= q %>" class="form-control" placeholder="Search..." style="min-width: 250px;">
+    <button type="submit" class="btn btn-mars">Search</button>
+    <% if (q) { %>
+      <a href="<%= baseUrl %>" class="btn btn-outline-secondary">Clear</a>
+    <% } %>
+  </form>
+  <div class="text-muted small">
+    Showing <%= totalCount === 0 ? 0 : ((currentPage - 1) * 50 + 1) %>&ndash;<%= Math.min(currentPage * 50, totalCount) %> of <%= totalCount.toLocaleString() %>
+  </div>
+</div>
+
+<% if (totalPages > 1) { %>
+<nav aria-label="Pagination">
+  <ul class="pagination flex-wrap">
+    <li class="page-item <%= currentPage <= 1 ? 'disabled' : '' %>">
+      <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage - 1 %>&q=<%= encodeURIComponent(q) %>">Prev</a>
+    </li>
+    <%
+      const windowSize = 2;
+      const startPage = Math.max(1, currentPage - windowSize);
+      const endPage = Math.min(totalPages, currentPage + windowSize);
+    %>
+    <% if (startPage > 1) { %>
+      <li class="page-item"><a class="page-link" href="<%= baseUrl %>?page=1&q=<%= encodeURIComponent(q) %>">1</a></li>
+      <% if (startPage > 2) { %><li class="page-item disabled"><span class="page-link">&hellip;</span></li><% } %>
+    <% } %>
+    <% for (let p = startPage; p <= endPage; p++) { %>
+      <li class="page-item <%= p === currentPage ? 'active' : '' %>">
+        <a class="page-link" href="<%= baseUrl %>?page=<%= p %>&q=<%= encodeURIComponent(q) %>"><%= p %></a>
+      </li>
+    <% } %>
+    <% if (endPage < totalPages) { %>
+      <% if (endPage < totalPages - 1) { %><li class="page-item disabled"><span class="page-link">&hellip;</span></li><% } %>
+      <li class="page-item"><a class="page-link" href="<%= baseUrl %>?page=<%= totalPages %>&q=<%= encodeURIComponent(q) %>"><%= totalPages %></a></li>
+    <% } %>
+    <li class="page-item <%= currentPage >= totalPages ? 'disabled' : '' %>">
+      <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage + 1 %>&q=<%= encodeURIComponent(q) %>">Next</a>
+    </li>
+  </ul>
+</nav>
+<% } %>

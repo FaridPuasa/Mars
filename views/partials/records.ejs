@@ -1,8 +1,3 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <div id="myRecords" class="container-fluid" style="padding-top: 50px">
   <div class="row align-items-start">
     <div class="col-md-1"></div>
@@ -110,13 +105,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <% if (declaration3) { %> 
+                  <% if (declaration3) { %>
                     <% for (var i = 0; i < declaration3.length; i++) { %>
-                      <form id="downloadXML" action="/downloadXML/<%= declaration3[i]._id %>" method="POST" >
-                  <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>" data-value="<%= declaration3[i]._id %>" data-invoice="<%= declaration3[i].Goods[0].goodsInvoiceNo %>">
-                    <td style="display:none">
-                      <input name="selectId" value="<%= declaration3[i]._id %>" readonly/>
-                    </td>
+                  <tr class="" data-bs-toggle="collapse" href="#collapseExample<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=i%>">
                     <td class="stretchy"></td>
                     <td class="stretchy"></td>
                     <td class="stretchy">
@@ -217,11 +208,11 @@
                     </td>
                     <td class="stretchy">C05-000000</td>
                     <td class="stretchy"></td>
-                    <td class="stretchy">
-                      <button type="submit" id="downloadXML2_<%= declaration3[i]._id %>">DOWNLOAD</button>
+                    <td class="stretchy text-nowrap">
+                      <a href="/bdnswedit/<%= declaration3[i]._id %>" class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation()">Edit</a>
+                      <a href="/downloadXML/<%= declaration3[i]._id %>/<%= declaration3[i].Goods[0].goodsInvoiceNo %>" class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation()">Download XML</a>
                     </td>
                   </tr>
-                </form>
                   <% } %> <% } %>
                 </tbody>
                 </table>
@@ -352,40 +343,4 @@
     }
   }
 
-  $('#tableId').on('click', 'tbody tr', function(event) {
-    $(this).addClass('highlight').siblings().removeClass('highlight');
-  });
-
-  function getDataValue() {
-    var selectedId = document.querySelector(".highlight");
-    //var theId = selectedId.getAttribute('data-value');
-    if (selectedId) {
-      //alert("ID is " + selectedId.dataset.value)
-    }
-    else {
-      alert("Please Select Row")
-    }
-    
-    
-    //window.location = "www.google.com";
-    window.location.href = "/bdnswedit/" + selectedId.dataset.value;
-    return false;
-  }
-
-  function getDataValueDownload() {
-    var selectedId = document.querySelector(".highlight");
-    //var theId = selectedId.getAttribute('data-value');
-    if (selectedId) {
-      //alert("ID is " + selectedId.dataset.value + " & invoice " + selectedId.dataset.invoice)
-    }
-    else {
-      alert("Please Select Row")
-    }
-    
-    //window.location = "www.google.com";
-    window.location.href = "/downloadXML/" + selectedId.dataset.value + "/" + selectedId.dataset.invoice;
-    //document.getElementById("downloadXML2_" + selectedId.dataset.value).submit
-    return false;
-  }
-  var idfordownloadxml = document.querySelector(".highlight").dataset.value;
 </script>

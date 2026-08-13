@@ -142,6 +142,17 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <th scope="row"></th>
+                        <td colspan="2">
+                          <select id="exporterCustomerPicker" onchange="fillExporterFromCustomer(this)">
+                            <option value="">-- Pick existing customer (optional) --</option>
+                            <% for (var e=0; e<consignee.length; e++) { %>
+                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-country="<%= consignee[e].country %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                            <% } %>
+                          </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">5</th>
                         <td>Name: </td>
                         <td><input type="text" id="exporterName" name="exporterName" size="30" value="<%= declaration3.Exporter.exporterName %>"/></td>
@@ -154,7 +165,21 @@
                     <tr>
                         <th scope="row">7</th>
                         <td>Registration: </td>
-                        <td><input type="text" id="exporterRegistration" name="exporterRegistration" size="20"value="<%= declaration3.Exporter.exporterRegistration %>"/>  Country <input type="text" id="exporterCountry" name="exporterCountry" size="10" value="<%= declaration3.Exporter.exporterCountry %>"/></td>
+                        <td><input type="text" id="exporterRegistration" name="exporterRegistration" size="20"value="<%= declaration3.Exporter.exporterRegistration %>"/>  Country
+                          <%
+                            var exporterCountryVal = declaration3.Exporter.exporterCountry || "";
+                            var exporterCountryMatched = iso_countrycodes.some(function(cc) { return cc.name.toLowerCase() === exporterCountryVal.toLowerCase(); });
+                          %>
+                          <select id="exporterCountry" name="exporterCountry">
+                            <option value=""></option>
+                            <% if (exporterCountryVal && !exporterCountryMatched) { %>
+                              <option value="<%= exporterCountryVal %>" selected><%= exporterCountryVal %> (legacy value)</option>
+                            <% } %>
+                            <% for (var c=0; c<iso_countrycodes.length; c++) { %>
+                              <option value="<%= iso_countrycodes[c].name %>" <%= iso_countrycodes[c].name.toLowerCase() === exporterCountryVal.toLowerCase() ? 'selected' : '' %>><%= iso_countrycodes[c].name %></option>
+                            <% } %>
+                          </select>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">8</th>
@@ -187,9 +212,20 @@
                         </td>
                     </tr>
                     <tr>
+                        <th scope="row"></th>
+                        <td colspan="2">
+                          <select id="importerCustomerPicker" onchange="fillImporterFromCustomer(this)">
+                            <option value="">-- Pick existing customer --</option>
+                            <% for (var e=0; e<consignee.length; e++) { %>
+                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-ic="<%= consignee[e].ic %>" data-iccolor="<%= consignee[e].icColor %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                            <% } %>
+                          </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">10</th>
                         <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="importerName" name="importerName" size="30" value="<%= declaration3.Importer.importerName %>" ondblclick="openImporterRecords()" required/></td>
+                        <td><input type="text" id="importerName" name="importerName" size="30" value="<%= declaration3.Importer.importerName %>" required/></td>
                     </tr>
                     <tr>
                         <th scope="row">11</th>
@@ -222,26 +258,37 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <th scope="row"></th>
+                        <td colspan="2">
+                          <select id="agentCustomerPicker" onchange="fillAgentFromCustomer(this)">
+                            <option value="">-- Pick existing customer --</option>
+                            <% for (var e=0; e<consignee.length; e++) { %>
+                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                            <% } %>
+                          </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">15</th>
                         <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="agentName" name="agentName" size="30" value="GLOBEX GLOBAL LOGISTICS SDN BHD"/></td>
+                        <td><input type="text" id="agentName" name="agentName" size="30" value="<%= declaration3.Agent.agentName %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">16</th>
                         <td>Address:<i class="bi bi-star-fill" style="color: red;"></i></td>
-                        <td><input type="text" id="agentAddress" name="agentAddress" size="30" value="UNIT 9, BLOCK A, SPG 188 JALAN BABU RAJA"/></td>
+                        <td><input type="text" id="agentAddress" name="agentAddress" size="30" value="<%= declaration3.Agent.agentAddress %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">17</th>
                         <td>Registration:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="agentRegistration" name="agentRegistration" size="30" value="RC/00007286"/></td>
+                        <td><input type="text" id="agentRegistration" name="agentRegistration" size="30" value="<%= declaration3.Agent.agentRegistration %>"/></td>
                     </tr>
                     <tr>
                         <th scope="row">18</th>
                         <td>Telephone:<i class="bi bi-star-fill" style="color: red;"></i> </td>
                         <td>
-                            <input type="text" id="agentPhone" name="agentPhone" size="10" value="2332065"/>
-                            <span style="font-weight:bold">19.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="agentPostal" name="agentPostal" size="10" value="BE1318"/>
+                            <input type="text" id="agentPhone" name="agentPhone" size="10" value="<%= declaration3.Agent.agentPhone %>"/>
+                            <span style="font-weight:bold">19.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="agentPostal" name="agentPostal" size="10" value="<%= declaration3.Agent.agentPostal %>"/>
                         </td>
                     </tr>
                 </table>
@@ -280,13 +327,41 @@
                     <tr>
                         <th scope="row">26</th>
                         <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryShipment" name="countryShipment" size="8" value="<%= declaration3.Transport.countryShipment %>" ondblclick="openShipmentCode('countryShipment', 'countryShipmentCode')" required/>        Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>"/></td>
+                        <td>
+                          <%
+                            var countryShipmentVal = declaration3.Transport.countryShipment || "";
+                            var countryShipmentMatched = iso_countrycodes.some(function(cc) { return cc.name.toLowerCase() === countryShipmentVal.toLowerCase(); });
+                          %>
+                          <select id="countryShipment" name="countryShipment" required onchange="fillCountryCode(this, 'countryShipmentCode')">
+                            <option value=""></option>
+                            <% if (countryShipmentVal && !countryShipmentMatched) { %>
+                              <option value="<%= countryShipmentVal %>" selected><%= countryShipmentVal %> (legacy value)</option>
+                            <% } %>
+                            <% for (var c=0; c<iso_countrycodes.length; c++) { %>
+                              <option value="<%= iso_countrycodes[c].name %>" data-code="<%= iso_countrycodes[c].alpha2 %>" <%= iso_countrycodes[c].name.toLowerCase() === countryShipmentVal.toLowerCase() ? 'selected' : '' %>><%= iso_countrycodes[c].name %></option>
+                            <% } %>
+                          </select>
+                          Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" value="<%= declaration3.Transport.countryShipmentCode %>" readonly/></td>
                     </tr>
                     
                     <tr>
                         <th scope="row">27</th>
                         <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="countryDestination" name="countryDestination" size="8" value="<%= declaration3.Transport.countryDestination %>" ondblclick="openShipmentCode('countryDestination', 'countryDestinationCode')" required/>        Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" value="<%= declaration3.Transport.countryDestinationCode %>"/></td>
+                        <td>
+                          <%
+                            var countryDestinationVal = declaration3.Transport.countryDestination || "";
+                            var countryDestinationMatched = iso_countrycodes.some(function(cc) { return cc.name.toLowerCase() === countryDestinationVal.toLowerCase(); });
+                          %>
+                          <select id="countryDestination" name="countryDestination" required onchange="fillCountryCode(this, 'countryDestinationCode')">
+                            <option value=""></option>
+                            <% if (countryDestinationVal && !countryDestinationMatched) { %>
+                              <option value="<%= countryDestinationVal %>" selected><%= countryDestinationVal %> (legacy value)</option>
+                            <% } %>
+                            <% for (var c=0; c<iso_countrycodes.length; c++) { %>
+                              <option value="<%= iso_countrycodes[c].name %>" data-code="<%= iso_countrycodes[c].alpha2 %>" <%= iso_countrycodes[c].name.toLowerCase() === countryDestinationVal.toLowerCase() ? 'selected' : '' %>><%= iso_countrycodes[c].name %></option>
+                            <% } %>
+                          </select>
+                          Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" value="<%= declaration3.Transport.countryDestinationCode %>" readonly/></td>
                     </tr>
                     <tr>
                         <th scope="row">28</th>
@@ -848,43 +923,6 @@
      <p></p>
     </form>
     
-    <!-- The Modal for Importer/Consignee -->
-    <div class="modal" id="importerRecordsm">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Importer/Consignee Records</h4>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-            <div style="height: 500px; overflow:auto">
-              <!-- <input type="text" id="filterHSCode" onkeyup="filterHSCode()" placeholder="Search HSCode.." title="Filter by HS Code"> -->
-              <table class="table table-striped" id="importerRecordsTable">
-                <tr>
-                    <th>Name</th>
-                </tr>
-                <!-- HERE -->
-                <% for (var j=0; j<consignee.length; j++) { %>
-                    <tr>
-                        <td scope="row" class="selectimporterName" ondblclick="selectImporter('<%= consignee[j].name %>', '<%= consignee[j].address %>', '<%= consignee[j].reg %>', '<%= consignee[j].ic %>', '<%= consignee[j].icColor %>', '<%= consignee[j].telephone %>', '<%= consignee[j].postal %>')"><%= consignee[j].name %></td>
-                        
-                    </tr>
-                <% } %>
-              </table>
-            </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
-
-          </div>
-        </div>
-    </div>
     <!-- Modal Ends -->
 
 
@@ -945,27 +983,21 @@
             <!-- Modal body -->
             <div class="modal-body">
             <div style="height: 500px; overflow:auto">
-              <input type="text" id="filterHSCode" onkeyup="filterHSCode()" placeholder="Search HSCode.." title="Filter by HS Code">
+              <input type="text" id="filterHSCode" class="form-control mb-2" placeholder="Search HS Code, heading or description..." title="Search HS Code">
               <table class="table table-striped" id="hscodeTable">
+                <thead>
                 <tr>
                     <th style='min-width:50px; max-width:50px; '>Heading</th>
-                    <td>HS Code</td>
-                    <td>Description</td>
-                    <td>Quantity</td>
-                    <td>Rate of Import Duty</td>
-                    <td>Rate of Excise Duty</td>
+                    <th>HS Code</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Rate of Import Duty</th>
+                    <th>Rate of Excise Duty</th>
                 </tr>
-                <!-- HERE -->
-                <% for (var k=0; k<hscode2.length; k++) { %>
-                    <tr>
-                        <th scope="row"><%= hscode2[k].Heading %></th>
-                        <td class='selectHsCode' ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].HSCode %></td>
-                        <td style="max-width: 250px; word-wrap: break-word;" class="selectDescription" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].Description %></td>
-                        <td class="selectQuantity" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].Quantity %></td>
-                        <td class="selectImportRate" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].ImportDutyRate %></td>
-                        <td class="selectExciseRate" ondblclick="selectHSCode(document.getElementById('thevalue').innerHTML, document.getElementsByClassName('selectHsCode')[<%=k%>].innerHTML, document.getElementsByClassName('selectQuantity')[<%=k%>].innerHTML, document.getElementsByClassName('selectImportRate')[<%=k%>].innerHTML, document.getElementsByClassName('selectExciseRate')[<%=k%>].innerHTML)"><%= hscode2[k].ExciseDutyRate %></td>
-                    </tr>
-                <% } %>
+                </thead>
+                <tbody id="hscodeResultsBody">
+                  <tr><td colspan="6" class="text-muted">Loading&hellip;</td></tr>
+                </tbody>
               </table>
             </div>
             </div>
@@ -1587,22 +1619,8 @@
         }
 
     }
-    //Importer/Consignee Records
-    var importerRecordsModal = new bootstrap.Modal(document.getElementById('importerRecordsm'))
-
-    function openImporterRecords(){
-        importerRecordsModal.show();
-    }
-
+    //Customer auto-fill for Exporter/Importer/Agent
     function selectImporter(selectedName, selectedAddress, selectedReg, selectedIc, selectedIcColor, selectedPhone, selectedPostal){
-        // var selectedName = document.getElementById('importerNameRecords').innerHTML;
-        // var selectedAddress = document.getElementById('importerAddressRecords').innerHTML;
-        // var selectedReg = document.getElementById('importerAddressRecords').innerHTML;
-        // var selectedIc = document.getElementById('importerAddressRecords').innerHTML;
-        // var selectedIcColor = document.getElementById('importerAddressRecords').innerHTML;
-        // var selectedPhone = document.getElementById('importerAddressRecords').innerHTML;
-        // var selectedPostal = document.getElementById('importerAddressRecords').innerHTML;
-
         document.getElementById('importerName').value = selectedName;
         document.getElementById('importerAddress').value = selectedAddress;
         document.getElementById('regTraderCoyRegNo').value = selectedReg;
@@ -1610,8 +1628,33 @@
         document.getElementById('importerICColor').value = selectedIcColor;
         document.getElementById('importerPhone').value = selectedPhone;
         document.getElementById('importerPostal').value = selectedPostal;
+    }
 
-        importerRecordsModal.hide();
+    function fillExporterFromCustomer(select) {
+        var opt = select.options[select.selectedIndex];
+        if (!opt.value) return;
+        document.getElementById('exporterName').value = opt.dataset.name || '';
+        document.getElementById('exporterAddress').value = opt.dataset.address || '';
+        document.getElementById('exporterRegistration').value = opt.dataset.reg || '';
+        document.getElementById('exporterCountry').value = opt.dataset.country || '';
+        document.getElementById('exporterPhone').value = opt.dataset.phone || '';
+        document.getElementById('exporterPostal').value = opt.dataset.postal || '';
+    }
+
+    function fillImporterFromCustomer(select) {
+        var opt = select.options[select.selectedIndex];
+        if (!opt.value) return;
+        selectImporter(opt.dataset.name, opt.dataset.address, opt.dataset.reg, opt.dataset.ic, opt.dataset.iccolor, opt.dataset.phone, opt.dataset.postal);
+    }
+
+    function fillAgentFromCustomer(select) {
+        var opt = select.options[select.selectedIndex];
+        if (!opt.value) return;
+        document.getElementById('agentName').value = opt.dataset.name || '';
+        document.getElementById('agentAddress').value = opt.dataset.address || '';
+        document.getElementById('agentRegistration').value = opt.dataset.reg || '';
+        document.getElementById('agentPhone').value = opt.dataset.phone || '';
+        document.getElementById('agentPostal').value = opt.dataset.postal || '';
     }
 
     //CountryCode Modal and filtering system.
@@ -1621,6 +1664,11 @@
         document.getElementById('shipmentCountryValue').innerHTML = theID;
         document.getElementById('shipmentCodeValue').innerHTML = codeID;
         countryShipmentModal.show();
+    }
+
+    function fillCountryCode(selectEl, codeFieldId) {
+        var opt = selectEl.options[selectEl.selectedIndex];
+        document.getElementById(codeFieldId).value = opt ? (opt.dataset.code || '') : '';
     }
 
     function selectCountryCode(selectCountry, selectCode){
@@ -1633,32 +1681,63 @@
         countryShipmentModal.hide();
     }
 
-    //HSCode Modal and filtering system.
+    //HSCode Modal and search system.
     var hsCodeModal = new bootstrap.Modal(document.getElementById('hscodem'))
+    var hscodeSearchTimeout = null;
 
     function openHSCode(num){
         document.getElementById('thevalue').innerHTML = num;
+        document.getElementById('filterHSCode').value = '';
+        fetchHscodeResults('');
         hsCodeModal.show();
     }
 
-    function filterHSCode() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("filterHSCode");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("hscodeTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-            txtValue = td.textContent.replace(/[.]/g,"") || td.innerText.replace(/[.]/g,"");
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-            }       
-        }
+    function fetchHscodeResults(q) {
+        fetch('/api/hscode/search?q=' + encodeURIComponent(q))
+            .then(function(r) { return r.json(); })
+            .then(renderHscodeResults);
     }
+
+    function renderHscodeResults(results) {
+        var tbody = document.getElementById('hscodeResultsBody');
+        tbody.innerHTML = '';
+        if (!results.length) {
+            var emptyRow = document.createElement('tr');
+            var emptyCell = document.createElement('td');
+            emptyCell.colSpan = 6;
+            emptyCell.className = 'text-muted';
+            emptyCell.textContent = 'No results';
+            emptyRow.appendChild(emptyCell);
+            tbody.appendChild(emptyRow);
+            return;
+        }
+        results.forEach(function(h) {
+            var hasCode = h.HSCode && h.HSCode.trim() !== '';
+            var tr = document.createElement('tr');
+            if (!hasCode) tr.className = 'text-muted';
+            [h.Heading, h.HSCode, h.Description, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
+                var td = document.createElement('td');
+                td.textContent = val || '';
+                tr.appendChild(td);
+            });
+            if (hasCode) {
+                tr.style.cursor = 'pointer';
+                tr.title = 'Double-click to select';
+                tr.addEventListener('dblclick', function() {
+                    selectHSCode(document.getElementById('thevalue').innerHTML, h.HSCode, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate);
+                });
+            }
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById('filterHSCode').addEventListener('input', function() {
+        var q = this.value;
+        clearTimeout(hscodeSearchTimeout);
+        hscodeSearchTimeout = setTimeout(function() {
+            fetchHscodeResults(q);
+        }, 250);
+    });
 
     function selectHSCode(hscodeClassNumber, hscode, quantity, importRate, exciseRate){
         var hsCodeClass = document.getElementsByClassName('hsCode');

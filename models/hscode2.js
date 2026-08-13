@@ -22,5 +22,7 @@ const hscode2Schema = new mongoose.Schema({
     },
 });
 
+hscode2Schema.index({ HSCode: 1 });
+hscode2Schema.index({ Heading: 1 });
 
 module.exports = mongoose.model("hscode2", hscode2Schema);

@@ -1,42 +1,60 @@
-<title>Register</title>
+<% const title = "Register" %>
+<%- include('partials/head', { title }); %>
+<body>
+<%- include('partials/dashboard'); %>
 
-<h1>Create an account</h1>
-<form action="/register" method="POST">
-  <div>
-    <label htmlFor="name">Name</label>
-    <input type="text" id="name" name="name" />
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h2 class="card-title mb-4">Create an account</h2>
+          <form action="/register" method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Username/Email</label>
+              <input type="text" id="email" name="email" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" id="password" name="password" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="text" id="phone" name="phone" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="idType" class="form-label">ID Type</label>
+              <select id="idType" name="idType" class="form-select">
+                <option value="IC">IC</option>
+                <option value="PP">PP</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="icNo" class="form-label">IC/Passport No</label>
+              <input type="text" id="icNo" name="icNo" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="icColor" class="form-label">IC Color</label>
+              <input type="text" id="icColor" name="icColor" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="designation" class="form-label">Designation</label>
+              <input type="text" id="designation" name="designation" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-mars w-100">Register</button>
+            <p class="text-center mt-3 mb-0">Already a user? <a href="/login">Login</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <label htmlFor="email">Username/Email</label>
-    <input type="text" id="email" name="email" />
-  </div>
-  <div>
-    <label htmlFor="password">Password</label>
-    <input type="password" id="password" name="password" />
-  </div>
-  <div>
-    <label htmlFor="phone">Phone Number</label>
-    <input type="text" id="phone" name="phone" />
-  </div>
-  <div>
-    <label htmlFor="idType">ID Type</label>
-    <select>
-      <option value="IC">IC</option>
-      <option value="PP">PP</option>
-    </select>
-  </div>
-  <div>
-    <label htmlFor="icNo">IC</label>
-    <input type="text" id="icNo" name="icNo" />
-  </div>
-  <div>
-    <label htmlFor="icColor">IC Color</label>
-    <input type="text" id="icColor" name="icColor" />
-  </div>
-  <div>
-    <label htmlFor="designation">Designation</label>
-    <input type="text" id="designation" name="designation" />
-  </div>
-  <button type="submit">Register</button>
-  <p>Already a user? <a href="/login">Login</a></p>
-</form>
+</div>
+
+<%- include('partials/footer'); %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

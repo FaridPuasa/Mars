@@ -8,6 +8,9 @@ const consigneeSchema = new mongoose.Schema({
     address: {
         type: String,
     },
+    country: {
+        type: String,
+    },
     reg: {
         type: String,
     },
