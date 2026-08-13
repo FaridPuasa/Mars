@@ -20,6 +20,9 @@ const hscode2Schema = new mongoose.Schema({
     ExciseDutyRate: {
         type: String,
     },
+    category: {
+        type: String,
+    },
 });
 
 hscode2Schema.index({ HSCode: 1 });

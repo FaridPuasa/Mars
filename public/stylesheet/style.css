@@ -58,6 +58,108 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     object-fit: contain;
 }
 
+/* BDNSW declaration form modernization */
+.mars-stepper-bar {
+    background: var(--mars-surface);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.btn-mars-step {
+    background: var(--mars-bg);
+    border: 1px solid var(--mars-border);
+    color: var(--mars-text);
+    font-size: 0.85rem;
+}
+
+.btn-mars-step:hover {
+    background: var(--mars-orange-subtle);
+}
+
+.mars-field-table {
+    background: var(--mars-surface);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.mars-field-table tr:first-child td {
+    background: var(--mars-orange-subtle);
+    font-weight: 600;
+    color: var(--mars-orange-dark);
+    padding: 0.6rem 1rem !important;
+    border: none !important;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.mars-field-table tr:not(:first-child) > td,
+.mars-field-table tr:not(:first-child) > th {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--mars-border) !important;
+    vertical-align: middle;
+    background: var(--mars-surface) !important;
+}
+
+.mars-field-table th[scope="row"] {
+    color: var(--mars-muted);
+    font-weight: 400;
+    font-size: 0.75rem;
+    width: 2rem;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.mars-field-table input[type="text"],
+.mars-field-table input[type="date"],
+.mars-field-table input[type="number"],
+.mars-field-table select,
+.mars-field-table textarea {
+    border: 1px solid var(--mars-border);
+    border-radius: 0.375rem;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.9rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.mars-field-table input[type="text"]:focus,
+.mars-field-table input[type="date"]:focus,
+.mars-field-table input[type="number"]:focus,
+.mars-field-table select:focus,
+.mars-field-table textarea:focus {
+    outline: none;
+    border-color: var(--mars-blue);
+    box-shadow: 0 0 0 0.2rem rgba(27, 117, 188, 0.15);
+}
+
+.mars-field-table input[readonly] {
+    background-color: #f1f3f5;
+    border-color: transparent;
+}
+
+.mars-field-table .bi-star-fill {
+    font-size: 0.55rem;
+    vertical-align: middle;
+    margin-right: 0.2rem;
+}
+
+#Declaration3 .modal-header,
+#editRecords .modal-header {
+    border-bottom: 2px solid var(--mars-orange-subtle);
+}
+
+#Declaration3 .modal-title,
+#editRecords .modal-title {
+    color: var(--mars-text);
+    font-family: 'Montserrat', sans-serif;
+}
+
 #dropdown{
     margin: auto;
     display: block;

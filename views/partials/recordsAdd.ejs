@@ -32,7 +32,7 @@
                         <option value="cept">CEPT</option>
                     </select>
                 </div>
-                <table class="table table-striped table-sm">
+                <table class="table table-sm mars-field-table">
                     <tr>
                         <th scope="row"></th>
                         <td style="font-weight: bold;">Procedure</td>
@@ -186,7 +186,7 @@
             </div>
             <!-- end left col-->
             <div class="col rightcolumn">
-                <table class="table table-striped table-sm">
+                <table class="table table-sm mars-field-table">
                     <tr>
                         <th scope="row"></th>
                         <td style="font-weight: bold;">Importer/Consignee</td>
@@ -294,7 +294,7 @@
         <div class="declarationPage">
         <div class="row">
             <div class="col leftcolumn">
-                <table class="table table-striped table-sm">
+                <table class="table table-sm mars-field-table">
                     <tr>
                         <th scope="row"></th>
                         <td style="font-weight: bold;">Transport</td>
@@ -364,7 +364,7 @@
             </div>
             <!-- end left col-->
             <div class="col rightcolumn">
-                <table class="table table-striped table-sm">
+                <table class="table table-sm mars-field-table">
                     <tr>
                         <th scope="row"></th>
                         <td style="font-weight: bold;">Supporting Documents</td>
@@ -407,7 +407,7 @@
         <div class="declarationPage">
             <div class="row">
                 <div class="col leftcolumn">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm mars-field-table">
                         <tr>
                             <th scope="row"></th>
                             <td style="font-weight: bold;">for Temporary Import</td>
@@ -481,7 +481,7 @@
                 </div>
                 <!-- end left col-->
                 <div class="col rightcolumn">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm mars-field-table">
                         <tr>
                             <th scope="row"></th>
                             <td style="font-weight: bold;">Security Deposit</td>
@@ -583,7 +583,7 @@
                                             <button type="button" class="btn btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething();">Calculate</button>
                                             <button type="button" class="btn btn-success" onclick="addInvoice(); getOutsideValue(); calculateInvoice();">Add</button>
                                             <button type="button" class="btn btn-danger" onclick="removeInvoice()">Remove</button>
-                                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+                                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                                         </div>
   
                                       </div>
@@ -674,7 +674,7 @@
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" onclick='saveRemarks()' data-bs-dismiss="modal">Save</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         </div>
   
                                       </div>
@@ -695,7 +695,7 @@
         <div class="declarationPage">
             <div class="row">
                 <div class="col leftcolumn">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm mars-field-table">
                         <tr>
                             <th scope="row"></th>
                             <td style="font-weight: bold;">Declaration</td>
@@ -731,7 +731,7 @@
                 </div>
                 <!-- end left col-->
                 <div class="col rightcolumn">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm mars-field-table">
                         <tr>
                             <th scope="row">84</th>
                             <td>Date Declare: </td>
@@ -761,22 +761,25 @@
             </div>
             </div>
             <!--Page 4 Ends-->
-        <div style="overflow:auto;">
-            <div>
-                <button type="button" id="page1" onclick="gotoPage(0);">1</button>
-                <button type="button" id="page2" onclick="gotoPage(1);">2</button>
-                <button type="button" id="page3" onclick="gotoPage(2);">3</button>
-                <button type="button" id="page4" onclick="gotoPage(3);">4</button>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mars-stepper-bar">
+            <div class="btn-group" role="group" aria-label="Declaration pages">
+                <button type="button" id="page1" class="btn btn-mars-step" onclick="gotoPage(0);">1. Parties &amp; Procedure</button>
+                <button type="button" id="page2" class="btn btn-mars-step" onclick="gotoPage(1);">2. Transport &amp; Documents</button>
+                <button type="button" id="page3" class="btn btn-mars-step" onclick="gotoPage(2);">3. Goods &amp; Charges</button>
+                <button type="button" id="page4" class="btn btn-mars-step" onclick="gotoPage(3);">4. Declarant</button>
             </div>
-            <div style="float:right;">
-              <button type="button" id="prevDecBtn" onclick="nextDecPrev(-1)">Previous</button>
-              <button type="button" id="nextDecBtn" onclick="nextDecPrev(1)">Next</button>
+            <div>
+              <button type="button" id="prevDecBtn" class="btn btn-outline-secondary" onclick="nextDecPrev(-1)">Previous</button>
+              <button type="button" id="nextDecBtn" class="btn btn-mars" onclick="nextDecPrev(1)">Next</button>
             </div>
           </div>
 
-          <div class = "row align-items-start" style="max-height:600px; overflow:scroll; border: 1px solid black">
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+            <h5 class="card-title mb-3">Goods</h5>
+            <div class="table-responsive" style="max-height:600px;">
                 <table class="table table-striped table-sm table-bordered" id="goodsTable">
-                    <thead></thead>
+                    <thead>
                     <tr>
                         <th scope="row">Item</th>
                         <td>No Package</td>
@@ -836,17 +839,18 @@
                         </tr>
                     </tfoot>
                 </table>
-                
             </div>
-            <button type="button" class="btn inline ms-auto btn-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()" style="width: 100%">Calculate</button>
-        <button onclick="addGoods()" class="btn inline ms-auto btn-success" style="width: 100%">Add Goods</button>
-        <button onclick="removeGoods()" class="btn inline ms-auto btn-danger" style="width: 100%">Remove Goods</button>
+            <div class="btn-group mt-2" role="group">
+                <button type="button" class="btn btn-outline-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
+                <button type="button" onclick="addGoods()" class="btn btn-outline-success">Add Goods</button>
+                <button type="button" onclick="removeGoods()" class="btn btn-outline-danger">Remove Goods</button>
+            </div>
+            </div>
         </div>
-        
-    <br>
-    <p></p>
-     <button type="submit" class="btn inline btn-success" onclick="clicked(event)" style="width: 100%">Submit</button>
-     <p></p>
+
+    <div class="d-flex justify-content-end mt-3 mb-4">
+      <button type="submit" class="btn btn-mars btn-lg" onclick="clicked(event)">Submit Declaration</button>
+    </div>
     </form>
 
     <!-- Modal Ends -->
@@ -885,7 +889,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
 
           </div>
@@ -907,13 +911,13 @@
             <!-- Modal body -->
             <div class="modal-body">
             <div style="height: 500px; overflow:auto">
-              <input type="text" id="filterHSCode" class="form-control mb-2" placeholder="Search HS Code, heading or description..." title="Search HS Code">
+              <input type="text" id="filterHSCode" class="form-control mb-2" placeholder="Search HS Code, description or category..." title="Search HS Code">
               <table class="table table-striped" id="hscodeTable">
                 <thead>
                 <tr>
-                    <th style='min-width:50px; max-width:50px; '>Heading</th>
                     <th>HS Code</th>
                     <th>Description</th>
+                    <th>Category</th>
                     <th>Quantity</th>
                     <th>Rate of Import Duty</th>
                     <th>Rate of Excise Duty</th>
@@ -928,7 +932,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
 
           </div>
@@ -1058,20 +1062,13 @@
         
     }
     //GOODS;
-    if (document.getElementsByClassName("goodsSerialNoClass").length) {
-        var x = document.getElementsByClassName("goodsSerialNoClass").length;
-        onload=addGoods();
-    } else {
-        var x = 0;
-        onload=addGoods();
-    }
-    
+    onload=addGoods();
 
     function addGoods() {
-        x++
-        var addRow = document.getElementById("goodsTable");
+        var x = document.getElementsByClassName("goodsSerialNoClass").length + 1;
+        var addRow = document.querySelector("#goodsTable tbody");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCIF' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
 
@@ -1091,19 +1088,15 @@
     }
 
     function removeGoods() {
-        var removeRow = document.getElementById("goodsTable");
-        //var tr = document.removeChild('tr');
-        //tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><input type='text' name='goodsPackageUnit' size='3' value=''/></td><td><input type='text' name='countryOrigin' size='3' value=''/></td><td><input type='text' name='countryCode' size='3' value=''/></td><td><input type='text' name='hsCode' size='8' /></td><td><input type='text' name='subCode' size='8' value=''/></td><td><input type='text' name='goodsDescription' value=''/></td><td><input type='text' name='goodsC' size='3' value=''/></td><td><input type='text' name='goodsUnit' size='1' value=''/></td><td><input type='text' name='goodsCode' size='3' value=''/></td><td><input type='text' name='goodsQuantity' size='1' required/></td><td><input type='text' name='goodsWeight' size='3' required/></td><td><input type='text' name='goodsAmount' size='3' required/></td><td><input type='text' name='goodsCIF' size='1' value=''/></td><td><input type='text' name='goodsDuty' size='1' value=''/></td><td><input type='text' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' name='goodsLNo' size='1' value=''/></td><td><input type='text' name='goodsShippingMark' value=''/></td><td><input type='text' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' name='goodsInvoiceNo' required/></td><td><input type='text' name='goodsControl' value=''/></td><td><input type='text' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' name='goodsExciseDuty' size='1' value=''/></td>";
-        var templength = removeRow.rows.length;
-        removeRow.deleteRow(templength - 1);
+        var tbody = document.querySelector("#goodsTable tbody");
+        if (tbody.rows.length <= 1) return;
+        tbody.deleteRow(tbody.rows.length - 1);
+        var serials = document.getElementsByClassName("goodsSerialNoClass");
+        for (var i = 0; i < serials.length; i++) {
+            serials[i].value = i + 1;
+        }
     }
 
-    //INVOICE (PROBABLY UNNECESSARY, Y ALWAYS BE = invoiceNo length)
-    if (document.getElementsByClassName("invoiceNo").length) {
-        var y = document.getElementsByClassName("invoiceNo").length;
-    } else {
-        var y = 0;
-    }
     //INVOICE TABLE
 
     function getOutsideValue(){
@@ -1116,18 +1109,17 @@
     }
 
     function addInvoice() {
-        y++
-        var addRow = document.getElementById("invoiceTable");
+        var addRow = document.querySelector("#invoiceTable tbody");
         var tr = document.createElement('tr');
         tr.innerHTML = "<th scope='row'><input type='text' class='invoiceNo' name='invoiceNo' style='min-width:100px; max-width:100px;' size='3' value=''/></th><td><input type='text' name='invoiceDate' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceTerm' name='invoiceTerm' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceCCY' name='invoiceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceAmount' name='invoiceAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceFreightCCY' style='min-width:50px; max-width:50px;' name='invoiceFreightCCY' size='1' value=''/></td><td><input type='text' class='invoiceFreightAmount' name='invoiceFreightAmount' style='min-width:80px; max-width:80px;' size='5' value=''/></td><td><input type='text' class='invoiceInsuranceCCY' name='invoiceInsuranceCCY' style='min-width:50px; max-width:50px;' size='1' value=''/></td><td><input type='text' class='invoiceInsuranceAmount' name='invoiceInsuranceAmount' style='min-width:80px; max-width:80px;' size='3' value=''/></td><td><input type='text' class='invoiceOtherCharges' name='invoiceOtherCharges' style='min-width:80px; max-width:80px;' size='3' value=''/></td>"
-        
+
         addRow.appendChild(tr);
     }
 
     function removeInvoice() {
-        var removeRow = document.getElementById("invoiceTable");
-        var templength = removeRow.rows.length;
-        removeRow.deleteRow(templength - 1);
+        var tbody = document.querySelector("#invoiceTable tbody");
+        if (tbody.rows.length <= 1) return;
+        tbody.deleteRow(tbody.rows.length - 1);
     }
 
     //ALL SHOVED INTO CALCULATEINVOICE
@@ -1622,21 +1614,17 @@
             return;
         }
         results.forEach(function(h) {
-            var hasCode = h.HSCode && h.HSCode.trim() !== '';
             var tr = document.createElement('tr');
-            if (!hasCode) tr.className = 'text-muted';
-            [h.Heading, h.HSCode, h.Description, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
+            [h.HSCode, h.Description, h.category, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
                 var td = document.createElement('td');
                 td.textContent = val || '';
                 tr.appendChild(td);
             });
-            if (hasCode) {
-                tr.style.cursor = 'pointer';
-                tr.title = 'Double-click to select';
-                tr.addEventListener('dblclick', function() {
-                    selectHSCode(document.getElementById('thevalue').innerHTML, h.HSCode, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate);
-                });
-            }
+            tr.style.cursor = 'pointer';
+            tr.title = 'Double-click to select';
+            tr.addEventListener('dblclick', function() {
+                selectHSCode(document.getElementById('thevalue').innerHTML, h.HSCode, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate);
+            });
             tbody.appendChild(tr);
         });
     }

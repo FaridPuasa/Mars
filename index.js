@@ -190,7 +190,7 @@ app.get("/profile", requireLogin, async (req, res) => {
 })
 
 app.post("/profileupdate", requireLogin, async (req, res) => {
-  const { name, phone, idType, icNo, icColor, designation, address, registration, postcode, currentPassword, newPassword, confirmNewPassword } = req.body;
+  const { name, phone, idType, icNo, icColor, designation, address, currentPassword, newPassword, confirmNewPassword } = req.body;
 
   if (!name?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
     req.flash("error", "Name, ID Type, IC Number, IC Color and Designation are required.");
@@ -202,7 +202,7 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
     return res.redirect("/profile");
   }
 
-  const update = { name, idType, icNo, icColor, address, phone, designation, registration, postcode };
+  const update = { name, idType, icNo, icColor, address, phone, designation };
 
   if (currentPassword || newPassword || confirmNewPassword) {
     if (!currentPassword || !newPassword || !confirmNewPassword) {
@@ -1410,14 +1410,20 @@ function escapeRegex(str) {
 }
 
 //HSCODE PAGE TO LOOK UP HSCODE
+// Only rows shaped like a real national tariff line (e.g. 0101.21.00) are actually
+// declarable — the reference data also contains heading/sub-heading rows (e.g. "01.01",
+// "0102.29") that exist purely to group codes, per the BDTTC tariff book layout, and are
+// never themselves selected on a declaration.
+const DECLARABLE_HSCODE_FILTER = { HSCode: { $regex: /^\d{4}\.\d{2}\.\d{2}$/ } };
+
 app.get("/hscode", requireLogin, async (req, res) => {
   const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
   const q = (req.query.q || "").trim();
 
-  let filter = {};
+  let filter = DECLARABLE_HSCODE_FILTER;
   if (q) {
     const rx = new RegExp(escapeRegex(q), "i");
-    filter = { $or: [{ HSCode: rx }, { Heading: rx }, { Description: rx }] };
+    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }] };
   }
 
   const totalCount = await Hscode2.countDocuments(filter);
@@ -1434,16 +1440,16 @@ app.get("/hscode", requireLogin, async (req, res) => {
 });
 
 app.post("/hscode/create", requireLogin, async (req, res) => {
-  const { Heading, HSCode, Description, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const { HSCode, Description, category, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
   const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
-  if (!Heading?.trim() || !HSCode?.trim() || !Description?.trim()) {
-    req.flash("error", "Heading, HSCode and Description are required.");
+  if (!HSCode?.trim() || !Description?.trim()) {
+    req.flash("error", "HSCode and Description are required.");
     return res.redirect(redirectUrl);
   }
   await Hscode2.create({
-    Heading: Heading.trim(),
     HSCode: HSCode.trim(),
     Description: Description.trim(),
+    category: (category || "").trim(),
     Quantity: (Quantity || "").trim(),
     ImportDutyRate: (ImportDutyRate || "").trim(),
     ExciseDutyRate: (ExciseDutyRate || "").trim(),
@@ -1452,18 +1458,18 @@ app.post("/hscode/create", requireLogin, async (req, res) => {
 });
 
 app.post("/hscode/update", requireLogin, async (req, res) => {
-  const { _id, Heading, HSCode, Description, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const { _id, HSCode, Description, category, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
   const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
-  if (!Heading?.trim() || !HSCode?.trim() || !Description?.trim()) {
-    req.flash("error", "Heading, HSCode and Description are required.");
+  if (!HSCode?.trim() || !Description?.trim()) {
+    req.flash("error", "HSCode and Description are required.");
     return res.redirect(redirectUrl);
   }
   const updated = await Hscode2.findByIdAndUpdate(
     _id,
     {
-      Heading: Heading.trim(),
       HSCode: HSCode.trim(),
       Description: Description.trim(),
+      category: (category || "").trim(),
       Quantity: (Quantity || "").trim(),
       ImportDutyRate: (ImportDutyRate || "").trim(),
       ExciseDutyRate: (ExciseDutyRate || "").trim(),
@@ -1482,10 +1488,10 @@ app.post("/hscode/delete/:id", requireLogin, requireAdmin, async (req, res) => {
 
 app.get("/api/hscode/search", requireLogin, async (req, res) => {
   const q = (req.query.q || "").trim();
-  let filter = {};
+  let filter = DECLARABLE_HSCODE_FILTER;
   if (q) {
     const rx = new RegExp(escapeRegex(q), "i");
-    filter = { $or: [{ HSCode: rx }, { Heading: rx }, { Description: rx }] };
+    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }] };
   }
   const results = await Hscode2.find(filter).sort({ HSCode: 1 }).limit(50).lean();
   res.json(results);

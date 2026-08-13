@@ -20,9 +20,9 @@
     <table class="table table-striped table-bordered table-sm align-middle">
       <thead>
         <tr>
-          <th scope="col">Heading</th>
           <th scope="col">HSCode</th>
           <th scope="col">Description</th>
+          <th scope="col">Category</th>
           <th scope="col">Quantity</th>
           <th scope="col">Rate of Import Duty</th>
           <th scope="col">Rate of Excise Duty</th>
@@ -32,18 +32,18 @@
       <tbody>
         <% hscode.forEach(function(h) { %>
         <tr>
-          <td><%= h.Heading %></td>
           <td><%= h.HSCode %></td>
           <td><%= h.Description %></td>
+          <td class="text-muted small"><%= h.category %></td>
           <td><%= h.Quantity %></td>
           <td><%= h.ImportDutyRate %></td>
           <td><%= h.ExciseDutyRate %></td>
           <td class="text-nowrap">
             <button type="button" class="btn btn-sm btn-outline-primary edit-hscode-btn"
               data-id="<%= h._id %>"
-              data-heading="<%= h.Heading %>"
               data-hscode="<%= h.HSCode %>"
               data-description="<%= h.Description %>"
+              data-category="<%= h.category %>"
               data-quantity="<%= h.Quantity %>"
               data-importdutyrate="<%= h.ImportDutyRate %>"
               data-excisedutyrate="<%= h.ExciseDutyRate %>">Edit</button>
@@ -72,9 +72,9 @@
       <div class="modal-body">
         <input type="hidden" name="page" value="<%= currentPage %>">
         <input type="hidden" name="q" value="<%= q %>">
-        <div class="mb-2"><label class="form-label">Heading</label><input type="text" name="Heading" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" class="form-control" placeholder="e.g. 0101.21.00" required></div>
         <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" class="form-control" placeholder="e.g. 01.01 - Live horses, asses, mules and hinnies."></div>
         <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" class="form-control"></div>
@@ -99,9 +99,9 @@
         <input type="hidden" name="_id" id="editHscodeId">
         <input type="hidden" name="page" value="<%= currentPage %>">
         <input type="hidden" name="q" value="<%= q %>">
-        <div class="mb-2"><label class="form-label">Heading</label><input type="text" name="Heading" id="editHeading" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" id="editHSCode" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" id="editDescription" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" id="editCategory" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" id="editQuantity" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" id="editImportDutyRate" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" id="editExciseDutyRate" class="form-control"></div>
@@ -139,9 +139,9 @@
   document.querySelectorAll('.edit-hscode-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.getElementById('editHscodeId').value = btn.dataset.id;
-      document.getElementById('editHeading').value = btn.dataset.heading;
       document.getElementById('editHSCode').value = btn.dataset.hscode;
       document.getElementById('editDescription').value = btn.dataset.description;
+      document.getElementById('editCategory').value = btn.dataset.category;
       document.getElementById('editQuantity').value = btn.dataset.quantity;
       document.getElementById('editImportDutyRate').value = btn.dataset.importdutyrate;
       document.getElementById('editExciseDutyRate').value = btn.dataset.excisedutyrate;
