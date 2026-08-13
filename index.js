@@ -40,6 +40,13 @@ const Unlocode_port_list2 = require("./models/unlocode_port_list2");
 app.set("view-engine", "ejs")
 app.use(express.urlencoded({ extended: false }))
 
+app.use((req, res, next) => {
+  if (req.headers["x-forwarded-proto"] !== "https" && process.env.NODE_ENV === "production") {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+  next();
+});
+
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
