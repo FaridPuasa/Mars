@@ -1,0 +1,164 @@
+<% const title = "Users" %>
+<%- include('partials/head', { title }); %>
+<body>
+<%- include('partials/dashboard'); %>
+
+<div class="container-fluid py-4" style="max-width: 1200px;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Users</h1>
+    <button type="button" class="btn btn-mars" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
+  </div>
+  <p class="text-muted">Manage who can log in to MARS and what they're allowed to do.</p>
+
+  <% if (messages.error) { %>
+    <p class="alert alert-danger"><%= messages.error %></p>
+  <% } %>
+  <% if (messages.success) { %>
+    <p class="alert alert-success"><%= messages.success %></p>
+  <% } %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-sm align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">ID Type</th>
+          <th scope="col">IC No</th>
+          <th scope="col">IC Color</th>
+          <th scope="col">Designation</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(u) { %>
+        <tr>
+          <td><%= u.name %></td>
+          <td><%= u.email %></td>
+          <td><%= u.phone %></td>
+          <td><%= u.idType %></td>
+          <td><%= u.icNo %></td>
+          <td><%= u.icColor %></td>
+          <td><%= u.designation %></td>
+          <td class="text-nowrap">
+            <button type="button" class="btn btn-sm btn-mars-blue edit-user-btn"
+              data-id="<%= u._id %>"
+              data-name="<%= u.name %>"
+              data-email="<%= u.email %>"
+              data-phone="<%= u.phone %>"
+              data-idtype="<%= u.idType %>"
+              data-icno="<%= u.icNo %>"
+              data-iccolor="<%= u.icColor %>"
+              data-designation="<%= u.designation %>">Edit</button>
+            <% if (String(u._id) !== String(username._id)) { %>
+            <button type="button" class="btn btn-sm btn-danger delete-user-btn"
+              data-id="<%= u._id %>" data-label="<%= u.name %> (<%= u.email %>)">Delete</button>
+            <% } %>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" action="/users/create" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2"><label class="form-label">Name</label><input type="text" name="name" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Email</label><input type="email" name="email" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Password</label><input type="password" name="password" class="form-control" minlength="6" required></div>
+        <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" class="form-control" placeholder="e.g. IC" required></div>
+        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" class="form-control" placeholder="e.g. Admin" required></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-mars">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" action="/users/update" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="_id" id="editUserId">
+        <div class="mb-2"><label class="form-label">Name</label><input type="text" name="name" id="editUserName" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Email</label><input type="email" name="email" id="editUserEmail" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">New Password</label><input type="password" name="password" class="form-control" minlength="6" placeholder="Leave blank to keep current password"></div>
+        <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" id="editUserPhone" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" id="editUserIdType" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control" required></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-mars">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" id="deleteUserForm" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Delete user <strong id="deleteUserLabel"></strong>? This cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer'); %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.querySelectorAll('.edit-user-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.getElementById('editUserId').value = btn.dataset.id;
+      document.getElementById('editUserName').value = btn.dataset.name;
+      document.getElementById('editUserEmail').value = btn.dataset.email;
+      document.getElementById('editUserPhone').value = btn.dataset.phone;
+      document.getElementById('editUserIdType').value = btn.dataset.idtype;
+      document.getElementById('editUserIcNo').value = btn.dataset.icno;
+      document.getElementById('editUserIcColor').value = btn.dataset.iccolor;
+      document.getElementById('editUserDesignation').value = btn.dataset.designation;
+      new bootstrap.Modal(document.getElementById('editUserModal')).show();
+    });
+  });
+
+  document.querySelectorAll('.delete-user-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.getElementById('deleteUserLabel').textContent = btn.dataset.label;
+      document.getElementById('deleteUserForm').action = '/users/delete/' + btn.dataset.id;
+      new bootstrap.Modal(document.getElementById('deleteUserModal')).show();
+    });
+  });
+</script>
+</body>
+</html>

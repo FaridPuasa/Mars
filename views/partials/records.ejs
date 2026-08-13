@@ -1,3 +1,12 @@
+<%
+  // Display-only formatting (YYYY-MM-DD -> DD.MM.YYYY). Never used for stored values or XML output.
+  function formatDateDisplay(dateStr) {
+    if (!dateStr) return dateStr;
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr);
+    if (!m) return dateStr;
+    return m[3] + '.' + m[2] + '.' + m[1];
+  }
+%>
 <div class="container-fluid py-4" style="max-width: 1400px;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h3 mb-0">BDNSW Declarations</h1>
@@ -37,7 +46,7 @@
         </div>
         <div class="col-md-3 d-flex align-items-end gap-2">
           <button type="submit" class="btn btn-mars btn-sm">Search</button>
-          <a href="/bdnsw" class="btn btn-outline-secondary btn-sm">Clear</a>
+          <a href="/bdnsw" class="btn btn-secondary btn-sm">Clear</a>
         </div>
       </div>
     </div>
@@ -66,15 +75,15 @@
                 <i class="bi bi-chevron-right toggle-caret text-muted"></i>
               </button>
             </td>
-            <td><%= d.declarationDate %></td>
+            <td><%= formatDateDisplay(d.declarationDate) %></td>
             <td><%= d.Goods[0].goodsInvoiceNo %></td>
             <td><%= d.Importer.importerName %></td>
             <td><%= d.Transport.vesselName %></td>
             <td><%= d.Transport.countryShipment %></td>
             <td><%= d.Agent.agentName %></td>
             <td class="text-end text-nowrap">
-              <a href="/bdnswedit/<%= d._id %>" class="btn btn-sm btn-outline-primary">Edit</a>
-              <a href="/downloadXML/<%= d._id %>/<%= d.Goods[0].goodsInvoiceNo %>" class="btn btn-sm btn-outline-secondary">Download XML</a>
+              <a href="/bdnswedit/<%= d._id %>" class="btn btn-sm btn-mars-blue">Edit</a>
+              <a href="/downloadXML/<%= d._id %>/<%= d.Goods[0].goodsInvoiceNo %>" class="btn btn-sm btn-success">Download XML</a>
             </td>
           </tr>
           <tr class="collapse" id="details<%= i %>">
@@ -93,7 +102,7 @@
                 <div><div class="text-muted small">Importer Type</div><div><%= d.Importer.importerType %></div></div>
                 <div><div class="text-muted small">Importer IC Color</div><div><%= d.Importer.importerICColor %></div></div>
                 <div><div class="text-muted small">Exchange Currency / Rate</div><div><%= d.SupportingDocuments.exchangeCurrency %> <%= d.SupportingDocuments.exchangeRate %></div></div>
-                <div><div class="text-muted small">Date Granted</div><div><%= d.dateGranted %></div></div>
+                <div><div class="text-muted small">Date Granted</div><div><%= formatDateDisplay(d.dateGranted) %></div></div>
                 <div><div class="text-muted small">Insurance</div><div><%= d.DeclarationGoods.insuranceAmount %> <%= d.DeclarationGoods.insuranceCurrency %></div></div>
                 <div><div class="text-muted small">Freight</div><div><%= d.DeclarationGoods.freightAmount %> <%= d.DeclarationGoods.freightCurrency %></div></div>
                 <div><div class="text-muted small">Other Charges</div><div><%= d.DeclarationGoods.otherCharges %></div></div>

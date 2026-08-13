@@ -27,6 +27,9 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <% if (username.designation === 'Admin') { %>
+                  <li><a class="dropdown-item" href="/users">Users</a></li>
+                <% } %>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <a class="dropdown-item" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">

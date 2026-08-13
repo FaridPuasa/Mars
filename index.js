@@ -1659,6 +1659,78 @@ app.post("/customers/delete/:id", requireLogin, requireAdmin, async (req, res) =
   res.redirect(`/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
 
+/* USER MANAGEMENT (Admin only) */
+
+app.get("/users", requireLogin, requireAdmin, async (req, res) => {
+  const users = await User.find({}).sort({ name: 1 });
+  res.render("users.ejs", { users });
+});
+
+app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
+  const { name, email, password, phone, idType, icNo, icColor, designation } = req.body;
+  if (!name?.trim() || !email?.trim() || !password?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
+    req.flash("error", "Name, Email, Password, ID Type, IC Number, IC Color and Designation are required.");
+    return res.redirect("/users");
+  }
+  const existing = await User.findOne({ email: email.trim() });
+  if (existing) {
+    req.flash("error", "A user with that email already exists.");
+    return res.redirect("/users");
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await User.create({
+    name: name.trim(),
+    email: email.trim(),
+    password: hashedPassword,
+    phone: (phone || "").trim(),
+    idType: idType.trim(),
+    icNo: icNo.trim(),
+    icColor: icColor.trim(),
+    designation: designation.trim(),
+  });
+  req.flash("success", "User created.");
+  res.redirect("/users");
+});
+
+app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
+  const { _id, name, email, password, phone, idType, icNo, icColor, designation } = req.body;
+  if (!name?.trim() || !email?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
+    req.flash("error", "Name, Email, ID Type, IC Number, IC Color and Designation are required.");
+    return res.redirect("/users");
+  }
+  const existing = await User.findOne({ email: email.trim(), _id: { $ne: _id } });
+  if (existing) {
+    req.flash("error", "A user with that email already exists.");
+    return res.redirect("/users");
+  }
+  const update = {
+    name: name.trim(),
+    email: email.trim(),
+    phone: (phone || "").trim(),
+    idType: idType.trim(),
+    icNo: icNo.trim(),
+    icColor: icColor.trim(),
+    designation: designation.trim(),
+  };
+  if (password?.trim()) {
+    update.password = await bcrypt.hash(password.trim(), 10);
+  }
+  const updated = await User.findByIdAndUpdate(_id, update, { new: true, runValidators: true });
+  if (!updated) req.flash("error", "User not found.");
+  else req.flash("success", "User updated.");
+  res.redirect("/users");
+});
+
+app.post("/users/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  if (req.params.id === String(req.user._id)) {
+    req.flash("error", "You cannot delete your own account.");
+    return res.redirect("/users");
+  }
+  await User.findByIdAndDelete(req.params.id);
+  req.flash("success", "User deleted.");
+  res.redirect("/users");
+});
+
 /* HSCODE EDIT POST */
 
 app.post("/addhscode", async (req, res) => {
