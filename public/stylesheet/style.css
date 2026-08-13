@@ -11,9 +11,20 @@
     --mars-muted:         #6C757D;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: var(--mars-bg);
     font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.mars-footer {
+    margin-top: auto;
 }
 
 h1, h2, h3, h4, h5, h6, .navbar-brand {
@@ -40,6 +51,18 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     color: #fff;
 }
 
+.btn-mars-blue {
+    background-color: var(--mars-blue);
+    border-color: var(--mars-blue);
+    color: #fff;
+}
+
+.btn-mars-blue:hover {
+    background-color: var(--mars-blue-dark);
+    border-color: var(--mars-blue-dark);
+    color: #fff;
+}
+
 .mars-tile {
     transition: transform .15s ease, box-shadow .15s ease;
     border-radius: .75rem;
@@ -59,23 +82,95 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 /* BDNSW declaration form modernization */
+.mars-declaration-wrapper {
+    background: var(--mars-surface);
+    border: 1px solid var(--mars-border);
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    padding: 1.75rem 2rem 2rem;
+}
+
+.mars-meta-bar {
+    background: var(--mars-orange-subtle);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+}
+
+.mars-meta-bar label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--mars-orange-dark);
+    margin: 0 0.4rem 0 0;
+}
+
+.mars-meta-bar input,
+.mars-meta-bar select {
+    border: 1px solid var(--mars-border);
+    border-radius: 0.375rem;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.9rem;
+    background: var(--mars-surface);
+}
+
+.mars-card {
+    border-radius: 0.75rem !important;
+    overflow: hidden;
+}
+
+.mars-card-header {
+    background: linear-gradient(135deg, var(--mars-orange) 0%, var(--mars-orange-dark) 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1.25rem;
+}
+
+.mars-card-header .mars-card-subtitle {
+    display: block;
+    font-weight: 400;
+    font-size: 0.7rem;
+    text-transform: none;
+    letter-spacing: normal;
+    color: rgba(255,255,255,0.85);
+    margin-top: 0.15rem;
+}
+
 .mars-stepper-bar {
     background: var(--mars-surface);
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
+    border: 1px solid var(--mars-border);
+    border-radius: 999px;
+    padding: 0.4rem;
+    margin-bottom: 1.25rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .btn-mars-step {
-    background: var(--mars-bg);
-    border: 1px solid var(--mars-border);
-    color: var(--mars-text);
+    background: transparent;
+    border: none;
+    color: var(--mars-muted);
+    font-weight: 600;
     font-size: 0.85rem;
+    border-radius: 999px;
+    padding: 0.55rem 1.15rem;
+    transition: background-color .15s ease, color .15s ease;
 }
 
 .btn-mars-step:hover {
     background: var(--mars-orange-subtle);
+    color: var(--mars-orange-dark);
+}
+
+.btn-mars-step.active {
+    background: var(--mars-orange);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(244, 121, 32, 0.35);
 }
 
 .mars-field-table {
@@ -244,42 +339,6 @@ input[readonly] {
     font-size: inherit;
 }
 
-
-/* Style the tab for Single Window page*/
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons that are used to open the tab content */
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-  }
 
   .stretchy {
     white-space: nowrap;

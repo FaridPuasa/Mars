@@ -160,8 +160,36 @@ app.post("/login",
 
 app.get("/bdnsw", requireLogin, async (req, res) => {
   const user = await User.find({});
-  const declaration3 = await Declaration3.find({}).sort({Transport:-1});
-  res.render("bdnsw.ejs", {user: user, declaration3: declaration3})
+  const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo } = req.query;
+
+  const filter = {};
+  if (invoiceNo?.trim()) {
+    filter["Goods.goodsInvoiceNo"] = { $regex: invoiceNo.trim(), $options: "i" };
+  }
+  if (importer?.trim()) {
+    filter["Importer.importerName"] = { $regex: importer.trim(), $options: "i" };
+  }
+  if (vessel?.trim()) {
+    filter["Transport.vesselName"] = { $regex: vessel.trim(), $options: "i" };
+  }
+  if (country?.trim()) {
+    filter["Transport.countryShipment"] = { $regex: country.trim(), $options: "i" };
+  }
+  if (agent?.trim()) {
+    filter["Agent.agentName"] = { $regex: agent.trim(), $options: "i" };
+  }
+  if (dateFrom?.trim() || dateTo?.trim()) {
+    filter.declarationDate = {};
+    if (dateFrom?.trim()) filter.declarationDate.$gte = dateFrom.trim();
+    if (dateTo?.trim()) filter.declarationDate.$lte = dateTo.trim();
+  }
+
+  const declaration3 = await Declaration3.find(filter).sort({Transport:-1});
+  res.render("bdnsw.ejs", {
+    user: user,
+    declaration3: declaration3,
+    filters: { invoiceNo: invoiceNo || "", importer: importer || "", vessel: vessel || "", country: country || "", agent: agent || "", dateFrom: dateFrom || "", dateTo: dateTo || "" }
+  })
 })
 
 app.get("/bdnswadd", requireLogin, async (req, res) => {
@@ -190,7 +218,7 @@ app.get("/profile", requireLogin, async (req, res) => {
 })
 
 app.post("/profileupdate", requireLogin, async (req, res) => {
-  const { name, phone, idType, icNo, icColor, designation, address, currentPassword, newPassword, confirmNewPassword } = req.body;
+  const { name, phone, idType, icNo, icColor, designation, currentPassword, newPassword, confirmNewPassword } = req.body;
 
   if (!name?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
     req.flash("error", "Name, ID Type, IC Number, IC Color and Designation are required.");
@@ -202,7 +230,7 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
     return res.redirect("/profile");
   }
 
-  const update = { name, idType, icNo, icColor, address, phone, designation };
+  const update = { name, idType, icNo, icColor, phone, designation };
 
   if (currentPassword || newPassword || confirmNewPassword) {
     if (!currentPassword || !newPassword || !confirmNewPassword) {
@@ -1423,7 +1451,7 @@ app.get("/hscode", requireLogin, async (req, res) => {
   let filter = DECLARABLE_HSCODE_FILTER;
   if (q) {
     const rx = new RegExp(escapeRegex(q), "i");
-    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }] };
+    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }, { subCategory: rx }] };
   }
 
   const totalCount = await Hscode2.countDocuments(filter);
@@ -1440,7 +1468,7 @@ app.get("/hscode", requireLogin, async (req, res) => {
 });
 
 app.post("/hscode/create", requireLogin, async (req, res) => {
-  const { HSCode, Description, category, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const { HSCode, Description, category, subCategory, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
   const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
   if (!HSCode?.trim() || !Description?.trim()) {
     req.flash("error", "HSCode and Description are required.");
@@ -1450,6 +1478,7 @@ app.post("/hscode/create", requireLogin, async (req, res) => {
     HSCode: HSCode.trim(),
     Description: Description.trim(),
     category: (category || "").trim(),
+    subCategory: (subCategory || "").trim(),
     Quantity: (Quantity || "").trim(),
     ImportDutyRate: (ImportDutyRate || "").trim(),
     ExciseDutyRate: (ExciseDutyRate || "").trim(),
@@ -1458,7 +1487,7 @@ app.post("/hscode/create", requireLogin, async (req, res) => {
 });
 
 app.post("/hscode/update", requireLogin, async (req, res) => {
-  const { _id, HSCode, Description, category, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
+  const { _id, HSCode, Description, category, subCategory, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
   const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
   if (!HSCode?.trim() || !Description?.trim()) {
     req.flash("error", "HSCode and Description are required.");
@@ -1470,6 +1499,7 @@ app.post("/hscode/update", requireLogin, async (req, res) => {
       HSCode: HSCode.trim(),
       Description: Description.trim(),
       category: (category || "").trim(),
+      subCategory: (subCategory || "").trim(),
       Quantity: (Quantity || "").trim(),
       ImportDutyRate: (ImportDutyRate || "").trim(),
       ExciseDutyRate: (ExciseDutyRate || "").trim(),
@@ -1491,7 +1521,7 @@ app.get("/api/hscode/search", requireLogin, async (req, res) => {
   let filter = DECLARABLE_HSCODE_FILTER;
   if (q) {
     const rx = new RegExp(escapeRegex(q), "i");
-    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }] };
+    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }, { subCategory: rx }] };
   }
   const results = await Hscode2.find(filter).sort({ HSCode: 1 }).limit(50).lean();
   res.json(results);

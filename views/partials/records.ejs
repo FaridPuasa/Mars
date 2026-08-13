@@ -4,6 +4,45 @@
     <a href="/bdnswadd" class="btn btn-mars">Add Declaration</a>
   </div>
 
+  <form action="/bdnsw" method="GET" class="card border-0 shadow-sm mb-3">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Invoice No</label>
+          <input type="text" name="invoiceNo" class="form-control form-control-sm" value="<%= filters.invoiceNo %>" placeholder="Invoice No">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Importer</label>
+          <input type="text" name="importer" class="form-control form-control-sm" value="<%= filters.importer %>" placeholder="Importer">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Vessel</label>
+          <input type="text" name="vessel" class="form-control form-control-sm" value="<%= filters.vessel %>" placeholder="Vessel">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Country</label>
+          <input type="text" name="country" class="form-control form-control-sm" value="<%= filters.country %>" placeholder="Country">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Agent</label>
+          <input type="text" name="agent" class="form-control form-control-sm" value="<%= filters.agent %>" placeholder="Agent">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Date From</label>
+          <input type="date" name="dateFrom" class="form-control form-control-sm" value="<%= filters.dateFrom %>">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small text-muted mb-1">Date To</label>
+          <input type="date" name="dateTo" class="form-control form-control-sm" value="<%= filters.dateTo %>">
+        </div>
+        <div class="col-md-3 d-flex align-items-end gap-2">
+          <button type="submit" class="btn btn-mars btn-sm">Search</button>
+          <a href="/bdnsw" class="btn btn-outline-secondary btn-sm">Clear</a>
+        </div>
+      </div>
+    </div>
+  </form>
+
   <div class="table-responsive">
     <table class="table table-hover align-middle bg-white" id="tableId">
       <thead class="table-light">

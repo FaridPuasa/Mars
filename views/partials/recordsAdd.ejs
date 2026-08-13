@@ -5,16 +5,17 @@
     <div class = "container-fluid" style="padding-top: 50px">
         <div class = "row align-items-start">
             <div class="col-md-1"></div>
-            <div class="col-md-10" style="border: 1px solid black">
-                        
-    <h3>Declaration</h3>
+            <div class="col-md-10 mars-declaration-wrapper">
+
+    <h3>Add Declaration</h3>
     <form id ="declaration" action = "/declaration3" method="POST">
 
         <!-- PAGE 1 -->
         <div class="declarationPage">
         <div class="row">
             <div class="col leftcolumn">
-                <div>
+                <div class="mars-meta-bar">
+                    <div>
                     <label for="date">Date Granted:</label>
                     <% var todayDate = new Date(); %>
                     <% var dd = String(todayDate.getDate()).padStart(2, '0'); %>
@@ -23,269 +24,272 @@
 
                     <% todayDate = yyyy + "-" + mm + "-" + dd; %>
                     <input type="date" id="dateGranted" name="dateGranted" value="<%= todayDate %>" size="30"/>
+                    </div>
+                    <div>
                     <label for="date">Departure Date:</label>
                     <input type="date" id="departureDate" name="departureDate" size="30"/>
+                    </div>
+                    <div>
                     <!--CEPT Option Normal/Cept-->
                     <label for="date">CEPT:</label>
                     <select name="cept" id="cept">
                         <option value="normal">Normal</option>
                         <option value="cept">CEPT</option>
                     </select>
+                    </div>
                 </div>
-                <table class="table table-sm mars-field-table">
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Procedure</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Custom Procedure:<i class="bi bi-star-fill" style="color: red;"></i></td>
-                        <td>
-                            <select name="customsProcedure" id="customsProcedure" onchange="autoCodeCustomProcedure()">
-                                <optgroup label="-">
-                                    <!--code 05--><option value="IMP">IMPORT</option>
-                                    <!--code 07--><option value="REIMP">RE-IMPORT</option>
-                                    <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
-                                    <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
-                                    <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
-                                    <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
-                                </optgroup>
-                                <optgroup label="-">
-                                    <!--code 06--><option value="EXP">EXPORT</option>
-                                    <!--code 08--><option value="REEXP">RE-EXPORT</option>
-                                    <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
-                                    <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
-                                </optgroup>
-                                    <!--code 12--><option value="TRANSIT">TRANSIT</option>
-                                    <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
-                            </select>
-                            Code: <input type="text" id="customsProcedureCode" name="customsProcedureCode" size="3" value="05"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Prev Procedure: </td>
-                        <td>
-                            <select name="previousProcedure" id="previousProcedure" onchange="autoCodePrevProcedure()">
-                                    <option value=""></option>
-                                <optgroup label="-">
-                                    <!--code 05--><option value="IMP">IMPORT</option>
-                                    <!--code 07--><option value="REIMP">RE-IMPORT</option>
-                                    <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
-                                    <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
-                                    <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
-                                    <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
-                                </optgroup>
-                                <optgroup label="-">
-                                    <!--code 06--><option value="EXP">EXPORT</option>
-                                    <!--code 08--><option value="REEXP">RE-EXPORT</option>
-                                    <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
-                                    <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
-                                </optgroup>
-                                    <!--code 12--><option value="TRANSIT">TRANSIT</option>
-                                    <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
-                            </select>
-                            Code: <input type="text" id="previousProcedureCode" name="previousProcedureCode" size="3"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Dutiable Indicator:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <select name="dutiableIndicator" id="dutiableIndicator" onchange="autoCodeDutiable()">
-                                <!--code A--><option value="A">AIR</option>
-                                <!--code B--><option value="N">SEA</option>
-                                <!--code C--><option value="L">LAND</option>
-                                <!--code D--><option value="P">POSTAL</option>
-                            </select>
-                            Code: <input type="text" id="dutiableIndicatorCode" name="dutiableIndicatorCode" size="3" value="A"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Clearance Station:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <select name="clearanceStation" id="clearanceStation" onchange="autoCodeClearance()">
-                                <!--code 611--><option value="BSB">BSB</option>
-                                <!--code 603--><option value="BSP WHARF">BSP WHARF</option>
-                                <!--code 611--><option value="BSP WHARF + LONG ROOM">BSP WHARF + LONG ROOM</option>
-                                <!--code 600--><option value="CUSTOMS HEADQUARTERS">CUSTOMS HEADQUARTERS</option>
-                                <!--code 601--><option value="INTERNATIONAL AIRPORT (CARGO)">INTERNATIONAL AIRPORT (CARGO)</option>
-                                <!--code 609--><option value="INTERNATIONAL AIRPORT (PASSENGER)">INTERNATIONAL AIRPORT (PASSENGER)</option>
-                                <!--code 622--><option value="KUALA BELAIT POST OFFICE">KUALA BELAIT POST OFFICE</option>
-                                <!--code 602--><option value="KUALA BELAIT WHARF">KUALA BELAIT WHARF</option>
-                                <!--code 631--><option value="KUALA LURAH">KUALA LURAH</option>
-                                <!--code 621--><option value="MAIL PROCESSING CENTRE">MAIL PROCESSING CENTRE</option>
-                                <!--code 616--><option value="MUARA CONTAINER">MUARA CONTAINER</option>
-                                <!--code 617--><option value="MUARA GUARD HOUSE">MUARA GUARD HOUSE</option>
-                                <!--code 605--><option value="MUARA PORT">MUARA PORT</option>
-                                <!--code 615--><option value="MUARA POST OFFICE">MUARA POST OFFICE</option>
-                                <!--code 620--><option value="PUTAT">PUTAT</option>
-                                <!--code 608--><option value="SERASA FERRY TERMINAL">SERASA FERRY TERMINAL</option>
-                                <!--code 618--><option value="SERASA FERRY NEW TERMINAL">SERASA NEW FERRY TERMINAL</option>
-                                <!--code 623--><option value="SERIA POST OFFICE">SERIA POST OFFICE</option>
-                                <!--code 612--><option value="SUNGAI TUJOH">SUNGAI TUJOH</option>
-                                <!--code 634--><option value="TEMBURONG LABU">TEMBURONG LABU</option>
-                                <!--code 614--><option value="TEMBURONG POST OFFICE">TEMBURONG POST OFFICE</option>
-                                <!--code 604--><option value="TEMBURONG WHARF (BANGAR)">TEMBURONG WHARF (BANGAR)</option>
-                                <!--code 607--><option value="TUTONG POST OFFICE">TUTONG POST OFFICE</option>
-                            </select>
-                            Code: <input type="text" id="clearanceStationCode" name="clearanceStationCode" size="3" value="611" required/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Exporter/Consigner</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td colspan="2">
-                          <select id="exporterCustomerPicker" onchange="fillExporterFromCustomer(this)">
-                            <option value="">-- Pick existing customer (optional) --</option>
-                            <% for (var e=0; e<consignee.length; e++) { %>
-                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-country="<%= consignee[e].country %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
-                            <% } %>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Name: </td>
-                        <td><input type="text" id="exporterName" name="exporterName" size="30"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Address: </td>
-                        <td><input type="text" id="exporterAddress" name="exporterAddress" size="30"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>Registration: </td>
-                        <td><input type="text" id="exporterRegistration" name="exporterRegistration" size="20"/>  Country
-                          <select id="exporterCountry" name="exporterCountry">
-                            <option value=""></option>
-                            <% for (var c=0; c<iso_countrycodes.length; c++) { %>
-                              <option value="<%= iso_countrycodes[c].name %>"><%= iso_countrycodes[c].name %></option>
-                            <% } %>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>Telephone: </td>
-                        <td><input type="text" id="exporterPhone" name="exporterPhone" size="30"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>Postal: </td>
-                        <td><input type="text" id="exporterPostal" name="exporterPostal" size="20"/>  Transport <input type="text" id="exporterTransport" name="exporterTransport" size="10"/></td>
-                    </tr>
-                </table>
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Procedure</div>
+                    <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-8">
+                        <label class="form-label">Custom Procedure <span class="text-danger">*</span></label>
+                        <select name="customsProcedure" id="customsProcedure" class="form-select" onchange="autoCodeCustomProcedure()">
+                            <optgroup label="-">
+                                <!--code 05--><option value="IMP">IMPORT</option>
+                                <!--code 07--><option value="REIMP">RE-IMPORT</option>
+                                <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
+                                <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
+                                <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
+                                <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
+                            </optgroup>
+                            <optgroup label="-">
+                                <!--code 06--><option value="EXP">EXPORT</option>
+                                <!--code 08--><option value="REEXP">RE-EXPORT</option>
+                                <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
+                                <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
+                            </optgroup>
+                                <!--code 12--><option value="TRANSIT">TRANSIT</option>
+                                <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="customsProcedureCode" name="customsProcedureCode" class="form-control" value="05"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Prev Procedure</label>
+                        <select name="previousProcedure" id="previousProcedure" class="form-select" onchange="autoCodePrevProcedure()">
+                                <option value=""></option>
+                            <optgroup label="-">
+                                <!--code 05--><option value="IMP">IMPORT</option>
+                                <!--code 07--><option value="REIMP">RE-IMPORT</option>
+                                <!--code 10--><option value="ENTRYTOBOND">ENTRY TO BOND (WAREHOUSE)</option>
+                                <!--code 11--><option value="TEMPIMP">TEMPORARY IMPORT</option>
+                                <!--code 15--><option value="TEMPIMPEXT">TEMPORARY IMPORT (EXTENSION)</option>
+                                <!--code 09--><option value="IMPFROMBOND">IMPORTATION FROM BOND (WAREHOUSE)</option>
+                            </optgroup>
+                            <optgroup label="-">
+                                <!--code 06--><option value="EXP">EXPORT</option>
+                                <!--code 08--><option value="REEXP">RE-EXPORT</option>
+                                <!--code 16--><option value="TEMPEXP">TEMPORARY EXPORT</option>
+                                <!--code 14--><option value="EXPFROMBOND">EXPORT FROM BOND (WAREHOUSE)</option>
+                            </optgroup>
+                                <!--code 12--><option value="TRANSIT">TRANSIT</option>
+                                <!--code 13--><option value="BONDEDMOVGOODS">BONDED MOVEMENT OF GOODS (BETWEEN WAREHOUSE)</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="previousProcedureCode" name="previousProcedureCode" class="form-control"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Dutiable Indicator <span class="text-danger">*</span></label>
+                        <select name="dutiableIndicator" id="dutiableIndicator" class="form-select" onchange="autoCodeDutiable()">
+                            <!--code A--><option value="A">AIR</option>
+                            <!--code B--><option value="N">SEA</option>
+                            <!--code C--><option value="L">LAND</option>
+                            <!--code D--><option value="P">POSTAL</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="dutiableIndicatorCode" name="dutiableIndicatorCode" class="form-control" value="A"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Clearance Station <span class="text-danger">*</span></label>
+                        <select name="clearanceStation" id="clearanceStation" class="form-select" onchange="autoCodeClearance()">
+                            <!--code 611--><option value="BSB">BSB</option>
+                            <!--code 603--><option value="BSP WHARF">BSP WHARF</option>
+                            <!--code 611--><option value="BSP WHARF + LONG ROOM">BSP WHARF + LONG ROOM</option>
+                            <!--code 600--><option value="CUSTOMS HEADQUARTERS">CUSTOMS HEADQUARTERS</option>
+                            <!--code 601--><option value="INTERNATIONAL AIRPORT (CARGO)">INTERNATIONAL AIRPORT (CARGO)</option>
+                            <!--code 609--><option value="INTERNATIONAL AIRPORT (PASSENGER)">INTERNATIONAL AIRPORT (PASSENGER)</option>
+                            <!--code 622--><option value="KUALA BELAIT POST OFFICE">KUALA BELAIT POST OFFICE</option>
+                            <!--code 602--><option value="KUALA BELAIT WHARF">KUALA BELAIT WHARF</option>
+                            <!--code 631--><option value="KUALA LURAH">KUALA LURAH</option>
+                            <!--code 621--><option value="MAIL PROCESSING CENTRE">MAIL PROCESSING CENTRE</option>
+                            <!--code 616--><option value="MUARA CONTAINER">MUARA CONTAINER</option>
+                            <!--code 617--><option value="MUARA GUARD HOUSE">MUARA GUARD HOUSE</option>
+                            <!--code 605--><option value="MUARA PORT">MUARA PORT</option>
+                            <!--code 615--><option value="MUARA POST OFFICE">MUARA POST OFFICE</option>
+                            <!--code 620--><option value="PUTAT">PUTAT</option>
+                            <!--code 608--><option value="SERASA FERRY TERMINAL">SERASA FERRY TERMINAL</option>
+                            <!--code 618--><option value="SERASA FERRY NEW TERMINAL">SERASA NEW FERRY TERMINAL</option>
+                            <!--code 623--><option value="SERIA POST OFFICE">SERIA POST OFFICE</option>
+                            <!--code 612--><option value="SUNGAI TUJOH">SUNGAI TUJOH</option>
+                            <!--code 634--><option value="TEMBURONG LABU">TEMBURONG LABU</option>
+                            <!--code 614--><option value="TEMBURONG POST OFFICE">TEMBURONG POST OFFICE</option>
+                            <!--code 604--><option value="TEMBURONG WHARF (BANGAR)">TEMBURONG WHARF (BANGAR)</option>
+                            <!--code 607--><option value="TUTONG POST OFFICE">TUTONG POST OFFICE</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="clearanceStationCode" name="clearanceStationCode" class="form-control" value="611" required/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Exporter / Consigner</div>
+                    <div class="card-body">
+                    <div class="mb-3">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label">Pick existing customer (optional)</label>
+                        <a href="/customers" target="_blank" class="small">+ Add customer</a>
+                      </div>
+                      <select id="exporterCustomerPicker" class="form-select" onchange="fillExporterFromCustomer(this)">
+                        <option value="">-- Pick existing customer (optional) --</option>
+                        <% for (var e=0; e<consignee.length; e++) { %>
+                          <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-country="<%= consignee[e].country %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Name</label>
+                        <input type="text" id="exporterName" name="exporterName" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Address</label>
+                        <input type="text" id="exporterAddress" name="exporterAddress" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Registration</label>
+                        <input type="text" id="exporterRegistration" name="exporterRegistration" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Country</label>
+                        <select id="exporterCountry" name="exporterCountry" class="form-select">
+                          <option value=""></option>
+                          <% for (var c=0; c<iso_countrycodes.length; c++) { %>
+                            <option value="<%= iso_countrycodes[c].name %>"><%= iso_countrycodes[c].name %></option>
+                          <% } %>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Telephone</label>
+                        <input type="text" id="exporterPhone" name="exporterPhone" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Postal</label>
+                        <input type="text" id="exporterPostal" name="exporterPostal" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Transport</label>
+                        <input type="text" id="exporterTransport" name="exporterTransport" class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
             <!-- end left col-->
             <div class="col rightcolumn">
-                <table class="table table-sm mars-field-table">
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Importer/Consignee</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>Type:<i class="bi bi-star-fill" style="color: red;"></i></td>
-                        <td>
-                            <select name="importerType" id="importerType" onchange="autoImporterIdReg()">
-                                <option value="TRDR">TRDR</option>
-                                <option value="INDV">INDV</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td colspan="2">
-                          <select id="importerCustomerPicker" onchange="fillImporterFromCustomer(this)">
-                            <option value="">-- Pick existing customer --</option>
-                            <% for (var e=0; e<consignee.length; e++) { %>
-                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-ic="<%= consignee[e].ic %>" data-iccolor="<%= consignee[e].icColor %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
-                            <% } %>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="importerName" name="importerName" size="30" required/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">11</th>
-                        <td>Address:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><textarea id="importerAddress" name="importerAddress" cols="50" row="2" required></textarea></td>
-                    </tr>
-                    <tr id="importer12">
-                        <th scope="row">12</th>
-                        <td><p id="importerTRDR1">Reg:<i class="bi bi-star-fill" style="color: red;"></i></p><p id="importerINDV1" style="display:none">IC/PP:<i class="bi bi-star-fill" style="color: red;"></i></p></td>
-                        <td id="importerTRDR2">
-                            <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" size="20"/>
-                        </td>
-                        <td id="importerINDV2" style="display:none">
-                            <input type="text" id="importerRegistration" name="importerRegistration" size="20"/>
-                            IC Color: <input type="text" id="importerICColor" name="importerICColor" size="10"/>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <th scope="row">13</th>
-                        <td>Telephone:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <input type="text" id="importerPhone" name="importerPhone" size="10"/>
-                            <span style="font-weight:bold">14.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="importerPostal" name="importerPostal" size="10"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Agent</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td colspan="2">
-                          <select id="agentCustomerPicker" onchange="fillAgentFromCustomer(this)">
-                            <option value="">-- Pick existing customer --</option>
-                            <% for (var e=0; e<consignee.length; e++) { %>
-                              <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
-                            <% } %>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">15</th>
-                        <td>Name:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="agentName" name="agentName" size="30" value="GLOBEX GLOBAL LOGISTICS SDN BHD"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">16</th>
-                        <td>Address:<i class="bi bi-star-fill" style="color: red;"></i></td>
-                        <td><input type="text" id="agentAddress" name="agentAddress" size="30" value="UNIT 9, BLOCK A, SPG 188 JALAN BABU RAJA"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">17</th>
-                        <td>Registration:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="agentRegistration" name="agentRegistration" size="30" value="RC/00007286"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">18</th>
-                        <td>Telephone:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                            <input type="text" id="agentPhone" name="agentPhone" size="10" value="2332065"/>
-                            <span style="font-weight:bold">19.</span> Postal:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="agentPostal" name="agentPostal" size="10" value="BE1318"/>
-                        </td>
-                    </tr>
-                </table>
-                <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
-                -->
-                <p></p>
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Importer / Consignee</div>
+                    <div class="card-body">
+                    <div class="mb-3">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label">Pick existing customer</label>
+                        <a href="/customers" target="_blank" class="small">+ Add customer</a>
+                      </div>
+                      <select id="importerCustomerPicker" class="form-select" onchange="fillImporterFromCustomer(this)">
+                        <option value="">-- Pick existing customer --</option>
+                        <% for (var e=0; e<consignee.length; e++) { %>
+                          <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-ic="<%= consignee[e].ic %>" data-iccolor="<%= consignee[e].icColor %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-4">
+                        <label class="form-label">Type <span class="text-danger">*</span></label>
+                        <select name="importerType" id="importerType" class="form-select" onchange="autoImporterIdReg()">
+                            <option value="TRDR">TRDR</option>
+                            <option value="INDV">INDV</option>
+                        </select>
+                      </div>
+                      <div class="col-md-8"></div>
+                      <div class="col-md-6">
+                        <label class="form-label">Name <span class="text-danger">*</span></label>
+                        <input type="text" id="importerName" name="importerName" class="form-control" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Address <span class="text-danger">*</span></label>
+                        <textarea id="importerAddress" name="importerAddress" class="form-control" rows="2" required></textarea>
+                      </div>
+                      <div class="col-md-6" id="importerTRDR2">
+                        <label class="form-label" id="importerTRDR1">Reg <span class="text-danger">*</span></label>
+                        <input type="text" id="regTraderCoyRegNo" name="regTraderCoyRegNo" class="form-control"/>
+                      </div>
+                      <div class="col-md-6" id="importerINDV2" style="display:none">
+                        <label class="form-label" id="importerINDV1">IC/PP <span class="text-danger">*</span></label>
+                        <input type="text" id="importerRegistration" name="importerRegistration" class="form-control mb-2"/>
+                        <label class="form-label">IC Color</label>
+                        <input type="text" id="importerICColor" name="importerICColor" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Telephone <span class="text-danger">*</span></label>
+                        <input type="text" id="importerPhone" name="importerPhone" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Postal <span class="text-danger">*</span></label>
+                        <input type="text" id="importerPostal" name="importerPostal" class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Agent</div>
+                    <div class="card-body">
+                    <div class="mb-3">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label">Pick existing customer</label>
+                        <a href="/customers" target="_blank" class="small">+ Add customer</a>
+                      </div>
+                      <select id="agentCustomerPicker" class="form-select" onchange="fillAgentFromCustomer(this)">
+                        <option value="">-- Pick existing customer --</option>
+                        <% for (var e=0; e<consignee.length; e++) { %>
+                          <option value="<%= e %>" data-name="<%= consignee[e].name %>" data-address="<%= consignee[e].address %>" data-reg="<%= consignee[e].reg %>" data-phone="<%= consignee[e].telephone %>" data-postal="<%= consignee[e].postal %>"><%= consignee[e].name %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Name <span class="text-danger">*</span></label>
+                        <input type="text" id="agentName" name="agentName" class="form-control" value="GLOBEX GLOBAL LOGISTICS SDN BHD"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Address <span class="text-danger">*</span></label>
+                        <input type="text" id="agentAddress" name="agentAddress" class="form-control" value="UNIT 9, BLOCK A, SPG 188 JALAN BABU RAJA"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Registration <span class="text-danger">*</span></label>
+                        <input type="text" id="agentRegistration" name="agentRegistration" class="form-control" value="RC/00007286"/>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label">Telephone <span class="text-danger">*</span></label>
+                        <input type="text" id="agentPhone" name="agentPhone" class="form-control" value="2332065"/>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label">Postal <span class="text-danger">*</span></label>
+                        <input type="text" id="agentPostal" name="agentPostal" class="form-control" value="BE1318"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
         </div>
@@ -294,111 +298,137 @@
         <div class="declarationPage">
         <div class="row">
             <div class="col leftcolumn">
-                <table class="table table-sm mars-field-table">
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Transport</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">20</th>
-                        <td>Arrival Date:<i class="bi bi-star-fill" style="color: red;"></i></td>
-                        <td><input type="date" id="arrivalDate" name="arrivalDate" size="8" required/> <span style="font-weight:bold"> 21.</span> Container No: <input type="text" id="containerNo" name="containerNo" size="8"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">22</th>
-                        <td>Vessel Number:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="vesselNo" name="vesselNo" size="8" required/><span style="font-weight:bold"> 23.</span> Vessel Name:<i class="bi bi-star-fill" style="color: red;"></i> <input type="text" id="vesselName" name="vesselName" size="8" required/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">24</th>
-                        <td>BL/DO/AWB:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="bldoawb" name="bldoawb" size="8" required/><span style="font-weight:bold"> 25.</span> HB/HAWB: <input type="text" id="hbhawb" name="hbhawb" size="8" /></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">26</th>
-                        <td>Country Shipment:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                          <select id="countryShipment" name="countryShipment" required onchange="fillCountryCode(this, 'countryShipmentCode')">
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Transport</div>
+                    <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Arrival Date <span class="text-danger">*</span></label>
+                        <input type="date" id="arrivalDate" name="arrivalDate" class="form-control" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Container No</label>
+                        <input type="text" id="containerNo" name="containerNo" class="form-control"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Vessel Number <span class="text-danger">*</span></label>
+                        <input type="text" id="vesselNo" name="vesselNo" class="form-control" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Vessel Name <span class="text-danger">*</span></label>
+                        <input type="text" id="vesselName" name="vesselName" class="form-control" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">BL/DO/AWB <span class="text-danger">*</span></label>
+                        <input type="text" id="bldoawb" name="bldoawb" class="form-control" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">HB/HAWB</label>
+                        <input type="text" id="hbhawb" name="hbhawb" class="form-control"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Country Shipment <span class="text-danger">*</span></label>
+                        <select id="countryShipment" name="countryShipment" class="form-select" required onchange="fillCountryCode(this, 'countryShipmentCode')">
                             <option value=""></option>
                             <% for (var c=0; c<iso_countrycodes.length; c++) { %>
                               <option value="<%= iso_countrycodes[c].name %>" data-code="<%= iso_countrycodes[c].alpha2 %>"><%= iso_countrycodes[c].name %></option>
                             <% } %>
-                          </select>
-                          Code: <input type="text" id="countryShipmentCode" name="countryShipmentCode" size="8" readonly/></td>
-                    </tr>
-                    
-                    <tr>
-                        <th scope="row">27</th>
-                        <td>Country Destination:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td>
-                          <select id="countryDestination" name="countryDestination" required onchange="fillCountryCode(this, 'countryDestinationCode')">
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="countryShipmentCode" name="countryShipmentCode" class="form-control" readonly/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Country Destination <span class="text-danger">*</span></label>
+                        <select id="countryDestination" name="countryDestination" class="form-select" required onchange="fillCountryCode(this, 'countryDestinationCode')">
                             <option value=""></option>
                             <% for (var c=0; c<iso_countrycodes.length; c++) { %>
                               <option value="<%= iso_countrycodes[c].name %>" data-code="<%= iso_countrycodes[c].alpha2 %>"><%= iso_countrycodes[c].name %></option>
                             <% } %>
-                          </select>
-                          Code: <input type="text" id="countryDestinationCode" name="countryDestinationCode" size="8" readonly/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">28</th>
-                        <td>Port of Entry:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfEntry" name="portOfEntry" size="8" ondblclick="openShipmentCode('portOfEntry', 'portOfEntryCode')" required/>        Code: <input type="text" id="portOfEntryCode" name="portOfEntryCode" size="8" required/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">29</th>
-                        <td>Port of Discharge:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="portOfDischarge" name="portOfDischarge" size="8" onchange='getPort(this.value)' required/>        Code: <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" size="8" required/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">30</th>
-                        <td>Place Release: </td>
-                        <td><input type="text" id="placeRelease" name="placeRelease" size="8"/>        Code: <input type="text" id="placeReleaseCode" name="placeReleaseCode" size="8"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">31</th>
-                        <td>Place Receipt: </td>
-                        <td><input type="text" id="placeReceipt" name="placeReceipt" size="8"/>        Code: <input type="text" id="placeReceiptCode" name="placeReceiptCode" size="8"/></td>
-                    </tr>
-                </table>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="countryDestinationCode" name="countryDestinationCode" class="form-control" readonly/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Port of Entry <span class="text-danger">*</span></label>
+                        <input type="text" id="portOfEntry" name="portOfEntry" class="form-control" ondblclick="openShipmentCode('portOfEntry', 'portOfEntryCode')" required/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="portOfEntryCode" name="portOfEntryCode" class="form-control" required/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Port of Discharge <span class="text-danger">*</span></label>
+                        <input type="text" id="portOfDischarge" name="portOfDischarge" class="form-control" onchange='getPort(this.value)' required/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="portOfDischargeCode" name="portOfDischargeCode" class="form-control" required/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Place Release</label>
+                        <input type="text" id="placeRelease" name="placeRelease" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="placeReleaseCode" name="placeReleaseCode" class="form-control"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Place Receipt</label>
+                        <input type="text" id="placeReceipt" name="placeReceipt" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="placeReceiptCode" name="placeReceiptCode" class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
             <!-- end left col-->
             <div class="col rightcolumn">
-                <table class="table table-sm mars-field-table">
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Supporting Documents</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">32</th>
-                        <td>Exchange Rate:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                        <td><input type="text" id="exchangeCurrency" name="exchangeCurrency" size="4" placeholder="Currency"/> <input type="text" id="exchangeRate" name="exchangeRate" size="10" placeholder="Rate"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">33</th>
-                        <td>Prev Declaration No: </td>
-                        <td><input type="text" id="prevDeclarationNo" name="prevDeclarationNo" size="30"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>Duty Exem: </td>
-                        <td><select name="dutyExem">
+                <div class="card mars-card border-0 shadow-sm mb-3">
+                  <div class="mars-card-header">Supporting Documents</div>
+                    <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Exchange Currency <span class="text-danger">*</span></label>
+                        <input type="text" id="exchangeCurrency" name="exchangeCurrency" class="form-control" placeholder="Currency"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Exchange Rate <span class="text-danger">*</span></label>
+                        <input type="text" id="exchangeRate" name="exchangeRate" class="form-control" placeholder="Rate"/>
+                      </div>
+                      <div class="col-md-12">
+                        <label class="form-label">Prev Declaration No</label>
+                        <input type="text" id="prevDeclarationNo" name="prevDeclarationNo" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Duty Exem</label>
+                        <select name="dutyExem" class="form-select">
                                 <option></option>
                                 <option value="Y">Y</option>
                                 <option value="N">N</option>
-                            </select>
-                            <!--unknown LETTER yet-->
-                            Letter <input type="text" id="letter" name="letter" size="20"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">31a.</th>
-                        <td>Port Of Exit: </td>
-                        <td><input type="text" id="portOfExit" name="portOfExit" size="8"/>        Code: <input type="text" id="portOfExitCode" name="portOfExitCode" size="8"/></td>
-                    </tr>
-                </table>
-                <p></p>
+                        </select>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Letter</label>
+                        <input type="text" id="letter" name="letter" class="form-control"/>
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Port Of Exit</label>
+                        <input type="text" id="portOfExit" name="portOfExit" class="form-control"/>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Code</label>
+                        <input type="text" id="portOfExitCode" name="portOfExitCode" class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
         </div>
@@ -407,129 +437,160 @@
         <div class="declarationPage">
             <div class="row">
                 <div class="col leftcolumn">
-                    <table class="table table-sm mars-field-table">
-                        <tr>
-                            <th scope="row"></th>
-                            <td style="font-weight: bold;">for Temporary Import</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">43</th>
-                            <td>Type of Application:</td>
-                            <td>
-                                <select name="typeOfApplication">
-                                    <option value=""></option>
-                                    <option value="DEM">DEM</option>
-                                    <option value="TSP">TSP</option>
-                                    <option value="ESH">ESH</option>
-                                    <option value="LSP">LSP</option>
-                                </select>
-                                <span style="font-weight:bold"> 44.</span> Granted Period (Mon): <input type="text" id="grantedPeriod" name="grantedPeriod" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">45</th>
-                            <td>Est. Date of Export: </td>
-                            <td><input type="date" id="estDateOfExport" name="estDateOfExport" size="8"/><span style="font-weight:bold"> 46.</span> Place Export: <input type="text" id="placeExport" name="placeExport" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">47</th>
-                            <td>Project Name: </td>
-                            <td><input type="text" id="projectName" name="projectName" size="30"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">48</th>
-                            <td>Project Date From: </td>
-                            <td><input type="date" id="projectDateFrom" name="projectDateFrom" size="8"/> 49: Date to: <input type="date" id="projectDateTo" name="projectDateTo" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td style="font-weight: bold;">for Transit</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">50</th>
-                            <td>Mode of Transport: </td>
-                            <td>
-                                <select name="modeTransport">
-                                    <option value=""></option>
-                                    <option value="L">L</option>
-                                    <option value="S">S</option>
-                                </select>
-                                <span style="font-weight:bold"> 51.</span> Mean of Transport: <input type="text" id="meanTransport" name="meanTransport" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">52</th>
-                            <td>Office of Dept (1st Check): </td>
-                            <td><input type="text" id="officeDeptFirst" name="officeDeptFirst" size="8"/>        Code: <input type="text" id="officeDeptFirstCode" name="officeDeptFirstCode" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">53</th>
-                            <td>Office of Dept (Last): </td>
-                            <td><input type="text" id="officeDeptLast" name="officeDeptLast" size="8"/>        Code: <input type="text" id="officeDeptLastCode" name="officeDeptLastCode" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">54</th>
-                            <td>Office of Dept (2nd Check): </td>
-                            <td><input type="text" id="officeDeptSecond" name="officeDeptSecond" size="8"/>        Code: <input type="text" id="officeDeptSecondCode" name="officeDeptSecondCode" size="8"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">55</th>
-                            <td>Office of Dept (3rd Check): </td>
-                            <td><input type="text" id="officeDeptThird" name="officeDeptThird" size="8"/>        Code: <input type="text" id="officeDeptThirdCode" name="officeDeptThirdCode" size="8"/></td>
-                        </tr>
-                    </table>
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">For Temporary Import</div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-8">
+                            <label class="form-label">Type of Application</label>
+                            <select name="typeOfApplication" class="form-select">
+                                <option value=""></option>
+                                <option value="DEM">DEM</option>
+                                <option value="TSP">TSP</option>
+                                <option value="ESH">ESH</option>
+                                <option value="LSP">LSP</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Granted Period (Mon)</label>
+                            <input type="text" id="grantedPeriod" name="grantedPeriod" class="form-control"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Est. Date of Export</label>
+                            <input type="date" id="estDateOfExport" name="estDateOfExport" class="form-control"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Place Export</label>
+                            <input type="text" id="placeExport" name="placeExport" class="form-control"/>
+                          </div>
+                          <div class="col-md-12">
+                            <label class="form-label">Project Name</label>
+                            <input type="text" id="projectName" name="projectName" class="form-control"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Project Date From</label>
+                            <input type="date" id="projectDateFrom" name="projectDateFrom" class="form-control"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Project Date To</label>
+                            <input type="date" id="projectDateTo" name="projectDateTo" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">For Transit</div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label">Mode of Transport</label>
+                            <select name="modeTransport" class="form-select">
+                                <option value=""></option>
+                                <option value="L">L</option>
+                                <option value="S">S</option>
+                            </select>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Mean of Transport</label>
+                            <input type="text" id="meanTransport" name="meanTransport" class="form-control"/>
+                          </div>
+                          <div class="col-md-8">
+                            <label class="form-label">Office of Dept (1st Check)</label>
+                            <input type="text" id="officeDeptFirst" name="officeDeptFirst" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Code</label>
+                            <input type="text" id="officeDeptFirstCode" name="officeDeptFirstCode" class="form-control"/>
+                          </div>
+                          <div class="col-md-8">
+                            <label class="form-label">Office of Dept (Last)</label>
+                            <input type="text" id="officeDeptLast" name="officeDeptLast" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Code</label>
+                            <input type="text" id="officeDeptLastCode" name="officeDeptLastCode" class="form-control"/>
+                          </div>
+                          <div class="col-md-8">
+                            <label class="form-label">Office of Dept (2nd Check)</label>
+                            <input type="text" id="officeDeptSecond" name="officeDeptSecond" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Code</label>
+                            <input type="text" id="officeDeptSecondCode" name="officeDeptSecondCode" class="form-control"/>
+                          </div>
+                          <div class="col-md-8">
+                            <label class="form-label">Office of Dept (3rd Check)</label>
+                            <input type="text" id="officeDeptThird" name="officeDeptThird" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Code</label>
+                            <input type="text" id="officeDeptThirdCode" name="officeDeptThirdCode" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <!-- end left col-->
                 <div class="col rightcolumn">
-                    <table class="table table-sm mars-field-table">
-                        <tr>
-                            <th scope="row"></th>
-                            <td style="font-weight: bold;">Security Deposit</td>
-                            <td>(For Transit & Temporary Import Only)</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">56</th>
-                            <td>Type of Deposit: </td>
-                            <td>
-                                <select name="depositType">
-                                    <option value=""></option>
-                                    <option value="Cash">CASH</option>
-                                    <option value="Cheque">CHEQUE</option>
-                                    <option value="Bank Guarantee">BANK GUARANTEE</option>
-                                </select>
-                                <span style="font-weight:bold"> 57.</span> Amount: <input type="text" id="depositAmount" name="depositAmount" size="8"/> 
-                        </tr>
-                        <tr>
-                            <th scope="row">58</th>
-                            <td>Bank Guarantee Amt: </td>
-                            <td><input type="text" id="bankGuaranteeAmount" name="bankGuaranteeAmount" size="8" value="0.00"/><span style="font-weight:bold"> 59.</span> BG/Cheque No: <input type="text" id="bankGuaranteeNo" name="bankGuaranteeNo" size="8"/> </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">60</th>
-                            <td>Bank Name: </td>
-                            <td>
-                                <input type="text" id="bankName" name="bankName" size="8"/>        Code: <input type="text" id="bankCode" name="bankCode" size="8"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td style="font-weight: bold;">Goods</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">61.</th>
-                            <td>Total Gross Weight:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                            <td>
-                                <input type="text" id="totalGrossWeight" name="totalGrossWeight" size="3" required/>
-                                <select name="grossWeightUnit">
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">Security Deposit<span class="mars-card-subtitle">(For Transit &amp; Temporary Import Only)</span></div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-8">
+                            <label class="form-label">Type of Deposit</label>
+                            <select name="depositType" class="form-select">
+                                <option value=""></option>
+                                <option value="Cash">CASH</option>
+                                <option value="Cheque">CHEQUE</option>
+                                <option value="Bank Guarantee">BANK GUARANTEE</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Amount</label>
+                            <input type="text" id="depositAmount" name="depositAmount" class="form-control"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Bank Guarantee Amt</label>
+                            <input type="text" id="bankGuaranteeAmount" name="bankGuaranteeAmount" class="form-control" value="0.00"/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">BG/Cheque No</label>
+                            <input type="text" id="bankGuaranteeNo" name="bankGuaranteeNo" class="form-control"/>
+                          </div>
+                          <div class="col-md-8">
+                            <label class="form-label">Bank Name</label>
+                            <input type="text" id="bankName" name="bankName" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Code</label>
+                            <input type="text" id="bankCode" name="bankCode" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">Goods Charges</div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <label class="form-label">Total Gross Weight <span class="text-danger">*</span></label>
+                            <input type="text" id="totalGrossWeight" name="totalGrossWeight" class="form-control" required/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Unit</label>
+                            <select name="grossWeightUnit" class="form-select">
                                     <option value="KG">KG</option>
                                     <option value="TN">TN</option>
-                                </select>
+                            </select>
+                          </div>
+                          <div class="col-md-5 d-flex align-items-end">
                                 <!-- Button trigger modal -->
-                                <button type="button" onclick="getOutsideValue()" data-bs-toggle="modal" data-bs-target="#invoices">
+                                <button type="button" class="btn btn-outline-secondary" onclick="getOutsideValue()" data-bs-toggle="modal" data-bs-target="#invoices">
                                     Invoices
                                 </button>
-  
+
                                 <!-- The Modal -->
                                 <div class="modal" id="invoices">
                                     <div class="modal-dialog modal-xl">
@@ -589,78 +650,102 @@
                                       </div>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">62.</th>
-                            <td>Total No of Packages:<i class="bi bi-star-fill" style="color: red;"></i> </td>
-                            <td>
-                                <input type="text" id="totalPackagesNo" name="totalPackagesNo" size="3" required/>
-                                <select name="packageNoUnit">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Total No of Packages <span class="text-danger">*</span></label>
+                            <input type="text" id="totalPackagesNo" name="totalPackagesNo" class="form-control" required/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Unit</label>
+                            <select name="packageNoUnit" class="form-select">
                                     <option value="CTN">CTN</option>
                                     <option value="PCS">PCS</option>
                                     <option value="CAS">CAS</option>
                                     <option value="UNT">UNT</option>
                                     <option value="BTL">BTL</option>
                                     <option value="LOT">LOT</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">63</th>
-                            <td>Total Invoice Amount: </td>
-                            <td>
-                                <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" size="8" onchange="calculateCif()" required/> CCY: <input type="text" id="invoiceCurrency" name="invoiceCurrency" size="3" required/> Rate: <input type="text" id="invoiceRate" name="invoiceRate" size="3"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">64</th>
-                            <td>Insurance: </td>
-                            <td>
-                                <select id="invoiceInsuranceType" name="invoiceInsuranceType">
+                            </select>
+                          </div>
+                          <div class="col-md-4"></div>
+                          <div class="col-md-4">
+                            <label class="form-label">Total Invoice Amount</label>
+                            <input type="text" id="totalInvoiceAmount" name="totalInvoiceAmount" class="form-control" onchange="calculateCif()" required/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">CCY</label>
+                            <input type="text" id="invoiceCurrency" name="invoiceCurrency" class="form-control" required/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Rate</label>
+                            <input type="text" id="invoiceRate" name="invoiceRate" class="form-control"/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Insurance Type</label>
+                            <select id="invoiceInsuranceType" name="invoiceInsuranceType" class="form-select">
                                     <option value="F">F</option>
                                     <option value="P">P</option>
-                                </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="insuranceAmount" name="insuranceAmount" size="8" onchange="calculateCifPerKg()" required/> CCY: <input type="text" id="insuranceCurrency" name="insuranceCurrency" size="3" required/> Rate: <input type="text" id="insuranceRate" name="insuranceRate" size="3"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">65</th>
-                            <td>Freight Chg: </td>
-                            <td>
-                                <select name="freightType">
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Amount <span class="text-danger">*</span></label>
+                            <input type="text" id="insuranceAmount" name="insuranceAmount" class="form-control" onchange="calculateCifPerKg()" required/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">CCY</label>
+                            <input type="text" id="insuranceCurrency" name="insuranceCurrency" class="form-control" required/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Rate</label>
+                            <input type="text" id="insuranceRate" name="insuranceRate" class="form-control"/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Freight Chg Type</label>
+                            <select name="freightType" class="form-select">
                                     <option value=""></option>
                                     <option value="F">F</option>
-                                </select>
-                                <i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="freightCharge" name="freightCharge" size="8" onchange="calculateCif()" required/> CCY: <input type="text" id="freightCurrency" name="freightCurrency" size="3" required/> Rate: <input type="text" id="freightRate" name="freightRate" size="3"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">66</th>
-                            <td>Other Charges (B$): </td>
-                            <td>
-                                <input type="text" id="otherCharges" name="otherCharges" size="8" onchange="calculateCif()"/> <span style="font-weight:bold"> <i class="bi bi-star-fill" style="color: red;"></i>66a.</span>
-                                <select id="otherChargesType" name="otherChargesType" onchange="getOutsideValue()">
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Amount <span class="text-danger">*</span></label>
+                            <input type="text" id="freightCharge" name="freightCharge" class="form-control" onchange="calculateCif()" required/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">CCY</label>
+                            <input type="text" id="freightCurrency" name="freightCurrency" class="form-control" required/>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Rate</label>
+                            <input type="text" id="freightRate" name="freightRate" class="form-control"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Other Charges (B$)</label>
+                            <input type="text" id="otherCharges" name="otherCharges" class="form-control" onchange="calculateCif()"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Type</label>
+                            <select id="otherChargesType" name="otherChargesType" class="form-select" onchange="getOutsideValue()">
                                     <option value="CFR">CFR</option>
                                     <option value="CIF">CIF</option>
                                     <option value="FOB">FOB</option>
-                                </select>
+                            </select>
+                          </div>
+                          <div class="col-md-4 d-flex align-items-end">
                                 <!-- Button trigger modal -->
-                                <button type="button" onclick="openRemarks()" data-bs-toggle="modal" data-bs-target="#remarksModal">
+                                <button type="button" class="btn btn-outline-secondary" onclick="openRemarks()" data-bs-toggle="modal" data-bs-target="#remarksModal">
                                     Remarks
                                 </button>
-  
+
                                 <!-- The Modal -->
                                 <div class="modal" id="remarksModal">
                                     <div class="modal-dialog modal-m">
                                       <div class="modal-content">
-  
+
                                         <!-- Modal Header -->
                                         <div class="modal-header">
                                           <h4 class="modal-title">Remarks</h4>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
-  
+
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                           <div>
@@ -670,23 +755,21 @@
                                             <textarea style="width:100%" id="newRemarks" name="newRemarks">.</textarea>
                                           </div>
                                         </div>
-  
+
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" onclick='saveRemarks()' data-bs-dismiss="modal">Save</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         </div>
-  
+
                                       </div>
                                     </div>
                                 </div>
                                 <!-- End Modal -->
-                            </td>
-                        </tr>
-                    </table>
-                    <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
-                    -->
-                    <p></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -695,88 +778,75 @@
         <div class="declarationPage">
             <div class="row">
                 <div class="col leftcolumn">
-                    <table class="table table-sm mars-field-table">
-                        <tr>
-                            <th scope="row"></th>
-                            <td style="font-weight: bold;">Declaration</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">79</th>
-                            <td>Name:</td>
-
-                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="declarantName" name="declarantName" value="<%=username.name %>" size="30"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">80</th>
-                            <td>ID Type: </td>
-                            <td><i class="bi bi-star-fill" style="color: red;"></i>
-                                <select name="declarantID">
-                                    <option value="IC">IC</option>
-                                    <option value="PP">PP</option>
-                                </select> 
-                        </tr>
-                        <tr>
-                            <th scope="row">81</th>
-                            <td>IC No: </td>
-                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="text" id="declarantICNo" name="declarantICNo" size="10" value="<%= username.icNo %>"/><i class="bi bi-star-fill" style="color: red;"></i><span style="font-weight:bold"> 82.</span> IC Color <input type="text" id="declarantICColor" name="declarantICColor" size="10" value="<%=username.icColor%>"/></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">83</th>
-                            <td>Designation: </td>
-                            <td><input type="text" id="declarantDesignation" name="declarantDesignation" size="30" value="<%=username.designation%>"/></td>
-                        </tr>
-                        
-                    </table>
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">Declaration</div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
+                            <input type="text" id="declarantName" name="declarantName" class="form-control" value="<%=username.name %>"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">ID Type <span class="text-danger">*</span></label>
+                            <select name="declarantID" class="form-select">
+                                <option value="IC">IC</option>
+                                <option value="PP">PP</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">IC No <span class="text-danger">*</span></label>
+                            <input type="text" id="declarantICNo" name="declarantICNo" class="form-control" value="<%= username.icNo %>"/>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">IC Color <span class="text-danger">*</span></label>
+                            <input type="text" id="declarantICColor" name="declarantICColor" class="form-control" value="<%=username.icColor%>"/>
+                          </div>
+                          <div class="col-md-12">
+                            <label class="form-label">Designation</label>
+                            <input type="text" id="declarantDesignation" name="declarantDesignation" class="form-control" value="<%=username.designation%>"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <!-- end left col-->
                 <div class="col rightcolumn">
-                    <table class="table table-sm mars-field-table">
-                        <tr>
-                            <th scope="row">84</th>
-                            <td>Date Declare: </td>
-                            <td><i class="bi bi-star-fill" style="color: red;"></i><input type="date" id="declarationDate" name="declarationDate" required/> 
-                        </tr>
-                        <br>
-                        <tr>
-                            <th scope="row"></th>
-                            <td>Shipping Mark: </td>
-                            <td>
-                                <input type="text" id="shippingMark" name="shippingMark" size="30" required/>
-                            </td>
-                        </tr>
-                        <tr style="display:none;">
-                            <th scope="row"></th>
-                            <td>Posted by: </td>
-                            <td>
-                                <input type="text" name="postedBy" value="<%= username.email %>" size="30"/>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    <!--<button type="submit" class="text-right" style="float: right; padding-left:20px; padding-right: 20px">Submit</button>
-                    -->
-                    <p></p>
+                    <div class="card mars-card border-0 shadow-sm mb-3">
+                      <div class="mars-card-header">Finalize</div>
+                        <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label">Date Declare <span class="text-danger">*</span></label>
+                            <input type="date" id="declarationDate" name="declarationDate" class="form-control" required/>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Shipping Mark <span class="text-danger">*</span></label>
+                            <input type="text" id="shippingMark" name="shippingMark" class="form-control" required/>
+                          </div>
+                        </div>
+                        <input type="hidden" name="postedBy" value="<%= username.email %>"/>
+                      </div>
+                    </div>
                 </div>
             </div>
             </div>
             <!--Page 4 Ends-->
         <div class="d-flex flex-wrap justify-content-between align-items-center mars-stepper-bar">
             <div class="btn-group" role="group" aria-label="Declaration pages">
-                <button type="button" id="page1" class="btn btn-mars-step" onclick="gotoPage(0);">1. Parties &amp; Procedure</button>
+                <button type="button" id="page1" class="btn btn-mars-step active" onclick="gotoPage(0);">1. Parties &amp; Procedure</button>
                 <button type="button" id="page2" class="btn btn-mars-step" onclick="gotoPage(1);">2. Transport &amp; Documents</button>
                 <button type="button" id="page3" class="btn btn-mars-step" onclick="gotoPage(2);">3. Goods &amp; Charges</button>
                 <button type="button" id="page4" class="btn btn-mars-step" onclick="gotoPage(3);">4. Declarant</button>
             </div>
             <div>
-              <button type="button" id="prevDecBtn" class="btn btn-outline-secondary" onclick="nextDecPrev(-1)">Previous</button>
+              <button type="button" id="prevDecBtn" class="btn btn-secondary" onclick="nextDecPrev(-1)">Previous</button>
               <button type="button" id="nextDecBtn" class="btn btn-mars" onclick="nextDecPrev(1)">Next</button>
             </div>
           </div>
 
-          <div class="card border-0 shadow-sm mb-3">
+          <div class="card mars-card border-0 shadow-sm mb-3">
+            <div class="mars-card-header">Goods</div>
             <div class="card-body">
-            <h5 class="card-title mb-3">Goods</h5>
             <div class="table-responsive" style="max-height:600px;">
                 <table class="table table-striped table-sm table-bordered" id="goodsTable">
                     <thead>
@@ -841,9 +911,9 @@
                 </table>
             </div>
             <div class="btn-group mt-2" role="group">
-                <button type="button" class="btn btn-outline-primary" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
-                <button type="button" onclick="addGoods()" class="btn btn-outline-success">Add Goods</button>
-                <button type="button" onclick="removeGoods()" class="btn btn-outline-danger">Remove Goods</button>
+                <button type="button" class="btn btn-mars-blue" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
+                <button type="button" onclick="addGoods()" class="btn btn-success">Add Goods</button>
+                <button type="button" onclick="removeGoods()" class="btn btn-danger">Remove Goods</button>
             </div>
             </div>
         </div>
@@ -975,15 +1045,18 @@
     var currentDecPage = 0; // Current page is set to be the first page (0)
     showDecPage(currentDecPage); // Display the current page
     
+    function setActiveStep(idx) {
+        for (var i = 1; i <= 4; i++) {
+            document.getElementById("page"+i).classList.remove("active");
+        }
+        document.getElementById("page"+(idx+1)).classList.add("active");
+    }
+
     function showDecPage(nd) {
         // This function will display the specified page of the form ...
         var jd = document.getElementsByClassName("declarationPage");
         jd[nd].style.display = "block";
-        document.getElementById("page1").style.opacity = 1;
-        document.getElementById("page2").style.opacity = 1;
-        document.getElementById("page3").style.opacity = 1;
-        document.getElementById("page4").style.opacity = 1;
-        document.getElementById("page"+(nd+1)).style.opacity = 0.6;
+        setActiveStep(nd);
         // ... and fix the Previous/Next buttons:
         if (nd == 0) {
             document.getElementById("prevDecBtn").style.display = "none";
@@ -1006,12 +1079,8 @@
         currentPage[currentDecPage].style.display = "none";
         currentPage[pageNo].style.display = "block";
         currentDecPage = pageNo;
-        document.getElementById("page1").style.opacity = 1;
-        document.getElementById("page2").style.opacity = 1;
-        document.getElementById("page3").style.opacity = 1;
-        document.getElementById("page4").style.opacity = 1;
-        document.getElementById("page"+(pageNo+1)).style.opacity = 0.6;
-        
+        setActiveStep(pageNo);
+
         if (pageNo == 0) {
             document.getElementById("prevDecBtn").style.display = "none";
         } else {
@@ -1068,7 +1137,7 @@
         var x = document.getElementsByClassName("goodsSerialNoClass").length + 1;
         var addRow = document.querySelector("#goodsTable tbody");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' /></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><div class='input-group input-group-sm'><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' placeholder='Search...'/><button type='button' class='btn btn-outline-secondary' tabindex='-1' onclick='openHSCode("+(x-1)+")'><i class='bi bi-search'></i></button></div></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
         
         addRow.appendChild(tr);
 
@@ -1613,7 +1682,33 @@
             tbody.appendChild(emptyRow);
             return;
         }
+        var lastCategory = null;
+        var lastSubCategory = null;
         results.forEach(function(h) {
+            if (h.category !== lastCategory) {
+                var catRow = document.createElement('tr');
+                var catCell = document.createElement('td');
+                catCell.colSpan = 6;
+                catCell.className = 'fw-bold small text-uppercase';
+                catCell.style.background = 'var(--mars-orange-subtle)';
+                catCell.style.color = 'var(--mars-orange-dark)';
+                catCell.textContent = h.category || '(Uncategorized)';
+                catRow.appendChild(catCell);
+                tbody.appendChild(catRow);
+                lastCategory = h.category;
+                lastSubCategory = null;
+            }
+            if (h.subCategory && h.subCategory !== lastSubCategory) {
+                var subRow = document.createElement('tr');
+                var subCell = document.createElement('td');
+                subCell.colSpan = 6;
+                subCell.className = 'small text-muted';
+                subCell.style.paddingLeft = '1.5rem';
+                subCell.textContent = h.subCategory;
+                subRow.appendChild(subCell);
+                tbody.appendChild(subRow);
+                lastSubCategory = h.subCategory;
+            }
             var tr = document.createElement('tr');
             [h.HSCode, h.Description, h.category, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
                 var td = document.createElement('td');

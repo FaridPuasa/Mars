@@ -23,6 +23,9 @@ const hscode2Schema = new mongoose.Schema({
     category: {
         type: String,
     },
+    subCategory: {
+        type: String,
+    },
 });
 
 hscode2Schema.index({ HSCode: 1 });

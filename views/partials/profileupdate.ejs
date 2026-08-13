@@ -1,4 +1,4 @@
-<div id="Profile" class="tabcontent">
+<div id="Profile">
 
   <% if (messages.error) { %>
     <p class="alert alert-danger"><%= messages.error %></p>
@@ -41,10 +41,6 @@
           <div class="col-md-6">
             <label class="form-label">Designation <span class="text-danger">*</span></label>
             <input type="text" name="designation" class="form-control" value="<%= username.designation %>" required />
-          </div>
-          <div class="col-12">
-            <label class="form-label">Address</label>
-            <textarea name="address" class="form-control" rows="3"><%= username.address %></textarea>
           </div>
         </div>
       </div>

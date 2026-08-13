@@ -8,32 +8,40 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="marsNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link mars-nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link mars-nav-link" href="/profile">Profile</a></li>
-      </ul>
       <ul class="navbar-nav ms-auto align-items-lg-center">
-        <li class="nav-item me-lg-2">
-          <a class="nav-link mars-nav-link" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
-            <i class="bi bi-box-arrow-up-right"></i> Return to Portal
-          </a>
-        </li>
-        <li class="nav-item me-lg-2">
-          <% if (typeof username == "undefined") { %>
-            <span class="nav-link text-muted">guest</span>
-          <% } else { %>
-            <a class="nav-link mars-nav-link" href="/profile"><%= username.name %></a>
-          <% } -%>
-        </li>
-        <li class="nav-item">
-          <% if (typeof username == "undefined") { %>
+        <li class="nav-item me-lg-2"><a class="nav-link mars-nav-link" href="/">Home</a></li>
+        <% if (typeof username == "undefined") { %>
+          <li class="nav-item me-lg-2">
+            <a class="nav-link mars-nav-link" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
+              <i class="bi bi-box-arrow-up-right"></i> Return to Portal
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="btn btn-mars btn-sm" href="/login">Log in</a>
-          <% } else { %>
-            <form action="/logout?_method=DELETE" method="POST" class="d-inline">
-              <button type="submit" class="btn btn-outline-secondary btn-sm">Log out</button>
-            </form>
-          <% } -%>
-        </li>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= username.name %>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
+                    <i class="bi bi-box-arrow-up-right"></i> Return to Portal
+                  </a>
+                </li>
+                <li>
+                  <form action="/logout?_method=DELETE" method="POST">
+                    <button type="submit" class="dropdown-item">Log out</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </li>
+        <% } -%>
       </ul>
     </div>
   </div>

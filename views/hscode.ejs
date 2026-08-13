@@ -23,6 +23,7 @@
           <th scope="col">HSCode</th>
           <th scope="col">Description</th>
           <th scope="col">Category</th>
+          <th scope="col">Sub-Category</th>
           <th scope="col">Quantity</th>
           <th scope="col">Rate of Import Duty</th>
           <th scope="col">Rate of Excise Duty</th>
@@ -35,6 +36,7 @@
           <td><%= h.HSCode %></td>
           <td><%= h.Description %></td>
           <td class="text-muted small"><%= h.category %></td>
+          <td class="text-muted small"><%= h.subCategory %></td>
           <td><%= h.Quantity %></td>
           <td><%= h.ImportDutyRate %></td>
           <td><%= h.ExciseDutyRate %></td>
@@ -44,6 +46,7 @@
               data-hscode="<%= h.HSCode %>"
               data-description="<%= h.Description %>"
               data-category="<%= h.category %>"
+              data-subcategory="<%= h.subCategory %>"
               data-quantity="<%= h.Quantity %>"
               data-importdutyrate="<%= h.ImportDutyRate %>"
               data-excisedutyrate="<%= h.ExciseDutyRate %>">Edit</button>
@@ -75,6 +78,7 @@
         <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" class="form-control" placeholder="e.g. 0101.21.00" required></div>
         <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" class="form-control" placeholder="e.g. 01.01 - Live horses, asses, mules and hinnies."></div>
+        <div class="mb-2"><label class="form-label">Sub-Category</label><input type="text" name="subCategory" class="form-control" placeholder="e.g. Horses"></div>
         <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" class="form-control"></div>
@@ -102,6 +106,7 @@
         <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" id="editHSCode" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" id="editDescription" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" id="editCategory" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">Sub-Category</label><input type="text" name="subCategory" id="editSubCategory" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" id="editQuantity" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" id="editImportDutyRate" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" id="editExciseDutyRate" class="form-control"></div>
@@ -142,6 +147,7 @@
       document.getElementById('editHSCode').value = btn.dataset.hscode;
       document.getElementById('editDescription').value = btn.dataset.description;
       document.getElementById('editCategory').value = btn.dataset.category;
+      document.getElementById('editSubCategory').value = btn.dataset.subcategory;
       document.getElementById('editQuantity').value = btn.dataset.quantity;
       document.getElementById('editImportDutyRate').value = btn.dataset.importdutyrate;
       document.getElementById('editExciseDutyRate').value = btn.dataset.excisedutyrate;
