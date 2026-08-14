@@ -309,7 +309,9 @@ figcaption {
 }
 
 input[readonly] {
-    background-color: #b4b4b4;
+    background-color: #e9ecef !important;
+    border: 1px solid #ced4da !important;
+    color: #495057 !important;
 }
 
 .errorMessage:empty {
@@ -389,27 +391,33 @@ input[readonly] {
   }
 
 /* Goods table sticky Move/Delete action columns */
+#goodsTable thead th {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
 #goodsTable .goods-move-col,
 #goodsTable .goods-delete-col {
     position: sticky;
-    background-color: #fff;
+    background-color: #ffffff !important;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 #goodsTable .goods-delete-col {
     right: 0;
-    width: 46px;
-    min-width: 46px;
-    max-width: 46px;
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
     border-left: 1px solid #dee2e6;
 }
 
 #goodsTable .goods-move-col {
-    right: 46px;
-    width: 38px;
-    min-width: 38px;
-    max-width: 38px;
+    right: 52px;
+    width: 44px;
+    min-width: 44px;
+    max-width: 44px;
 }
 
 #goodsTable thead .goods-move-col,
@@ -424,7 +432,7 @@ input[readonly] {
 
 #goodsTable tbody tr:nth-of-type(odd) td.goods-move-col,
 #goodsTable tbody tr:nth-of-type(odd) td.goods-delete-col {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #f2f2f2 !important;
 }
 
 #goodsTable tr.goods-row-dragging {
@@ -439,13 +447,13 @@ input[readonly] {
     height: 28px;
     border-radius: 0.375rem;
     cursor: grab;
-    color: #495057;
-    background-color: #e9ecef;
+    color: #495057 !important;
+    background-color: #e9ecef !important;
     border: 1px solid #ced4da;
 }
 
 #goodsTable .goods-drag-handle:hover {
-    background-color: #dee2e6;
+    background-color: #dee2e6 !important;
 }
 
 #goodsTable .goods-drag-handle:active {

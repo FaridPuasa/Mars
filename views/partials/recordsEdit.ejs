@@ -349,7 +349,7 @@
                       </div>
                       <div class="col-md-4">
                         <label class="form-label">Code</label>
-                        <input type="text" id="countryShipmentCode" name="countryShipmentCode" class="form-control" value="<%= declaration3.Transport.countryShipmentCode %>" readonly/>
+                        <input type="text" id="countryShipmentCode" name="countryShipmentCode" class="form-control" value="<%= declaration3.Transport.countryShipmentCode %>" placeholder="Auto-filled" readonly/>
                       </div>
                       <div class="col-md-8">
                         <label class="form-label">Country Destination <span class="text-danger">*</span></label>
@@ -369,7 +369,7 @@
                       </div>
                       <div class="col-md-4">
                         <label class="form-label">Code</label>
-                        <input type="text" id="countryDestinationCode" name="countryDestinationCode" class="form-control" value="<%= declaration3.Transport.countryDestinationCode %>" readonly/>
+                        <input type="text" id="countryDestinationCode" name="countryDestinationCode" class="form-control" value="<%= declaration3.Transport.countryDestinationCode %>" placeholder="Auto-filled" readonly/>
                       </div>
                       <div class="col-md-8">
                         <label class="form-label">Port of Entry <span class="text-danger">*</span></label>
@@ -943,7 +943,7 @@
                         <th>Sub Code</th>
                         <th>Goods Code</th>
                         <th style="min-width:220px; max-width:220px;">Description</th>
-                        <th style="min-width:20px; max-width:20px;">O. Country</th>
+                        <th>O. Country</th>
                         <th>Origin Code</th>
                         <th>No Package</th>
                         <th class="column-3">Package Unit</th>
@@ -954,7 +954,7 @@
                         <th>Invoice No</th>
                         <th>CIF</th>
                         <th>Duty</th>
-                        <th style="min-width:20px; max-width:20px;">Duty Amount</th>
+                        <th>Duty Amount</th>
                         <th>Import Duty</th>
                         <th>Excise Duty</th>
                         <th>Shipping Mark</th>
@@ -966,8 +966,8 @@
                         <th style="min-width:110px; max-width:110px;">Permit No</th>
                         <th style="min-width:100px; max-width:100px;">Permit Expiry</th>
                         <th style="min-width:90px; max-width:90px;">Permit Issued By</th>
-                        <th class="goods-move-col">Move</th>
-                        <th class="goods-delete-col">Delete</th>
+                        <th class="goods-move-col" title="Move"><i class="bi bi-arrows-move" aria-hidden="true"></i><span class="visually-hidden">Move</span></th>
+                        <th class="goods-delete-col" title="Delete"><i class="bi bi-trash" aria-hidden="true"></i><span class="visually-hidden">Delete</span></th>
                     </tr>
                     </thead>
                     <tbody>
