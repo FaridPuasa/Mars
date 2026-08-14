@@ -875,16 +875,16 @@
                           </div>
                           <div class="col-md-4">
                             <label class="form-label">ID Type <span class="text-danger">*</span></label>
-                            <select name="declarantID" class="form-select">
-                                <option value="IC">IC</option>
-                                <option value="PP">PP</option>
+                            <select name="declarantID" class="form-select" onchange="toggleDeclarantIdType(this)">
+                                <option value="IC" <%= declaration3.Declarant.declarantID==='IC' ? 'selected' : '' %>>IC</option>
+                                <option value="PP" <%= declaration3.Declarant.declarantID==='PP' ? 'selected' : '' %>>PP</option>
                             </select>
                           </div>
                           <div class="col-md-4">
-                            <label class="form-label">IC No <span class="text-danger">*</span></label>
+                            <label class="form-label"><span id="declarantICNoLabelText"><%= declaration3.Declarant.declarantID==='PP' ? 'PP No' : 'IC No' %></span> <span class="text-danger">*</span></label>
                             <input type="text" id="declarantICNo" name="declarantICNo" class="form-control" value="<%= declaration3.Declarant.declarantICNo %>"/>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" id="declarantICColorGroup" style="<%= declaration3.Declarant.declarantID==='PP' ? 'display:none' : '' %>">
                             <label class="form-label">IC Color <span class="text-danger">*</span></label>
                             <input type="text" id="declarantICColor" name="declarantICColor" class="form-control" value="<%= declaration3.Declarant.declarantICColor %>"/>
                           </div>
@@ -1652,6 +1652,14 @@
             document.getElementById('importerRegistration').value = "<%= declaration3.Importer.importerRegistration %>";
             document.getElementById('importerICColor').value = "<%= declaration3.Importer.importerICColor %>";
         }
+    }
+
+    function toggleDeclarantIdType(selectEl) {
+        var isPP = selectEl.value === 'PP';
+        var icNoLabelText = document.getElementById('declarantICNoLabelText');
+        var icColorGroup = document.getElementById('declarantICColorGroup');
+        if (icNoLabelText) icNoLabelText.textContent = isPP ? 'PP No' : 'IC No';
+        if (icColorGroup) icColorGroup.style.display = isPP ? 'none' : '';
     }
 
     // FOB INV USD 18,275.28 BND 24,691.73 ( DUTIABLE-EXCISE USD 18,275.28 BND 24,691.73 ) FRT B$60.80 OTHER CHARGES B$180.00 10

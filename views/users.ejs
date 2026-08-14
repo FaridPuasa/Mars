@@ -85,9 +85,16 @@
           </div>
         </div>
         <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" class="form-control" placeholder="e.g. IC"></div>
-        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control"></div>
+        <div class="mb-2">
+          <label class="form-label">ID Type</label>
+          <select name="idType" class="form-select" onchange="toggleIdTypeFields(this, 'addUserIcNoLabel', 'addUserIcColorGroup')">
+            <option value="">-- Select --</option>
+            <option value="IC">IC</option>
+            <option value="PP">PP</option>
+          </select>
+        </div>
+        <div class="mb-2"><label class="form-label" id="addUserIcNoLabel">IC No</label><input type="text" name="icNo" class="form-control"></div>
+        <div class="mb-2" id="addUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" class="form-control" placeholder="e.g. Admin"></div>
         <div class="mb-2">
           <label class="form-label">Company</label>
@@ -126,9 +133,16 @@
           </div>
         </div>
         <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" id="editUserPhone" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" id="editUserIdType" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control"></div>
+        <div class="mb-2">
+          <label class="form-label">ID Type</label>
+          <select name="idType" id="editUserIdType" class="form-select" onchange="toggleIdTypeFields(this, 'editUserIcNoLabel', 'editUserIcColorGroup')">
+            <option value="">-- Select --</option>
+            <option value="IC">IC</option>
+            <option value="PP">PP</option>
+          </select>
+        </div>
+        <div class="mb-2"><label class="form-label" id="editUserIcNoLabel">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control"></div>
+        <div class="mb-2" id="editUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control"></div>
         <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control"></div>
         <div class="mb-2">
           <label class="form-label">Company</label>
@@ -180,9 +194,18 @@
       document.getElementById('editUserIcColor').value = btn.dataset.iccolor;
       document.getElementById('editUserDesignation').value = btn.dataset.designation;
       document.getElementById('editUserCompany').value = btn.dataset.company;
+      toggleIdTypeFields(document.getElementById('editUserIdType'), 'editUserIcNoLabel', 'editUserIcColorGroup');
       new bootstrap.Modal(document.getElementById('editUserModal')).show();
     });
   });
+
+  function toggleIdTypeFields(selectEl, icNoLabelId, icColorGroupId) {
+    var isPP = selectEl.value === 'PP';
+    var icNoLabel = document.getElementById(icNoLabelId);
+    var icColorGroup = document.getElementById(icColorGroupId);
+    if (icNoLabel) icNoLabel.textContent = isPP ? 'PP No' : 'IC No';
+    if (icColorGroup) icColorGroup.style.display = isPP ? 'none' : '';
+  }
 
   document.querySelectorAll('.delete-user-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {

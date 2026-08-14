@@ -11,11 +11,6 @@
       <ul class="navbar-nav ms-auto align-items-lg-center">
         <li class="nav-item me-lg-2"><a class="nav-link mars-nav-link" href="/">Home</a></li>
         <% if (typeof username == "undefined") { %>
-          <li class="nav-item me-lg-2">
-            <a class="nav-link mars-nav-link" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
-              <i class="bi bi-box-arrow-up-right"></i> Return to Portal
-            </a>
-          </li>
           <li class="nav-item">
             <a class="btn btn-mars btn-sm" href="/login">Log in</a>
           </li>
@@ -35,11 +30,13 @@
                   <li><a class="dropdown-item" href="/users">Users</a></li>
                 <% } %>
                 <li><hr class="dropdown-divider"></li>
-                <li>
-                  <a class="dropdown-item" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
-                    <i class="bi bi-box-arrow-up-right"></i> Return to Portal
-                  </a>
-                </li>
+                <% if (username.company === 'Globex') { %>
+                  <li>
+                    <a class="dropdown-item" href="https://portal.gorushbn.com/" target="_blank" rel="noopener">
+                      <i class="bi bi-box-arrow-up-right"></i> Return to Portal
+                    </a>
+                  </li>
+                <% } %>
                 <li>
                   <form action="/logout?_method=DELETE" method="POST">
                     <button type="submit" class="dropdown-item">Log out</button>
@@ -53,3 +50,99 @@
     </div>
   </div>
 </nav>
+
+<% if (typeof username !== "undefined") { %>
+<!-- Idle session warning -->
+<div class="modal fade" id="idleWarningModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Are you still there?</h5>
+      </div>
+      <div class="modal-body">
+        You've been inactive for a while. For your security, you'll be logged out in <strong id="idleCountdown">60</strong> seconds unless you confirm you're still here.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-mars" id="idleStayBtn">I'm still here</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var IDLE_LIMIT_MS = 60 * 60 * 1000; // auto logout after 1 hour of inactivity
+    var WARNING_LEAD_MS = 60 * 1000;    // warn 1 minute before that
+    var THROTTLE_MS = 1000;
+
+    var warnTimer, logoutTimer, countdownTimer;
+    var lastReset = 0;
+    var warningShowing = false;
+    var idleModalEl = document.getElementById('idleWarningModal');
+    var countdownEl = document.getElementById('idleCountdown');
+    var idleModal = null;
+
+    function getModal() {
+      if (!idleModal) {
+        idleModal = bootstrap.Modal.getOrCreateInstance(idleModalEl);
+      }
+      return idleModal;
+    }
+
+    function autoLogout() {
+      clearInterval(countdownTimer);
+      fetch('/logout?_method=DELETE', { method: 'POST' })
+        .catch(function () {})
+        .then(function () {
+          window.location.href = '/login';
+        });
+    }
+
+    function showWarning() {
+      warningShowing = true;
+      var secondsLeft = Math.floor(WARNING_LEAD_MS / 1000);
+      countdownEl.textContent = secondsLeft;
+      getModal().show();
+      countdownTimer = setInterval(function () {
+        secondsLeft--;
+        countdownEl.textContent = secondsLeft > 0 ? secondsLeft : 0;
+        if (secondsLeft <= 0) clearInterval(countdownTimer);
+      }, 1000);
+      logoutTimer = setTimeout(autoLogout, WARNING_LEAD_MS);
+    }
+
+    function hideWarning() {
+      if (warningShowing) {
+        warningShowing = false;
+        getModal().hide();
+      }
+      clearInterval(countdownTimer);
+      clearTimeout(logoutTimer);
+    }
+
+    function scheduleTimers() {
+      clearTimeout(warnTimer);
+      clearTimeout(logoutTimer);
+      warnTimer = setTimeout(showWarning, IDLE_LIMIT_MS - WARNING_LEAD_MS);
+    }
+
+    function resetIdle() {
+      var now = Date.now();
+      if (warningShowing) {
+        hideWarning();
+      } else if (now - lastReset < THROTTLE_MS) {
+        return;
+      }
+      lastReset = now;
+      scheduleTimers();
+    }
+
+    ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(function (evt) {
+      document.addEventListener(evt, resetIdle, { passive: true });
+    });
+
+    document.getElementById('idleStayBtn').addEventListener('click', resetIdle);
+
+    scheduleTimers();
+  })();
+</script>
+<% } %>
