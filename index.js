@@ -1554,7 +1554,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
               .ele('invoiceNo').txt(declaration3.Goods[i].goodsInvoiceNo).up()
               .ele('invoiceAmount').txt(Number(declaration3.Goods[i].goodsAmount).toFixed(2)).up()
               .ele('goodsGrossWeight').txt(Number(declaration3.Goods[i].goodsWeight).toFixed(3)).up()
-              .ele('goodsGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up();
+              .ele('goodsGrossWeightUnit').txt('KG').up();
 
           if (declaration3.Goods[i].goodsContainerNo) {
             goodsNode = goodsNode.ele('containerNos').txt(declaration3.Goods[i].goodsContainerNo).up();
