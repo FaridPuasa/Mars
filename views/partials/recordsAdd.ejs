@@ -827,16 +827,16 @@
                           </div>
                           <div class="col-md-4">
                             <label class="form-label">ID Type <span class="text-danger">*</span></label>
-                            <select name="declarantID" class="form-select">
-                                <option value="IC">IC</option>
-                                <option value="PP">PP</option>
+                            <select name="declarantID" class="form-select" onchange="toggleDeclarantIdType(this)">
+                                <option value="IC" <%= username.idType==='PP' ? '' : 'selected' %>>IC</option>
+                                <option value="PP" <%= username.idType==='PP' ? 'selected' : '' %>>PP</option>
                             </select>
                           </div>
                           <div class="col-md-4">
-                            <label class="form-label">IC No <span class="text-danger">*</span></label>
+                            <label class="form-label"><span id="declarantICNoLabelText"><%= username.idType==='PP' ? 'PP No' : 'IC No' %></span> <span class="text-danger">*</span></label>
                             <input type="text" id="declarantICNo" name="declarantICNo" class="form-control" value="<%= username.icNo %>"/>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" id="declarantICColorGroup" style="<%= username.idType==='PP' ? 'display:none' : '' %>">
                             <label class="form-label">IC Color <span class="text-danger">*</span></label>
                             <input type="text" id="declarantICColor" name="declarantICColor" class="form-control" value="<%=username.icColor%>"/>
                           </div>
@@ -1550,6 +1550,14 @@
             importerTRDR2.style="display:none";
             document.getElementById('regTraderCoyRegNo').value = "";
         }
+    }
+
+    function toggleDeclarantIdType(selectEl) {
+        var isPP = selectEl.value === 'PP';
+        var icNoLabelText = document.getElementById('declarantICNoLabelText');
+        var icColorGroup = document.getElementById('declarantICColorGroup');
+        if (icNoLabelText) icNoLabelText.textContent = isPP ? 'PP No' : 'IC No';
+        if (icColorGroup) icColorGroup.style.display = isPP ? 'none' : '';
     }
 
     //REMARKS
