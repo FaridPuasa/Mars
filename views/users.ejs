@@ -27,6 +27,7 @@
           <th scope="col">ID Type</th>
           <th scope="col">IC No</th>
           <th scope="col">IC Color</th>
+          <th scope="col">Passport No</th>
           <th scope="col">Designation</th>
           <th scope="col">Company</th>
           <th scope="col"></th>
@@ -39,8 +40,9 @@
           <td><%= u.email %></td>
           <td><%= u.phone %></td>
           <td><%= u.idType %></td>
-          <td><%= u.icNo %></td>
-          <td><%= u.icColor %></td>
+          <td><%= u.idType === 'PP' ? '' : u.icNo %></td>
+          <td><%= u.idType === 'PP' ? '' : u.icColor %></td>
+          <td><%= u.idType === 'PP' ? u.icNo : '' %></td>
           <td><%= u.designation %></td>
           <td><%= u.company %></td>
           <td class="text-nowrap">
@@ -95,7 +97,15 @@
         </div>
         <div class="mb-2"><label class="form-label" id="addUserIcNoLabel">IC No</label><input type="text" name="icNo" class="form-control"></div>
         <div class="mb-2" id="addUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" class="form-control" placeholder="e.g. Admin"></div>
+        <div class="mb-2">
+          <label class="form-label">Designation</label>
+          <select name="designation" class="form-select">
+            <option value="">-- Select --</option>
+            <option value="Admin">Admin</option>
+            <option value="Declarant">Declarant</option>
+            <option value="Operation">Operation</option>
+          </select>
+        </div>
         <div class="mb-2">
           <label class="form-label">Company</label>
           <select name="company" class="form-select">
@@ -143,7 +153,15 @@
         </div>
         <div class="mb-2"><label class="form-label" id="editUserIcNoLabel">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control" autocomplete="off"></div>
         <div class="mb-2" id="editUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control" autocomplete="off"></div>
-        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control" autocomplete="off"></div>
+        <div class="mb-2">
+          <label class="form-label">Designation</label>
+          <select name="designation" id="editUserDesignation" class="form-select" autocomplete="off">
+            <option value="">-- Select --</option>
+            <option value="Admin">Admin</option>
+            <option value="Declarant">Declarant</option>
+            <option value="Operation">Operation</option>
+          </select>
+        </div>
         <div class="mb-2">
           <label class="form-label">Company</label>
           <select name="company" id="editUserCompany" class="form-select">

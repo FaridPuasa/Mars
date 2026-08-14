@@ -25,23 +25,30 @@
           </div>
           <div class="col-md-3">
             <label class="form-label">ID Type</label>
-            <select name="idType" class="form-select">
+            <select name="idType" id="profileIdType" class="form-select" onchange="toggleIdTypeFields(this, 'profileIcNoLabel', 'profileIcColorGroup')">
               <option value="" <%= !username.idType ? 'selected' : '' %>>-- Select --</option>
               <option value="IC" <%= username.idType === 'IC' ? 'selected' : '' %>>IC</option>
               <option value="PP" <%= username.idType === 'PP' ? 'selected' : '' %>>PP</option>
             </select>
           </div>
           <div class="col-md-3">
-            <label class="form-label">IC/Passport No</label>
+            <label class="form-label" id="profileIcNoLabel"><%= username.idType === 'PP' ? 'PP No' : 'IC No' %></label>
             <input type="text" name="icNo" class="form-control" value="<%= username.icNo %>" />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" id="profileIcColorGroup" style="<%= username.idType === 'PP' ? 'display:none' : '' %>">
             <label class="form-label">IC Color</label>
             <input type="text" name="icColor" class="form-control" value="<%= username.icColor %>" />
           </div>
           <div class="col-md-6">
             <label class="form-label">Designation</label>
-            <input type="text" name="designation" class="form-control" value="<%= username.designation %>" />
+            <select name="designation" class="form-select">
+              <option value="" <%= !username.designation ? 'selected' : '' %>>-- Select --</option>
+              <% if (username.designation === 'Admin') { %>
+              <option value="Admin" selected>Admin</option>
+              <% } %>
+              <option value="Declarant" <%= username.designation === 'Declarant' ? 'selected' : '' %>>Declarant</option>
+              <option value="Operation" <%= username.designation === 'Operation' ? 'selected' : '' %>>Operation</option>
+            </select>
           </div>
         </div>
       </div>
@@ -83,6 +90,14 @@
 </div>
 
 <script>
+  function toggleIdTypeFields(selectEl, icNoLabelId, icColorGroupId) {
+    var isPP = selectEl.value === 'PP';
+    var icNoLabel = document.getElementById(icNoLabelId);
+    var icColorGroup = document.getElementById(icColorGroupId);
+    if (icNoLabel) icNoLabel.textContent = isPP ? 'PP No' : 'IC No';
+    if (icColorGroup) icColorGroup.style.display = isPP ? 'none' : '';
+  }
+
   document.querySelectorAll('.toggle-password-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var input = btn.previousElementSibling;

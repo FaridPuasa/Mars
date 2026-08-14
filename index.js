@@ -235,7 +235,7 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
 
   const update = { name, idType, icNo, icColor, phone, designation };
 
-  if (currentPassword || newPassword || confirmNewPassword) {
+  if (newPassword || confirmNewPassword) {
     if (!currentPassword || !newPassword || !confirmNewPassword) {
       req.flash("error", "To change your password, fill in current password, new password and confirmation.");
       return res.redirect("/profile");
