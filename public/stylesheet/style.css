@@ -351,6 +351,75 @@ input[readonly] {
     border: none;
   }
 
+/* Goods table sticky Move/Delete action columns */
+#goodsTable .goods-move-col,
+#goodsTable .goods-delete-col {
+    position: sticky;
+    background-color: #fff;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#goodsTable .goods-delete-col {
+    right: 0;
+    width: 46px;
+    min-width: 46px;
+    max-width: 46px;
+    border-left: 1px solid #dee2e6;
+}
+
+#goodsTable .goods-move-col {
+    right: 46px;
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+}
+
+#goodsTable thead .goods-move-col,
+#goodsTable thead .goods-delete-col {
+    z-index: 3;
+}
+
+#goodsTable tbody td.goods-move-col,
+#goodsTable tbody td.goods-delete-col {
+    z-index: 2;
+}
+
+#goodsTable tbody tr:nth-of-type(odd) td.goods-move-col,
+#goodsTable tbody tr:nth-of-type(odd) td.goods-delete-col {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+#goodsTable tr.goods-row-dragging {
+    opacity: 0.5;
+}
+
+#goodsTable .goods-drag-handle {
+    display: inline-flex;
+    cursor: grab;
+    color: #6c757d;
+}
+
+#goodsTable .goods-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* HS Code list page - category/sub-category grouping banners */
+.hscode-category-row > td {
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background-color: var(--mars-orange-subtle) !important;
+    color: var(--mars-orange-dark);
+}
+
+.hscode-subcategory-row > td {
+    font-size: 0.85rem;
+    color: #6c757d;
+    padding-left: 1.5rem;
+    background-color: transparent !important;
+}
+
   td input {
     border-color: none;
     background: transparent;

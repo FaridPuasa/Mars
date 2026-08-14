@@ -911,6 +911,8 @@
                         <th>Control</th>
                         <th>Import Duty</th>
                         <th>Excise Duty</th>
+                        <th class="goods-move-col">Move</th>
+                        <th class="goods-delete-col">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -931,7 +933,7 @@
                         </td>
                         <td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value='<%= declaration3.Goods[j].countryOrigin %>'/></td>
                         <td><input type='text' class='countryCode' name='countryCode' size='3' value='<%= declaration3.Goods[j].countryCode %>'/></td>
-                        <td><div class="input-group input-group-sm"><input type='text' class='hsCode' name='hsCode' size='8' ondblclick='openHSCode(<%=j%>)' value='<%= declaration3.Goods[j].hsCode %>' placeholder="Search..."/><button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="openHSCode(<%=j%>)"><i class="bi bi-search"></i></button></div></td>
+                        <td><div class="input-group input-group-sm"><input type='text' class='hsCode' name='hsCode' size='8' ondblclick='openHSCode(this)' value='<%= declaration3.Goods[j].hsCode %>' placeholder="Search..."/><button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="openHSCode(this.previousElementSibling)"><i class="bi bi-search"></i></button></div></td>
                         <td><input type='text' name='subCode' size='8' value='<%= declaration3.Goods[j].subCode %>'/></td>
                         <td><input type='text' name='goodsDescription' size='100' value='<%= declaration3.Goods[j].goodsDescription %>'/></td>
                         <td><input type='text' name='goodsC' size='3' value='<%= declaration3.Goods[j].goodsC %>'/></td>
@@ -950,6 +952,8 @@
                         <td><input type='text' class='goodsControl' name='goodsControl' value='<%= declaration3.Goods[j].goodsControl %>'/></td>
                         <td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value='<%= declaration3.Goods[j].goodsImportDuty %>'/></td>
                         <td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value='<%= declaration3.Goods[j].goodsExciseDuty %>'/></td>
+                        <td class="goods-move-col"><span class="goods-drag-handle" draggable="true" ondragstart="goodsDragStart(event)" ondragend="goodsDragEnd(event)" title="Drag to reorder"><i class="bi bi-grip-vertical"></i></span></td>
+                        <td class="goods-delete-col"><button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmDeleteGoodsRow(this)" title="Delete this goods row"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <% } %>
                     </tbody>
@@ -979,6 +983,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td class="goods-move-col"></td>
+                            <td class="goods-delete-col"></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -986,7 +992,6 @@
             <div class="btn-group mt-2" role="group">
                 <button type="button" class="btn btn-mars-blue" onclick="calculateInvoice(); calculateCif(); calculateDuty(); calculateSomething()">Calculate</button>
                 <button type="button" onclick="addGoods()" class="btn btn-success">Add Goods</button>
-                <button type="button" onclick="removeGoods()" class="btn btn-danger">Remove Goods</button>
             </div>
             </div>
         </div>
@@ -1050,12 +1055,11 @@
             <!-- Modal Header -->
             <div class="modal-header">
               <h4 class="modal-title">HS Code</h4>
-              <p id="thevalue"></p>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-            <div style="height: 500px; overflow:auto">
+            <div id="hscodeScrollBody" style="height: 500px; overflow:auto">
               <input type="text" id="filterHSCode" class="form-control mb-2" placeholder="Search HS Code, description or category..." title="Search HS Code">
               <table class="table table-striped" id="hscodeTable">
                 <thead>
@@ -1063,13 +1067,14 @@
                     <th>HS Code</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>Sub-Category</th>
                     <th>Quantity</th>
                     <th>Rate of Import Duty</th>
                     <th>Rate of Excise Duty</th>
                 </tr>
                 </thead>
                 <tbody id="hscodeResultsBody">
-                  <tr><td colspan="6" class="text-muted">Loading&hellip;</td></tr>
+                  <tr><td colspan="7" class="text-muted">Loading&hellip;</td></tr>
                 </tbody>
               </table>
             </div>
@@ -1219,8 +1224,8 @@
         var x = document.getElementsByClassName("goodsSerialNoClass").length + 1;
         var addRow = document.querySelector("#goodsTable tbody");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><div class='input-group input-group-sm'><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode("+(x-1)+")' size='8' placeholder='Search...'/><button type='button' class='btn btn-outline-secondary' tabindex='-1' onclick='openHSCode("+(x-1)+")'><i class='bi bi-search'></i></button></div></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td>";
-        
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><div class='input-group input-group-sm'><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode(this)' size='8' placeholder='Search...'/><button type='button' class='btn btn-outline-secondary' tabindex='-1' onclick='openHSCode(this.previousElementSibling)'><i class='bi bi-search'></i></button></div></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td><td class='goods-move-col'><span class='goods-drag-handle' draggable='true' ondragstart='goodsDragStart(event)' ondragend='goodsDragEnd(event)' title='Drag to reorder'><i class='bi bi-grip-vertical'></i></span></td><td class='goods-delete-col'><button type='button' class='btn btn-sm btn-outline-danger' onclick='confirmDeleteGoodsRow(this)' title='Delete this goods row'><i class='bi bi-trash'></i></button></td>";
+
         addRow.appendChild(tr);
 
         if(x>1){
@@ -1236,13 +1241,10 @@
             document.getElementsByClassName('goodsImportDuty')[x-1].value = document.getElementsByClassName('goodsImportDuty')[x-2].value;
             document.getElementsByClassName('goodsExciseDuty')[x-1].value = document.getElementsByClassName('goodsExciseDuty')[x-2].value;
         }
-        
+
     }
 
-    function removeGoods() {
-        var tbody = document.querySelector("#goodsTable tbody");
-        if (tbody.rows.length <= 1) return;
-        tbody.deleteRow(tbody.rows.length - 1);
+    function renumberGoodsSerials() {
         var serials = document.getElementsByClassName("goodsSerialNoClass");
         for (var i = 0; i < serials.length; i++) {
             var el = serials[i];
@@ -1250,6 +1252,55 @@
             input.value = i + 1;
         }
     }
+
+    function confirmDeleteGoodsRow(btn) {
+        var tbody = document.querySelector("#goodsTable tbody");
+        if (tbody.rows.length <= 1) {
+            alert("At least one goods row is required.");
+            return;
+        }
+        if (!confirm("Delete this goods row? This cannot be undone.")) {
+            return;
+        }
+        var row = btn.closest("tr");
+        row.parentNode.removeChild(row);
+        renumberGoodsSerials();
+    }
+
+    var draggedGoodsRow = null;
+
+    function goodsDragStart(e) {
+        draggedGoodsRow = e.target.closest("tr");
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", "");
+        draggedGoodsRow.classList.add("goods-row-dragging");
+    }
+
+    function goodsDragEnd(e) {
+        if (draggedGoodsRow) draggedGoodsRow.classList.remove("goods-row-dragging");
+        draggedGoodsRow = null;
+    }
+
+    (function () {
+        var goodsTbody = document.querySelector("#goodsTable tbody");
+        if (!goodsTbody) return;
+
+        goodsTbody.addEventListener("dragover", function (e) {
+            if (!draggedGoodsRow) return;
+            e.preventDefault();
+            var targetRow = e.target.closest("tr");
+            if (!targetRow || targetRow === draggedGoodsRow || targetRow.parentNode !== goodsTbody) return;
+            var rect = targetRow.getBoundingClientRect();
+            var before = (e.clientY - rect.top) < (rect.height / 2);
+            goodsTbody.insertBefore(draggedGoodsRow, before ? targetRow : targetRow.nextSibling);
+        });
+
+        goodsTbody.addEventListener("drop", function (e) {
+            if (!draggedGoodsRow) return;
+            e.preventDefault();
+            renumberGoodsSerials();
+        });
+    })();
 
     //INVOICE TABLE
 
@@ -1746,62 +1797,86 @@
 
     //HSCode Modal and search system.
         var hscodeSearchTimeout = null;
+        var currentHSCodeEl = null;
+        var hscodeQuery = '';
+        var hscodeSkip = 0;
+        var hscodeLoading = false;
+        var hscodeHasMore = true;
+        var hscodeLastCategory = null;
+        var hscodeLastSubCategory = null;
 
-    function openHSCode(num){
-        document.getElementById('thevalue').innerHTML = num;
+    function openHSCode(el){
+        currentHSCodeEl = el;
         document.getElementById('filterHSCode').value = '';
-        fetchHscodeResults('');
+        resetHscodeResults('');
         bootstrap.Modal.getOrCreateInstance(document.getElementById('hscodem')).show();
     }
 
-    function fetchHscodeResults(q) {
-        fetch('/api/hscode/search?q=' + encodeURIComponent(q))
-            .then(function(r) { return r.json(); })
-            .then(renderHscodeResults);
+    function resetHscodeResults(q) {
+        hscodeQuery = q;
+        hscodeSkip = 0;
+        hscodeHasMore = true;
+        hscodeLastCategory = null;
+        hscodeLastSubCategory = null;
+        document.getElementById('hscodeResultsBody').innerHTML = '<tr><td colspan="7" class="text-muted">Loading&hellip;</td></tr>';
+        loadMoreHscodeResults(true);
     }
 
-    function renderHscodeResults(results) {
+    function loadMoreHscodeResults(isFirstLoad) {
+        if (hscodeLoading || !hscodeHasMore) return;
+        hscodeLoading = true;
+        fetch('/api/hscode/search?q=' + encodeURIComponent(hscodeQuery) + '&skip=' + hscodeSkip)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                hscodeLoading = false;
+                hscodeHasMore = data.hasMore;
+                hscodeSkip += data.results.length;
+                if (isFirstLoad) document.getElementById('hscodeResultsBody').innerHTML = '';
+                appendHscodeResults(data.results);
+            });
+    }
+
+    function appendHscodeResults(results) {
         var tbody = document.getElementById('hscodeResultsBody');
-        tbody.innerHTML = '';
         if (!results.length) {
-            var emptyRow = document.createElement('tr');
-            var emptyCell = document.createElement('td');
-            emptyCell.colSpan = 6;
-            emptyCell.className = 'text-muted';
-            emptyCell.textContent = 'No results';
-            emptyRow.appendChild(emptyCell);
-            tbody.appendChild(emptyRow);
+            if (!tbody.children.length) {
+                var emptyRow = document.createElement('tr');
+                var emptyCell = document.createElement('td');
+                emptyCell.colSpan = 7;
+                emptyCell.className = 'text-muted';
+                emptyCell.textContent = 'No results';
+                emptyRow.appendChild(emptyCell);
+                tbody.appendChild(emptyRow);
+            }
             return;
         }
-        var lastCategory = null;
-        var lastSubCategory = null;
         results.forEach(function(h) {
-            if (h.category !== lastCategory) {
+            if (h.category !== hscodeLastCategory) {
                 var catRow = document.createElement('tr');
                 var catCell = document.createElement('td');
-                catCell.colSpan = 6;
+                catCell.colSpan = 7;
                 catCell.className = 'fw-bold small text-uppercase';
                 catCell.style.background = 'var(--mars-orange-subtle)';
                 catCell.style.color = 'var(--mars-orange-dark)';
                 catCell.textContent = h.category || '(Uncategorized)';
                 catRow.appendChild(catCell);
                 tbody.appendChild(catRow);
-                lastCategory = h.category;
-                lastSubCategory = null;
+                hscodeLastCategory = h.category;
+                hscodeLastSubCategory = null;
             }
-            if (h.subCategory && h.subCategory !== lastSubCategory) {
+            if (h.subCategory && h.subCategory !== hscodeLastSubCategory) {
                 var subRow = document.createElement('tr');
                 var subCell = document.createElement('td');
-                subCell.colSpan = 6;
+                subCell.colSpan = 7;
                 subCell.className = 'small text-muted';
                 subCell.style.paddingLeft = '1.5rem';
                 subCell.textContent = h.subCategory;
                 subRow.appendChild(subCell);
                 tbody.appendChild(subRow);
-                lastSubCategory = h.subCategory;
+                hscodeLastSubCategory = h.subCategory;
             }
             var tr = document.createElement('tr');
-            [h.HSCode, h.Description, h.category, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
+            [h.HSCode, h.Description, h.category, h.subCategory, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate].forEach(function(val) {
                 var td = document.createElement('td');
                 td.textContent = val || '';
                 tr.appendChild(td);
@@ -1809,7 +1884,7 @@
             tr.style.cursor = 'pointer';
             tr.title = 'Double-click to select';
             tr.addEventListener('dblclick', function() {
-                selectHSCode(document.getElementById('thevalue').innerHTML, h.HSCode, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate);
+                selectHSCode(h.HSCode, h.Quantity, h.ImportDutyRate, h.ExciseDutyRate);
             });
             tbody.appendChild(tr);
         });
@@ -1819,27 +1894,33 @@
         var q = this.value;
         clearTimeout(hscodeSearchTimeout);
         hscodeSearchTimeout = setTimeout(function() {
-            fetchHscodeResults(q);
+            resetHscodeResults(q);
         }, 250);
     });
 
-    function selectHSCode(hscodeClassNumber, hscode, quantity, importRate, exciseRate){
-        var hsCodeClass = document.getElementsByClassName('hsCode');
-        var goodsUnitClass = document.getElementsByClassName('goodsUnit');
-        var goodsDutyClass = document.getElementsByClassName('goodsDuty');
-        var goodsImportDutyClass = document.getElementsByClassName('goodsImportDuty');
-        var goodsExciseDutyClass = document.getElementsByClassName('goodsExciseDuty');
+    document.getElementById('hscodeScrollBody').addEventListener('scroll', function() {
+        if (this.scrollTop + this.clientHeight >= this.scrollHeight - 100) {
+            loadMoreHscodeResults(false);
+        }
+    });
 
+    function selectHSCode(hscode, quantity, importRate, exciseRate){
+        if (!currentHSCodeEl) return;
+        var row = currentHSCodeEl.closest('tr');
         var newHsCode = hscode.replace(/[.]/g,"");
 
-        hsCodeClass[hscodeClassNumber].value = newHsCode;
-        goodsUnitClass[hscodeClassNumber].value = quantity.toUpperCase();
-        goodsDutyClass[hscodeClassNumber].value = exciseRate;
-        goodsImportDutyClass[hscodeClassNumber].value = importRate;
-        goodsExciseDutyClass[hscodeClassNumber].value = exciseRate;
+        currentHSCodeEl.value = newHsCode;
+        var unitEl = row.querySelector('.goodsUnit');
+        var dutyEl = row.querySelector('.goodsDuty');
+        var importDutyEl = row.querySelector('.goodsImportDuty');
+        var exciseDutyEl = row.querySelector('.goodsExciseDuty');
+        if (unitEl) unitEl.value = (quantity || '').toUpperCase();
+        if (dutyEl) dutyEl.value = exciseRate;
+        if (importDutyEl) importDutyEl.value = importRate;
+        if (exciseDutyEl) exciseDutyEl.value = exciseRate;
 
         bootstrap.Modal.getOrCreateInstance(document.getElementById('hscodem')).hide();
     }
 
-    
+
 </script>

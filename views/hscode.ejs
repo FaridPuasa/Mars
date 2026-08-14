@@ -31,7 +31,20 @@
         </tr>
       </thead>
       <tbody>
+        <% var lastCategory = null; var lastSubCategory = null; %>
         <% hscode.forEach(function(h) { %>
+        <% if (h.category !== lastCategory) { %>
+        <tr class="hscode-category-row">
+          <td colspan="8"><%= h.category || '(Uncategorized)' %></td>
+        </tr>
+        <% lastCategory = h.category; lastSubCategory = null; %>
+        <% } %>
+        <% if (h.subCategory && h.subCategory !== lastSubCategory) { %>
+        <tr class="hscode-subcategory-row">
+          <td colspan="8"><%= h.subCategory %></td>
+        </tr>
+        <% lastSubCategory = h.subCategory; %>
+        <% } %>
         <tr>
           <td><%= h.HSCode %></td>
           <td><%= h.Description %></td>

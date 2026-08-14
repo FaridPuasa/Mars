@@ -1518,13 +1518,15 @@ app.post("/hscode/delete/:id", requireLogin, requireAdmin, async (req, res) => {
 
 app.get("/api/hscode/search", requireLogin, async (req, res) => {
   const q = (req.query.q || "").trim();
+  const skip = Math.max(parseInt(req.query.skip, 10) || 0, 0);
+  const limit = 100;
   let filter = DECLARABLE_HSCODE_FILTER;
   if (q) {
     const rx = new RegExp(escapeRegex(q), "i");
     filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }, { subCategory: rx }] };
   }
-  const results = await Hscode2.find(filter).sort({ HSCode: 1 }).limit(50).lean();
-  res.json(results);
+  const results = await Hscode2.find(filter).sort({ HSCode: 1 }).skip(skip).limit(limit).lean();
+  res.json({ results, hasMore: results.length === limit });
 });
 
 //UNLOCODE PORT LIST PAGE
