@@ -1355,6 +1355,22 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
     }
   }
 
+  // each invoice's share of the shipment's freight/insurance/other charges, prorated by
+  // that invoice's portion of the total invoice amount (matches how multi-invoice
+  // declarations are actually split in practice, e.g. BDNSW sample GB02600899).
+  var totalTempInvoiceAmount = 0;
+  for (var ti = 0; ti < tempInvoiceAmount.length; ti++) {
+    totalTempInvoiceAmount += tempInvoiceAmount[ti];
+  }
+
+  function findInvoiceOverride(invoiceNo) {
+    if (!declaration3.Invoice) return null;
+    for (var m = 0; m < declaration3.Invoice.length; m++) {
+      if (declaration3.Invoice[m].invoiceNo === invoiceNo) return declaration3.Invoice[m];
+    }
+    return null;
+  }
+
   //format XML
   //get goods's amount for remarks. goods.
   var totalAmount = 0;
@@ -1430,24 +1446,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' Guarantee Details ')
         .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
 
-      .up()
-      for(var j = 0; j < tempInvoice.length; j++){
-        root.ele('invoices')
-          .ele('invoiceNumber').txt(tempInvoice[j]).up()
-          .ele('invoiceDate').txt(declaration3.dateGranted).up()
-          .ele('termType').txt(declaration3.DeclarationGoods.otherChargesType).up()
-          .ele('invoiceAmount').txt(tempInvoiceAmount[j].toFixed(2)).up()
-          .ele('invoiceCurrency').txt(declaration3.DeclarationGoods.invoiceCurrency).up()
-          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge.toFixed(2)).up()
-          .ele('freightCurrency').txt(declaration3.DeclarationGoods.freightCurrency).up()
-          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount.toFixed(2)).up()
-          .ele('insuranceCurrency').txt(declaration3.DeclarationGoods.insuranceCurrency).up()
-          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges.toFixed(2)).up()
-          .ele('otherAmountCurrency').txt('BND').up()
-        .up()
-
-
-      }
+      .up();
   }
   // IF INDV
   else {
@@ -1512,27 +1511,28 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' Guarantee Details ')
         .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
 
-      .up()
-      for(var j = 0; j < tempInvoice.length; j++){
-        console.log("J is = " + j)
+      .up();
+  }
+
+      for (var j = 0; j < tempInvoice.length; j++) {
+        var invoiceShare = totalTempInvoiceAmount > 0 ? (tempInvoiceAmount[j] / totalTempInvoiceAmount) : 0;
+        var invoiceOverride = findInvoiceOverride(tempInvoice[j]);
+
         root.ele('invoices')
           .ele('invoiceNumber').txt(tempInvoice[j]).up()
-          .ele('invoiceDate').txt(declaration3.dateGranted).up()
-          .ele('termType').txt(declaration3.DeclarationGoods.otherChargesType).up()
+          .ele('invoiceDate').txt((invoiceOverride && invoiceOverride.invoiceDate) || declaration3.dateGranted).up()
+          .ele('termType').txt((invoiceOverride && invoiceOverride.invoiceTerm) || declaration3.DeclarationGoods.otherChargesType).up()
           .ele('invoiceAmount').txt(tempInvoiceAmount[j].toFixed(2)).up()
-          .ele('invoiceCurrency').txt(declaration3.DeclarationGoods.invoiceCurrency).up()
-          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge.toFixed(2)).up()
-          .ele('freightCurrency').txt(declaration3.DeclarationGoods.freightCurrency).up()
-          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount.toFixed(2)).up()
-          .ele('insuranceCurrency').txt(declaration3.DeclarationGoods.insuranceCurrency).up()
-          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges.toFixed(2)).up()
+          .ele('invoiceCurrency').txt((invoiceOverride && invoiceOverride.invoiceCCY) || declaration3.DeclarationGoods.invoiceCurrency).up()
+          .ele('freightAmount').txt((Number(declaration3.DeclarationGoods.freightCharge) * invoiceShare).toFixed(2)).up()
+          .ele('freightCurrency').txt((invoiceOverride && invoiceOverride.invoiceFreightCCY) || declaration3.DeclarationGoods.freightCurrency).up()
+          .ele('insuranceAmount').txt((Number(declaration3.DeclarationGoods.insuranceAmount) * invoiceShare).toFixed(2)).up()
+          .ele('insuranceCurrency').txt((invoiceOverride && invoiceOverride.invoiceInsuranceCCY) || declaration3.DeclarationGoods.insuranceCurrency).up()
+          .ele('otherAmount').txt((Number(declaration3.DeclarationGoods.otherCharges) * invoiceShare).toFixed(2)).up()
           .ele('otherAmountCurrency').txt('BND').up()
-        .up()
-
-
+        .up();
       }
-  }
-  
+
       for(var i = 0; i < declaration3.Goods.length; i++){
         if(typeof declaration3.Goods[i].goodsSerialNo !== 'undefined') {
           var goodsNode = root.ele('Goods')
@@ -1634,12 +1634,6 @@ app.get("/hscode", requireLogin, async (req, res) => {
     .lean();
 
   res.render("hscode.ejs", { hscode, currentPage, totalPages, totalCount, q });
-});
-
-app.post("/hscode/delete/:id", requireLogin, requireAdmin, async (req, res) => {
-  await Hscode2.findByIdAndDelete(req.params.id);
-  const { page, q } = req.query;
-  res.redirect(`/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
 
 app.get("/api/hscode/search", requireLogin, async (req, res) => {
@@ -1840,12 +1834,19 @@ app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
     icNo: (icNo || "").trim(),
     icColor: (icColor || "").trim(),
     designation: (designation || "").trim(),
-    company: (company || "").trim() || undefined,
   };
+  const trimmedCompany = (company || "").trim();
+  const unset = {};
+  if (trimmedCompany) {
+    update.company = trimmedCompany;
+  } else {
+    unset.company = "";
+  }
   if (password?.trim()) {
     update.password = await bcrypt.hash(password.trim(), 10);
   }
-  const updated = await User.findByIdAndUpdate(_id, update, { new: true, runValidators: true });
+  const mongoUpdate = Object.keys(unset).length ? { $set: update, $unset: unset } : { $set: update };
+  const updated = await User.findByIdAndUpdate(_id, mongoUpdate, { new: true, runValidators: true });
   if (!updated) req.flash("error", "User not found.");
   else req.flash("success", "User updated.");
   res.redirect("/users");

@@ -34,10 +34,10 @@
           <td style="width: 130px"><%= p.Country %><%= p.Location %></td>
           <td><%= p.Name %></td>
           <td class="text-nowrap">
-            <button type="button" class="btn btn-sm btn-outline-primary edit-unlocode-btn"
+            <button type="button" class="btn btn-sm btn-mars-blue edit-unlocode-btn"
               data-id="<%= p._id %>" data-country="<%= p.Country %>" data-location="<%= p.Location %>" data-name="<%= p.Name %>">Edit</button>
             <% if (username.designation === 'Admin') { %>
-            <button type="button" class="btn btn-sm btn-outline-danger delete-unlocode-btn"
+            <button type="button" class="btn btn-sm btn-danger delete-unlocode-btn"
               data-id="<%= p._id %>" data-label="<%= p.Name %>">Delete</button>
             <% } %>
           </td>

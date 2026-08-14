@@ -39,7 +39,7 @@
           <td><%= c.telephone %></td>
           <td><%= c.postal %></td>
           <td class="text-nowrap">
-            <button type="button" class="btn btn-sm btn-outline-primary edit-customer-btn"
+            <button type="button" class="btn btn-sm btn-mars-blue edit-customer-btn"
               data-id="<%= c._id %>"
               data-name="<%= c.name %>"
               data-address="<%= c.address %>"
@@ -48,7 +48,7 @@
               data-telephone="<%= c.telephone %>"
               data-postal="<%= c.postal %>">Edit</button>
             <% if (username.designation === 'Admin') { %>
-            <button type="button" class="btn btn-sm btn-outline-danger delete-customer-btn"
+            <button type="button" class="btn btn-sm btn-danger delete-customer-btn"
               data-id="<%= c._id %>" data-label="<%= c.name %>">Delete</button>
             <% } %>
           </td>

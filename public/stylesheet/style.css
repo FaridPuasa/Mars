@@ -407,14 +407,20 @@ input[readonly] {
     border: none;
   }
 
-/* Goods table sticky Move/Delete action columns */
-#goodsTable thead th {
+/* Goods/Containers/Invoice table sticky Move/Delete action columns */
+#goodsTable thead th,
+#containersTable thead th,
+#invoiceTable thead th {
     white-space: nowrap;
     vertical-align: middle;
 }
 
 #goodsTable .goods-move-col,
-#goodsTable .goods-delete-col {
+#goodsTable .goods-delete-col,
+#containersTable .goods-move-col,
+#containersTable .goods-delete-col,
+#invoiceTable .goods-move-col,
+#invoiceTable .goods-delete-col {
     position: sticky;
     background-color: #ffffff !important;
     text-align: center;
@@ -422,7 +428,9 @@ input[readonly] {
     white-space: nowrap;
 }
 
-#goodsTable .goods-delete-col {
+#goodsTable .goods-delete-col,
+#containersTable .goods-delete-col,
+#invoiceTable .goods-delete-col {
     right: 0;
     width: 52px;
     min-width: 52px;
@@ -430,7 +438,9 @@ input[readonly] {
     border-left: 1px solid #dee2e6;
 }
 
-#goodsTable .goods-move-col {
+#goodsTable .goods-move-col,
+#containersTable .goods-move-col,
+#invoiceTable .goods-move-col {
     right: 52px;
     width: 44px;
     min-width: 44px;
@@ -438,25 +448,41 @@ input[readonly] {
 }
 
 #goodsTable thead .goods-move-col,
-#goodsTable thead .goods-delete-col {
+#goodsTable thead .goods-delete-col,
+#containersTable thead .goods-move-col,
+#containersTable thead .goods-delete-col,
+#invoiceTable thead .goods-move-col,
+#invoiceTable thead .goods-delete-col {
     z-index: 3;
 }
 
 #goodsTable tbody td.goods-move-col,
-#goodsTable tbody td.goods-delete-col {
+#goodsTable tbody td.goods-delete-col,
+#containersTable tbody td.goods-move-col,
+#containersTable tbody td.goods-delete-col,
+#invoiceTable tbody td.goods-move-col,
+#invoiceTable tbody td.goods-delete-col {
     z-index: 2;
 }
 
 #goodsTable tbody tr:nth-of-type(odd) td.goods-move-col,
-#goodsTable tbody tr:nth-of-type(odd) td.goods-delete-col {
+#goodsTable tbody tr:nth-of-type(odd) td.goods-delete-col,
+#containersTable tbody tr:nth-of-type(odd) td.goods-move-col,
+#containersTable tbody tr:nth-of-type(odd) td.goods-delete-col,
+#invoiceTable tbody tr:nth-of-type(odd) td.goods-move-col,
+#invoiceTable tbody tr:nth-of-type(odd) td.goods-delete-col {
     background-color: #f2f2f2 !important;
 }
 
-#goodsTable tr.goods-row-dragging {
+#goodsTable tr.goods-row-dragging,
+#containersTable tr.goods-row-dragging,
+#invoiceTable tr.goods-row-dragging {
     opacity: 0.5;
 }
 
-#goodsTable .goods-drag-handle {
+#goodsTable .goods-drag-handle,
+#containersTable .goods-drag-handle,
+#invoiceTable .goods-drag-handle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -469,11 +495,15 @@ input[readonly] {
     border: 1px solid #ced4da;
 }
 
-#goodsTable .goods-drag-handle:hover {
+#goodsTable .goods-drag-handle:hover,
+#containersTable .goods-drag-handle:hover,
+#invoiceTable .goods-drag-handle:hover {
     background-color: #dee2e6 !important;
 }
 
-#goodsTable .goods-drag-handle:active {
+#goodsTable .goods-drag-handle:active,
+#containersTable .goods-drag-handle:active,
+#invoiceTable .goods-drag-handle:active {
     cursor: grabbing;
 }
 

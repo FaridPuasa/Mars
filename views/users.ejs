@@ -116,7 +116,7 @@
 <!-- Edit Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" action="/users/update" method="POST">
+    <form class="modal-content" action="/users/update" method="POST" autocomplete="off">
       <div class="modal-header">
         <h5 class="modal-title">Edit User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -132,18 +132,18 @@
             <button type="button" class="btn btn-outline-secondary toggle-password-btn" tabindex="-1"><i class="bi bi-eye"></i></button>
           </div>
         </div>
-        <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" id="editUserPhone" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" id="editUserPhone" class="form-control" autocomplete="off"></div>
         <div class="mb-2">
           <label class="form-label">ID Type</label>
-          <select name="idType" id="editUserIdType" class="form-select" onchange="toggleIdTypeFields(this, 'editUserIcNoLabel', 'editUserIcColorGroup')">
+          <select name="idType" id="editUserIdType" class="form-select" autocomplete="off" onchange="toggleIdTypeFields(this, 'editUserIcNoLabel', 'editUserIcColorGroup')">
             <option value="">-- Select --</option>
             <option value="IC">IC</option>
             <option value="PP">PP</option>
           </select>
         </div>
-        <div class="mb-2"><label class="form-label" id="editUserIcNoLabel">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control"></div>
-        <div class="mb-2" id="editUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control"></div>
+        <div class="mb-2"><label class="form-label" id="editUserIcNoLabel">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control" autocomplete="off"></div>
+        <div class="mb-2" id="editUserIcColorGroup"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control" autocomplete="off"></div>
+        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control" autocomplete="off"></div>
         <div class="mb-2">
           <label class="form-label">Company</label>
           <select name="company" id="editUserCompany" class="form-select">
