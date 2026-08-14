@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
     designation: {
       type: String,
     },
+    company: {
+      type: String,
+      enum: ["Globex", "BTC"],
+    },
   },
   { timestamps: true }
 );

@@ -476,8 +476,43 @@ const declaration3Schema = new mongoose.Schema({
             },
             goodsExciseDuty: {
                 type: String,
-        }
+            },
+            permitApplicationType: {
+                type: String,
+            },
+            permitNo: {
+                type: String,
+            },
+            permitExpiryDate: {
+                type: String,
+            },
+            permitIssuedBy: {
+                type: String,
+            },
     }],
+
+    Containers: [
+        {
+            containerNumber: {
+                type: String,
+            },
+            containerType: {
+                type: String,
+            },
+            cargoStatus: {
+                type: String,
+            },
+            sealNumber: {
+                type: String,
+            },
+            containerWeight: {
+                type: Number,
+            },
+            containerWeightUOM: {
+                type: String,
+            },
+        }
+    ],
 });
 
 module.exports = mongoose.model("declaration3", declaration3Schema);

@@ -316,10 +316,6 @@
                         <input type="date" id="arrivalDate" name="arrivalDate" class="form-control" value="<%= declaration3.Transport.arrivalDate %>" required/>
                       </div>
                       <div class="col-md-6">
-                        <label class="form-label">Container No</label>
-                        <input type="text" id="containerNo" name="containerNo" class="form-control" value="<%= declaration3.Transport.containerNo %>"/>
-                      </div>
-                      <div class="col-md-6">
                         <label class="form-label">Vessel Number <span class="text-danger">*</span></label>
                         <input type="text" id="vesselNo" name="vesselNo" class="form-control" value="<%= declaration3.Transport.vesselNo %>" required/>
                       </div>
@@ -686,6 +682,61 @@
                                       </div>
                                     </div>
                                 </div>
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#containersModal">
+                                    Container Details
+                                </button>
+
+                                <!-- The Modal -->
+                                <div class="modal" id="containersModal">
+                                    <div class="modal-dialog modal-xl">
+                                      <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Container Details</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <p class="text-muted small">Only needed for containerized shipments. Leave empty for air freight or break-bulk cargo.</p>
+                                          <table class="table table-striped" id="containersTable">
+                                            <thead>
+                                            <tr>
+                                                <td style='min-width:110px; max-width:110px;'>Container No</td>
+                                                <td style="min-width:80px; max-width:80px;">Type</td>
+                                                <td style="min-width:80px; max-width:80px;">Cargo Status</td>
+                                                <td style="min-width:100px; max-width:100px;">Seal No</td>
+                                                <td style="min-width:80px; max-width:80px;">Weight</td>
+                                                <td style="min-width:70px; max-width:70px;">Weight Unit</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <% for (var j=0; j<declaration3.Containers.length; j++) { %>
+                                                <tr>
+                                                    <td><input type='text' class="containerNumber" name='containerNumber' placeholder="e.g. HPCU2969981" value="<%= declaration3.Containers[j].containerNumber %>"/></td>
+                                                    <td><input type='text' class='containerType' name='containerType' placeholder="e.g. 20FR" value='<%= declaration3.Containers[j].containerType %>'/></td>
+                                                    <td><input type='text' class='cargoStatus' name='cargoStatus' placeholder="e.g. F" value='<%= declaration3.Containers[j].cargoStatus %>'/></td>
+                                                    <td><input type='text' class='sealNumber' name='sealNumber' value='<%= declaration3.Containers[j].sealNumber %>'/></td>
+                                                    <td><input type='text' class='containerWeight' name='containerWeight' value='<%= declaration3.Containers[j].containerWeight %>'/></td>
+                                                    <td><input type='text' class='containerWeightUOM' name='containerWeightUOM' placeholder="e.g. TNE" value='<%= declaration3.Containers[j].containerWeightUOM %>'/></td>
+                                                </tr>
+                                            <% } %>
+                                            </tbody>
+                                          </table>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" onclick="addContainer()">Add</button>
+                                            <button type="button" class="btn btn-danger" onclick="removeContainer()">Remove</button>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                </div>
                           </div>
                           <div class="col-md-4">
                             <label class="form-label">Total No of Packages <span class="text-danger">*</span></label>
@@ -888,29 +939,33 @@
                     <thead>
                     <tr>
                         <th scope="row">Item</th>
-                        <th>No Package</th>
-                        <th class="column-3">Package Unit</th>
-                        <th style="min-width:20px; max-width:20px;">O. Country</th>
-                        <th>Code</th>
                         <th>HS Code</th>
                         <th>Sub Code</th>
-                        <th style="min-width:20px; max-width:20px;">Goods</th>
-                        <th>C</th>
-                        <th>Unit</th>
-                        <th>Code</th>
+                        <th>Goods Code</th>
+                        <th style="min-width:220px; max-width:220px;">Description</th>
+                        <th style="min-width:20px; max-width:20px;">O. Country</th>
+                        <th>Origin Code</th>
+                        <th>No Package</th>
+                        <th class="column-3">Package Unit</th>
                         <th>Qty</th>
+                        <th>Unit</th>
                         <th>Weight</th>
                         <th>Amount</th>
+                        <th>Invoice No</th>
                         <th>CIF</th>
                         <th>Duty</th>
                         <th style="min-width:20px; max-width:20px;">Duty Amount</th>
-                        <th>LNo</th>
-                        <th>Shipping Mark</th>
-                        <th style="min-width:80px; max-width:80px;">Container No</th>
-                        <th>Invoice No</th>
-                        <th>Control</th>
                         <th>Import Duty</th>
                         <th>Excise Duty</th>
+                        <th>Shipping Mark</th>
+                        <th style="min-width:80px; max-width:80px;">Container No</th>
+                        <th>LNo</th>
+                        <th>Control</th>
+                        <th>C</th>
+                        <th style="min-width:110px; max-width:110px;">Permit Type</th>
+                        <th style="min-width:110px; max-width:110px;">Permit No</th>
+                        <th style="min-width:100px; max-width:100px;">Permit Expiry</th>
+                        <th style="min-width:90px; max-width:90px;">Permit Issued By</th>
                         <th class="goods-move-col">Move</th>
                         <th class="goods-delete-col">Delete</th>
                     </tr>
@@ -918,10 +973,15 @@
                     <tbody>
                     <% for (var j=0; j<declaration3.Goods.length; j++) { %>
                     <tr>
-                        <td scope="row" class="goodsSerialNoClass"><input type='text' name='goodsSerialNo' size='1' value="<%= declaration3.Goods[j].goodsSerialNo %>" readonly/></td>
-                        <td><input type='text' name='goodsPackageNo' size='1' value='<%= declaration3.Goods[j].goodsPackageNo %>'/></td>
-
-                        <td><select class='goodsPackageUnit' name='goodsPackageUnit'>
+                        <td scope="row" class="goodsSerialNoClass"><input type='text' class="form-control form-control-sm" name='goodsSerialNo' size='1' value="<%= declaration3.Goods[j].goodsSerialNo %>" readonly/></td>
+                        <td><div class="input-group input-group-sm"><input type='text' class='hsCode form-control form-control-sm' name='hsCode' size='8' ondblclick='openHSCode(this)' value='<%= declaration3.Goods[j].hsCode %>' placeholder="Search..."/><button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="openHSCode(this.previousElementSibling)"><i class="bi bi-search"></i></button></div></td>
+                        <td><input type='text' class="form-control form-control-sm" name='subCode' size='8' value='<%= declaration3.Goods[j].subCode %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsDescription' size='100' value='<%= declaration3.Goods[j].goodsDescription %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm countryOrigin" name='countryOrigin' size='3' value='<%= declaration3.Goods[j].countryOrigin %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm countryCode" name='countryCode' size='3' value='<%= declaration3.Goods[j].countryCode %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsPackageNo' size='1' value='<%= declaration3.Goods[j].goodsPackageNo %>'/></td>
+                        <td><select class='goodsPackageUnit form-select form-select-sm' name='goodsPackageUnit'>
                             <option value="CTN" <%= declaration3.Goods[j].goodsPackageUnit==='CTN' ? 'selected' : '' %>>CTN</option>
                             <option value="CAS" <%= declaration3.Goods[j].goodsPackageUnit==='CAS' ? 'selected' : '' %>>CAS</option>
                             <option value="PCS" <%= declaration3.Goods[j].goodsPackageUnit==='PCS' ? 'selected' : '' %>>PCS</option>
@@ -931,29 +991,27 @@
                             <option value="SET" <%= declaration3.Goods[j].goodsPackageUnit==='SET' ? 'selected' : '' %>>SET</option>
                             </select>
                         </td>
-                        <td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value='<%= declaration3.Goods[j].countryOrigin %>'/></td>
-                        <td><input type='text' class='countryCode' name='countryCode' size='3' value='<%= declaration3.Goods[j].countryCode %>'/></td>
-                        <td><div class="input-group input-group-sm"><input type='text' class='hsCode' name='hsCode' size='8' ondblclick='openHSCode(this)' value='<%= declaration3.Goods[j].hsCode %>' placeholder="Search..."/><button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="openHSCode(this.previousElementSibling)"><i class="bi bi-search"></i></button></div></td>
-                        <td><input type='text' name='subCode' size='8' value='<%= declaration3.Goods[j].subCode %>'/></td>
-                        <td><input type='text' name='goodsDescription' size='100' value='<%= declaration3.Goods[j].goodsDescription %>'/></td>
-                        <td><input type='text' name='goodsC' size='3' value='<%= declaration3.Goods[j].goodsC %>'/></td>
-                        <td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value='<%= declaration3.Goods[j].goodsUnit %>'/></td>
-                        <td><input type='text' name='goodsCode' size='3' value='<%= declaration3.Goods[j].goodsCode %>'/></td>
-                        <td><input type='text' name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
-                        <td><input type='text' class='goodsWeight' name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
-                        <td><input type='text' class='goodsAmount' name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' onchange='calculateCif()' required/></td>
-                        <td><input type='text' class='goodsCif' name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' readonly/></td>
-                        <td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' onchange='calculateDuty()'/></td>
-                        <td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
-                        <td><input type='text' name='goodsLNo' size='1' value='<%= declaration3.Goods[j].goodsLNo %>'/></td>
-                        <td><input type='text' class="goodsShippingMark" name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
-                        <td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value='<%= declaration3.Goods[j].goodsContainerNo %>'/></td>
-                        <td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' value='<%= declaration3.Goods[j].goodsInvoiceNo %>' required/></td>
-                        <td><input type='text' class='goodsControl' name='goodsControl' value='<%= declaration3.Goods[j].goodsControl %>'/></td>
-                        <td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value='<%= declaration3.Goods[j].goodsImportDuty %>'/></td>
-                        <td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value='<%= declaration3.Goods[j].goodsExciseDuty %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsQuantity' size='1' value='<%= declaration3.Goods[j].goodsQuantity %>' required/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsUnit" name='goodsUnit' size='1' value='<%= declaration3.Goods[j].goodsUnit %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsWeight" name='goodsWeight' size='3' value='<%= declaration3.Goods[j].goodsWeight %>' required/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsAmount" name='goodsAmount' size='3' value='<%= declaration3.Goods[j].goodsAmount %>' onchange='calculateCif()' required/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsInvoiceNo" name='goodsInvoiceNo' value='<%= declaration3.Goods[j].goodsInvoiceNo %>' required/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsCif" name='goodsCIF' size='2' value='<%= declaration3.Goods[j].goodsCIF %>' readonly/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsDuty" name='goodsDuty' size='1' value='<%= declaration3.Goods[j].goodsDuty %>' onchange='calculateDuty()'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsDutyAmount" name='goodsDutyAmount' size='1' value='<%= declaration3.Goods[j].goodsDutyAmount %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsImportDuty" name='goodsImportDuty' size='1' value='<%= declaration3.Goods[j].goodsImportDuty %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsExciseDuty" name='goodsExciseDuty' size='1' value='<%= declaration3.Goods[j].goodsExciseDuty %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsShippingMark" name='goodsShippingMark' value='<%= declaration3.Goods[j].goodsShippingMark %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsContainerNo" name='goodsContainerNo' size='1' value='<%= declaration3.Goods[j].goodsContainerNo %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsLNo' size='1' value='<%= declaration3.Goods[j].goodsLNo %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm goodsControl" name='goodsControl' value='<%= declaration3.Goods[j].goodsControl %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='goodsC' size='3' value='<%= declaration3.Goods[j].goodsC %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='permitApplicationType' placeholder="e.g. Electronic" value='<%= declaration3.Goods[j].permitApplicationType %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='permitNo' value='<%= declaration3.Goods[j].permitNo %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='permitExpiryDate' placeholder="YYYY-MM-DD" value='<%= declaration3.Goods[j].permitExpiryDate %>'/></td>
+                        <td><input type='text' class="form-control form-control-sm" name='permitIssuedBy' value='<%= declaration3.Goods[j].permitIssuedBy %>'/></td>
                         <td class="goods-move-col"><span class="goods-drag-handle" draggable="true" ondragstart="goodsDragStart(event)" ondragend="goodsDragEnd(event)" title="Drag to reorder"><i class="bi bi-grip-vertical"></i></span></td>
-                        <td class="goods-delete-col"><button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmDeleteGoodsRow(this)" title="Delete this goods row"><i class="bi bi-trash"></i></button></td>
+                        <td class="goods-delete-col"><button type="button" class="btn btn-sm btn-danger" onclick="confirmDeleteGoodsRow(this)" title="Delete this goods row"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <% } %>
                     </tbody>
@@ -970,12 +1028,16 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td><input type='text' id='goodsTotalWeight' size='3' value='' readonly/></td>
                             <td><input type='text' id='goodsTotalAmount' size='3' value='' readonly/></td>
+                            <td></td>
                             <td><input type='text' id='goodsTotalCif' size='2' value='' readonly/></td>
                             <td></td>
                             <td><input type='text' id='goodsTotalDutyAmount' size='1' value='' readonly/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -1224,7 +1286,7 @@
         var x = document.getElementsByClassName("goodsSerialNoClass").length + 1;
         var addRow = document.querySelector("#goodsTable tbody");
         var tr = document.createElement('tr');
-        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><input type='text' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td></td><td><input type='text' class='countryOrigin' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode' name='countryCode' size='3' value=''/></td><td><div class='input-group input-group-sm'><input type='text' class='hsCode' name='hsCode' ondblclick='openHSCode(this)' size='8' placeholder='Search...'/><button type='button' class='btn btn-outline-secondary' tabindex='-1' onclick='openHSCode(this.previousElementSibling)'><i class='bi bi-search'></i></button></div></td><td><input type='text' class='subCode' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsDescription' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='goodsC' name='goodsC' size='3' value=''/></td><td><input type='text' class='goodsUnit' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsCode' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsQuantity' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsWeight' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsCif' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsLNo' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsShippingMark' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsInvoiceNo' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsControl' name='goodsControl' value=''/></td><td><input type='text' class='goodsImportDuty' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty' name='goodsExciseDuty' size='1' value=''/></td><td class='goods-move-col'><span class='goods-drag-handle' draggable='true' ondragstart='goodsDragStart(event)' ondragend='goodsDragEnd(event)' title='Drag to reorder'><i class='bi bi-grip-vertical'></i></span></td><td class='goods-delete-col'><button type='button' class='btn btn-sm btn-outline-danger' onclick='confirmDeleteGoodsRow(this)' title='Delete this goods row'><i class='bi bi-trash'></i></button></td>";
+        tr.innerHTML = "<th scope='row'><input type='text' class='goodsSerialNoClass form-control form-control-sm' name='goodsSerialNo' size='1' value="+x+" readonly/></th><td><div class='input-group input-group-sm'><input type='text' class='hsCode form-control form-control-sm' name='hsCode' ondblclick='openHSCode(this)' size='8' placeholder='Search...'/><button type='button' class='btn btn-outline-secondary' tabindex='-1' onclick='openHSCode(this.previousElementSibling)'><i class='bi bi-search'></i></button></div></td><td><input type='text' class='subCode form-control form-control-sm' name='subCode' size='8' value=''/></td><td><input type='text' class='goodsCode form-control form-control-sm' name='goodsCode' size='3' value=''/></td><td><input type='text' class='goodsDescription form-control form-control-sm' name='goodsDescription' size='100' value=''/></td><td><input type='text' class='countryOrigin form-control form-control-sm' name='countryOrigin' size='3' value=''/></td><td><input type='text' class='countryCode form-control form-control-sm' name='countryCode' size='3' value=''/></td><td><input type='text' class='form-control form-control-sm' name='goodsPackageNo' size='1' value=''/></td><td><select class='goodsPackageUnit form-select form-select-sm' name='goodsPackageUnit'><option value='CTN'>CTN</option><option value='CAS'>CAS</option><option value='PCS'>PCS</option><option value='UNT'>UNT</option><option value='BTL'>BTL</option><option value='LOT'>LOT</option><option value='SET'>SET</option></select></td><td><input type='text' class='goodsQuantity form-control form-control-sm' name='goodsQuantity' size='1' required/></td><td><input type='text' class='goodsUnit form-control form-control-sm' name='goodsUnit' size='1' value=''/></td><td><input type='text' class='goodsWeight form-control form-control-sm' name='goodsWeight' size='3' required/></td><td><input type='text' class='goodsAmount form-control form-control-sm' name='goodsAmount' size='3' required/></td><td><input type='text' class='goodsInvoiceNo form-control form-control-sm' name='goodsInvoiceNo' required/></td><td><input type='text' class='goodsCif form-control form-control-sm' name='goodsCIF' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDuty form-control form-control-sm' name='goodsDuty' size='1' value='' oninput='calculateDuty()'/></td><td><input type='text' class='goodsDutyAmount form-control form-control-sm' name='goodsDutyAmount' size='1' value=''/></td><td><input type='text' class='goodsImportDuty form-control form-control-sm' name='goodsImportDuty' size='1' value=''/></td><td><input type='text' class='goodsExciseDuty form-control form-control-sm' name='goodsExciseDuty' size='1' value=''/></td><td><input type='text' class='goodsShippingMark form-control form-control-sm' name='goodsShippingMark' value='' required/></td><td><input type='text' class='goodsContainerNo form-control form-control-sm' name='goodsContainerNo' size='1' value=''/></td><td><input type='text' class='goodsLNo form-control form-control-sm' name='goodsLNo' size='1' value=''/></td><td><input type='text' class='goodsControl form-control form-control-sm' name='goodsControl' value=''/></td><td><input type='text' class='goodsC form-control form-control-sm' name='goodsC' size='3' value=''/></td><td><input type='text' class='form-control form-control-sm' name='permitApplicationType' placeholder='e.g. Electronic' value=''/></td><td><input type='text' class='form-control form-control-sm' name='permitNo' value=''/></td><td><input type='text' class='form-control form-control-sm' name='permitExpiryDate' placeholder='YYYY-MM-DD' value=''/></td><td><input type='text' class='form-control form-control-sm' name='permitIssuedBy' value=''/></td><td class='goods-move-col'><span class='goods-drag-handle' draggable='true' ondragstart='goodsDragStart(event)' ondragend='goodsDragEnd(event)' title='Drag to reorder'><i class='bi bi-grip-vertical'></i></span></td><td class='goods-delete-col'><button type='button' class='btn btn-sm btn-danger' onclick='confirmDeleteGoodsRow(this)' title='Delete this goods row'><i class='bi bi-trash'></i></button></td>";
 
         addRow.appendChild(tr);
 
@@ -1324,6 +1386,21 @@
     function removeInvoice() {
         var tbody = document.querySelector("#invoiceTable tbody");
         if (tbody.rows.length <= 1) return;
+        tbody.deleteRow(tbody.rows.length - 1);
+    }
+
+    //CONTAINERS
+
+    function addContainer() {
+        var addRow = document.querySelector("#containersTable tbody");
+        var tr = document.createElement('tr');
+        tr.innerHTML = "<td><input type='text' class='containerNumber' name='containerNumber' placeholder='e.g. HPCU2969981' value=''/></td><td><input type='text' class='containerType' name='containerType' placeholder='e.g. 20FR' value=''/></td><td><input type='text' class='cargoStatus' name='cargoStatus' placeholder='e.g. F' value=''/></td><td><input type='text' class='sealNumber' name='sealNumber' value=''/></td><td><input type='text' class='containerWeight' name='containerWeight' value=''/></td><td><input type='text' class='containerWeightUOM' name='containerWeightUOM' placeholder='e.g. TNE' value=''/></td>";
+        addRow.appendChild(tr);
+    }
+
+    function removeContainer() {
+        var tbody = document.querySelector("#containersTable tbody");
+        if (!tbody.rows.length) return;
         tbody.deleteRow(tbody.rows.length - 1);
     }
 

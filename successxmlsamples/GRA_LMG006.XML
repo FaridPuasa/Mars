@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Declaration>
+  <General>
+      <!-- Header details -->
+      <declarationType>IMP</declarationType>
+      <customsProcedure>05</customsProcedure>
+      <dutiableIndicator>N</dutiableIndicator>
+      <transportMode>A</transportMode>
+      <countryShipment>JP</countryShipment>
+      <countryDestination>BN</countryDestination>
+      <portDischarge>JPNRT</portDischarge>
+      <portEntry>601</portEntry>
+      <clearanceStationCode>601</clearanceStationCode>
+      <remarks>FOB INV JPY 281,598.00 BND 2,297.28 ( NON-DUTIABLE JPY 1,506.00 BND 12.29 DUTIABLE-EXCISE JPY 280,092.00 BND 2,284.99 ) FRT B$726.00 OTHER CHARGES B$93.00 4</remarks>
+      <!-- Party Details -->
+      <traderType>TRDR</traderType>
+      <regTraderCoyRegNo>RC20002513</regTraderCoyRegNo>
+      <individualTraderICNo>00-295642</individualTraderICNo>
+      <individualTraderIDType>IC</individualTraderIDType>
+      <individualTraderICColour>Y</individualTraderICColour>
+      <individualAddress>LOT 35-38, SIMPANG 281, LAMBAK KANAN INDUSTRIAL AREA, JALAN BERAKAS, BSB, BRUNEI DARUSSALAM</individualAddress>
+      <traderName>GRAND AUTO SDN BHD</traderName>
+
+      <consigneeCompanyRegNo>RC20002513</consigneeCompanyRegNo>
+      <consigneeName>GRAND AUTO SDN BHD</consigneeName>
+
+
+      <dutyExemptIndicator>N</dutyExemptIndicator>
+
+      <ceptSchemeIndicator>N</ceptSchemeIndicator>
+      <!-- Bill Of Lading details -->
+      <masterBillNo>672-26288636</masterBillNo>
+      <houseBillNo>MSA-70196315</houseBillNo>
+      <vesselFlightVehicleNo>BI696</vesselFlightVehicleNo>
+      <vesselName>ROYAL BRUNEI AIRLINE</vesselName>
+      <vesselFlightArrivalDate>2026-08-03</vesselFlightArrivalDate>
+      <totalGrossWeight>36.400</totalGrossWeight>
+      <totalGrossWeightUnit>KG</totalGrossWeightUnit>
+      <totalNoPackages>4</totalNoPackages>
+      <totalNoPackagesUnit>CTN</totalNoPackagesUnit>
+      <!-- Transit details -->
+      <!-- Guarantee details -->
+      <bgAmount>0.00</bgAmount>
+  </General>
+
+  <invoices>
+      <invoiceNumber>LMG006</invoiceNumber>
+      <invoiceDate>2026-07-23</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>281598.00</invoiceAmount>
+      <invoiceCurrency>JPY</invoiceCurrency>
+      <freightAmount>726.00</freightAmount>
+      <freightCurrency>BND</freightCurrency>
+      <insuranceAmount>1407.99</insuranceAmount>
+      <insuranceCurrency>JPY</insuranceCurrency>
+      <otherAmount>93.00</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <Goods>
+      <goodsSerialNo>1</goodsSerialNo>
+      <goodsDescription>ADJUSTER UNIT (R) (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>12.040</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>142287.00</invoiceAmount>
+      <goodsGrossWeight>12.040</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>2</goodsSerialNo>
+      <goodsDescription>BUSH (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169911</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.010</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>88.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>3</goodsSerialNo>
+      <goodsDescription>CLIP</goodsDescription>
+      <goodsHSCode>83023090</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.010</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>56.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>4</goodsSerialNo>
+      <goodsDescription>MESH, FRONT BUMPER (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>1.950</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>3684.00</invoiceAmount>
+      <goodsGrossWeight>1.950</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>5</goodsSerialNo>
+      <goodsDescription>SPACER</goodsDescription>
+      <goodsHSCode>73182990</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>0.100</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>352.00</invoiceAmount>
+      <goodsGrossWeight>0.100</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>6</goodsSerialNo>
+      <goodsDescription>KEY, BLANK</goodsDescription>
+      <goodsHSCode>83017000</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.010</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>746.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>7</goodsSerialNo>
+      <goodsDescription>DAMPER (R), FRONT (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84835000</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>5980.00</invoiceAmount>
+      <goodsGrossWeight>5.150</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>8</goodsSerialNo>
+      <goodsDescription>DAMPER (L), FRONT (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84835000</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>5980.00</invoiceAmount>
+      <goodsGrossWeight>5.150</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>9</goodsSerialNo>
+      <goodsDescription>GASKET, INLET MANI (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169320</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.020</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>792.00</invoiceAmount>
+      <goodsGrossWeight>0.020</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>10</goodsSerialNo>
+      <goodsDescription>SEAL, OIL (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169390</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.060</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>374.00</invoiceAmount>
+      <goodsGrossWeight>0.060</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>11</goodsSerialNo>
+      <goodsDescription>SEAL, OIL (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169390</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.030</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>352.00</invoiceAmount>
+      <goodsGrossWeight>0.030</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>12</goodsSerialNo>
+      <goodsDescription>SPACER</goodsDescription>
+      <goodsHSCode>73182990</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>0.100</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>352.00</invoiceAmount>
+      <goodsGrossWeight>0.100</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>13</goodsSerialNo>
+      <goodsDescription>MOULD (L), RR. BELTL (MAZDA AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169911</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.310</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>2462.00</invoiceAmount>
+      <goodsGrossWeight>0.310</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>14</goodsSerialNo>
+      <goodsDescription>RETAINER</goodsDescription>
+      <goodsHSCode>39269099</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.010</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>981.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>15</goodsSerialNo>
+      <goodsDescription>RETAINER</goodsDescription>
+      <goodsHSCode>39269099</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>0.010</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>738.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>16</goodsSerialNo>
+      <goodsDescription>DISPLAY, HEAD UP</goodsDescription>
+      <goodsHSCode>85285910</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>48186.00</invoiceAmount>
+      <goodsGrossWeight>1.750</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>17</goodsSerialNo>
+      <goodsDescription>DISPLAY, INFORMATION</goodsDescription>
+      <goodsHSCode>85285910</goodsHSCode>
+      <shippingMarks>4 PACKAGES</shippingMarks>
+      <countryOrigin>JP</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>LMG006</invoiceNo>
+      <invoiceAmount>68188.00</invoiceAmount>
+      <goodsGrossWeight>0.900</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+
+</Declaration>

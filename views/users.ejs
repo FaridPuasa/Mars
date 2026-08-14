@@ -28,6 +28,7 @@
           <th scope="col">IC No</th>
           <th scope="col">IC Color</th>
           <th scope="col">Designation</th>
+          <th scope="col">Company</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -41,6 +42,7 @@
           <td><%= u.icNo %></td>
           <td><%= u.icColor %></td>
           <td><%= u.designation %></td>
+          <td><%= u.company %></td>
           <td class="text-nowrap">
             <button type="button" class="btn btn-sm btn-mars-blue edit-user-btn"
               data-id="<%= u._id %>"
@@ -50,7 +52,8 @@
               data-idtype="<%= u.idType %>"
               data-icno="<%= u.icNo %>"
               data-iccolor="<%= u.icColor %>"
-              data-designation="<%= u.designation %>">Edit</button>
+              data-designation="<%= u.designation %>"
+              data-company="<%= u.company %>">Edit</button>
             <% if (String(u._id) !== String(username._id)) { %>
             <button type="button" class="btn btn-sm btn-danger delete-user-btn"
               data-id="<%= u._id %>" data-label="<%= u.name %> (<%= u.email %>)">Delete</button>
@@ -74,12 +77,26 @@
       <div class="modal-body">
         <div class="mb-2"><label class="form-label">Name</label><input type="text" name="name" class="form-control" required></div>
         <div class="mb-2"><label class="form-label">Email</label><input type="email" name="email" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Password</label><input type="password" name="password" class="form-control" minlength="6" required></div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" name="password" class="form-control" minlength="6" required>
+            <button type="button" class="btn btn-outline-secondary toggle-password-btn" tabindex="-1"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
         <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" class="form-control" placeholder="e.g. IC" required></div>
-        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" class="form-control" placeholder="e.g. Admin" required></div>
+        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" class="form-control" placeholder="e.g. IC"></div>
+        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" class="form-control" placeholder="e.g. Admin"></div>
+        <div class="mb-2">
+          <label class="form-label">Company</label>
+          <select name="company" class="form-select">
+            <option value="">-- Select --</option>
+            <option value="Globex">Globex</option>
+            <option value="BTC">BTC</option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -100,13 +117,27 @@
       <div class="modal-body">
         <input type="hidden" name="_id" id="editUserId">
         <div class="mb-2"><label class="form-label">Name</label><input type="text" name="name" id="editUserName" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Email</label><input type="email" name="email" id="editUserEmail" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">New Password</label><input type="password" name="password" class="form-control" minlength="6" placeholder="Leave blank to keep current password"></div>
+        <div class="mb-2"><label class="form-label">Email</label><input type="email" name="email" id="editUserEmail" class="form-control" readonly></div>
+        <div class="mb-2">
+          <label class="form-label">New Password</label>
+          <div class="input-group">
+            <input type="password" name="password" class="form-control" minlength="6" placeholder="Leave blank to keep current password">
+            <button type="button" class="btn btn-outline-secondary toggle-password-btn" tabindex="-1"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
         <div class="mb-2"><label class="form-label">Phone</label><input type="text" name="phone" id="editUserPhone" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" id="editUserIdType" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control" required></div>
+        <div class="mb-2"><label class="form-label">ID Type</label><input type="text" name="idType" id="editUserIdType" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">IC No</label><input type="text" name="icNo" id="editUserIcNo" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">IC Color</label><input type="text" name="icColor" id="editUserIcColor" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">Designation</label><input type="text" name="designation" id="editUserDesignation" class="form-control"></div>
+        <div class="mb-2">
+          <label class="form-label">Company</label>
+          <select name="company" id="editUserCompany" class="form-select">
+            <option value="">-- Select --</option>
+            <option value="Globex">Globex</option>
+            <option value="BTC">BTC</option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -148,6 +179,7 @@
       document.getElementById('editUserIcNo').value = btn.dataset.icno;
       document.getElementById('editUserIcColor').value = btn.dataset.iccolor;
       document.getElementById('editUserDesignation').value = btn.dataset.designation;
+      document.getElementById('editUserCompany').value = btn.dataset.company;
       new bootstrap.Modal(document.getElementById('editUserModal')).show();
     });
   });
@@ -157,6 +189,22 @@
       document.getElementById('deleteUserLabel').textContent = btn.dataset.label;
       document.getElementById('deleteUserForm').action = '/users/delete/' + btn.dataset.id;
       new bootstrap.Modal(document.getElementById('deleteUserModal')).show();
+    });
+  });
+
+  document.querySelectorAll('.toggle-password-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var input = btn.previousElementSibling;
+      var icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+      }
     });
   });
 </script>

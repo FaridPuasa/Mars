@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Declaration>
+  <General>
+      <!-- Header details -->
+      <declarationType>IMP</declarationType>
+      <customsProcedure>05</customsProcedure>
+      <dutiableIndicator>N</dutiableIndicator>
+      <transportMode>B</transportMode>
+      <countryShipment>CN</countryShipment>
+      <countryDestination>BN</countryDestination>
+      <portDischarge>CNNSA</portDischarge>
+      <portEntry>605</portEntry>
+      <clearanceStationCode>616</clearanceStationCode>
+      <remarks>FOB INV USD 52,933.30 BND 68,702.13 ( NON-DUTIABLE USD 37,253.30 BND 48,351.06 DUTIABLE-IMPORT USD 11,240.00 BND 14,588.40 DUTIABLE-EXCISE USD 4,440.00 BND 5,762.68 ) FRT B$5,816.28 OTHER CHARGES B$628.00 1</remarks>
+      <!-- Party Details -->
+      <traderType>TRDR</traderType>
+      <regTraderCoyRegNo>RC20001016</regTraderCoyRegNo>
+      <individualTraderICNo>00-295642</individualTraderICNo>
+      <individualTraderIDType>IC</individualTraderIDType>
+      <individualTraderICColour>Y</individualTraderICColour>
+      <individualAddress>BLK B,NO.7 &amp; 8, BANGUNAN PEHIN DATO HAJI MOHD YUSOF,SPG 88,KG KIULAP BRUNEI DARUSSALAM</individualAddress>
+      <traderName>RIDAH SPORTS SDN BHD</traderName>
+
+      <consigneeCompanyRegNo>RC20001016</consigneeCompanyRegNo>
+      <consigneeName>RIDAH SPORTS SDN BHD</consigneeName>
+
+
+      <dutyExemptIndicator>N</dutyExemptIndicator>
+
+      <ceptSchemeIndicator>N</ceptSchemeIndicator>
+      <!-- Bill Of Lading details -->
+      <masterBillNo>SITGNSMU280905</masterBillNo>
+      <vesselFlightVehicleNo>V2620S</vesselFlightVehicleNo>
+      <vesselName>SITC INCHON</vesselName>
+      <vesselFlightArrivalDate>2026-08-03</vesselFlightArrivalDate>
+      <containerTransportIndicator>1</containerTransportIndicator>
+      <totalGrossWeight>7.300</totalGrossWeight>
+      <totalGrossWeightUnit>TN</totalGrossWeightUnit>
+      <totalNoPackages>1</totalNoPackages>
+      <totalNoPackagesUnit>UNT</totalNoPackagesUnit>
+      <containerIndicator>Y</containerIndicator>
+      <!-- Transit details -->
+      <!-- Guarantee details -->
+      <bgAmount>0.00</bgAmount>
+  </General>
+
+  <invoices>
+      <invoiceNumber>H002026. 1</invoiceNumber>
+      <invoiceDate>2026-07-21</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>52933.30</invoiceAmount>
+      <invoiceCurrency>USD</invoiceCurrency>
+      <freightAmount>4481.30</freightAmount>
+      <freightCurrency>USD</freightCurrency>
+      <insuranceAmount>264.67</insuranceAmount>
+      <insuranceCurrency>USD</insuranceCurrency>
+      <otherAmount>628.00</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <Goods>
+      <goodsSerialNo>1</goodsSerialNo>
+      <goodsDescription>PINGPONG TABLE</goodsDescription>
+      <goodsHSCode>94036090</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>5.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>200.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962371</permitNo>
+          <permitExpiryDate>2026-09-07</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>2</goodsSerialNo>
+      <goodsDescription>DART BOARD</goodsDescription>
+      <goodsHSCode>95049029</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>600.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>600</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>4440.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>3</goodsSerialNo>
+      <goodsDescription>DART BOARD CABINET</goodsDescription>
+      <goodsHSCode>94036090</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>100.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>620.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-961760</permitNo>
+          <permitExpiryDate>2026-09-03</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>4</goodsSerialNo>
+      <goodsDescription>MENS LONG PANT</goodsDescription>
+      <goodsHSCode>62034990</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>3558.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>3558</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>27040.80</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>5</goodsSerialNo>
+      <goodsDescription>JERSEY</goodsDescription>
+      <goodsHSCode>61109000</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1250.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1250</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>4812.50</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>6</goodsSerialNo>
+      <goodsDescription>JERSEY W/SHORT</goodsDescription>
+      <goodsHSCode>61109000</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1350.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1350</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>5400.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>7</goodsSerialNo>
+      <goodsDescription>SOCCER SHOES</goodsDescription>
+      <goodsHSCode>64031990</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1560.000</quantity>
+      <quantityUOM>UN2</quantityUOM>
+      <noPackages>780</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>4680.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>8</goodsSerialNo>
+      <goodsDescription>RUNNING SHOES</goodsDescription>
+      <goodsHSCode>64031990</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2008.000</quantity>
+      <quantityUOM>UN2</quantityUOM>
+      <noPackages>1004</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>5020.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>9</goodsSerialNo>
+      <goodsDescription>KIDS SHOE</goodsDescription>
+      <goodsHSCode>64031990</goodsHSCode>
+      <shippingMarks>1X20 CTNR HPCU2969981</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>384.000</quantity>
+      <quantityUOM>UN2</quantityUOM>
+      <noPackages>192</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>H002026. 1</invoiceNo>
+      <invoiceAmount>720.00</invoiceAmount>
+      <goodsGrossWeight>0.001</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>HPCU2969981</containerNos>
+
+  </Goods>
+
+  <containers>
+      <containerNumber>HPCU2969981</containerNumber>
+      <containerType>20FR</containerType>
+      <cargoStatus>F</cargoStatus>
+      <sealNumber>SITE331721</sealNumber>
+      <contianerWeight>7.3000</contianerWeight>
+      <containerWeightUOM>TNE</containerWeightUOM>
+  </containers>
+
+</Declaration>

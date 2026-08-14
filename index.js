@@ -106,7 +106,7 @@ app.use(override("_method"));
 
 const renderSingleWindowList = async (req, res) => {
   const user = await User.find({});
-  const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo } = req.query;
+  const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo, mine } = req.query;
 
   const filter = {};
   if (invoiceNo?.trim()) {
@@ -129,12 +129,15 @@ const renderSingleWindowList = async (req, res) => {
     if (dateFrom?.trim()) filter.declarationDate.$gte = dateFrom.trim();
     if (dateTo?.trim()) filter.declarationDate.$lte = dateTo.trim();
   }
+  if (mine === "1") {
+    filter.postedBy = req.user.email;
+  }
 
   const declaration3 = await Declaration3.find(filter).sort({Transport:-1});
   res.render("bdnsw.ejs", {
     user: user,
     declaration3: declaration3,
-    filters: { invoiceNo: invoiceNo || "", importer: importer || "", vessel: vessel || "", country: country || "", agent: agent || "", dateFrom: dateFrom || "", dateTo: dateTo || "" }
+    filters: { invoiceNo: invoiceNo || "", importer: importer || "", vessel: vessel || "", country: country || "", agent: agent || "", dateFrom: dateFrom || "", dateTo: dateTo || "", mine: mine || "" }
   })
 };
 
@@ -220,12 +223,12 @@ app.get("/profile", requireLogin, async (req, res) => {
 app.post("/profileupdate", requireLogin, async (req, res) => {
   const { name, phone, idType, icNo, icColor, designation, currentPassword, newPassword, confirmNewPassword } = req.body;
 
-  if (!name?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
-    req.flash("error", "Name, ID Type, IC Number, IC Color and Designation are required.");
+  if (!name?.trim()) {
+    req.flash("error", "Name is required.");
     return res.redirect("/profile");
   }
 
-  if (designation.trim() === "Admin" && req.user.designation !== "Admin") {
+  if ((designation || "").trim() === "Admin" && req.user.designation !== "Admin") {
     req.flash("error", "You cannot set your own designation to Admin.");
     return res.redirect("/profile");
   }
@@ -426,10 +429,21 @@ app.post("/declaration3", requireLogin, async (req, res) => {
     goodsControl,
     goodsImportDuty,
     goodsExciseDuty,
-    
+    permitApplicationType,
+    permitNo,
+    permitExpiryDate,
+    permitIssuedBy,
+
+    //Containers
+    containerNumber,
+    containerType,
+    cargoStatus,
+    sealNumber,
+    containerWeight,
+    containerWeightUOM,
 
   } = req.body;
-  
+
   var declarationInvoice = [];
   if(typeof(invoiceNo)=="string"){
     declarationInvoice.push({
@@ -496,6 +510,10 @@ app.post("/declaration3", requireLogin, async (req, res) => {
       goodsControl: goodsControl[i],
       goodsImportDuty: goodsImportDuty[i],
       goodsExciseDuty: goodsExciseDuty[i],
+      permitApplicationType: permitApplicationType[i],
+      permitNo: permitNo[i],
+      permitExpiryDate: permitExpiryDate[i],
+      permitIssuedBy: permitIssuedBy[i],
 
     });
   } else {
@@ -526,14 +544,45 @@ app.post("/declaration3", requireLogin, async (req, res) => {
           goodsControl: goodsControl[i],
           goodsImportDuty: goodsImportDuty[i],
           goodsExciseDuty: goodsExciseDuty[i],
-    
+          permitApplicationType: permitApplicationType ? permitApplicationType[i] : undefined,
+          permitNo: permitNo ? permitNo[i] : undefined,
+          permitExpiryDate: permitExpiryDate ? permitExpiryDate[i] : undefined,
+          permitIssuedBy: permitIssuedBy ? permitIssuedBy[i] : undefined,
+
         });
       }
-      
+
     }
   }
 
-  const declaration3 = new Declaration3 ({ 
+  var declarationContainers = [];
+  if (containerNumber) {
+    if(typeof(containerNumber)=="string"){
+      declarationContainers.push({
+        containerNumber: containerNumber,
+        containerType: containerType,
+        cargoStatus: cargoStatus,
+        sealNumber: sealNumber,
+        containerWeight: containerWeight,
+        containerWeightUOM: containerWeightUOM,
+      });
+    } else {
+      for (var i = 0; i < containerNumber.length; i++){
+        if(containerNumber[i]) {
+          declarationContainers.push({
+            containerNumber: containerNumber[i],
+            containerType: containerType[i],
+            cargoStatus: cargoStatus[i],
+            sealNumber: sealNumber[i],
+            containerWeight: containerWeight[i],
+            containerWeightUOM: containerWeightUOM[i],
+          });
+        }
+      }
+    }
+  }
+
+  const declaration3 = new Declaration3 ({
     dateGranted,
     departureDate,
     cept,
@@ -676,8 +725,8 @@ app.post("/declaration3", requireLogin, async (req, res) => {
 
     Invoice: declarationInvoice,
     Goods: declarationGoods,
-    
-    
+    Containers: declarationContainers,
+
   });
 
   const checkConsignee = await Consignee.findOne({ 'name' : importerName })
@@ -913,10 +962,21 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
     goodsControl,
     goodsImportDuty,
     goodsExciseDuty,
-    
+    permitApplicationType,
+    permitNo,
+    permitExpiryDate,
+    permitIssuedBy,
+
+    //Containers
+    containerNumber,
+    containerType,
+    cargoStatus,
+    sealNumber,
+    containerWeight,
+    containerWeightUOM,
 
   } = req.body;
-  
+
   var declarationInvoice = [];
   if(typeof(invoiceNo)=="string"){
     declarationInvoice.push({
@@ -983,6 +1043,10 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
       goodsControl: goodsControl[i],
       goodsImportDuty: goodsImportDuty[i],
       goodsExciseDuty: goodsExciseDuty[i],
+      permitApplicationType: permitApplicationType[i],
+      permitNo: permitNo[i],
+      permitExpiryDate: permitExpiryDate[i],
+      permitIssuedBy: permitIssuedBy[i],
 
     });
   } else {
@@ -1013,13 +1077,43 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
           goodsControl: goodsControl[i],
           goodsImportDuty: goodsImportDuty[i],
           goodsExciseDuty: goodsExciseDuty[i],
-    
+          permitApplicationType: permitApplicationType ? permitApplicationType[i] : undefined,
+          permitNo: permitNo ? permitNo[i] : undefined,
+          permitExpiryDate: permitExpiryDate ? permitExpiryDate[i] : undefined,
+          permitIssuedBy: permitIssuedBy ? permitIssuedBy[i] : undefined,
+
         });
       }
-      
+
     }
   }
-  
+
+  var declarationContainers = [];
+  if (containerNumber) {
+    if(typeof(containerNumber)=="string"){
+      declarationContainers.push({
+        containerNumber: containerNumber,
+        containerType: containerType,
+        cargoStatus: cargoStatus,
+        sealNumber: sealNumber,
+        containerWeight: containerWeight,
+        containerWeightUOM: containerWeightUOM,
+      });
+    } else {
+      for (var i = 0; i < containerNumber.length; i++){
+        if(containerNumber[i]) {
+          declarationContainers.push({
+            containerNumber: containerNumber[i],
+            containerType: containerType[i],
+            cargoStatus: cargoStatus[i],
+            sealNumber: sealNumber[i],
+            containerWeight: containerWeight[i],
+            containerWeightUOM: containerWeightUOM[i],
+          });
+        }
+      }
+    }
+  }
 
   await Declaration3.updateMany ({ _id:req.body._id},
     {$set: {
@@ -1165,6 +1259,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
   
       Invoice: declarationInvoice,
       Goods: declarationGoods,
+      Containers: declarationContainers,
 
     }
     },
@@ -1229,6 +1324,11 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
   res.redirect("/bdnsw");
 });
 
+app.post("/declaration3/delete/:id", requireLogin, requireAdmin, async (req, res) => {
+  await Declaration3.findByIdAndDelete(req.params.id);
+  res.redirect("/bdnsw");
+});
+
 app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
   const selectedInvoice = req.params.invoice;
 
@@ -1267,9 +1367,9 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
   //dutiable indicator auto set to N
   //IF TRDR
   if(declaration3.Importer.regTraderCoyRegNo){
-    var root = builder.create('Declaration', { encoding: 'utf-8' })
-  
-  
+    var generalNode = builder.create('Declaration', { encoding: 'utf-8' })
+
+
       .ele('General')
         .com(' Header Details ')
         .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
@@ -1282,11 +1382,11 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
         .ele('remarks').txt(declaration3.DeclarationGoods.remarks).up()
-        
+
         .com(' Party Details ')
         .ele('traderType').txt(declaration3.Importer.importerType).up()
         .ele('regTraderCoyRegNo').txt(declaration3.Importer.regTraderCoyRegNo).up()
-        
+
         .ele('individualTraderICNo').txt(declaration3.Importer.importerRegistration).up()
         .ele('individualTraderIDType').txt('IC').up()
         .ele('individualTraderICColour').txt(declaration3.Importer.importerICColor).up()
@@ -1296,23 +1396,41 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('consigneeName').txt(declaration3.Importer.importerName).up()
         .ele('dutyExemptIndicator').txt('N').up()
         .ele('ceptSchemeIndicator').txt('N').up()
-        
+
         .com(' BillOfLadingDetails ')
-        .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up()
+        .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up();
+
+    if (declaration3.Transport.hbhawb) {
+      generalNode = generalNode.ele('houseBillNo').txt(declaration3.Transport.hbhawb).up();
+    }
+
+    var root = generalNode
         .ele('vesselFlightVehicleNo').txt(declaration3.Transport.vesselNo).up()
         .ele('vesselName').txt(declaration3.Transport.vesselName).up()
-        .ele('vesselFlightArrivalDate').txt(declaration3.Transport.arrivalDate).up()
-        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight).up()
+        .ele('vesselFlightArrivalDate').txt(declaration3.Transport.arrivalDate).up();
+
+    var hasContainers = declaration3.Containers && declaration3.Containers.length > 0;
+    if (hasContainers) {
+      root = root.ele('containerTransportIndicator').txt('1').up();
+    }
+
+    root = root
+        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight.toFixed(3)).up()
         .ele('totalGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
         .ele('totalNoPackages').txt(declaration3.DeclarationGoods.totalPackagesNo).up()
-        .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up()
-        
-        .com(' TransitDetails ')
-        
-        .com(' Guarantee Details ')
-        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount).up()
+        .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up();
 
-      .up()    
+    if (hasContainers) {
+      root = root.ele('containerIndicator').txt('Y').up();
+    }
+
+    root = root
+        .com(' TransitDetails ')
+
+        .com(' Guarantee Details ')
+        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
+
+      .up()
       for(var j = 0; j < tempInvoice.length; j++){
         root.ele('invoices')
           .ele('invoiceNumber').txt(tempInvoice[j]).up()
@@ -1320,22 +1438,22 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
           .ele('termType').txt(declaration3.DeclarationGoods.otherChargesType).up()
           .ele('invoiceAmount').txt(tempInvoiceAmount[j].toFixed(2)).up()
           .ele('invoiceCurrency').txt(declaration3.DeclarationGoods.invoiceCurrency).up()
-          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge).up()
+          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge.toFixed(2)).up()
           .ele('freightCurrency').txt(declaration3.DeclarationGoods.freightCurrency).up()
-          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount).up()
+          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount.toFixed(2)).up()
           .ele('insuranceCurrency').txt(declaration3.DeclarationGoods.insuranceCurrency).up()
-          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges).up()
+          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges.toFixed(2)).up()
           .ele('otherAmountCurrency').txt('BND').up()
         .up()
-        
-        
+
+
       }
   }
   // IF INDV
   else {
-    var root = builder.create('Declaration', { encoding: 'utf-8' })
-  
-  
+    var generalNode = builder.create('Declaration', { encoding: 'utf-8' })
+
+
       .ele('General')
         .com(' Header Details ')
         .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
@@ -1348,7 +1466,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('portEntry').txt(declaration3.Transport.portOfEntryCode).up()
         .ele('clearanceStationCode').txt(declaration3.Procedure.clearanceStationCode).up()
         .ele('remarks').txt(declaration3.DeclarationGoods.remarks).up()
-        
+
         .com(' Party Details ')
         .ele('traderType').txt(declaration3.Importer.importerType).up()
         .ele('individualTraderICNo').txt(declaration3.Importer.importerRegistration).up()
@@ -1360,23 +1478,41 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('consigneeName').txt(declaration3.Importer.importerName).up()
         .ele('dutyExemptIndicator').txt('N').up()
         .ele('ceptSchemeIndicator').txt('N').up()
-        
+
         .com(' BillOfLadingDetails ')
-        .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up()
+        .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up();
+
+    if (declaration3.Transport.hbhawb) {
+      generalNode = generalNode.ele('houseBillNo').txt(declaration3.Transport.hbhawb).up();
+    }
+
+    var root = generalNode
         .ele('vesselFlightVehicleNo').txt(declaration3.Transport.vesselNo).up()
         .ele('vesselName').txt(declaration3.Transport.vesselName).up()
-        .ele('vesselFlightArrivalDate').txt(declaration3.Transport.arrivalDate).up()
-        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight).up()
+        .ele('vesselFlightArrivalDate').txt(declaration3.Transport.arrivalDate).up();
+
+    var hasContainers = declaration3.Containers && declaration3.Containers.length > 0;
+    if (hasContainers) {
+      root = root.ele('containerTransportIndicator').txt('1').up();
+    }
+
+    root = root
+        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight.toFixed(3)).up()
         .ele('totalGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
         .ele('totalNoPackages').txt(declaration3.DeclarationGoods.totalPackagesNo).up()
-        .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up()
-        
+        .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up();
+
+    if (hasContainers) {
+      root = root.ele('containerIndicator').txt('Y').up();
+    }
+
+    root = root
         .com(' TransitDetails ')
-        
+
         .com(' Guarantee Details ')
         .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
 
-      .up()    
+      .up()
       for(var j = 0; j < tempInvoice.length; j++){
         console.log("J is = " + j)
         root.ele('invoices')
@@ -1385,40 +1521,73 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
           .ele('termType').txt(declaration3.DeclarationGoods.otherChargesType).up()
           .ele('invoiceAmount').txt(tempInvoiceAmount[j].toFixed(2)).up()
           .ele('invoiceCurrency').txt(declaration3.DeclarationGoods.invoiceCurrency).up()
-          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge).up()
+          .ele('freightAmount').txt(declaration3.DeclarationGoods.freightCharge.toFixed(2)).up()
           .ele('freightCurrency').txt(declaration3.DeclarationGoods.freightCurrency).up()
-          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount).up()
+          .ele('insuranceAmount').txt(declaration3.DeclarationGoods.insuranceAmount.toFixed(2)).up()
           .ele('insuranceCurrency').txt(declaration3.DeclarationGoods.insuranceCurrency).up()
-          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges).up()
+          .ele('otherAmount').txt(declaration3.DeclarationGoods.otherCharges.toFixed(2)).up()
           .ele('otherAmountCurrency').txt('BND').up()
         .up()
-        
-        
+
+
       }
   }
   
       for(var i = 0; i < declaration3.Goods.length; i++){
         if(typeof declaration3.Goods[i].goodsSerialNo !== 'undefined') {
-          root.ele('Goods')
+          var goodsNode = root.ele('Goods')
               .ele('goodsSerialNo').txt(declaration3.Goods[i].goodsSerialNo).up()
               .ele('goodsDescription').txt(declaration3.Goods[i].goodsDescription).up()
-              .ele('goodsHSCode').txt(declaration3.Goods[i].hsCode).up()
+              .ele('goodsHSCode').txt(declaration3.Goods[i].hsCode).up();
+
+          if (declaration3.Goods[i].subCode) {
+            goodsNode = goodsNode.ele('goodsHSSubCode').txt(declaration3.Goods[i].subCode).up();
+          }
+
+          goodsNode = goodsNode
               .ele('shippingMarks').txt(declaration3.Goods[i].goodsShippingMark).up()
               .ele('countryOrigin').txt(declaration3.Goods[i].countryOrigin).up()
-              .ele('quantity').txt(declaration3.Goods[i].goodsQuantity).up()
+              .ele('quantity').txt(Number(declaration3.Goods[i].goodsQuantity).toFixed(3)).up()
               .ele('quantityUOM').txt(declaration3.Goods[i].goodsUnit).up()
               .ele('noPackages').txt(declaration3.Goods[i].goodsPackageNo).up()
               .ele('noPackagesUnit').txt(declaration3.Goods[i].goodsPackageUnit).up()
               .ele('invoiceNo').txt(declaration3.Goods[i].goodsInvoiceNo).up()
-              .ele('invoiceAmount').txt(declaration3.Goods[i].goodsAmount).up()
-              .ele('goodsGrossWeight').txt(declaration3.Goods[i].goodsWeight).up()
-              .ele('goodsGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
-            .up()
+              .ele('invoiceAmount').txt(Number(declaration3.Goods[i].goodsAmount).toFixed(2)).up()
+              .ele('goodsGrossWeight').txt(Number(declaration3.Goods[i].goodsWeight).toFixed(3)).up()
+              .ele('goodsGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up();
+
+          if (declaration3.Goods[i].goodsContainerNo) {
+            goodsNode = goodsNode.ele('containerNos').txt(declaration3.Goods[i].goodsContainerNo).up();
+          }
+
+          if (declaration3.Goods[i].permitNo) {
+            goodsNode = goodsNode.ele('permitDetails')
+                .ele('permitApplicationType').txt(declaration3.Goods[i].permitApplicationType).up()
+                .ele('permitNo').txt(declaration3.Goods[i].permitNo).up()
+                .ele('permitExpiryDate').txt(declaration3.Goods[i].permitExpiryDate).up()
+                .ele('permitIssuedBy').txt(declaration3.Goods[i].permitIssuedBy).up()
+              .up();
+          }
+
+          goodsNode.up();
         }
-        
+
+      }
+
+      if (declaration3.Containers && declaration3.Containers.length > 0) {
+        for (var c = 0; c < declaration3.Containers.length; c++) {
+          root.ele('containers')
+              .ele('containerNumber').txt(declaration3.Containers[c].containerNumber).up()
+              .ele('containerType').txt(declaration3.Containers[c].containerType).up()
+              .ele('cargoStatus').txt(declaration3.Containers[c].cargoStatus).up()
+              .ele('sealNumber').txt(declaration3.Containers[c].sealNumber).up()
+              .ele('contianerWeight').txt(Number(declaration3.Containers[c].containerWeight).toFixed(4)).up()
+              .ele('containerWeightUOM').txt(declaration3.Containers[c].containerWeightUOM).up()
+            .up();
+        }
       }
   // convert the XML tree to string
-  
+
   var xml = root.end({ pretty: true });
 
   let get3name = declaration3.Importer.importerName.slice(0, 3);
@@ -1465,49 +1634,6 @@ app.get("/hscode", requireLogin, async (req, res) => {
     .lean();
 
   res.render("hscode.ejs", { hscode, currentPage, totalPages, totalCount, q });
-});
-
-app.post("/hscode/create", requireLogin, async (req, res) => {
-  const { HSCode, Description, category, subCategory, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
-  const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
-  if (!HSCode?.trim() || !Description?.trim()) {
-    req.flash("error", "HSCode and Description are required.");
-    return res.redirect(redirectUrl);
-  }
-  await Hscode2.create({
-    HSCode: HSCode.trim(),
-    Description: Description.trim(),
-    category: (category || "").trim(),
-    subCategory: (subCategory || "").trim(),
-    Quantity: (Quantity || "").trim(),
-    ImportDutyRate: (ImportDutyRate || "").trim(),
-    ExciseDutyRate: (ExciseDutyRate || "").trim(),
-  });
-  res.redirect(redirectUrl);
-});
-
-app.post("/hscode/update", requireLogin, async (req, res) => {
-  const { _id, HSCode, Description, category, subCategory, Quantity, ImportDutyRate, ExciseDutyRate, page, q } = req.body;
-  const redirectUrl = `/hscode?page=${page || 1}&q=${encodeURIComponent(q || "")}`;
-  if (!HSCode?.trim() || !Description?.trim()) {
-    req.flash("error", "HSCode and Description are required.");
-    return res.redirect(redirectUrl);
-  }
-  const updated = await Hscode2.findByIdAndUpdate(
-    _id,
-    {
-      HSCode: HSCode.trim(),
-      Description: Description.trim(),
-      category: (category || "").trim(),
-      subCategory: (subCategory || "").trim(),
-      Quantity: (Quantity || "").trim(),
-      ImportDutyRate: (ImportDutyRate || "").trim(),
-      ExciseDutyRate: (ExciseDutyRate || "").trim(),
-    },
-    { new: true, runValidators: true }
-  );
-  if (!updated) req.flash("error", "HSCode record not found.");
-  res.redirect(redirectUrl);
 });
 
 app.post("/hscode/delete/:id", requireLogin, requireAdmin, async (req, res) => {
@@ -1669,9 +1795,9 @@ app.get("/users", requireLogin, requireAdmin, async (req, res) => {
 });
 
 app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
-  const { name, email, password, phone, idType, icNo, icColor, designation } = req.body;
-  if (!name?.trim() || !email?.trim() || !password?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
-    req.flash("error", "Name, Email, Password, ID Type, IC Number, IC Color and Designation are required.");
+  const { name, email, password, phone, idType, icNo, icColor, designation, company } = req.body;
+  if (!name?.trim() || !email?.trim() || !password?.trim()) {
+    req.flash("error", "Name, Email and Password are required.");
     return res.redirect("/users");
   }
   const existing = await User.findOne({ email: email.trim() });
@@ -1685,19 +1811,20 @@ app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
     email: email.trim(),
     password: hashedPassword,
     phone: (phone || "").trim(),
-    idType: idType.trim(),
-    icNo: icNo.trim(),
-    icColor: icColor.trim(),
-    designation: designation.trim(),
+    idType: (idType || "").trim(),
+    icNo: (icNo || "").trim(),
+    icColor: (icColor || "").trim(),
+    designation: (designation || "").trim(),
+    company: (company || "").trim() || undefined,
   });
   req.flash("success", "User created.");
   res.redirect("/users");
 });
 
 app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
-  const { _id, name, email, password, phone, idType, icNo, icColor, designation } = req.body;
-  if (!name?.trim() || !email?.trim() || !idType?.trim() || !icNo?.trim() || !icColor?.trim() || !designation?.trim()) {
-    req.flash("error", "Name, Email, ID Type, IC Number, IC Color and Designation are required.");
+  const { _id, name, email, password, phone, idType, icNo, icColor, designation, company } = req.body;
+  if (!name?.trim() || !email?.trim()) {
+    req.flash("error", "Name and Email are required.");
     return res.redirect("/users");
   }
   const existing = await User.findOne({ email: email.trim(), _id: { $ne: _id } });
@@ -1709,10 +1836,11 @@ app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
     name: name.trim(),
     email: email.trim(),
     phone: (phone || "").trim(),
-    idType: idType.trim(),
-    icNo: icNo.trim(),
-    icColor: icColor.trim(),
-    designation: designation.trim(),
+    idType: (idType || "").trim(),
+    icNo: (icNo || "").trim(),
+    icColor: (icColor || "").trim(),
+    designation: (designation || "").trim(),
+    company: (company || "").trim() || undefined,
   };
   if (password?.trim()) {
     update.password = await bcrypt.hash(password.trim(), 10);

@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Declaration>
+  <General>
+      <!-- Header details -->
+      <declarationType>IMP</declarationType>
+      <customsProcedure>05</customsProcedure>
+      <dutiableIndicator>N</dutiableIndicator>
+      <transportMode>B</transportMode>
+      <countryShipment>CN</countryShipment>
+      <countryDestination>BN</countryDestination>
+      <portDischarge>CNNGB</portDischarge>
+      <portEntry>605</portEntry>
+      <clearanceStationCode>617</clearanceStationCode>
+      <remarks>FOB INV USD 70,825.00 BND 91,923.77 ( DUTIABLE-EXCISE USD 70,825.00 BND 91,923.77 ) FRT B$1,373.36 OTHER CHARGES B$1,382.19 27</remarks>
+      <!-- Party Details -->
+      <traderType>TRDR</traderType>
+      <regTraderCoyRegNo>AGO/RC/1981</regTraderCoyRegNo>
+      <individualTraderICNo>00-295642</individualTraderICNo>
+      <individualTraderIDType>IC</individualTraderIDType>
+      <individualTraderICColour>Y</individualTraderICColour>
+      <individualAddress>P.O.BOX 446, GADONG, BRUNEI</individualAddress>
+      <traderName>GRAND MOTORS SDN BHD</traderName>
+
+      <consigneeCompanyRegNo>AGO/RC/1981</consigneeCompanyRegNo>
+      <consigneeName>GRAND MOTORS SDN BHD</consigneeName>
+
+
+      <dutyExemptIndicator>N</dutyExemptIndicator>
+
+      <ceptSchemeIndicator>N</ceptSchemeIndicator>
+      <!-- Bill Of Lading details -->
+      <masterBillNo>272916316</masterBillNo>
+      <vesselFlightVehicleNo>EF8-632W</vesselFlightVehicleNo>
+      <vesselName>MCC TOKYO</vesselName>
+      <vesselFlightArrivalDate>2026-08-10</vesselFlightArrivalDate>
+      <totalGrossWeight>4.986</totalGrossWeight>
+      <totalGrossWeightUnit>TN</totalGrossWeightUnit>
+      <totalNoPackages>27</totalNoPackages>
+      <totalNoPackagesUnit>CTN</totalNoPackagesUnit>
+      <!-- Transit details -->
+      <!-- Guarantee details -->
+      <bgAmount>0.00</bgAmount>
+  </General>
+
+  <invoices>
+      <invoiceNumber>FST26030</invoiceNumber>
+      <invoiceDate>2026-07-16</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>70825.00</invoiceAmount>
+      <invoiceCurrency>USD</invoiceCurrency>
+      <freightAmount>1373.35</freightAmount>
+      <freightCurrency>BND</freightCurrency>
+      <insuranceAmount>459.61</insuranceAmount>
+      <insuranceCurrency>BND</insuranceCurrency>
+      <otherAmount>1382.19</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <Goods>
+      <goodsSerialNo>1</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF4T6000228 ENG#172MM-2C TF095411</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>2</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF9T6000225 ENG#172MM-2C TF095394</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>3</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF2T6000230 ENG#172MM-2C TF095392</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>4</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF6T6000229 ENG#172MM-2C TF095380</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>5</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF4T6000231 ENG#172MM-2C TF095401</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>6</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF3T6000222 ENG#172MM-2C TF095402</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>7</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF0T6000226 ENG#172MM-2C TF095399</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>8</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF5T6000223 ENG#172MM-2C TF095386</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>9</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF2T6000227 ENG#172MM-2C TF095412</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>10</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA BLACK CH#LCEPDNLF7T6000224 ENG#172MM-2C TF095396</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>11</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA WHITE CH#LCEPDNLFXT6000220 ENG#172MM-2C TF095378</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>12</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA WHITE CH#LCEPDNLF3T6000219 ENG#172MM-2C TF095404</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>13</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H NEBULA WHITE CH#LCEPDNLF1T6000221 ENG#172MM-2C TF095406</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>14</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H VELOCITY GREY CH#LCEPDNLF1T6000218 ENG#172MM-2C TF095389</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>15</goodsSerialNo>
+      <goodsDescription>CFMOTO 250CC MOTORCYCLE CF250-12H VELOCITY GREY CH#LCEPDNLFXT6000217 ENG#172MM-2C TF095393</goodsDescription>
+      <goodsHSCode>87112095</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>2711.00</invoiceAmount>
+      <goodsGrossWeight>210.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>16</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-8H NEBULA BLACK CH#LCEPESLG5T6015809 ENG#272MQ-B TF170152</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3960.00</invoiceAmount>
+      <goodsGrossWeight>240.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>17</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-8H NEBULA BLACK CH#LCEPESLG1T6015810 ENG#272MQ-B TF170066</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3960.00</invoiceAmount>
+      <goodsGrossWeight>240.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>18</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10H NEBULA BLACK CH#LCEPESLV7T6002087 ENG#272MQ-D TF280008</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3610.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>19</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10H NEBULA BLACK CH#LCEPESLV5T6002086 ENG#272MQ-D TF280001</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3610.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>20</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10H GALAXY GREY CH#LCEPESLV1T6002084 ENG#272MQ-D TF270446</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3610.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>21</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10H GALAXY GREY CH#LCEPESLV3T6002085 ENG#272MQ-D TF270443</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3610.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>22</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10AH NEBULA BLACK CH#LCEPESLV8T6002213 ENG#272MQ-D TF280067</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3900.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>23</goodsSerialNo>
+      <goodsDescription>CFMOTO 400CC MOTORCYCLE CF400-10AH IVORY WHITE CH#LCEPESLV6T6002212 ENG#272MQ-D TF280069</goodsDescription>
+      <goodsHSCode>87113090</goodsHSCode>
+      <goodsHSSubCode>00376</goodsHSSubCode>
+      <shippingMarks>27 PACKAGES</shippingMarks>
+      <countryOrigin>VN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>UNT</noPackagesUnit>
+      <invoiceNo>FST26030</invoiceNo>
+      <invoiceAmount>3900.00</invoiceAmount>
+      <goodsGrossWeight>217.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-082026-962637</permitNo>
+          <permitExpiryDate>2027-02-07</permitExpiryDate>
+          <permitIssuedBy>RCE</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+
+</Declaration>

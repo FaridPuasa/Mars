@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Declaration>
+  <General>
+      <!-- Header details -->
+      <declarationType>IMP</declarationType>
+      <customsProcedure>05</customsProcedure>
+      <dutiableIndicator>N</dutiableIndicator>
+      <transportMode>B</transportMode>
+      <countryShipment>CN</countryShipment>
+      <countryDestination>BN</countryDestination>
+      <portDischarge>CNNSA</portDischarge>
+      <portEntry>605</portEntry>
+      <clearanceStationCode>616</clearanceStationCode>
+      <remarks>FOB INV USD 35,468.40 BND 46,034.44 ( NON-DUTIABLE USD 21,151.39 BND 27,452.39 DUTIABLE-IMPORT USD 5,643.86 BND 7,325.17 DUTIABLE-EXCISE USD 8,673.15 BND 11,256.88 ) FRT B$1,400.00 OTHER CHARGES B$828.00 1</remarks>
+      <!-- Party Details -->
+      <traderType>TRDR</traderType>
+      <regTraderCoyRegNo>AGO/RC/4868</regTraderCoyRegNo>
+      <individualTraderICNo>00-295642</individualTraderICNo>
+      <individualTraderIDType>IC</individualTraderIDType>
+      <individualTraderICColour>Y</individualTraderICColour>
+      <individualAddress>SPG.1249,LOT 1253 KG TANJUNG BUNUT, JALAN TUTONG KM14</individualAddress>
+      <traderName>SING GEAP ENTERPISE SDN BHD</traderName>
+
+      <consigneeCompanyRegNo>AGO/RC/4868</consigneeCompanyRegNo>
+      <consigneeName>SING GEAP ENTERPISE SDN BHD</consigneeName>
+
+
+      <dutyExemptIndicator>N</dutyExemptIndicator>
+
+      <ceptSchemeIndicator>N</ceptSchemeIndicator>
+      <!-- Bill Of Lading details -->
+      <masterBillNo>SITGNSMU279837</masterBillNo>
+      <vesselFlightVehicleNo>2620S</vesselFlightVehicleNo>
+      <vesselName>SITC INCHON</vesselName>
+      <vesselFlightArrivalDate>2026-08-04</vesselFlightArrivalDate>
+      <containerTransportIndicator>1</containerTransportIndicator>
+      <totalGrossWeight>26.600</totalGrossWeight>
+      <totalGrossWeightUnit>TN</totalGrossWeightUnit>
+      <totalNoPackages>1</totalNoPackages>
+      <totalNoPackagesUnit>UNT</totalNoPackagesUnit>
+      <containerIndicator>Y</containerIndicator>
+      <!-- Transit details -->
+      <!-- Guarantee details -->
+      <bgAmount>0.00</bgAmount>
+  </General>
+
+  <invoices>
+      <invoiceNumber>000262007</invoiceNumber>
+      <invoiceDate>2026-07-18</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>35468.40</invoiceAmount>
+      <invoiceCurrency>USD</invoiceCurrency>
+      <freightAmount>1400.00</freightAmount>
+      <freightCurrency>BND</freightCurrency>
+      <insuranceAmount>177.34</insuranceAmount>
+      <insuranceCurrency>USD</insuranceCurrency>
+      <otherAmount>828.00</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <Goods>
+      <goodsSerialNo>1</goodsSerialNo>
+      <goodsDescription>FORMICA SHEET</goodsDescription>
+      <goodsHSCode>39219041</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2000.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>809</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>2265.20</invoiceAmount>
+      <goodsGrossWeight>2000.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>2</goodsSerialNo>
+      <goodsDescription>SEN VENEER</goodsDescription>
+      <goodsHSCode>44089010</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1000.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>614</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>491.20</invoiceAmount>
+      <goodsGrossWeight>1000.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-072026-961355</permitNo>
+          <permitExpiryDate>2026-08-31</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>3</goodsSerialNo>
+      <goodsDescription>18MM 4' X 8' FOAM BOARD</goodsDescription>
+      <goodsHSCode>39201019</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>150.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>50</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>660.00</invoiceAmount>
+      <goodsGrossWeight>150.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>4</goodsSerialNo>
+      <goodsDescription>18MM 4' X 8' MDF BOARD</goodsDescription>
+      <goodsHSCode>44111400</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2700.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>90</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>483.30</invoiceAmount>
+      <goodsGrossWeight>2700.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-072026-961355</permitNo>
+          <permitExpiryDate>2026-08-31</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>5</goodsSerialNo>
+      <goodsDescription>12MM 4' X 8' MDF BOARD</goodsDescription>
+      <goodsHSCode>44111400</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1620.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>60</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>220.80</invoiceAmount>
+      <goodsGrossWeight>1620.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-072026-961355</permitNo>
+          <permitExpiryDate>2026-08-31</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>6</goodsSerialNo>
+      <goodsDescription>15MM CULTURED MARBLE STONE 750MM X 3000MM</goodsDescription>
+      <goodsHSCode>68109900</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1560.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>39</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>894.66</invoiceAmount>
+      <goodsGrossWeight>1560.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>7</goodsSerialNo>
+      <goodsDescription>5MM POLYCARBONATE SHEET</goodsDescription>
+      <goodsHSCode>39206110</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>37.20</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>8</goodsSerialNo>
+      <goodsDescription>5.2MM 4' X 8' FLEXIBLE PLYWOOD</goodsDescription>
+      <goodsHSCode>44123100</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>297.680</quantity>
+      <quantityUOM>MTK</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>320.00</invoiceAmount>
+      <goodsGrossWeight>1000.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+      <permitDetails>
+          <permitApplicationType>Electronic</permitApplicationType>
+          <permitNo>PTN-072026-961355</permitNo>
+          <permitExpiryDate>2026-08-31</permitExpiryDate>
+          <permitIssuedBy>FOD</permitIssuedBy>
+      </permitDetails>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>9</goodsSerialNo>
+      <goodsDescription>6MM SPC FLOORING 184MM X 1220MM</goodsDescription>
+      <goodsHSCode>39181090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1460.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>146</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>1036.60</invoiceAmount>
+      <goodsGrossWeight>1460.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>10</goodsSerialNo>
+      <goodsDescription>TABLE SAW</goodsDescription>
+      <goodsHSCode>84659190</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>7.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>7</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>1106.00</invoiceAmount>
+      <goodsGrossWeight>315.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>11</goodsSerialNo>
+      <goodsDescription>18L ALUMINIUM ANTI RUSTY FLUID</goodsDescription>
+      <goodsHSCode>34031919</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>18.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>22.00</invoiceAmount>
+      <goodsGrossWeight>18.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>12</goodsSerialNo>
+      <goodsDescription>CH METAL BRACKET</goodsDescription>
+      <goodsHSCode>83024290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>200.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>300</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>120.00</invoiceAmount>
+      <goodsGrossWeight>200.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>13</goodsSerialNo>
+      <goodsDescription>ROUTER BIT</goodsDescription>
+      <goodsHSCode>82075000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2500.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>825</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>3135.00</invoiceAmount>
+      <goodsGrossWeight>2500.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>14</goodsSerialNo>
+      <goodsDescription>WIRE 1.5M 2R-BVR</goodsDescription>
+      <goodsHSCode>85444913</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>300.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>40</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>596.00</invoiceAmount>
+      <goodsGrossWeight>300.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>15</goodsSerialNo>
+      <goodsDescription>SAW BLADE</goodsDescription>
+      <goodsHSCode>82029990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>60.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>15</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>285.00</invoiceAmount>
+      <goodsGrossWeight>60.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>16</goodsSerialNo>
+      <goodsDescription>AIR NAIL</goodsDescription>
+      <goodsHSCode>73170090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>100.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>135.00</invoiceAmount>
+      <goodsGrossWeight>100.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>17</goodsSerialNo>
+      <goodsDescription>AIR TACKER</goodsDescription>
+      <goodsHSCode>84671900</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>40.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>40</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>760.00</invoiceAmount>
+      <goodsGrossWeight>500.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>18</goodsSerialNo>
+      <goodsDescription>DRAWER SLIDE</goodsDescription>
+      <goodsHSCode>83024290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2000.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4700</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>5640.00</invoiceAmount>
+      <goodsGrossWeight>2000.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>19</goodsSerialNo>
+      <goodsDescription>ALUMINIUM DOOR HANDLE</goodsDescription>
+      <goodsHSCode>76169990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2000.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>5149</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>2317.05</invoiceAmount>
+      <goodsGrossWeight>2000.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>20</goodsSerialNo>
+      <goodsDescription>GI-100-4 SLIDING ROLLER</goodsDescription>
+      <goodsHSCode>83024290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>200.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>200</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>700.00</invoiceAmount>
+      <goodsGrossWeight>200.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>21</goodsSerialNo>
+      <goodsDescription>DOOR CLOSER</goodsDescription>
+      <goodsHSCode>83026000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>250.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>200</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>470.00</invoiceAmount>
+      <goodsGrossWeight>250.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>22</goodsSerialNo>
+      <goodsDescription>NAIL GLASS</goodsDescription>
+      <goodsHSCode>73170090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>20.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>900</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>72.00</invoiceAmount>
+      <goodsGrossWeight>20.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>23</goodsSerialNo>
+      <goodsDescription>METAL BRACKET</goodsDescription>
+      <goodsHSCode>83025000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>300.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>420.00</invoiceAmount>
+      <goodsGrossWeight>300.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>24</goodsSerialNo>
+      <goodsDescription>DOOR STOPPER</goodsDescription>
+      <goodsHSCode>83024139</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>75.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>150</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>117.00</invoiceAmount>
+      <goodsGrossWeight>75.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>25</goodsSerialNo>
+      <goodsDescription>DRAWER LOCK</goodsDescription>
+      <goodsHSCode>83013000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>150.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1110</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>521.70</invoiceAmount>
+      <goodsGrossWeight>150.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>26</goodsSerialNo>
+      <goodsDescription>COTTON ALUM OXIDE SANDPAPER</goodsDescription>
+      <goodsHSCode>68051000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>5.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>15</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>99.00</invoiceAmount>
+      <goodsGrossWeight>5.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>27</goodsSerialNo>
+      <goodsDescription>STRETCH FILM</goodsDescription>
+      <goodsHSCode>39201090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>300.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>840</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>260.40</invoiceAmount>
+      <goodsGrossWeight>300.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>28</goodsSerialNo>
+      <goodsDescription>GLASS PROTECTIVE FILM</goodsDescription>
+      <goodsHSCode>39209110</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>124.20</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>29</goodsSerialNo>
+      <goodsDescription>5CM HEAT RESISTANCE TAPE</goodsDescription>
+      <goodsHSCode>39199099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>6.00</invoiceAmount>
+      <goodsGrossWeight>2.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>30</goodsSerialNo>
+      <goodsDescription>CANVAS TOTE BAG</goodsDescription>
+      <goodsHSCode>42029990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>120.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>99.00</invoiceAmount>
+      <goodsGrossWeight>120.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>31</goodsSerialNo>
+      <goodsDescription>ALUMINIUM SLIDING TRACK X 1.2M</goodsDescription>
+      <goodsHSCode>76169990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>150.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>31</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>356.50</invoiceAmount>
+      <goodsGrossWeight>150.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>32</goodsSerialNo>
+      <goodsDescription>LED DOWNLIGHT</goodsDescription>
+      <goodsHSCode>94051199</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>500.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1757</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>1844.85</invoiceAmount>
+      <goodsGrossWeight>500.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>33</goodsSerialNo>
+      <goodsDescription>3 IN 1 TOWEL SET</goodsDescription>
+      <goodsHSCode>63026000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>120.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>113</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>185.32</invoiceAmount>
+      <goodsGrossWeight>120.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>34</goodsSerialNo>
+      <goodsDescription>20" LUGGAGE</goodsDescription>
+      <goodsHSCode>42029990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>600.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>119</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>704.48</invoiceAmount>
+      <goodsGrossWeight>600.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>35</goodsSerialNo>
+      <goodsDescription>14" LUGGAGE</goodsDescription>
+      <goodsHSCode>42029990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>880.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>220</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>501.60</invoiceAmount>
+      <goodsGrossWeight>880.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>36</goodsSerialNo>
+      <goodsDescription>CABLE TIE</goodsDescription>
+      <goodsHSCode>39269099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>50.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>174.00</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>37</goodsSerialNo>
+      <goodsDescription>FOLDABLE STORAGE BOX (PLASTIC)</goodsDescription>
+      <goodsHSCode>39231090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>16.80</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>38</goodsSerialNo>
+      <goodsDescription>CERAMIC PLATE</goodsDescription>
+      <goodsHSCode>69120000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>200.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>560</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>392.00</invoiceAmount>
+      <goodsGrossWeight>200.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>39</goodsSerialNo>
+      <goodsDescription>FACIAL TISSUE</goodsDescription>
+      <goodsHSCode>48182000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>60.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>566</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>203.76</invoiceAmount>
+      <goodsGrossWeight>60.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>40</goodsSerialNo>
+      <goodsDescription>3 IN 1 S/STEEL COOKING POT SET</goodsDescription>
+      <goodsHSCode>73239310</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>25.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>26.90</invoiceAmount>
+      <goodsGrossWeight>25.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>41</goodsSerialNo>
+      <goodsDescription>WOODWORKING VENEER CUTTER</goodsDescription>
+      <goodsHSCode>82089000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>20.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>40</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>272.00</invoiceAmount>
+      <goodsGrossWeight>20.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>42</goodsSerialNo>
+      <goodsDescription>6L COOLER BOX</goodsDescription>
+      <goodsHSCode>39231090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>18.40</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>43</goodsSerialNo>
+      <goodsDescription>COMPACT PORTABLE BARREL GRILL</goodsDescription>
+      <goodsHSCode>73211990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>5.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>41.50</invoiceAmount>
+      <goodsGrossWeight>30.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>44</goodsSerialNo>
+      <goodsDescription>ELECTRIC FAN</goodsDescription>
+      <goodsHSCode>84145199</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>83.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>83</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>678.94</invoiceAmount>
+      <goodsGrossWeight>415.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>45</goodsSerialNo>
+      <goodsDescription>ELECTRIC POT</goodsDescription>
+      <goodsHSCode>85167990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>11.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>11</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>92.95</invoiceAmount>
+      <goodsGrossWeight>20.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>46</goodsSerialNo>
+      <goodsDescription>S/STEEL KITCHEN BASIN</goodsDescription>
+      <goodsHSCode>73241010</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>70.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>7</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>377.16</invoiceAmount>
+      <goodsGrossWeight>70.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>47</goodsSerialNo>
+      <goodsDescription>ACRYLIC MARKER</goodsDescription>
+      <goodsHSCode>96082000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>54.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>54</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>108.00</invoiceAmount>
+      <goodsGrossWeight>5.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>48</goodsSerialNo>
+      <goodsDescription>FOLDABLE CHAIR</goodsDescription>
+      <goodsHSCode>94017990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>18.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>18</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>77.40</invoiceAmount>
+      <goodsGrossWeight>25.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>49</goodsSerialNo>
+      <goodsDescription>LED STRIP LIGHT</goodsDescription>
+      <goodsHSCode>94054290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>200.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>56</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>462.56</invoiceAmount>
+      <goodsGrossWeight>200.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>50</goodsSerialNo>
+      <goodsDescription>BULB HOLDER</goodsDescription>
+      <goodsHSCode>85366119</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>60</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>9.00</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>51</goodsSerialNo>
+      <goodsDescription>S/STEEL DRAWER ORGANIZER</goodsDescription>
+      <goodsHSCode>73239310</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>150.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>30</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>419.40</invoiceAmount>
+      <goodsGrossWeight>150.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>52</goodsSerialNo>
+      <goodsDescription>FLOWER POT METAL STAND</goodsDescription>
+      <goodsHSCode>73269099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>40.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>20</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>65.00</invoiceAmount>
+      <goodsGrossWeight>40.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>53</goodsSerialNo>
+      <goodsDescription>METAL DOOR HANDLE</goodsDescription>
+      <goodsHSCode>83024139</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>35.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>80</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>286.40</invoiceAmount>
+      <goodsGrossWeight>35.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>54</goodsSerialNo>
+      <goodsDescription>GLASS TINTED FILM 90CM X 10 MTR</goodsDescription>
+      <goodsHSCode>39199099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>23.91</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>55</goodsSerialNo>
+      <goodsDescription>T8 LIGHT BULB (LED)</goodsDescription>
+      <goodsHSCode>85395290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>345.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>345</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>479.55</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>56</goodsSerialNo>
+      <goodsDescription>E27 LIGHT BULB (LED)</goodsDescription>
+      <goodsHSCode>85395290</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>3374.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>3374</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>438.62</invoiceAmount>
+      <goodsGrossWeight>250.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>57</goodsSerialNo>
+      <goodsDescription>ALUMINIUM GOLD EDGING STRIP X 5M</goodsDescription>
+      <goodsHSCode>76169990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>20.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>30</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>43.50</invoiceAmount>
+      <goodsGrossWeight>20.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>58</goodsSerialNo>
+      <goodsDescription>KEY SET</goodsDescription>
+      <goodsHSCode>83017000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>6.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>8.00</invoiceAmount>
+      <goodsGrossWeight>6.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>59</goodsSerialNo>
+      <goodsDescription>LED DRIVER</goodsDescription>
+      <goodsHSCode>85044090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>100.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>47.00</invoiceAmount>
+      <goodsGrossWeight>6.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>60</goodsSerialNo>
+      <goodsDescription>ALUMINIUM HAND RIVETER</goodsDescription>
+      <goodsHSCode>82055900</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>13.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>20</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>22.00</invoiceAmount>
+      <goodsGrossWeight>13.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>61</goodsSerialNo>
+      <goodsDescription>ALUMINIUM FOIL STICKER</goodsDescription>
+      <goodsHSCode>39199099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>5.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>40.40</invoiceAmount>
+      <goodsGrossWeight>5.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>62</goodsSerialNo>
+      <goodsDescription>METAL HINGES</goodsDescription>
+      <goodsHSCode>83021000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>650.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>6100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>1098.00</invoiceAmount>
+      <goodsGrossWeight>650.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>63</goodsSerialNo>
+      <goodsDescription>BACK DOOR HOOK</goodsDescription>
+      <goodsHSCode>83025000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>80.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>394</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>193.06</invoiceAmount>
+      <goodsGrossWeight>80.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>64</goodsSerialNo>
+      <goodsDescription>CUSHION SQUARE 45CM*45CM</goodsDescription>
+      <goodsHSCode>94049000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>100.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>231</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>198.66</invoiceAmount>
+      <goodsGrossWeight>100.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>65</goodsSerialNo>
+      <goodsDescription>WATER PUMP PRESSURE CONTROLLER</goodsDescription>
+      <goodsHSCode>90328990</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>6.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>6</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>80.28</invoiceAmount>
+      <goodsGrossWeight>18.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>66</goodsSerialNo>
+      <goodsDescription>WATER PUMP</goodsDescription>
+      <goodsHSCode>84138119</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>4.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>225.60</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>67</goodsSerialNo>
+      <goodsDescription>S/STEEL THERMOS FLASK</goodsDescription>
+      <goodsHSCode>73239310</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>12.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>16</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>47.52</invoiceAmount>
+      <goodsGrossWeight>12.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>68</goodsSerialNo>
+      <goodsDescription>AIRTIGHT GLASS JAR</goodsDescription>
+      <goodsHSCode>70109099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>25.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>44</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>88.00</invoiceAmount>
+      <goodsGrossWeight>25.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>69</goodsSerialNo>
+      <goodsDescription>48L ROLLING TRASH BIN</goodsDescription>
+      <goodsHSCode>39249090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>30.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>7</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>36.19</invoiceAmount>
+      <goodsGrossWeight>30.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>70</goodsSerialNo>
+      <goodsDescription>S/STEEL WATER TANK</goodsDescription>
+      <goodsHSCode>73101099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>60.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>137.50</invoiceAmount>
+      <goodsGrossWeight>60.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>71</goodsSerialNo>
+      <goodsDescription>COUNTERTOP BATHROOM VANITY SET</goodsDescription>
+      <goodsHSCode>94032090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>30.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>64.44</invoiceAmount>
+      <goodsGrossWeight>30.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>72</goodsSerialNo>
+      <goodsDescription>S/STEEL KITCHEN STORAGE ORGANIZER</goodsDescription>
+      <goodsHSCode>94032090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>85.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>17</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>672.35</invoiceAmount>
+      <goodsGrossWeight>85.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>73</goodsSerialNo>
+      <goodsDescription>CUTTING WHEEL (METAL/S/STEEL)</goodsDescription>
+      <goodsHSCode>68042200</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>2.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>100</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>7.00</invoiceAmount>
+      <goodsGrossWeight>2.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>74</goodsSerialNo>
+      <goodsDescription>CERAMIC URINALS STAND</goodsDescription>
+      <goodsHSCode>69109000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>16.32</invoiceAmount>
+      <goodsGrossWeight>7.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>75</goodsSerialNo>
+      <goodsDescription>3-PLY COMPUTER FORM PAPER</goodsDescription>
+      <goodsHSCode>48025419</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>50.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>5</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>241.60</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>76</goodsSerialNo>
+      <goodsDescription>A4 PAPER</goodsDescription>
+      <goodsHSCode>48025629</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>15.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>20.76</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>77</goodsSerialNo>
+      <goodsDescription>CERAMIC TOILET</goodsDescription>
+      <goodsHSCode>69109000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>3.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>87.00</invoiceAmount>
+      <goodsGrossWeight>30.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>78</goodsSerialNo>
+      <goodsDescription>WHEAT STRAW PLATE</goodsDescription>
+      <goodsHSCode>39241099</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>80.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>900</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>135.00</invoiceAmount>
+      <goodsGrossWeight>80.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>79</goodsSerialNo>
+      <goodsDescription>KITCHEN KNIFE SET</goodsDescription>
+      <goodsHSCode>82111000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>150.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>50</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>178.00</invoiceAmount>
+      <goodsGrossWeight>150.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>80</goodsSerialNo>
+      <goodsDescription>1L PLASTIC STORAGE BOTTLE</goodsDescription>
+      <goodsHSCode>39233090</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>50.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>335</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>83.75</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>81</goodsSerialNo>
+      <goodsDescription>SILICONE GUN</goodsDescription>
+      <goodsHSCode>82055900</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>50.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>50</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>24.00</invoiceAmount>
+      <goodsGrossWeight>50.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>82</goodsSerialNo>
+      <goodsDescription>A4 PLASTIC FILE</goodsDescription>
+      <goodsHSCode>39261000</goodsHSCode>
+      <shippingMarks>1X40 CTNR TRHU8637226</shippingMarks>
+      <countryOrigin>CN</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>000262007</invoiceNo>
+      <invoiceAmount>1.16</invoiceAmount>
+      <goodsGrossWeight>1.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+      <containerNos>TRHU8637226</containerNos>
+
+  </Goods>
+
+  <containers>
+      <containerNumber>TRHU8637226</containerNumber>
+      <containerType>40FR</containerType>
+      <cargoStatus>F</cargoStatus>
+      <sealNumber>SITZ844960</sealNumber>
+      <contianerWeight>26.6000</contianerWeight>
+      <containerWeightUOM>TNE</containerWeightUOM>
+  </containers>
+
+</Declaration>

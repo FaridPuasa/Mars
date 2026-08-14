@@ -44,6 +44,12 @@
           <label class="form-label small text-muted mb-1">Date To</label>
           <input type="date" name="dateTo" class="form-control form-control-sm" value="<%= filters.dateTo %>">
         </div>
+        <div class="col-md-3 d-flex align-items-end">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="mineCheckbox" name="mine" value="1" <%= filters.mine === '1' ? 'checked' : '' %>>
+            <label class="form-check-label small" for="mineCheckbox">My declarations only</label>
+          </div>
+        </div>
         <div class="col-md-3 d-flex align-items-end gap-2">
           <button type="submit" class="btn btn-mars btn-sm">Search</button>
           <a href="/bdnsw" class="btn btn-secondary btn-sm">Clear</a>
@@ -84,32 +90,58 @@
             <td class="text-end text-nowrap">
               <a href="/bdnswedit/<%= d._id %>" class="btn btn-sm btn-mars-blue">Edit</a>
               <a href="/downloadXML/<%= d._id %>/<%= d.Goods[0].goodsInvoiceNo %>" class="btn btn-sm btn-success">Download XML</a>
+              <% if (username.designation === 'Admin') { %>
+              <button type="button" class="btn btn-sm btn-danger delete-declaration-btn"
+                data-id="<%= d._id %>" data-label="<%= d.Goods[0].goodsInvoiceNo %> - <%= d.Importer.importerName %>">Delete</button>
+              <% } %>
             </td>
           </tr>
           <tr class="collapse" id="details<%= i %>">
             <td colspan="8" class="bg-light p-3">
 
               <h6 class="text-muted text-uppercase small mb-2">Declaration Details</h6>
-              <div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Procedure</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
                 <div><div class="text-muted small">Procedure Code</div><div><%= d.Procedure.customsProcedureCode %></div></div>
                 <div><div class="text-muted small">Dutiable Indicator</div><div><%= d.Procedure.dutiableIndicatorCode %></div></div>
                 <div><div class="text-muted small">Clearance Station</div><div><%= d.Procedure.clearanceStation %> (<%= d.Procedure.clearanceStationCode %>)</div></div>
                 <div><div class="text-muted small">CEPT</div><div><%= d.cept %></div></div>
+              </div>
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Importer</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
+                <div><div class="text-muted small">Importer Type</div><div><%= d.Importer.importerType %></div></div>
+                <div><div class="text-muted small">Importer IC Color</div><div><%= d.Importer.importerICColor %></div></div>
+              </div>
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Transport</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
                 <div><div class="text-muted small">Country Code</div><div><%= d.Transport.countryShipmentCode %></div></div>
                 <div><div class="text-muted small">Vessel No / Voyage</div><div><%= d.Transport.vesselNo %></div></div>
                 <div><div class="text-muted small">BL/DO/AWB No</div><div><%= d.Transport.bldoawb %></div></div>
                 <div><div class="text-muted small">HB/HAWB</div><div><%= d.Transport.hbhawb %></div></div>
-                <div><div class="text-muted small">Importer Type</div><div><%= d.Importer.importerType %></div></div>
-                <div><div class="text-muted small">Importer IC Color</div><div><%= d.Importer.importerICColor %></div></div>
+              </div>
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Financials</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
                 <div><div class="text-muted small">Exchange Currency / Rate</div><div><%= d.SupportingDocuments.exchangeCurrency %> <%= d.SupportingDocuments.exchangeRate %></div></div>
-                <div><div class="text-muted small">Date Granted</div><div><%= formatDateDisplay(d.dateGranted) %></div></div>
                 <div><div class="text-muted small">Insurance</div><div><%= d.DeclarationGoods.insuranceAmount %> <%= d.DeclarationGoods.insuranceCurrency %></div></div>
                 <div><div class="text-muted small">Freight</div><div><%= d.DeclarationGoods.freightAmount %> <%= d.DeclarationGoods.freightCurrency %></div></div>
                 <div><div class="text-muted small">Other Charges</div><div><%= d.DeclarationGoods.otherCharges %></div></div>
-                <div><div class="text-muted small">Posted By</div><div><%= d.postedBy %></div></div>
+              </div>
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Declarant</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
                 <div><div class="text-muted small">Declarant</div><div><%= d.Declarant.declarantName %></div></div>
                 <div><div class="text-muted small">Declarant IC No / Color</div><div><%= d.Declarant.declarantICNo %> <%= d.Declarant.declarantICColor %></div></div>
                 <div><div class="text-muted small">Declarant Designation</div><div><%= d.Declarant.declarantDesignation %></div></div>
+              </div>
+
+              <div class="text-muted small fw-bold text-uppercase mb-1" style="font-size:0.7rem;">Record Info</div>
+              <div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
+                <div><div class="text-muted small">Date Granted</div><div><%= formatDateDisplay(d.dateGranted) %></div></div>
+                <div><div class="text-muted small">Posted By</div><div><%= d.postedBy %></div></div>
               </div>
 
               <h6 class="text-muted text-uppercase small mb-2">Goods</h6>
@@ -126,13 +158,13 @@
                       <th>Unit</th>
                       <th>Weight</th>
                       <th>Amount</th>
+                      <th>Invoice No</th>
                       <th>CIF</th>
                       <th>Duty</th>
                       <th>Import Duty</th>
                       <th>Excise Duty</th>
-                      <th>Invoice No</th>
-                      <th>Container No</th>
                       <th>Shipping Mark</th>
+                      <th>Container No</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -147,13 +179,13 @@
                       <td><%= g.goodsUnit %></td>
                       <td><%= g.goodsWeight %></td>
                       <td><%= g.goodsAmount %></td>
+                      <td><%= g.goodsInvoiceNo %></td>
                       <td><%= g.goodsCIF %></td>
                       <td><%= g.goodsDuty %> (<%= g.goodsDutyAmount %>)</td>
                       <td><%= g.goodsImportDuty %></td>
                       <td><%= g.goodsExciseDuty %></td>
-                      <td><%= g.goodsInvoiceNo %></td>
-                      <td><%= g.goodsContainerNo %></td>
                       <td><%= g.goodsShippingMark %></td>
+                      <td><%= g.goodsContainerNo %></td>
                     </tr>
                     <% }); %>
                   </tbody>
@@ -169,6 +201,25 @@
   </div>
 </div>
 
+<!-- Delete Confirm Modal -->
+<div class="modal fade" id="deleteDeclarationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" id="deleteDeclarationForm" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Delete declaration <strong id="deleteDeclarationLabel"></strong>? This cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
   document.querySelectorAll('#tableId [data-bs-toggle="collapse"]').forEach(function(row) {
     var target = document.querySelector(row.getAttribute('data-bs-target'));
@@ -180,6 +231,14 @@
     target.addEventListener('hide.bs.collapse', function() {
       caret.classList.remove('bi-chevron-down');
       caret.classList.add('bi-chevron-right');
+    });
+  });
+
+  document.querySelectorAll('.delete-declaration-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.getElementById('deleteDeclarationLabel').textContent = btn.dataset.label;
+      document.getElementById('deleteDeclarationForm').action = '/declaration3/delete/' + btn.dataset.id;
+      new bootstrap.Modal(document.getElementById('deleteDeclarationModal')).show();
     });
   });
 </script>

@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Declaration>
+  <General>
+      <!-- Header details -->
+      <declarationType>IMP</declarationType>
+      <customsProcedure>05</customsProcedure>
+      <dutiableIndicator>N</dutiableIndicator>
+      <transportMode>A</transportMode>
+      <countryShipment>SG</countryShipment>
+      <countryDestination>BN</countryDestination>
+      <portDischarge>SGSIN</portDischarge>
+      <portEntry>601</portEntry>
+      <clearanceStationCode>601</clearanceStationCode>
+      <remarks>FOB INV EUR 4,028.56 BND 6,085.95 ( NON-DUTIABLE EUR 77.78 BND 117.50 DUTIABLE-EXCISE EUR 3,950.78 BND 5,968.44 ) FRT B$500.00 OTHER CHARGES B$74.50 2</remarks>
+      <!-- Party Details -->
+      <traderType>TRDR</traderType>
+      <regTraderCoyRegNo>AGO/RC/1981</regTraderCoyRegNo>
+      <individualTraderICNo>00-295642</individualTraderICNo>
+      <individualTraderIDType>IC</individualTraderIDType>
+      <individualTraderICColour>Y</individualTraderICColour>
+      <individualAddress>P.O.BOX 446, GADONG, BRUNEI</individualAddress>
+      <traderName>GRAND MOTORS SDN BHD</traderName>
+
+      <consigneeCompanyRegNo>AGO/RC/1981</consigneeCompanyRegNo>
+      <consigneeName>GRAND MOTORS SDN BHD</consigneeName>
+
+
+      <dutyExemptIndicator>N</dutyExemptIndicator>
+
+      <ceptSchemeIndicator>N</ceptSchemeIndicator>
+      <!-- Bill Of Lading details -->
+      <masterBillNo>618-23585645</masterBillNo>
+      <houseBillNo>26TRN044360</houseBillNo>
+      <vesselFlightVehicleNo>SQ148</vesselFlightVehicleNo>
+      <vesselName>SINGAPORE AIRLINE</vesselName>
+      <vesselFlightArrivalDate>2026-08-14</vesselFlightArrivalDate>
+      <totalGrossWeight>97.000</totalGrossWeight>
+      <totalGrossWeightUnit>KG</totalGrossWeightUnit>
+      <totalNoPackages>2</totalNoPackages>
+      <totalNoPackagesUnit>CTN</totalNoPackagesUnit>
+      <!-- Transit details -->
+      <!-- Guarantee details -->
+      <bgAmount>0.00</bgAmount>
+  </General>
+
+  <invoices>
+      <invoiceNumber>GB02600899</invoiceNumber>
+      <invoiceDate>2026-06-17</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>1174.77</invoiceAmount>
+      <invoiceCurrency>EUR</invoiceCurrency>
+      <freightAmount>145.81</freightAmount>
+      <freightCurrency>BND</freightCurrency>
+      <insuranceAmount>5.87</insuranceAmount>
+      <insuranceCurrency>EUR</insuranceCurrency>
+      <otherAmount>21.73</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <invoices>
+      <invoiceNumber>GB02601026</invoiceNumber>
+      <invoiceDate>2026-07-10</invoiceDate>
+      <termType>CIF</termType>
+      <invoiceAmount>2853.79</invoiceAmount>
+      <invoiceCurrency>EUR</invoiceCurrency>
+      <freightAmount>354.20</freightAmount>
+      <freightCurrency>BND</freightCurrency>
+      <insuranceAmount>14.27</insuranceAmount>
+      <insuranceCurrency>EUR</insuranceCurrency>
+      <otherAmount>52.78</otherAmount>
+      <otherAmountCurrency>BND</otherAmountCurrency>
+  </invoices>
+
+  <Goods>
+      <goodsSerialNo>1</goodsSerialNo>
+      <goodsDescription>BRAKE CYLINDER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87083029</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>2.570</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>106.68</invoiceAmount>
+      <goodsGrossWeight>2.570</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>2</goodsSerialNo>
+      <goodsDescription>DOOR HANDLE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>3.500</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>145.15</invoiceAmount>
+      <goodsGrossWeight>3.500</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>3</goodsSerialNo>
+      <goodsDescription>SCREW CAP/PLUG</goodsDescription>
+      <goodsHSCode>73181590</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.220</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>50.70</invoiceAmount>
+      <goodsGrossWeight>1.220</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>4</goodsSerialNo>
+      <goodsDescription>ROLLER BEARING (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84832030</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>US</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>256.17</invoiceAmount>
+      <goodsGrossWeight>6.170</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>5</goodsSerialNo>
+      <goodsDescription>GASKET (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169320</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.180</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>6</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>7.56</invoiceAmount>
+      <goodsGrossWeight>0.180</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>6</goodsSerialNo>
+      <goodsDescription>ROLLER BEARING (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84832030</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>126.57</invoiceAmount>
+      <goodsGrossWeight>3.050</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>7</goodsSerialNo>
+      <goodsDescription>SHOCK ABSORBER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87088017</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>4.380</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>182.02</invoiceAmount>
+      <goodsGrossWeight>4.380</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>8</goodsSerialNo>
+      <goodsDescription>INSIDE HANDLE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.940</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>38.92</invoiceAmount>
+      <goodsGrossWeight>0.940</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>9</goodsSerialNo>
+      <goodsDescription>GAS-FILLED DAMPER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>1.310</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>54.20</invoiceAmount>
+      <goodsGrossWeight>1.310</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>10</goodsSerialNo>
+      <goodsDescription>EXPANSION TANK (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>4.980</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02600899</invoiceNo>
+      <invoiceAmount>206.80</invoiceAmount>
+      <goodsGrossWeight>4.980</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>11</goodsSerialNo>
+      <goodsDescription>CASTLE NUT</goodsDescription>
+      <goodsHSCode>73181690</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.350</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>14.52</invoiceAmount>
+      <goodsGrossWeight>0.350</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>12</goodsSerialNo>
+      <goodsDescription>FUEL PUMP (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84133030</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>2.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>76.64</invoiceAmount>
+      <goodsGrossWeight>1.850</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>13</goodsSerialNo>
+      <goodsDescription>ENGINE SILENTBLOCK (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.420</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>58.80</invoiceAmount>
+      <goodsGrossWeight>1.420</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>14</goodsSerialNo>
+      <goodsDescription>SUSP. RUBBER BUFFER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169911</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.410</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>58.64</invoiceAmount>
+      <goodsGrossWeight>1.410</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>15</goodsSerialNo>
+      <goodsDescription>SUSP. RUBBER BUFFER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169911</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.410</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>58.64</invoiceAmount>
+      <goodsGrossWeight>1.410</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>16</goodsSerialNo>
+      <goodsDescription>HOSE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40093191</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.490</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>20.50</invoiceAmount>
+      <goodsGrossWeight>0.490</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>17</goodsSerialNo>
+      <goodsDescription>SEAL GASKET (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169390</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.060</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>10</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>2.40</invoiceAmount>
+      <goodsGrossWeight>0.060</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>18</goodsSerialNo>
+      <goodsDescription>FLEXIBLE COUPLING (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84836000</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>1251.48</invoiceAmount>
+      <goodsGrossWeight>15.000</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>19</goodsSerialNo>
+      <goodsDescription>AIR HOSE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40093191</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.370</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>15.39</invoiceAmount>
+      <goodsGrossWeight>0.370</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>20</goodsSerialNo>
+      <goodsDescription>HOSE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40093191</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.650</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>27.14</invoiceAmount>
+      <goodsGrossWeight>0.650</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>21</goodsSerialNo>
+      <goodsDescription>HOSE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40093191</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.650</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>27.14</invoiceAmount>
+      <goodsGrossWeight>0.650</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>22</goodsSerialNo>
+      <goodsDescription>FUEL HOSE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40093191</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.530</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>21.88</invoiceAmount>
+      <goodsGrossWeight>0.530</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>23</goodsSerialNo>
+      <goodsDescription>KIT-BRAKE CALIPER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87083029</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>8.760</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>363.84</invoiceAmount>
+      <goodsGrossWeight>8.760</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>24</goodsSerialNo>
+      <goodsDescription>V-BELT (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40103300</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.280</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>11.56</invoiceAmount>
+      <goodsGrossWeight>0.280</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>25</goodsSerialNo>
+      <goodsDescription>RUBBER BUSH (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169911</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>1.190</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>49.32</invoiceAmount>
+      <goodsGrossWeight>1.190</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>26</goodsSerialNo>
+      <goodsDescription>WIPER MOTOR (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>85013160</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>PL</countryOrigin>
+      <quantity>2.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>210.62</invoiceAmount>
+      <goodsGrossWeight>5.070</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>27</goodsSerialNo>
+      <goodsDescription>SHAFT SEAL (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>40169390</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>TR</countryOrigin>
+      <quantity>2.300</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>95.60</invoiceAmount>
+      <goodsGrossWeight>2.300</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>28</goodsSerialNo>
+      <goodsDescription>SHOCK ABSORBER (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87088017</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>4.140</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>171.90</invoiceAmount>
+      <goodsGrossWeight>4.140</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>29</goodsSerialNo>
+      <goodsDescription>DOWEL</goodsDescription>
+      <goodsHSCode>73181990</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.260</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>3</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>10.86</invoiceAmount>
+      <goodsGrossWeight>0.260</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>30</goodsSerialNo>
+      <goodsDescription>STOP LIGHT SWITCH</goodsDescription>
+      <goodsHSCode>85365099</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.140</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>5.70</invoiceAmount>
+      <goodsGrossWeight>0.140</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>31</goodsSerialNo>
+      <goodsDescription>STOP LIGHT SWITCH</goodsDescription>
+      <goodsHSCode>85365099</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.140</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>5.70</invoiceAmount>
+      <goodsGrossWeight>0.140</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>32</goodsSerialNo>
+      <goodsDescription>NUT</goodsDescription>
+      <goodsHSCode>73181690</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>IT</countryOrigin>
+      <quantity>0.040</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>1.70</invoiceAmount>
+      <goodsGrossWeight>0.040</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>33</goodsSerialNo>
+      <goodsDescription>TIE ROD JOINT (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>3.650</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>4</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>151.72</invoiceAmount>
+      <goodsGrossWeight>3.650</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>34</goodsSerialNo>
+      <goodsDescription>TIE ROD JOINT (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>0.910</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>37.93</invoiceAmount>
+      <goodsGrossWeight>0.910</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>35</goodsSerialNo>
+      <goodsDescription>TIE ROD JOINT (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>87082999</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>0.910</quantity>
+      <quantityUOM>KGM</quantityUOM>
+      <noPackages>1</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>37.93</invoiceAmount>
+      <goodsGrossWeight>0.910</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+  <Goods>
+      <goodsSerialNo>36</goodsSerialNo>
+      <goodsDescription>AIR DRYER CARTRIDGE (IVECO AUTO PARTS)</goodsDescription>
+      <goodsHSCode>84213990</goodsHSCode>
+      <shippingMarks>2 PACKAGES</shippingMarks>
+      <countryOrigin>DE</countryOrigin>
+      <quantity>2.000</quantity>
+      <quantityUOM>UNT</quantityUOM>
+      <noPackages>2</noPackages>
+      <noPackagesUnit>PCS</noPackagesUnit>
+      <invoiceNo>GB02601026</invoiceNo>
+      <invoiceAmount>66.24</invoiceAmount>
+      <goodsGrossWeight>1.600</goodsGrossWeight>
+      <goodsGrossWeightUnit>KG</goodsGrossWeightUnit>
+
+  </Goods>
+
+</Declaration>

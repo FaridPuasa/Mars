@@ -6,7 +6,6 @@
 <div class="container-fluid py-4" style="max-width: 1400px;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h3 mb-0">HS Code</h1>
-    <button type="button" class="btn btn-mars" data-bs-toggle="modal" data-bs-target="#addHscodeModal">Add HSCode</button>
   </div>
   <p><a href="https://tradingacrossborders.mofe.gov.bn/PublishingImages/SitePages/home/BDTTC%202022.pdf" target="_blank" rel="noopener">All HSCode are based on Tariff 2022 under MOFE</a></p>
 
@@ -54,15 +53,6 @@
           <td><%= h.ImportDutyRate %></td>
           <td><%= h.ExciseDutyRate %></td>
           <td class="text-nowrap">
-            <button type="button" class="btn btn-sm btn-outline-primary edit-hscode-btn"
-              data-id="<%= h._id %>"
-              data-hscode="<%= h.HSCode %>"
-              data-description="<%= h.Description %>"
-              data-category="<%= h.category %>"
-              data-subcategory="<%= h.subCategory %>"
-              data-quantity="<%= h.Quantity %>"
-              data-importdutyrate="<%= h.ImportDutyRate %>"
-              data-excisedutyrate="<%= h.ExciseDutyRate %>">Edit</button>
             <% if (username.designation === 'Admin') { %>
             <button type="button" class="btn btn-sm btn-outline-danger delete-hscode-btn"
               data-id="<%= h._id %>" data-label="<%= h.HSCode %> - <%= h.Description %>">Delete</button>
@@ -75,61 +65,6 @@
   </div>
 
   <%- include('partials/pagination', { baseUrl: '/hscode', currentPage, totalPages, q, totalCount }); %>
-</div>
-
-<!-- Add Modal -->
-<div class="modal fade" id="addHscodeModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <form class="modal-content" action="/hscode/create" method="POST">
-      <div class="modal-header">
-        <h5 class="modal-title">Add HSCode</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" name="page" value="<%= currentPage %>">
-        <input type="hidden" name="q" value="<%= q %>">
-        <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" class="form-control" placeholder="e.g. 0101.21.00" required></div>
-        <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" class="form-control" placeholder="e.g. 01.01 - Live horses, asses, mules and hinnies."></div>
-        <div class="mb-2"><label class="form-label">Sub-Category</label><input type="text" name="subCategory" class="form-control" placeholder="e.g. Horses"></div>
-        <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" class="form-control"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-mars">Add</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="editHscodeModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <form class="modal-content" action="/hscode/update" method="POST">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit HSCode</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" name="_id" id="editHscodeId">
-        <input type="hidden" name="page" value="<%= currentPage %>">
-        <input type="hidden" name="q" value="<%= q %>">
-        <div class="mb-2"><label class="form-label">HSCode</label><input type="text" name="HSCode" id="editHSCode" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Description</label><input type="text" name="Description" id="editDescription" class="form-control" required></div>
-        <div class="mb-2"><label class="form-label">Category</label><input type="text" name="category" id="editCategory" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Sub-Category</label><input type="text" name="subCategory" id="editSubCategory" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Quantity</label><input type="text" name="Quantity" id="editQuantity" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Rate of Import Duty</label><input type="text" name="ImportDutyRate" id="editImportDutyRate" class="form-control"></div>
-        <div class="mb-2"><label class="form-label">Rate of Excise Duty</label><input type="text" name="ExciseDutyRate" id="editExciseDutyRate" class="form-control"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-mars">Save</button>
-      </div>
-    </form>
-  </div>
 </div>
 
 <!-- Delete Confirm Modal -->
@@ -154,20 +89,6 @@
 <%- include('partials/footer'); %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  document.querySelectorAll('.edit-hscode-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.getElementById('editHscodeId').value = btn.dataset.id;
-      document.getElementById('editHSCode').value = btn.dataset.hscode;
-      document.getElementById('editDescription').value = btn.dataset.description;
-      document.getElementById('editCategory').value = btn.dataset.category;
-      document.getElementById('editSubCategory').value = btn.dataset.subcategory;
-      document.getElementById('editQuantity').value = btn.dataset.quantity;
-      document.getElementById('editImportDutyRate').value = btn.dataset.importdutyrate;
-      document.getElementById('editExciseDutyRate').value = btn.dataset.excisedutyrate;
-      new bootstrap.Modal(document.getElementById('editHscodeModal')).show();
-    });
-  });
-
   document.querySelectorAll('.delete-hscode-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.getElementById('deleteHscodeLabel').textContent = btn.dataset.label;
