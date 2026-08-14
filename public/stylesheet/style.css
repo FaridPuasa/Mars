@@ -1,9 +1,10 @@
 :root {
     --mars-orange:        #F47920;
-    --mars-orange-dark:   #D9660D;
-    --mars-orange-subtle: #FDE9D9;
     --mars-blue:          #1B75BC;
     --mars-blue-dark:     #145A91;
+    --mars-accent:        #2E9B8F;
+    --mars-accent-dark:   #1F776D;
+    --mars-accent-subtle: #E3F3F1;
     --mars-bg:            #F7F8FA;
     --mars-surface:       #FFFFFF;
     --mars-border:        #E5E7EB;
@@ -36,18 +37,18 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .mars-nav-link:hover {
-    color: var(--mars-orange) !important;
+    color: var(--mars-accent-dark) !important;
 }
 
 .btn-mars {
-    background-color: var(--mars-orange);
-    border-color: var(--mars-orange);
+    background-color: var(--mars-accent);
+    border-color: var(--mars-accent);
     color: #fff;
 }
 
 .btn-mars:hover {
-    background-color: var(--mars-orange-dark);
-    border-color: var(--mars-orange-dark);
+    background-color: var(--mars-accent-dark);
+    border-color: var(--mars-accent-dark);
     color: #fff;
 }
 
@@ -63,6 +64,42 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     color: #fff;
 }
 
+.mars-user-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.3rem 0.9rem 0.3rem 0.3rem;
+    border-radius: 999px;
+    border: 1px solid var(--mars-border);
+    background-color: var(--mars-surface);
+    color: var(--mars-text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color .15s ease, border-color .15s ease;
+}
+
+.mars-user-chip:hover,
+.mars-user-chip:focus,
+.mars-user-chip.show {
+    background-color: var(--mars-accent-subtle);
+    border-color: var(--mars-accent);
+    color: var(--mars-text);
+}
+
+.mars-user-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--mars-blue);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
 .mars-tile {
     transition: transform .15s ease, box-shadow .15s ease;
     border-radius: .75rem;
@@ -72,7 +109,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .mars-tile:hover {
     transform: translateY(-4px);
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1) !important;
-    border-top: 3px solid var(--mars-orange);
+    border-top: 3px solid var(--mars-accent);
 }
 
 .mars-tile-icon {
@@ -91,7 +128,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .mars-meta-bar {
-    background: var(--mars-orange-subtle);
+    background: var(--mars-accent-subtle);
     border-radius: 0.75rem;
     padding: 0.85rem 1.25rem;
     margin-bottom: 1.25rem;
@@ -104,7 +141,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .mars-meta-bar label {
     font-weight: 600;
     font-size: 0.8rem;
-    color: var(--mars-orange-dark);
+    color: var(--mars-accent-dark);
     margin: 0 0.4rem 0 0;
 }
 
@@ -123,7 +160,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .mars-card-header {
-    background: linear-gradient(135deg, var(--mars-orange) 0%, var(--mars-orange-dark) 100%);
+    background: linear-gradient(135deg, var(--mars-accent) 0%, var(--mars-accent-dark) 100%);
     color: #fff;
     font-weight: 700;
     font-size: 0.85rem;
@@ -163,14 +200,14 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .btn-mars-step:hover {
-    background: var(--mars-orange-subtle);
-    color: var(--mars-orange-dark);
+    background: var(--mars-accent-subtle);
+    color: var(--mars-accent-dark);
 }
 
 .btn-mars-step.active {
-    background: var(--mars-orange);
+    background: var(--mars-accent);
     color: #fff;
-    box-shadow: 0 2px 6px rgba(244, 121, 32, 0.35);
+    box-shadow: 0 2px 6px rgba(46, 155, 143, 0.35);
 }
 
 .mars-field-table {
@@ -184,9 +221,9 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .mars-field-table tr:first-child td {
-    background: var(--mars-orange-subtle);
+    background: var(--mars-accent-subtle);
     font-weight: 600;
-    color: var(--mars-orange-dark);
+    color: var(--mars-accent-dark);
     padding: 0.6rem 1rem !important;
     border: none !important;
     font-size: 0.85rem;
@@ -246,7 +283,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 
 #Declaration3 .modal-header,
 #editRecords .modal-header {
-    border-bottom: 2px solid var(--mars-orange-subtle);
+    border-bottom: 2px solid var(--mars-accent-subtle);
 }
 
 #Declaration3 .modal-title,
@@ -409,8 +446,8 @@ input[readonly] {
     font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;
-    background-color: var(--mars-orange-subtle) !important;
-    color: var(--mars-orange-dark);
+    background-color: var(--mars-accent-subtle) !important;
+    color: var(--mars-accent-dark);
 }
 
 .hscode-subcategory-row > td {

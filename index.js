@@ -104,9 +104,41 @@ app.use(override("_method"));
 
 
 
-app.get("/", requireLogin, (req, res) => {
-  res.render("index.ejs")
-})
+const renderSingleWindowList = async (req, res) => {
+  const user = await User.find({});
+  const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo } = req.query;
+
+  const filter = {};
+  if (invoiceNo?.trim()) {
+    filter["Goods.goodsInvoiceNo"] = { $regex: invoiceNo.trim(), $options: "i" };
+  }
+  if (importer?.trim()) {
+    filter["Importer.importerName"] = { $regex: importer.trim(), $options: "i" };
+  }
+  if (vessel?.trim()) {
+    filter["Transport.vesselName"] = { $regex: vessel.trim(), $options: "i" };
+  }
+  if (country?.trim()) {
+    filter["Transport.countryShipment"] = { $regex: country.trim(), $options: "i" };
+  }
+  if (agent?.trim()) {
+    filter["Agent.agentName"] = { $regex: agent.trim(), $options: "i" };
+  }
+  if (dateFrom?.trim() || dateTo?.trim()) {
+    filter.declarationDate = {};
+    if (dateFrom?.trim()) filter.declarationDate.$gte = dateFrom.trim();
+    if (dateTo?.trim()) filter.declarationDate.$lte = dateTo.trim();
+  }
+
+  const declaration3 = await Declaration3.find(filter).sort({Transport:-1});
+  res.render("bdnsw.ejs", {
+    user: user,
+    declaration3: declaration3,
+    filters: { invoiceNo: invoiceNo || "", importer: importer || "", vessel: vessel || "", country: country || "", agent: agent || "", dateFrom: dateFrom || "", dateTo: dateTo || "" }
+  })
+};
+
+app.get("/", requireLogin, renderSingleWindowList)
 
 app.get("/register", (req, res) => {
     res.render("register.ejs")
@@ -158,39 +190,7 @@ app.post("/login",
     }),
 );
 
-app.get("/bdnsw", requireLogin, async (req, res) => {
-  const user = await User.find({});
-  const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo } = req.query;
-
-  const filter = {};
-  if (invoiceNo?.trim()) {
-    filter["Goods.goodsInvoiceNo"] = { $regex: invoiceNo.trim(), $options: "i" };
-  }
-  if (importer?.trim()) {
-    filter["Importer.importerName"] = { $regex: importer.trim(), $options: "i" };
-  }
-  if (vessel?.trim()) {
-    filter["Transport.vesselName"] = { $regex: vessel.trim(), $options: "i" };
-  }
-  if (country?.trim()) {
-    filter["Transport.countryShipment"] = { $regex: country.trim(), $options: "i" };
-  }
-  if (agent?.trim()) {
-    filter["Agent.agentName"] = { $regex: agent.trim(), $options: "i" };
-  }
-  if (dateFrom?.trim() || dateTo?.trim()) {
-    filter.declarationDate = {};
-    if (dateFrom?.trim()) filter.declarationDate.$gte = dateFrom.trim();
-    if (dateTo?.trim()) filter.declarationDate.$lte = dateTo.trim();
-  }
-
-  const declaration3 = await Declaration3.find(filter).sort({Transport:-1});
-  res.render("bdnsw.ejs", {
-    user: user,
-    declaration3: declaration3,
-    filters: { invoiceNo: invoiceNo || "", importer: importer || "", vessel: vessel || "", country: country || "", agent: agent || "", dateFrom: dateFrom || "", dateTo: dateTo || "" }
-  })
-})
+app.get("/bdnsw", requireLogin, renderSingleWindowList)
 
 app.get("/bdnswadd", requireLogin, async (req, res) => {
   const declaration3 = await Declaration3.find({});

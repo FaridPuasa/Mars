@@ -20,9 +20,13 @@
             <a class="btn btn-mars btn-sm" href="/login">Log in</a>
           </li>
         <% } else { %>
+          <li class="nav-item me-lg-2"><a class="nav-link mars-nav-link" href="/hscode">HS Code</a></li>
+          <li class="nav-item me-lg-2"><a class="nav-link mars-nav-link" href="/unlocodeportlist">Unlocode Port</a></li>
+          <li class="nav-item me-lg-2"><a class="nav-link mars-nav-link" href="/customers">Customers</a></li>
           <li class="nav-item">
             <div class="dropdown">
-              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn mars-user-chip dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="mars-user-avatar"><%= username.name.charAt(0).toUpperCase() %></span>
                 <%= username.name %>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
