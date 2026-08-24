@@ -28,6 +28,21 @@ const ISO_CountryCodes = require("./models/iso_countrycodes");
 //port2 cleaned from unnecessary headers e.g. location, name2, coordinates
 const Unlocode_port_list2 = require("./models/unlocode_port_list2");
 
+// Postgres/Supabase dual-write (migration to the shared Supabase project
+// grfmxstatusupdate also migrates into, `mars` schema). Off by default -
+// see dualWrite.js. Postgres write failures never fail the Mongo request.
+const {
+  syncUserToPostgres,
+  dualWriteDeleteUser,
+  syncConsigneeToPostgres,
+  syncConsigneeByNameToPostgres,
+  dualWriteDeleteConsignee,
+  syncDeclarationToPostgres,
+  dualWriteDeleteDeclaration,
+  syncUnlocodePortToPostgres,
+  dualWriteDeleteUnlocodePort,
+} = require("./dualWriteSync");
+
 app.set("view-engine", "ejs")
 app.use(express.urlencoded({ extended: false }))
 
@@ -175,6 +190,7 @@ app.post("/register", async (req, res) => {
         designation,
        });
       await user.save();
+      await syncUserToPostgres(user);
       res.redirect("/login");
     } catch (error) {
       console.log(error);
@@ -253,7 +269,8 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
     update.password = await bcrypt.hash(newPassword, 10);
   }
 
-  await User.findByIdAndUpdate(req.user._id, { $set: update }, { new: true });
+  const updatedUser = await User.findByIdAndUpdate(req.user._id, { $set: update }, { new: true }).select("+password");
+  if (updatedUser) await syncUserToPostgres(updatedUser);
   res.redirect("/profile");
 });
 
@@ -748,6 +765,7 @@ app.post("/declaration3", requireLogin, async (req, res) => {
         new: true,
       }
     )
+    await syncConsigneeByNameToPostgres(Consignee, importerName);
   }
   else {
     const consignee = new Consignee ({
@@ -762,6 +780,7 @@ app.post("/declaration3", requireLogin, async (req, res) => {
 
     });
     await consignee.save();
+    await syncConsigneeToPostgres(consignee);
   }
 
   if (exporterName?.trim()) {
@@ -771,6 +790,7 @@ app.post("/declaration3", requireLogin, async (req, res) => {
         $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
       { upsert: true }
     );
+    await syncConsigneeByNameToPostgres(Consignee, exporterName);
   }
 
   if (agentName?.trim()) {
@@ -780,13 +800,15 @@ app.post("/declaration3", requireLogin, async (req, res) => {
         $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
       { upsert: true }
     );
+    await syncConsigneeByNameToPostgres(Consignee, agentName);
   }
 
 
-  
+
   await declaration3.save();
-  
-  
+  await syncDeclarationToPostgres(declaration3);
+
+
 
   res.redirect("/bdnsw");
   
@@ -1266,8 +1288,11 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
     {
       new: true,
     }
-    
+
   )
+
+  const updatedDeclaration3 = await Declaration3.findById(req.body._id);
+  if (updatedDeclaration3) await syncDeclarationToPostgres(updatedDeclaration3);
 
   const checkConsignee = await Consignee.findOne({ 'name' : importerName })
   if (checkConsignee) {
@@ -1288,6 +1313,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
         new: true,
       }
     )
+    await syncConsigneeByNameToPostgres(Consignee, importerName);
   }
   else {
     const consignee = new Consignee ({
@@ -1301,6 +1327,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
 
     });
     await consignee.save();
+    await syncConsigneeToPostgres(consignee);
   }
 
   if (exporterName?.trim()) {
@@ -1310,6 +1337,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
         $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
       { upsert: true }
     );
+    await syncConsigneeByNameToPostgres(Consignee, exporterName);
   }
 
   if (agentName?.trim()) {
@@ -1319,6 +1347,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
         $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
       { upsert: true }
     );
+    await syncConsigneeByNameToPostgres(Consignee, agentName);
   }
 
   res.redirect("/bdnsw");
@@ -1326,6 +1355,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
 
 app.post("/declaration3/delete/:id", requireLogin, requireAdmin, async (req, res) => {
   await Declaration3.findByIdAndDelete(req.params.id);
+  await dualWriteDeleteDeclaration(req.params.id);
   res.redirect("/bdnsw");
 });
 
@@ -1680,11 +1710,12 @@ app.post("/unlocodeportlist/create", requireLogin, async (req, res) => {
     req.flash("error", "Country, Location and Name are required.");
     return res.redirect(redirectUrl);
   }
-  await Unlocode_port_list2.create({
+  const createdUnlocode = await Unlocode_port_list2.create({
     Country: Country.trim(),
     Location: Location.trim(),
     Name: Name.trim(),
   });
+  await syncUnlocodePortToPostgres(createdUnlocode);
   res.redirect(redirectUrl);
 });
 
@@ -1701,11 +1732,13 @@ app.post("/unlocodeportlist/update", requireLogin, async (req, res) => {
     { new: true, runValidators: true }
   );
   if (!updated) req.flash("error", "Unlocode record not found.");
+  else await syncUnlocodePortToPostgres(updated);
   res.redirect(redirectUrl);
 });
 
 app.post("/unlocodeportlist/delete/:id", requireLogin, requireAdmin, async (req, res) => {
   await Unlocode_port_list2.findByIdAndDelete(req.params.id);
+  await dualWriteDeleteUnlocodePort(req.params.id);
   const { page, q } = req.query;
   res.redirect(`/unlocodeportlist?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
@@ -1741,7 +1774,7 @@ app.post("/customers/create", requireLogin, async (req, res) => {
     req.flash("error", "Name, Address, Registration, Country, Telephone and Postal are required.");
     return res.redirect(redirectUrl);
   }
-  await Consignee.create({
+  const createdConsignee = await Consignee.create({
     name: name.trim(),
     address: address.trim(),
     reg: reg.trim(),
@@ -1749,6 +1782,7 @@ app.post("/customers/create", requireLogin, async (req, res) => {
     telephone: telephone.trim(),
     postal: postal.trim(),
   });
+  await syncConsigneeToPostgres(createdConsignee);
   res.redirect(redirectUrl);
 });
 
@@ -1772,11 +1806,13 @@ app.post("/customers/update", requireLogin, async (req, res) => {
     { new: true, runValidators: true }
   );
   if (!updated) req.flash("error", "Customer record not found.");
+  else await syncConsigneeToPostgres(updated);
   res.redirect(redirectUrl);
 });
 
 app.post("/customers/delete/:id", requireLogin, requireAdmin, async (req, res) => {
   await Consignee.findByIdAndDelete(req.params.id);
+  await dualWriteDeleteConsignee(req.params.id);
   const { page, q } = req.query;
   res.redirect(`/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
@@ -1800,7 +1836,7 @@ app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
     return res.redirect("/users");
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  await User.create({
+  const createdUser = await User.create({
     name: name.trim(),
     email: email.trim(),
     password: hashedPassword,
@@ -1811,6 +1847,7 @@ app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
     designation: (designation || "").trim(),
     company: (company || "").trim() || undefined,
   });
+  await syncUserToPostgres(createdUser);
   req.flash("success", "User created.");
   res.redirect("/users");
 });
@@ -1846,9 +1883,12 @@ app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
     update.password = await bcrypt.hash(password.trim(), 10);
   }
   const mongoUpdate = Object.keys(unset).length ? { $set: update, $unset: unset } : { $set: update };
-  const updated = await User.findByIdAndUpdate(_id, mongoUpdate, { new: true, runValidators: true });
+  const updated = await User.findByIdAndUpdate(_id, mongoUpdate, { new: true, runValidators: true }).select("+password");
   if (!updated) req.flash("error", "User not found.");
-  else req.flash("success", "User updated.");
+  else {
+    await syncUserToPostgres(updated);
+    req.flash("success", "User updated.");
+  }
   res.redirect("/users");
 });
 
@@ -1858,6 +1898,7 @@ app.post("/users/delete/:id", requireLogin, requireAdmin, async (req, res) => {
     return res.redirect("/users");
   }
   await User.findByIdAndDelete(req.params.id);
+  await dualWriteDeleteUser(req.params.id);
   req.flash("success", "User deleted.");
   res.redirect("/users");
 });

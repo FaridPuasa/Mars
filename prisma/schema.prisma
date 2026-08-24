@@ -1,0 +1,335 @@
+// Supabase/Postgres schema for this app's own writes. Mirrors the `mars`
+// schema definitions owned by the sibling app `grfmxstatusupdate` (same
+// Supabase project) - this file exists ONLY for Prisma Client generation
+// here, it is NOT the source of truth for migrations.
+//
+// IMPORTANT: never run `prisma migrate` from this repo. All schema changes
+// to the `mars` Postgres schema are made from grfmxstatusupdate's own
+// prisma/schema.prisma + `prisma migrate dev`, since it's the established
+// owner of migration history for shared schemas (it also owns `gr_dms` and
+// `vehicle` the same way). If a model here needs to change, make the
+// change in grfmxstatusupdate first, run its migration, then copy the
+// resulting model block back into this file and run `npx prisma generate`
+// (not `migrate`) here.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["mars"]
+}
+
+model MarsUser {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  name         String?
+  email        String?
+  password     String?
+  phone        String?
+  idType       String?   @map("id_type")
+  icNo         String?   @map("ic_no")
+  icColor      String?   @map("ic_color")
+  address      String?
+  registration String?
+  postcode     String?
+  designation  String?
+  company      String?
+  createdAt    DateTime? @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+
+  @@map("users")
+  @@schema("mars")
+}
+
+model MarsConsignee {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  name      String?
+  address   String?
+  country   String?
+  reg       String?
+  ic        String?
+  icColor   String? @map("ic_color")
+  telephone String?
+  postal    String?
+
+  @@map("consignees")
+  @@schema("mars")
+}
+
+model MarsDeclaration {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  dateGranted     String? @map("date_granted")
+  departureDate   String? @map("departure_date")
+  cept            String?
+  declarationDate String? @map("declaration_date")
+  shippingMark    String? @map("shipping_mark")
+  postedBy        String? @map("posted_by")
+
+  customsProcedure      String? @map("customs_procedure")
+  customsProcedureCode  String? @map("customs_procedure_code")
+  prevProcedure         String? @map("prev_procedure")
+  prevProcedureCode     String? @map("prev_procedure_code")
+  dutiableIndicator     String? @map("dutiable_indicator")
+  dutiableIndicatorCode String? @map("dutiable_indicator_code")
+  clearanceStation      String? @map("clearance_station")
+  clearanceStationCode  String? @map("clearance_station_code")
+
+  exporterName         String? @map("exporter_name")
+  exporterAddress      String? @map("exporter_address")
+  exporterRegistration String? @map("exporter_registration")
+  exporterCountry      String? @map("exporter_country")
+  exporterPhone        String? @map("exporter_phone")
+  exporterPostal       String? @map("exporter_postal")
+  exporterTransport    String? @map("exporter_transport")
+
+  importerType         String? @map("importer_type")
+  importerName         String? @map("importer_name")
+  importerAddress      String? @map("importer_address")
+  regTraderCoyRegNo    String? @map("reg_trader_coy_reg_no")
+  importerRegistration String? @map("importer_registration")
+  importerICColor      String? @map("importer_ic_color")
+  importerPhone        String? @map("importer_phone")
+  importerPostal       String? @map("importer_postal")
+
+  agentName         String? @map("agent_name")
+  agentAddress      String? @map("agent_address")
+  agentRegistration String? @map("agent_registration")
+  agentPhone        String? @map("agent_phone")
+  agentPostal       String? @map("agent_postal")
+
+  arrivalDate            String? @map("arrival_date")
+  containerNo            String? @map("container_no")
+  vesselNo               String? @map("vessel_no")
+  vesselName             String? @map("vessel_name")
+  bldoawb                String?
+  hbhawb                 String?
+  countryShipment        String? @map("country_shipment")
+  countryShipmentCode    String? @map("country_shipment_code")
+  countryDestination     String? @map("country_destination")
+  countryDestinationCode String? @map("country_destination_code")
+  portOfEntry            String? @map("port_of_entry")
+  portOfEntryCode        String? @map("port_of_entry_code")
+  portOfDischarge        String? @map("port_of_discharge")
+  portOfDischargeCode    String? @map("port_of_discharge_code")
+  placeRelease           String? @map("place_release")
+  placeReleaseCode       String? @map("place_release_code")
+  placeReceipt           String? @map("place_receipt")
+  placeReceiptCode       String? @map("place_receipt_code")
+
+  exchangeCurrency  String? @map("exchange_currency")
+  exchangeRate      String? @map("exchange_rate")
+  prevDeclarationNo String? @map("prev_declaration_no")
+  dutyExem          String? @map("duty_exem")
+  portOfExit        String? @map("port_of_exit")
+  portOfExitCode    String? @map("port_of_exit_code")
+
+  typeOfApplication String? @map("type_of_application")
+  grantedPeriod     String? @map("granted_period")
+  estDateOfExport   String? @map("est_date_of_export")
+  placeExport       String? @map("place_export")
+  projectName       String? @map("project_name")
+  projectDateFrom   String? @map("project_date_from")
+  projectDateTo     String? @map("project_date_to")
+
+  modeTransport        String? @map("mode_transport")
+  meanTransport        String? @map("mean_transport")
+  officeDeptFirst      String? @map("office_dept_first")
+  officeDeptFirstCode  String? @map("office_dept_first_code")
+  officeDeptLast       String? @map("office_dept_last")
+  officeDeptLastCode   String? @map("office_dept_last_code")
+  officeDeptSecond     String? @map("office_dept_second")
+  officeDeptSecondCode String? @map("office_dept_second_code")
+  officeDeptThird      String? @map("office_dept_third")
+  officeDeptThirdCode  String? @map("office_dept_third_code")
+
+  depositType         String?  @map("deposit_type")
+  depositAmount       Decimal? @map("deposit_amount") @db.Decimal(14, 2)
+  bankGuaranteeAmount Decimal? @map("bank_guarantee_amount") @db.Decimal(14, 2)
+  bankGuaranteeNo     String?  @map("bank_guarantee_no")
+  bankName            String?  @map("bank_name")
+  bankCode            String?  @map("bank_code")
+
+  totalGrossWeight     Decimal? @map("total_gross_weight") @db.Decimal(14, 3)
+  grossWeightUnit      String?  @map("gross_weight_unit")
+  totalPackagesNo      Int?     @map("total_packages_no")
+  packageNoUnit        String?  @map("package_no_unit")
+  totalInvoiceAmount   Decimal? @map("total_invoice_amount") @db.Decimal(14, 2)
+  invoiceCurrency      String?  @map("invoice_currency")
+  invoiceRate          Decimal? @map("invoice_rate") @db.Decimal(14, 6)
+  invoiceInsuranceType String?  @map("invoice_insurance_type")
+  insuranceAmount      Decimal? @map("insurance_amount") @db.Decimal(14, 2)
+  insuranceCurrency    String?  @map("insurance_currency")
+  insuranceRate        Decimal? @map("insurance_rate") @db.Decimal(14, 6)
+  freightType          String?  @map("freight_type")
+  freightCharge        Decimal? @map("freight_charge") @db.Decimal(14, 2)
+  freightCurrency      String?  @map("freight_currency")
+  freightRate          Decimal? @map("freight_rate") @db.Decimal(14, 6)
+  otherCharges         Decimal? @map("other_charges") @db.Decimal(14, 2)
+  otherChargesType     String?  @map("other_charges_type")
+  remarks              String?
+
+  declarantName        String? @map("declarant_name")
+  declarantID          String? @map("declarant_id")
+  declarantICNo        String? @map("declarant_ic_no")
+  declarantICColor     String? @map("declarant_ic_color")
+  declarantDesignation String? @map("declarant_designation")
+
+  invoices   MarsDeclarationInvoice[]
+  goodsLines MarsDeclarationGoodsLine[]
+  containers MarsDeclarationContainer[]
+
+  @@map("declarations")
+  @@schema("mars")
+}
+
+model MarsDeclarationInvoice {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  declarationId          BigInt          @map("declaration_id")
+  declaration            MarsDeclaration @relation(fields: [declarationId], references: [id], onDelete: Cascade)
+  invoiceNo              String?         @map("invoice_no")
+  invoiceDate            String?         @map("invoice_date")
+  invoiceTerm            String?         @map("invoice_term")
+  invoiceCCY             String?         @map("invoice_ccy")
+  invoiceAmount          String?         @map("invoice_amount")
+  invoiceFreightCCY      String?         @map("invoice_freight_ccy")
+  invoiceFreightAmount   String?         @map("invoice_freight_amount")
+  invoiceInsuranceCCY    String?         @map("invoice_insurance_ccy")
+  invoiceInsuranceAmount String?         @map("invoice_insurance_amount")
+  invoiceOtherCharges    String?         @map("invoice_other_charges")
+
+  @@index([declarationId])
+  @@map("declaration_invoices")
+  @@schema("mars")
+}
+
+model MarsDeclarationGoodsLine {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  declarationId         BigInt          @map("declaration_id")
+  declaration           MarsDeclaration @relation(fields: [declarationId], references: [id], onDelete: Cascade)
+  goodsSerialNo         Int?            @map("goods_serial_no")
+  goodsPackageNo        Int?            @map("goods_package_no")
+  goodsPackageUnit      String?         @map("goods_package_unit")
+  countryOrigin         String?         @map("country_origin")
+  countryCode           String?         @map("country_code")
+  hsCode                String?         @map("hs_code")
+  subCode               String?         @map("sub_code")
+  goodsDescription      String?         @map("goods_description")
+  goodsC                String?         @map("goods_c")
+  goodsUnit             String?         @map("goods_unit")
+  goodsCode             String?         @map("goods_code")
+  goodsQuantity         Decimal?        @map("goods_quantity") @db.Decimal(14, 3)
+  goodsWeight           Decimal?        @map("goods_weight") @db.Decimal(14, 3)
+  goodsAmount           Decimal?        @map("goods_amount") @db.Decimal(14, 2)
+  goodsCIF              String?         @map("goods_cif")
+  goodsDuty             String?         @map("goods_duty")
+  goodsDutyAmount       Decimal?        @map("goods_duty_amount") @db.Decimal(14, 2)
+  goodsLNo              String?         @map("goods_l_no")
+  goodsShippingMark     String?         @map("goods_shipping_mark")
+  goodsContainerNo      String?         @map("goods_container_no")
+  goodsInvoiceNo        String?         @map("goods_invoice_no")
+  goodsControl          String?         @map("goods_control")
+  goodsImportDuty       String?         @map("goods_import_duty")
+  goodsExciseDuty       String?         @map("goods_excise_duty")
+  permitApplicationType String?         @map("permit_application_type")
+  permitNo              String?         @map("permit_no")
+  permitExpiryDate      String?         @map("permit_expiry_date")
+  permitIssuedBy        String?         @map("permit_issued_by")
+
+  @@index([declarationId])
+  @@map("declaration_goods_lines")
+  @@schema("mars")
+}
+
+model MarsDeclarationContainer {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  declarationId      BigInt          @map("declaration_id")
+  declaration        MarsDeclaration @relation(fields: [declarationId], references: [id], onDelete: Cascade)
+  containerNumber    String?         @map("container_number")
+  containerType      String?         @map("container_type")
+  cargoStatus        String?         @map("cargo_status")
+  sealNumber         String?         @map("seal_number")
+  containerWeight    Decimal?        @map("container_weight") @db.Decimal(14, 3)
+  containerWeightUOM String?         @map("container_weight_uom")
+
+  @@index([declarationId])
+  @@map("declaration_containers")
+  @@schema("mars")
+}
+
+model MarsHsCode {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  heading        String?
+  hsCode         String? @map("hs_code")
+  description    String?
+  quantity       String?
+  importDutyRate String? @map("import_duty_rate")
+  exciseDutyRate String? @map("excise_duty_rate")
+  category       String?
+  subCategory    String? @map("sub_category")
+
+  @@index([hsCode])
+  @@index([heading])
+  @@map("hs_codes")
+  @@schema("mars")
+}
+
+model MarsPortCode {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  country  String?
+  portCode String? @map("port_code")
+
+  @@map("port_codes")
+  @@schema("mars")
+}
+
+model MarsCountryCode {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  name                   String?
+  alpha2                 String?
+  alpha3                 String? @map("alpha_3")
+  countryCode            String? @map("country_code")
+  iso31662               String? @map("iso_3166_2")
+  region                 String?
+  subRegion              String? @map("sub_region")
+  intermediateRegion     String? @map("intermediate_region")
+  regionCode             String? @map("region_code")
+  subRegionCode          String? @map("sub_region_code")
+  intermediateRegionCode Int?    @map("intermediate_region_code")
+
+  @@map("country_codes")
+  @@schema("mars")
+}
+
+model MarsUnlocodePort {
+  id      BigInt  @id @default(autoincrement())
+  mongoId String? @unique @map("mongo_id")
+
+  country  String?
+  location String?
+  name     String?
+
+  @@index([name])
+  @@map("unlocode_ports")
+  @@schema("mars")
+}

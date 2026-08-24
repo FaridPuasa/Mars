@@ -13,6 +13,7 @@
     "node": ">=20.1.0"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "@validide/resizable-table-columns": "^2.1.0",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^4.6.0",
@@ -28,6 +29,7 @@
     "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prisma": "^6.19.3"
   }
 }
