@@ -4,44 +4,23 @@ const initializePassport = require("./passport");
 const session = require("express-session");
 const flash = require("express-flash");
 const override = require("method-override");
-const MongoStore = require("connect-mongo");
+const { Pool } = require("pg");
+const PgSession = require("connect-pg-simple")(session);
 var builder = require('xmlbuilder');
 let fs = require('fs');
 
 initializePassport(passport);
 const app = express()
 
-
-const mongoose = require("mongoose");
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");
 
-//models
-const User = require("./models/user");
-const Bdnsw = require("./models/bdnswdata"); //accounts
-const Declaration3 = require("./models/declaration3");
-const Consignee = require("./models/consignee");
-const Hscode2 = require("./models/hscode2");
-const Port_Code = require("./models/port_code");
-const ISO_CountryCodes = require("./models/iso_countrycodes");
-//port2 cleaned from unnecessary headers e.g. location, name2, coordinates
-const Unlocode_port_list2 = require("./models/unlocode_port_list2");
-
-// Postgres/Supabase dual-write (migration to the shared Supabase project
-// grfmxstatusupdate also migrates into, `mars` schema). Off by default -
-// see dualWrite.js. Postgres write failures never fail the Mongo request.
-const {
-  syncUserToPostgres,
-  dualWriteDeleteUser,
-  syncConsigneeToPostgres,
-  syncConsigneeByNameToPostgres,
-  dualWriteDeleteConsignee,
-  syncDeclarationToPostgres,
-  dualWriteDeleteDeclaration,
-  syncUnlocodePortToPostgres,
-  dualWriteDeleteUnlocodePort,
-} = require("./dualWriteSync");
+// Postgres-only data access - fully cut over from Mongo 2026-09-18. See
+// postgresMars.js/postgresMarsDeclaration.js's headers for the parity
+// check this was based on.
+const db = require("./postgresMars");
+const declarationsDb = require("./postgresMarsDeclaration");
 
 app.set("view-engine", "ejs")
 app.use(express.urlencoded({ extended: false }))
@@ -53,21 +32,11 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("mongoDB is connected"))
-  .catch((e) => console.log(e.message));
-
-
 app.use(flash());
+const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 app.use(
   session({
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      //ttl: 365 * 24 * 60 * 60, // = 365 days.
-    }),
+    store: new PgSession({ pool: sessionPool, schemaName: "mars", tableName: "session", createTableIfMissing: false }),
     secret: process.env.SECRET,
     resave: false, // if nothing is changed dont resave
     saveUninitialized: false, // dont save empty value in session
@@ -120,35 +89,13 @@ app.use(override("_method"));
 
 
 const renderSingleWindowList = async (req, res) => {
-  const user = await User.find({});
+  const user = await db.findAllUsers();
   const { invoiceNo, importer, vessel, country, agent, dateFrom, dateTo, mine } = req.query;
 
-  const filter = {};
-  if (invoiceNo?.trim()) {
-    filter["Goods.goodsInvoiceNo"] = { $regex: invoiceNo.trim(), $options: "i" };
-  }
-  if (importer?.trim()) {
-    filter["Importer.importerName"] = { $regex: importer.trim(), $options: "i" };
-  }
-  if (vessel?.trim()) {
-    filter["Transport.vesselName"] = { $regex: vessel.trim(), $options: "i" };
-  }
-  if (country?.trim()) {
-    filter["Transport.countryShipment"] = { $regex: country.trim(), $options: "i" };
-  }
-  if (agent?.trim()) {
-    filter["Agent.agentName"] = { $regex: agent.trim(), $options: "i" };
-  }
-  if (dateFrom?.trim() || dateTo?.trim()) {
-    filter.declarationDate = {};
-    if (dateFrom?.trim()) filter.declarationDate.$gte = dateFrom.trim();
-    if (dateTo?.trim()) filter.declarationDate.$lte = dateTo.trim();
-  }
-  if (mine === "1") {
-    filter.postedBy = req.user.email;
-  }
-
-  const declaration3 = await Declaration3.find(filter).sort({Transport:-1});
+  const declaration3 = await declarationsDb.findAllDeclarationsForList({
+    invoiceNo, importer, vessel, country, agent, dateFrom, dateTo,
+    postedBy: mine === "1" ? req.user.email : undefined,
+  });
   res.render("bdnsw.ejs", {
     user: user,
     declaration3: declaration3,
@@ -174,23 +121,12 @@ app.post("/register", async (req, res) => {
       designation,
     } = req.body;
     try {
-      let user = await User.findOne({ email: req.body.email });
+      let user = await db.findUserByEmail(req.body.email);
       if (user) {
         return res.status(400).json({ error: "User already exists" });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      user = new User({ 
-        name, 
-        email, 
-        password: hashedPassword, 
-        phone,
-        idType,
-        icNo,
-        icColor,
-        designation,
-       });
-      await user.save();
-      await syncUserToPostgres(user);
+      await db.createUser({ name, email, password: hashedPassword, phone, idType, icNo, icColor, designation });
       res.redirect("/login");
     } catch (error) {
       console.log(error);
@@ -212,28 +148,27 @@ app.post("/login",
 app.get("/bdnsw", requireLogin, renderSingleWindowList)
 
 app.get("/bdnswadd", requireLogin, async (req, res) => {
-  const declaration3 = await Declaration3.find({});
-  const port_code = await Port_Code.find({}).sort({country: 1});
-  const consignee = await Consignee.find({}).sort({name: 1});
-  const iso_countrycodes = await ISO_CountryCodes.find({}).sort({name: 1});
+  const declaration3 = await declarationsDb.findAllDeclarationsForList();
+  const port_code = await db.findAllPortCodes();
+  const consignee = await db.findAllConsigneesUnpaginated();
+  const iso_countrycodes = await db.findAllCountryCodes();
   res.render("bdnswadd.ejs", {declaration3: declaration3, port_code: port_code, consignee: consignee, iso_countrycodes: iso_countrycodes})
 })
 
 
 app.get("/bdnswedit/(:id)", requireLogin, async (req, res) => {
-  const user = await User.find({});
-  const declaration3 = await Declaration3.findOne({_id : req.params.id});
-  const port_code = await Port_Code.find({}).sort({country: 1});
-  const consignee = await Consignee.find({}).sort({name: 1});
-  const iso_countrycodes = await ISO_CountryCodes.find({}).sort({name: 1});
+  const user = await db.findAllUsers();
+  const declaration3 = await declarationsDb.findDeclarationById(req.params.id);
+  const port_code = await db.findAllPortCodes();
+  const consignee = await db.findAllConsigneesUnpaginated();
+  const iso_countrycodes = await db.findAllCountryCodes();
   res.render("bdnswedit.ejs", {user: user, declaration3: declaration3, port_code: port_code, consignee: consignee, iso_countrycodes: iso_countrycodes});
 });
 
 //edit profile
 app.get("/profile", requireLogin, async (req, res) => {
-  const user = await User.find({});
-  const bdnsw = await Bdnsw.find({});
-  res.render("profile.ejs", {user: user, bdnsw: bdnsw})
+  const user = await db.findAllUsers();
+  res.render("profile.ejs", {user: user})
 })
 
 app.post("/profileupdate", requireLogin, async (req, res) => {
@@ -260,7 +195,7 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
       req.flash("error", "New password and confirmation do not match.");
       return res.redirect("/profile");
     }
-    const user = await User.findById(req.user._id).select("+password");
+    const user = await db.findUserById(req.user._id);
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       req.flash("error", "Current password is incorrect.");
@@ -269,8 +204,7 @@ app.post("/profileupdate", requireLogin, async (req, res) => {
     update.password = await bcrypt.hash(newPassword, 10);
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.user._id, { $set: update }, { new: true }).select("+password");
-  if (updatedUser) await syncUserToPostgres(updatedUser);
+  const updatedUser = await db.updateUser(req.user._id, update);
   res.redirect("/profile");
 });
 
@@ -503,34 +437,34 @@ app.post("/declaration3", requireLogin, async (req, res) => {
   var declarationGoods = [];
   if(typeof(goodsSerialNo)=="string"){
     declarationGoods.push({
-      goodsSerialNo: goodsSerialNo[i],
-      goodsPackageNo: goodsPackageNo[i],
-      goodsPackageUnit: goodsPackageUnit[i],
-      countryOrigin: countryOrigin[i],
-      countryCode: countryCode[i],
-      hsCode: hsCode[i],
-      subCode: subCode[i],
-      goodsDescription: goodsDescription[i],
-      goodsC: goodsC[i],
-      goodsUnit: goodsUnit[i],
-      goodsCode: goodsCode[i],
-      goodsQuantity: goodsQuantity[i],
-      goodsWeight: goodsWeight[i],
-      goodsAmount: goodsAmount[i],
-      goodsCIF: goodsCIF[i],
-      goodsDuty: goodsDuty[i],
-      goodsDutyAmount: goodsDutyAmount[i],
-      goodsLNo: goodsLNo[i],
-      goodsShippingMark: goodsShippingMark[i],
-      goodsContainerNo: goodsContainerNo[i],
-      goodsInvoiceNo: goodsInvoiceNo[i],
-      goodsControl: goodsControl[i],
-      goodsImportDuty: goodsImportDuty[i],
-      goodsExciseDuty: goodsExciseDuty[i],
-      permitApplicationType: permitApplicationType[i],
-      permitNo: permitNo[i],
-      permitExpiryDate: permitExpiryDate[i],
-      permitIssuedBy: permitIssuedBy[i],
+      goodsSerialNo: goodsSerialNo,
+      goodsPackageNo: goodsPackageNo,
+      goodsPackageUnit: goodsPackageUnit,
+      countryOrigin: countryOrigin,
+      countryCode: countryCode,
+      hsCode: hsCode,
+      subCode: subCode,
+      goodsDescription: goodsDescription,
+      goodsC: goodsC,
+      goodsUnit: goodsUnit,
+      goodsCode: goodsCode,
+      goodsQuantity: goodsQuantity,
+      goodsWeight: goodsWeight,
+      goodsAmount: goodsAmount,
+      goodsCIF: goodsCIF,
+      goodsDuty: goodsDuty,
+      goodsDutyAmount: goodsDutyAmount,
+      goodsLNo: goodsLNo,
+      goodsShippingMark: goodsShippingMark,
+      goodsContainerNo: goodsContainerNo,
+      goodsInvoiceNo: goodsInvoiceNo,
+      goodsControl: goodsControl,
+      goodsImportDuty: goodsImportDuty,
+      goodsExciseDuty: goodsExciseDuty,
+      permitApplicationType: permitApplicationType,
+      permitNo: permitNo,
+      permitExpiryDate: permitExpiryDate,
+      permitIssuedBy: permitIssuedBy,
 
     });
   } else {
@@ -599,7 +533,7 @@ app.post("/declaration3", requireLogin, async (req, res) => {
     }
   }
 
-  const declaration3 = new Declaration3 ({
+  const declarationInput = {
     dateGranted,
     departureDate,
     cept,
@@ -744,32 +678,11 @@ app.post("/declaration3", requireLogin, async (req, res) => {
     Goods: declarationGoods,
     Containers: declarationContainers,
 
-  });
+  };
 
-  const checkConsignee = await Consignee.findOne({ 'name' : importerName })
+  const checkConsignee = await db.findConsigneeByName(importerName);
   if (checkConsignee) {
-    await Consignee.updateMany ({ name: importerName},
-      {$set: {
-
-        name: importerName,
-        address: importerAddress,
-        reg: regTraderCoyRegNo,
-        ic: importerRegistration,
-        icColor: importerICColor,
-        telephone: importerPhone,
-        postal: importerPostal,
-
-      }
-      },
-      {
-        new: true,
-      }
-    )
-    await syncConsigneeByNameToPostgres(Consignee, importerName);
-  }
-  else {
-    const consignee = new Consignee ({
-
+    await db.updateConsignee(checkConsignee._id, {
       name: importerName,
       address: importerAddress,
       reg: regTraderCoyRegNo,
@@ -777,41 +690,32 @@ app.post("/declaration3", requireLogin, async (req, res) => {
       icColor: importerICColor,
       telephone: importerPhone,
       postal: importerPostal,
-
     });
-    await consignee.save();
-    await syncConsigneeToPostgres(consignee);
+  }
+  else {
+    await db.createConsignee({
+      name: importerName,
+      address: importerAddress,
+      reg: regTraderCoyRegNo,
+      ic: importerRegistration,
+      icColor: importerICColor,
+      telephone: importerPhone,
+      postal: importerPostal,
+    });
   }
 
   if (exporterName?.trim()) {
-    await Consignee.updateOne(
-      { name: exporterName },
-      { $setOnInsert: { name: exporterName },
-        $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
-      { upsert: true }
-    );
-    await syncConsigneeByNameToPostgres(Consignee, exporterName);
+    await db.upsertConsigneeByName(exporterName, { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal });
   }
 
   if (agentName?.trim()) {
-    await Consignee.updateOne(
-      { name: agentName },
-      { $setOnInsert: { name: agentName },
-        $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
-      { upsert: true }
-    );
-    await syncConsigneeByNameToPostgres(Consignee, agentName);
+    await db.upsertConsigneeByName(agentName, { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal });
   }
 
-
-
-  await declaration3.save();
-  await syncDeclarationToPostgres(declaration3);
-
-
+  await declarationsDb.createDeclaration(declarationInput);
 
   res.redirect("/bdnsw");
-  
+
 });
 
 //bdnswedit
@@ -1041,34 +945,34 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
   var declarationGoods = [];
   if(typeof(goodsSerialNo)=="string"){
     declarationGoods.push({
-      goodsSerialNo: goodsSerialNo[i],
-      goodsPackageNo: goodsPackageNo[i],
-      goodsPackageUnit: goodsPackageUnit[i],
-      countryOrigin: countryOrigin[i],
-      countryCode: countryCode[i],
-      hsCode: hsCode[i],
-      subCode: subCode[i],
-      goodsDescription: goodsDescription[i],
-      goodsC: goodsC[i],
-      goodsUnit: goodsUnit[i],
-      goodsCode: goodsCode[i],
-      goodsQuantity: goodsQuantity[i],
-      goodsWeight: goodsWeight[i],
-      goodsAmount: goodsAmount[i],
-      goodsCIF: goodsCIF[i],
-      goodsDuty: goodsDuty[i],
-      goodsDutyAmount: goodsDutyAmount[i],
-      goodsLNo: goodsLNo[i],
-      goodsShippingMark: goodsShippingMark[i],
-      goodsContainerNo: goodsContainerNo[i],
-      goodsInvoiceNo: goodsInvoiceNo[i],
-      goodsControl: goodsControl[i],
-      goodsImportDuty: goodsImportDuty[i],
-      goodsExciseDuty: goodsExciseDuty[i],
-      permitApplicationType: permitApplicationType[i],
-      permitNo: permitNo[i],
-      permitExpiryDate: permitExpiryDate[i],
-      permitIssuedBy: permitIssuedBy[i],
+      goodsSerialNo: goodsSerialNo,
+      goodsPackageNo: goodsPackageNo,
+      goodsPackageUnit: goodsPackageUnit,
+      countryOrigin: countryOrigin,
+      countryCode: countryCode,
+      hsCode: hsCode,
+      subCode: subCode,
+      goodsDescription: goodsDescription,
+      goodsC: goodsC,
+      goodsUnit: goodsUnit,
+      goodsCode: goodsCode,
+      goodsQuantity: goodsQuantity,
+      goodsWeight: goodsWeight,
+      goodsAmount: goodsAmount,
+      goodsCIF: goodsCIF,
+      goodsDuty: goodsDuty,
+      goodsDutyAmount: goodsDutyAmount,
+      goodsLNo: goodsLNo,
+      goodsShippingMark: goodsShippingMark,
+      goodsContainerNo: goodsContainerNo,
+      goodsInvoiceNo: goodsInvoiceNo,
+      goodsControl: goodsControl,
+      goodsImportDuty: goodsImportDuty,
+      goodsExciseDuty: goodsExciseDuty,
+      permitApplicationType: permitApplicationType,
+      permitNo: permitNo,
+      permitExpiryDate: permitExpiryDate,
+      permitIssuedBy: permitIssuedBy,
 
     });
   } else {
@@ -1137,8 +1041,7 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
     }
   }
 
-  await Declaration3.updateMany ({ _id:req.body._id},
-    {$set: {
+  const declarationInput = {
       dateGranted : dateGranted,
       departureDate : departureDate,
       cept : cept,
@@ -1283,40 +1186,13 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
       Goods: declarationGoods,
       Containers: declarationContainers,
 
-    }
-    },
-    {
-      new: true,
-    }
+  };
 
-  )
+  await declarationsDb.updateDeclaration(req.body._id, declarationInput);
 
-  const updatedDeclaration3 = await Declaration3.findById(req.body._id);
-  if (updatedDeclaration3) await syncDeclarationToPostgres(updatedDeclaration3);
-
-  const checkConsignee = await Consignee.findOne({ 'name' : importerName })
+  const checkConsignee = await db.findConsigneeByName(importerName);
   if (checkConsignee) {
-    await Consignee.updateMany ({ name: importerName},
-      {$set: {
-
-        name: importerName,
-        address: importerAddress,
-        reg: regTraderCoyRegNo,
-        ic: importerRegistration,
-        icColor: importerICColor,
-        telephone: importerPhone,
-        postal: importerPostal,
-
-      }
-      },
-      {
-        new: true,
-      }
-    )
-    await syncConsigneeByNameToPostgres(Consignee, importerName);
-  }
-  else {
-    const consignee = new Consignee ({
+    await db.updateConsignee(checkConsignee._id, {
       name: importerName,
       address: importerAddress,
       reg: regTraderCoyRegNo,
@@ -1324,50 +1200,43 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
       icColor: importerICColor,
       telephone: importerPhone,
       postal: importerPostal,
-
     });
-    await consignee.save();
-    await syncConsigneeToPostgres(consignee);
+  }
+  else {
+    await db.createConsignee({
+      name: importerName,
+      address: importerAddress,
+      reg: regTraderCoyRegNo,
+      ic: importerRegistration,
+      icColor: importerICColor,
+      telephone: importerPhone,
+      postal: importerPostal,
+    });
   }
 
   if (exporterName?.trim()) {
-    await Consignee.updateOne(
-      { name: exporterName },
-      { $setOnInsert: { name: exporterName },
-        $set: { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal } },
-      { upsert: true }
-    );
-    await syncConsigneeByNameToPostgres(Consignee, exporterName);
+    await db.upsertConsigneeByName(exporterName, { address: exporterAddress, reg: exporterRegistration, country: exporterCountry, telephone: exporterPhone, postal: exporterPostal });
   }
 
   if (agentName?.trim()) {
-    await Consignee.updateOne(
-      { name: agentName },
-      { $setOnInsert: { name: agentName },
-        $set: { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal } },
-      { upsert: true }
-    );
-    await syncConsigneeByNameToPostgres(Consignee, agentName);
+    await db.upsertConsigneeByName(agentName, { address: agentAddress, reg: agentRegistration, telephone: agentPhone, postal: agentPostal });
   }
 
   res.redirect("/bdnsw");
 });
 
 app.post("/declaration3/delete/:id", requireLogin, requireAdmin, async (req, res) => {
-  await Declaration3.findByIdAndDelete(req.params.id);
-  await dualWriteDeleteDeclaration(req.params.id);
+  await declarationsDb.deleteDeclaration(req.params.id);
   res.redirect("/bdnsw");
 });
 
 app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
   const selectedInvoice = req.params.invoice;
 
-  const declaration3 = await Declaration3.findOne({'_id' : req.params.id}, { _id: 0, __v: 0});
+  const declaration3 = await declarationsDb.findDeclarationById(req.params.id);
   // check country codes (e.g. Singapore. check with db, convert to "SG". Regex i for case insensitive as usually input as caps)
-  const iso_countrycodes = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryShipment, "i") } } );
-  const iso_countrycodes2 = await ISO_CountryCodes.findOne({'name' : { $regex : new RegExp(declaration3.Transport.countryDestination, "i") } } );
-
-  const Goods = await Declaration3.find({'goodsInvoiceNo' : req.params.invoice}, { _id: 0, __v: 0});
+  const iso_countrycodes = await db.findCountryCodeByNameContains(declaration3.Transport.countryShipment);
+  const iso_countrycodes2 = await db.findCountryCodeByNameContains(declaration3.Transport.countryDestination);
 
   //incase of multiple invoices in one data, get more for XML
   var tempInvoice = [];
@@ -1461,7 +1330,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
     }
 
     root = root
-        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight.toFixed(3)).up()
+        .ele('totalGrossWeight').txt(Number(declaration3.DeclarationGoods.totalGrossWeight || 0).toFixed(3)).up()
         .ele('totalGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
         .ele('totalNoPackages').txt(declaration3.DeclarationGoods.totalPackagesNo).up()
         .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up();
@@ -1474,7 +1343,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' TransitDetails ')
 
         .com(' Guarantee Details ')
-        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
+        .ele('bgAmount').txt(Number(declaration3.SecurityDeposit.bankGuaranteeAmount || 0).toFixed(2)).up()
 
       .up();
   }
@@ -1526,7 +1395,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
     }
 
     root = root
-        .ele('totalGrossWeight').txt(declaration3.DeclarationGoods.totalGrossWeight.toFixed(3)).up()
+        .ele('totalGrossWeight').txt(Number(declaration3.DeclarationGoods.totalGrossWeight || 0).toFixed(3)).up()
         .ele('totalGrossWeightUnit').txt(declaration3.DeclarationGoods.grossWeightUnit).up()
         .ele('totalNoPackages').txt(declaration3.DeclarationGoods.totalPackagesNo).up()
         .ele('totalNoPackagesUnit').txt(declaration3.DeclarationGoods.packageNoUnit).up();
@@ -1539,7 +1408,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' TransitDetails ')
 
         .com(' Guarantee Details ')
-        .ele('bgAmount').txt(declaration3.SecurityDeposit.bankGuaranteeAmount.toFixed(2)).up()
+        .ele('bgAmount').txt(Number(declaration3.SecurityDeposit.bankGuaranteeAmount || 0).toFixed(2)).up()
 
       .up();
   }
@@ -1632,36 +1501,18 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
 
 const PAGE_SIZE = 50;
 
-function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 //HSCODE PAGE TO LOOK UP HSCODE
 // Only rows shaped like a real national tariff line (e.g. 0101.21.00) are actually
 // declarable — the reference data also contains heading/sub-heading rows (e.g. "01.01",
 // "0102.29") that exist purely to group codes, per the BDTTC tariff book layout, and are
-// never themselves selected on a declaration.
-const DECLARABLE_HSCODE_FILTER = { HSCode: { $regex: /^\d{4}\.\d{2}\.\d{2}$/ } };
+// never themselves selected on a declaration. (Filter now lives in postgresMars.js's
+// findHsCodesPage/searchHsCodes, as a Postgres regex query.)
 
 app.get("/hscode", requireLogin, async (req, res) => {
   const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
   const q = (req.query.q || "").trim();
 
-  let filter = DECLARABLE_HSCODE_FILTER;
-  if (q) {
-    const rx = new RegExp(escapeRegex(q), "i");
-    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }, { subCategory: rx }] };
-  }
-
-  const totalCount = await Hscode2.countDocuments(filter);
-  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
-  const currentPage = Math.min(requestedPage, totalPages);
-
-  const hscode = await Hscode2.find(filter)
-    .sort({ HSCode: 1 })
-    .skip((currentPage - 1) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  const { hscode, totalCount, totalPages, currentPage } = await db.findHsCodesPage({ search: q, page: requestedPage, pageSize: PAGE_SIZE });
 
   res.render("hscode.ejs", { hscode, currentPage, totalPages, totalCount, q });
 });
@@ -1670,12 +1521,7 @@ app.get("/api/hscode/search", requireLogin, async (req, res) => {
   const q = (req.query.q || "").trim();
   const skip = Math.max(parseInt(req.query.skip, 10) || 0, 0);
   const limit = 100;
-  let filter = DECLARABLE_HSCODE_FILTER;
-  if (q) {
-    const rx = new RegExp(escapeRegex(q), "i");
-    filter = { ...DECLARABLE_HSCODE_FILTER, $or: [{ HSCode: rx }, { Description: rx }, { category: rx }, { subCategory: rx }] };
-  }
-  const results = await Hscode2.find(filter).sort({ HSCode: 1 }).skip(skip).limit(limit).lean();
+  const results = await db.searchHsCodes({ search: q, skip, limit });
   res.json({ results, hasMore: results.length === limit });
 });
 
@@ -1684,21 +1530,7 @@ app.get("/unlocodeportlist", requireLogin, async (req, res) => {
   const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
   const q = (req.query.q || "").trim();
 
-  let filter = {};
-  if (q) {
-    const rx = new RegExp(escapeRegex(q), "i");
-    filter = { $or: [{ Name: rx }, { Country: rx }, { Location: rx }] };
-  }
-
-  const totalCount = await Unlocode_port_list2.countDocuments(filter);
-  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
-  const currentPage = Math.min(requestedPage, totalPages);
-
-  const unlocode_port_list = await Unlocode_port_list2.find(filter)
-    .sort({ Name: 1 })
-    .skip((currentPage - 1) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  const { unlocode_port_list, totalCount, totalPages, currentPage } = await db.findUnlocodePortsPage({ search: q, page: requestedPage, pageSize: PAGE_SIZE });
 
   res.render("unlocodeport.ejs", { unlocode_port_list, currentPage, totalPages, totalCount, q });
 });
@@ -1710,12 +1542,7 @@ app.post("/unlocodeportlist/create", requireLogin, async (req, res) => {
     req.flash("error", "Country, Location and Name are required.");
     return res.redirect(redirectUrl);
   }
-  const createdUnlocode = await Unlocode_port_list2.create({
-    Country: Country.trim(),
-    Location: Location.trim(),
-    Name: Name.trim(),
-  });
-  await syncUnlocodePortToPostgres(createdUnlocode);
+  await db.createUnlocodePort({ Country: Country.trim(), Location: Location.trim(), Name: Name.trim() });
   res.redirect(redirectUrl);
 });
 
@@ -1726,19 +1553,13 @@ app.post("/unlocodeportlist/update", requireLogin, async (req, res) => {
     req.flash("error", "Country, Location and Name are required.");
     return res.redirect(redirectUrl);
   }
-  const updated = await Unlocode_port_list2.findByIdAndUpdate(
-    _id,
-    { Country: Country.trim(), Location: Location.trim(), Name: Name.trim() },
-    { new: true, runValidators: true }
-  );
+  const updated = await db.updateUnlocodePort(_id, { Country: Country.trim(), Location: Location.trim(), Name: Name.trim() });
   if (!updated) req.flash("error", "Unlocode record not found.");
-  else await syncUnlocodePortToPostgres(updated);
   res.redirect(redirectUrl);
 });
 
 app.post("/unlocodeportlist/delete/:id", requireLogin, requireAdmin, async (req, res) => {
-  await Unlocode_port_list2.findByIdAndDelete(req.params.id);
-  await dualWriteDeleteUnlocodePort(req.params.id);
+  await db.deleteUnlocodePort(req.params.id);
   const { page, q } = req.query;
   res.redirect(`/unlocodeportlist?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
@@ -1748,21 +1569,7 @@ app.get("/customers", requireLogin, async (req, res) => {
   const requestedPage = Math.max(parseInt(req.query.page, 10) || 1, 1);
   const q = (req.query.q || "").trim();
 
-  let filter = {};
-  if (q) {
-    const rx = new RegExp(escapeRegex(q), "i");
-    filter = { $or: [{ name: rx }, { address: rx }, { country: rx }] };
-  }
-
-  const totalCount = await Consignee.countDocuments(filter);
-  const totalPages = Math.max(Math.ceil(totalCount / PAGE_SIZE), 1);
-  const currentPage = Math.min(requestedPage, totalPages);
-
-  const customers = await Consignee.find(filter)
-    .sort({ name: 1 })
-    .skip((currentPage - 1) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  const { customers, totalCount, totalPages, currentPage } = await db.findAllConsignees({ search: q, page: requestedPage, pageSize: PAGE_SIZE });
 
   res.render("customers.ejs", { customers, currentPage, totalPages, totalCount, q });
 });
@@ -1774,7 +1581,7 @@ app.post("/customers/create", requireLogin, async (req, res) => {
     req.flash("error", "Name, Address, Registration, Country, Telephone and Postal are required.");
     return res.redirect(redirectUrl);
   }
-  const createdConsignee = await Consignee.create({
+  await db.createConsignee({
     name: name.trim(),
     address: address.trim(),
     reg: reg.trim(),
@@ -1782,7 +1589,6 @@ app.post("/customers/create", requireLogin, async (req, res) => {
     telephone: telephone.trim(),
     postal: postal.trim(),
   });
-  await syncConsigneeToPostgres(createdConsignee);
   res.redirect(redirectUrl);
 });
 
@@ -1793,26 +1599,20 @@ app.post("/customers/update", requireLogin, async (req, res) => {
     req.flash("error", "Name, Address, Registration, Country, Telephone and Postal are required.");
     return res.redirect(redirectUrl);
   }
-  const updated = await Consignee.findByIdAndUpdate(
-    _id,
-    {
-      name: name.trim(),
-      address: address.trim(),
-      reg: reg.trim(),
-      country: country.trim(),
-      telephone: telephone.trim(),
-      postal: postal.trim(),
-    },
-    { new: true, runValidators: true }
-  );
+  const updated = await db.updateConsignee(_id, {
+    name: name.trim(),
+    address: address.trim(),
+    reg: reg.trim(),
+    country: country.trim(),
+    telephone: telephone.trim(),
+    postal: postal.trim(),
+  });
   if (!updated) req.flash("error", "Customer record not found.");
-  else await syncConsigneeToPostgres(updated);
   res.redirect(redirectUrl);
 });
 
 app.post("/customers/delete/:id", requireLogin, requireAdmin, async (req, res) => {
-  await Consignee.findByIdAndDelete(req.params.id);
-  await dualWriteDeleteConsignee(req.params.id);
+  await db.deleteConsignee(req.params.id);
   const { page, q } = req.query;
   res.redirect(`/customers?page=${page || 1}&q=${encodeURIComponent(q || "")}`);
 });
@@ -1820,7 +1620,7 @@ app.post("/customers/delete/:id", requireLogin, requireAdmin, async (req, res) =
 /* USER MANAGEMENT (Admin only) */
 
 app.get("/users", requireLogin, requireAdmin, async (req, res) => {
-  const users = await User.find({}).sort({ name: 1 });
+  const users = await db.findAllUsers();
   res.render("users.ejs", { users });
 });
 
@@ -1830,13 +1630,13 @@ app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
     req.flash("error", "Name, Email and Password are required.");
     return res.redirect("/users");
   }
-  const existing = await User.findOne({ email: email.trim() });
+  const existing = await db.findUserByEmail(email.trim());
   if (existing) {
     req.flash("error", "A user with that email already exists.");
     return res.redirect("/users");
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  const createdUser = await User.create({
+  await db.createUser({
     name: name.trim(),
     email: email.trim(),
     password: hashedPassword,
@@ -1845,9 +1645,8 @@ app.post("/users/create", requireLogin, requireAdmin, async (req, res) => {
     icNo: (icNo || "").trim(),
     icColor: (icColor || "").trim(),
     designation: (designation || "").trim(),
-    company: (company || "").trim() || undefined,
+    company: (company || "").trim() || null,
   });
-  await syncUserToPostgres(createdUser);
   req.flash("success", "User created.");
   res.redirect("/users");
 });
@@ -1858,7 +1657,7 @@ app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
     req.flash("error", "Name and Email are required.");
     return res.redirect("/users");
   }
-  const existing = await User.findOne({ email: email.trim(), _id: { $ne: _id } });
+  const existing = await db.findUserByEmailExcludingId(email.trim(), _id);
   if (existing) {
     req.flash("error", "A user with that email already exists.");
     return res.redirect("/users");
@@ -1873,22 +1672,13 @@ app.post("/users/update", requireLogin, requireAdmin, async (req, res) => {
     designation: (designation || "").trim(),
   };
   const trimmedCompany = (company || "").trim();
-  const unset = {};
-  if (trimmedCompany) {
-    update.company = trimmedCompany;
-  } else {
-    unset.company = "";
-  }
+  update.company = trimmedCompany || null;
   if (password?.trim()) {
     update.password = await bcrypt.hash(password.trim(), 10);
   }
-  const mongoUpdate = Object.keys(unset).length ? { $set: update, $unset: unset } : { $set: update };
-  const updated = await User.findByIdAndUpdate(_id, mongoUpdate, { new: true, runValidators: true }).select("+password");
+  const updated = await db.updateUser(_id, update);
   if (!updated) req.flash("error", "User not found.");
-  else {
-    await syncUserToPostgres(updated);
-    req.flash("success", "User updated.");
-  }
+  else req.flash("success", "User updated.");
   res.redirect("/users");
 });
 
@@ -1897,55 +1687,9 @@ app.post("/users/delete/:id", requireLogin, requireAdmin, async (req, res) => {
     req.flash("error", "You cannot delete your own account.");
     return res.redirect("/users");
   }
-  await User.findByIdAndDelete(req.params.id);
-  await dualWriteDeleteUser(req.params.id);
+  await db.deleteUser(req.params.id);
   req.flash("success", "User deleted.");
   res.redirect("/users");
-});
-
-/* HSCODE EDIT POST */
-
-app.post("/addhscode", async (req, res) => {
-  const { 
-    heading,
-    name,
-    cat1,
-    cat2,
-    cat3,
-    cat4,
-    hscodeentry,
-    unitOfQuantity,
-    rateOfImportDuty,
-    rateOfExciseDuty,
-  } = req.body;
-
-  const hscode = new Hscode ({ 
-    heading,
-    description : {
-      name,
-      category : {
-        cat1,
-        cat2,
-        cat3,
-        cat4,
-      },
-      hscodeentry,
-      unitOfQuantity,
-      rateOfImportDuty,
-      rateOfExciseDuty,
-    }
-  });
-  await hscode.save();
-  console.log("HSCODE ENTRY SAVED")
-  res.redirect("/hscodeedit");
-  
-});
-
-
-//deleting bdnsw item
-app.post("/delete/:id", requireLogin, requireAdmin, async (req, res) => {
-  await Bdnsw.findByIdAndDelete(req.params.id);
-  res.redirect("/bdnsw");
 });
 
 //unfinished pages

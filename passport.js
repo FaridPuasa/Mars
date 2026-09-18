@@ -1,11 +1,11 @@
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models/user");
+const { findUserByEmail, findUserById } = require("./postgresMars");
 const bcrypt = require("bcryptjs");
 
 function initialize(passport) {
   const authenticateUser = async (email, password, done) => {
     try {
-      const user = await User.findOne({ email }).select("+password");
+      const user = await findUserByEmail(email);
       if (user === null) {
         return done(null, false, { message: "Invalid Credentials (Email not found)" });
       }
@@ -33,10 +33,10 @@ function initialize(passport) {
     console.log('serializing user: ');
     console.log(user.name);
     //req.locals.name = user.name;
-    done(null, user.id);
+    done(null, user._id);
   });
   passport.deserializeUser(async (id, done) => {
-    const user = await User.findById({ _id: id });
+    const user = await findUserById(id);
     done(null, user);
   });
 }
