@@ -95,6 +95,8 @@ function toApiDeclaration(row) {
         dateGranted: row.dateGranted,
         departureDate: row.departureDate,
         cept: row.cept,
+        ceptFormNo: row.ceptFormNo,
+        ceptDate: row.ceptDate,
 
         Procedure: {
             customsProcedure: row.customsProcedure,
@@ -259,6 +261,8 @@ function toPgDeclarationFields(d) {
         dateGranted: d.dateGranted ?? null,
         departureDate: d.departureDate ?? null,
         cept: d.cept ?? null,
+        ceptFormNo: d.ceptFormNo ?? null,
+        ceptDate: d.ceptDate ?? null,
         declarationDate: d.declarationDate ?? null,
         shippingMark: d.shippingMark ?? null,
         postedBy: d.postedBy ?? null,

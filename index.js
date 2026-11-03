@@ -217,6 +217,8 @@ app.post("/declaration3", requireLogin, async (req, res) => {
     dateGranted,
     departureDate,
     cept,
+    ceptFormNo,
+    ceptDate,
 
     //Procedure
     customsProcedure,
@@ -537,6 +539,8 @@ app.post("/declaration3", requireLogin, async (req, res) => {
     dateGranted,
     departureDate,
     cept,
+    ceptFormNo,
+    ceptDate,
 
     Procedure: {
       customsProcedure,
@@ -725,6 +729,8 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
     dateGranted,
     departureDate,
     cept,
+    ceptFormNo,
+    ceptDate,
 
     //Procedure
     customsProcedure,
@@ -1045,6 +1051,8 @@ app.post("/recordsEdit", requireLogin, async (req, res) => {
       dateGranted : dateGranted,
       departureDate : departureDate,
       cept : cept,
+      ceptFormNo : ceptFormNo,
+      ceptDate : ceptDate,
 
       Procedure: {
         customsProcedure : customsProcedure,
@@ -1237,6 +1245,9 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
   // check country codes (e.g. Singapore. check with db, convert to "SG". Regex i for case insensitive as usually input as caps)
   const iso_countrycodes = await db.findCountryCodeByNameContains(declaration3.Transport.countryShipment);
   const iso_countrycodes2 = await db.findCountryCodeByNameContains(declaration3.Transport.countryDestination);
+  const iso_countrycodesExporter = declaration3.Exporter.exporterCountry
+    ? await db.findCountryCodeByNameContains(declaration3.Exporter.exporterCountry)
+    : null;
 
   //incase of multiple invoices in one data, get more for XML
   var tempInvoice = [];
@@ -1279,7 +1290,15 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
     goodsEntry = goodsEntry + ".ele('goodsSerialNo').txt(declaration3.Goods[" +i+ "].goodsSerialNo).up() "
   }
 
-  //dutiable indicator auto set to N
+  //indicators reflect the user's actual form selections (previously hardcoded to 'N',
+  //which silently dropped the dutiableIndicator/cept/dutyExem choices from the submission)
+  var dutiableIndicatorValue = declaration3.Procedure.dutiableIndicator || 'N';
+  var ceptSchemeIndicatorValue = declaration3.cept === 'cept' ? 'Y' : 'N';
+  var dutyExemptIndicatorValue = declaration3.SupportingDocuments.dutyExem === 'Y' ? 'Y' : 'N';
+  var hasOverseasTrader = !!(declaration3.Exporter && declaration3.Exporter.exporterName);
+  var hasTransitDetails = !!(declaration3.Transit && (declaration3.Transit.modeTransport || declaration3.Transit.meanTransport || declaration3.Transit.officeDeptFirst || declaration3.Transit.officeDeptSecond || declaration3.Transit.officeDeptThird || declaration3.Transit.officeDeptLast));
+  var hasTemporaryImportDetails = !!(declaration3.TemporaryImport && declaration3.TemporaryImport.grantedPeriod);
+
   //IF TRDR
   if(declaration3.Importer.regTraderCoyRegNo){
     var generalNode = builder.create('Declaration', { encoding: 'utf-8' })
@@ -1289,7 +1308,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' Header Details ')
         .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
         .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
-        .ele('dutiableIndicator').txt('N').up()
+        .ele('dutiableIndicator').txt(dutiableIndicatorValue).up()
         .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
         .ele('countryShipment').txt(iso_countrycodes.alpha2).up()
         .ele('countryDestination').txt(iso_countrycodes2.alpha2).up()
@@ -1308,10 +1327,34 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('individualAddress').txt(declaration3.Importer.importerAddress).up()
         .ele('traderName').txt(declaration3.Importer.importerName).up()
         .ele('consigneeCompanyRegNo').txt(declaration3.Importer.regTraderCoyRegNo).up()
-        .ele('consigneeName').txt(declaration3.Importer.importerName).up()
-        .ele('dutyExemptIndicator').txt('N').up()
-        .ele('ceptSchemeIndicator').txt('N').up()
+        .ele('consigneeName').txt(declaration3.Importer.importerName).up();
 
+    if (declaration3.Procedure.prevProcedureCode) {
+      generalNode = generalNode.ele('previousCustomsProcedure').txt(declaration3.Procedure.prevProcedureCode).up();
+    }
+    if (declaration3.SupportingDocuments.prevDeclarationNo) {
+      generalNode = generalNode.ele('previousDeclarationNo').txt(declaration3.SupportingDocuments.prevDeclarationNo).up();
+    }
+    if (hasOverseasTrader) {
+      generalNode = generalNode
+        .ele('overseasTraderCoyName').txt(declaration3.Exporter.exporterName).up()
+        .ele('overseasTraderCoyRegNo').txt(declaration3.Exporter.exporterRegistration || '').up()
+        .ele('overseasTraderAddress').txt(declaration3.Exporter.exporterAddress || '').up()
+        .ele('overseasTraderCountry').txt((iso_countrycodesExporter && iso_countrycodesExporter.alpha2) || '').up()
+        .ele('overseasTraderPostalCode').txt(declaration3.Exporter.exporterPostal || '').up()
+        .ele('overseaseTelNo').txt(declaration3.Exporter.exporterPhone || '').up();
+    }
+
+    generalNode = generalNode
+        .ele('dutyExemptIndicator').txt(dutyExemptIndicatorValue).up()
+        .ele('ceptSchemeIndicator').txt(ceptSchemeIndicatorValue).up();
+
+    if (ceptSchemeIndicatorValue === 'Y') {
+      if (declaration3.ceptFormNo) generalNode = generalNode.ele('ceptFormNo').txt(declaration3.ceptFormNo).up();
+      if (declaration3.ceptDate) generalNode = generalNode.ele('ceptDate').txt(declaration3.ceptDate).up();
+    }
+
+    generalNode = generalNode
         .com(' BillOfLadingDetails ')
         .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up();
 
@@ -1339,9 +1382,22 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
       root = root.ele('containerIndicator').txt('Y').up();
     }
 
-    root = root
-        .com(' TransitDetails ')
+    if (hasTemporaryImportDetails) {
+      root = root.ele('grantedPeriodMonth').txt(declaration3.TemporaryImport.grantedPeriod).up();
+    }
 
+    root = root.com(' TransitDetails ');
+    if (hasTransitDetails) {
+      root = root
+        .ele('transitTransportMode').txt(declaration3.Transit.modeTransport || '').up()
+        .ele('transitTransportMeans').txt(declaration3.Transit.meanTransport || '').up();
+      if (declaration3.Transit.officeDeptFirst) root = root.ele('transit1stCheckpoint').txt(declaration3.Transit.officeDeptFirst).up();
+      if (declaration3.Transit.officeDeptSecond) root = root.ele('transit2ndCheckpoint').txt(declaration3.Transit.officeDeptSecond).up();
+      if (declaration3.Transit.officeDeptThird) root = root.ele('transit3ndCheckpoint').txt(declaration3.Transit.officeDeptThird).up();
+      if (declaration3.Transit.officeDeptLast) root = root.ele('transitFinalCheckpoint').txt(declaration3.Transit.officeDeptLast).up();
+    }
+
+    root = root
         .com(' Guarantee Details ')
         .ele('bgAmount').txt(Number(declaration3.SecurityDeposit.bankGuaranteeAmount || 0).toFixed(2)).up()
 
@@ -1356,7 +1412,7 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .com(' Header Details ')
         .ele('declarationType').txt(declaration3.Procedure.customsProcedure).up()
         .ele('customsProcedure').txt(declaration3.Procedure.customsProcedureCode).up()
-        .ele('dutiableIndicator').txt(declaration3.Procedure.dutiableIndicator).up()
+        .ele('dutiableIndicator').txt(dutiableIndicatorValue).up()
         .ele('transportMode').txt(declaration3.Procedure.dutiableIndicatorCode).up()
         .ele('countryShipment').txt(iso_countrycodes.alpha2).up()
         .ele('countryDestination').txt(iso_countrycodes2.alpha2).up()
@@ -1373,10 +1429,34 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
         .ele('individualAddress').txt(declaration3.Importer.importerAddress).up()
         .ele('traderName').txt(declaration3.Importer.importerName).up()
         .ele('consigneeCompanyRegNo').txt(declaration3.Importer.importerRegistration).up()
-        .ele('consigneeName').txt(declaration3.Importer.importerName).up()
-        .ele('dutyExemptIndicator').txt('N').up()
-        .ele('ceptSchemeIndicator').txt('N').up()
+        .ele('consigneeName').txt(declaration3.Importer.importerName).up();
 
+    if (declaration3.Procedure.prevProcedureCode) {
+      generalNode = generalNode.ele('previousCustomsProcedure').txt(declaration3.Procedure.prevProcedureCode).up();
+    }
+    if (declaration3.SupportingDocuments.prevDeclarationNo) {
+      generalNode = generalNode.ele('previousDeclarationNo').txt(declaration3.SupportingDocuments.prevDeclarationNo).up();
+    }
+    if (hasOverseasTrader) {
+      generalNode = generalNode
+        .ele('overseasTraderCoyName').txt(declaration3.Exporter.exporterName).up()
+        .ele('overseasTraderCoyRegNo').txt(declaration3.Exporter.exporterRegistration || '').up()
+        .ele('overseasTraderAddress').txt(declaration3.Exporter.exporterAddress || '').up()
+        .ele('overseasTraderCountry').txt((iso_countrycodesExporter && iso_countrycodesExporter.alpha2) || '').up()
+        .ele('overseasTraderPostalCode').txt(declaration3.Exporter.exporterPostal || '').up()
+        .ele('overseaseTelNo').txt(declaration3.Exporter.exporterPhone || '').up();
+    }
+
+    generalNode = generalNode
+        .ele('dutyExemptIndicator').txt(dutyExemptIndicatorValue).up()
+        .ele('ceptSchemeIndicator').txt(ceptSchemeIndicatorValue).up();
+
+    if (ceptSchemeIndicatorValue === 'Y') {
+      if (declaration3.ceptFormNo) generalNode = generalNode.ele('ceptFormNo').txt(declaration3.ceptFormNo).up();
+      if (declaration3.ceptDate) generalNode = generalNode.ele('ceptDate').txt(declaration3.ceptDate).up();
+    }
+
+    generalNode = generalNode
         .com(' BillOfLadingDetails ')
         .ele('masterBillNo').txt(declaration3.Transport.bldoawb).up();
 
@@ -1404,9 +1484,22 @@ app.get("/downloadXML/:id/:invoice", requireLogin, async (req, res) => {
       root = root.ele('containerIndicator').txt('Y').up();
     }
 
-    root = root
-        .com(' TransitDetails ')
+    if (hasTemporaryImportDetails) {
+      root = root.ele('grantedPeriodMonth').txt(declaration3.TemporaryImport.grantedPeriod).up();
+    }
 
+    root = root.com(' TransitDetails ');
+    if (hasTransitDetails) {
+      root = root
+        .ele('transitTransportMode').txt(declaration3.Transit.modeTransport || '').up()
+        .ele('transitTransportMeans').txt(declaration3.Transit.meanTransport || '').up();
+      if (declaration3.Transit.officeDeptFirst) root = root.ele('transit1stCheckpoint').txt(declaration3.Transit.officeDeptFirst).up();
+      if (declaration3.Transit.officeDeptSecond) root = root.ele('transit2ndCheckpoint').txt(declaration3.Transit.officeDeptSecond).up();
+      if (declaration3.Transit.officeDeptThird) root = root.ele('transit3ndCheckpoint').txt(declaration3.Transit.officeDeptThird).up();
+      if (declaration3.Transit.officeDeptLast) root = root.ele('transitFinalCheckpoint').txt(declaration3.Transit.officeDeptLast).up();
+    }
+
+    root = root
         .com(' Guarantee Details ')
         .ele('bgAmount').txt(Number(declaration3.SecurityDeposit.bankGuaranteeAmount || 0).toFixed(2)).up()
 

@@ -34,6 +34,14 @@
                         <option value="cept">CEPT</option>
                     </select>
                     </div>
+                    <div>
+                    <label for="ceptFormNo">CEPT Form No:</label>
+                    <input type="text" id="ceptFormNo" name="ceptFormNo" size="30"/>
+                    </div>
+                    <div>
+                    <label for="ceptDate">CEPT Date:</label>
+                    <input type="date" id="ceptDate" name="ceptDate" size="30"/>
+                    </div>
                 </div>
                 <div class="card mars-card border-0 shadow-sm mb-3">
                   <div class="mars-card-header">Procedure</div>
@@ -66,7 +74,7 @@
                       </div>
                       <div class="col-md-8">
                         <label class="form-label">Prev Procedure</label>
-                        <select name="previousProcedure" id="previousProcedure" class="form-select" onchange="autoCodePrevProcedure()">
+                        <select name="prevProcedure" id="prevProcedure" class="form-select" onchange="autoCodePrevProcedure()">
                                 <option value=""></option>
                             <optgroup label="-">
                                 <!--code 05--><option value="IMP">IMPORT</option>
@@ -88,7 +96,7 @@
                       </div>
                       <div class="col-md-4">
                         <label class="form-label">Code</label>
-                        <input type="text" id="previousProcedureCode" name="previousProcedureCode" class="form-control"/>
+                        <input type="text" id="prevProcedureCode" name="prevProcedureCode" class="form-control"/>
                       </div>
                       <div class="col-md-8">
                         <label class="form-label">Dutiable Indicator <span class="text-danger">*</span></label>
@@ -720,7 +728,17 @@
                           </div>
                           <div class="col-md-4">
                             <label class="form-label">CCY</label>
-                            <input type="text" id="invoiceCurrency" name="invoiceCurrency" class="form-control" required/>
+                            <select id="invoiceCurrency" name="invoiceCurrency" class="form-select" required>
+                                <option value=""></option>
+                                <option value="BND">BND</option>
+                                <option value="USD">USD</option>
+                                <option value="SGD">SGD</option>
+                                <option value="MYR">MYR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="AUD">AUD</option>
+                                <option value="NZD">NZD</option>
+                                <option value="ECU">ECU</option>
+                            </select>
                           </div>
                           <div class="col-md-4">
                             <label class="form-label">Rate</label>
@@ -739,7 +757,17 @@
                           </div>
                           <div class="col-md-3">
                             <label class="form-label">CCY</label>
-                            <input type="text" id="insuranceCurrency" name="insuranceCurrency" class="form-control" required/>
+                            <select id="insuranceCurrency" name="insuranceCurrency" class="form-select" required>
+                                <option value=""></option>
+                                <option value="BND">BND</option>
+                                <option value="USD">USD</option>
+                                <option value="SGD">SGD</option>
+                                <option value="MYR">MYR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="AUD">AUD</option>
+                                <option value="NZD">NZD</option>
+                                <option value="ECU">ECU</option>
+                            </select>
                           </div>
                           <div class="col-md-3">
                             <label class="form-label">Rate</label>
@@ -758,7 +786,17 @@
                           </div>
                           <div class="col-md-3">
                             <label class="form-label">CCY</label>
-                            <input type="text" id="freightCurrency" name="freightCurrency" class="form-control" required/>
+                            <select id="freightCurrency" name="freightCurrency" class="form-select" required>
+                                <option value=""></option>
+                                <option value="BND">BND</option>
+                                <option value="USD">USD</option>
+                                <option value="SGD">SGD</option>
+                                <option value="MYR">MYR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="AUD">AUD</option>
+                                <option value="NZD">NZD</option>
+                                <option value="ECU">ECU</option>
+                            </select>
                           </div>
                           <div class="col-md-3">
                             <label class="form-label">Rate</label>
@@ -1472,42 +1510,42 @@
     }
 
     function autoCodePrevProcedure() {
-        document.getElementById("previousProcedureCode").value = "";
-        if((document.getElementById("previousProcedure").value)==="IMP"){
-            document.getElementById("previousProcedureCode").value = "05";
+        document.getElementById("prevProcedureCode").value = "";
+        if((document.getElementById("prevProcedure").value)==="IMP"){
+            document.getElementById("prevProcedureCode").value = "05";
         }
-        else if((document.getElementById("previousProcedure").value)==="REIMP"){
-            document.getElementById("previousProcedureCode").value = "07";
+        else if((document.getElementById("prevProcedure").value)==="REIMP"){
+            document.getElementById("prevProcedureCode").value = "07";
         }
-        else if((document.getElementById("previousProcedure").value)==="ENTRYTOBOND"){
-            document.getElementById("previousProcedureCode").value = "10";
+        else if((document.getElementById("prevProcedure").value)==="ENTRYTOBOND"){
+            document.getElementById("prevProcedureCode").value = "10";
         }
-        else if((document.getElementById("previousProcedure").value)==="TEMPIMP"){
-            document.getElementById("previousProcedureCode").value = "11";
+        else if((document.getElementById("prevProcedure").value)==="TEMPIMP"){
+            document.getElementById("prevProcedureCode").value = "11";
         }
-        else if((document.getElementById("previousProcedure").value)==="TEMPIMPEXT"){
-            document.getElementById("previousProcedureCode").value = "15";
+        else if((document.getElementById("prevProcedure").value)==="TEMPIMPEXT"){
+            document.getElementById("prevProcedureCode").value = "15";
         }
-        else if((document.getElementById("previousProcedure").value)==="IMPFROMBOND"){
-            document.getElementById("previousProcedureCode").value = "09";
+        else if((document.getElementById("prevProcedure").value)==="IMPFROMBOND"){
+            document.getElementById("prevProcedureCode").value = "09";
         }
-        else if((document.getElementById("previousProcedure").value)==="EXP"){
-            document.getElementById("previousProcedureCode").value = "06";
+        else if((document.getElementById("prevProcedure").value)==="EXP"){
+            document.getElementById("prevProcedureCode").value = "06";
         }
-        else if((document.getElementById("previousProcedure").value)==="REEXP"){
-            document.getElementById("previousProcedureCode").value = "08";
+        else if((document.getElementById("prevProcedure").value)==="REEXP"){
+            document.getElementById("prevProcedureCode").value = "08";
         }
-        else if((document.getElementById("previousProcedure").value)==="TEMPEXP"){
-            document.getElementById("previousProcedureCode").value = "16";
+        else if((document.getElementById("prevProcedure").value)==="TEMPEXP"){
+            document.getElementById("prevProcedureCode").value = "16";
         }
-        else if((document.getElementById("previousProcedure").value)==="TRANSIT"){
-            document.getElementById("previousProcedureCode").value = "12";
+        else if((document.getElementById("prevProcedure").value)==="TRANSIT"){
+            document.getElementById("prevProcedureCode").value = "12";
         }
-        else if((document.getElementById("previousProcedure").value)==="BONDEDMOVGOODS"){
-            document.getElementById("previousProcedureCode").value = "13";
+        else if((document.getElementById("prevProcedure").value)==="BONDEDMOVGOODS"){
+            document.getElementById("prevProcedureCode").value = "13";
         }
-        else if((document.getElementById("previousProcedure").value)==="EXPFROMBOND"){
-            document.getElementById("previousProcedureCode").value = "14";
+        else if((document.getElementById("prevProcedure").value)==="EXPFROMBOND"){
+            document.getElementById("prevProcedureCode").value = "14";
         }
     }
 
@@ -1750,9 +1788,7 @@
         }
     }
                       
-    //CIF FORMULA IN PROGRESS
     function calculateCif(){
-        //formula still WIP KIV because MARS is a mess
         //get fields of goods
         var goodsAmountClass = document.getElementsByClassName('goodsAmount');
         var goodsCifClass = document.getElementsByClassName('goodsCif');
@@ -1761,28 +1797,43 @@
         //get fields from invoice modal, convert to BND
         var invoiceNoClass = document.getElementsByClassName('invoiceNo');
         var invoiceAmountClass = document.getElementsByClassName('invoiceAmount');
-        var invoiceRate = Number(document.getElementById('invoiceRate').value);
+        var invoiceRate = Number(document.getElementById('invoiceRate').value) || 0;
         var invoiceFreightAmountClass = document.getElementsByClassName('invoiceFreightAmount');
-        var freightRate = Number(document.getElementById('freightRate').value);
+        var freightRate = Number(document.getElementById('freightRate').value) || 0;
         var invoiceInsuranceAmountClass = document.getElementsByClassName('invoiceInsuranceAmount');
-        var insuranceRate = Number(document.getElementById('insuranceRate').value);
+        var insuranceRate = Number(document.getElementById('insuranceRate').value) || 0;
         var invoiceOtherChargesClass = document.getElementsByClassName('invoiceOtherCharges');
 
-        //get total CIF per invoice
-
+        //get total CIF per invoice, matching on trimmed invoice number so stray
+        //whitespace doesn't silently fail the match. Rows that don't match any
+        //invoice are cleared and flagged (instead of being left with a stale
+        //value from a previous calculation) so the gap is visible, not hidden.
         for (var ik = 0; ik < goodsInvoiceNoClass.length; ik++){
-            //get the correct invoice and its values
-            for (var ij = 0; ij < invoiceNoClass.length; ij++){
-                if(goodsInvoiceNoClass[ik].value == invoiceNoClass[ij].value){
-                    var totalCif;
-                    totalCif = (Number(invoiceAmountClass[ij].value) * invoiceRate) + (Number(invoiceFreightAmountClass[ij].value) * freightRate) + (Number(invoiceInsuranceAmountClass[ij].value) * insuranceRate) + Number(invoiceOtherChargesClass[ij].value)
-                    
-                    goodsCifClass[ik].value = ((Number(goodsAmountClass[ik].value) * totalCif) / Number(invoiceAmountClass[ij].value)).toFixed(2);
+            var goodsInvNo = (goodsInvoiceNoClass[ik].value || '').trim();
+            var matched = false;
+            if (goodsInvNo) {
+                for (var ij = 0; ij < invoiceNoClass.length; ij++){
+                    if (goodsInvNo === (invoiceNoClass[ij].value || '').trim()){
+                        var invoiceAmount = Number(invoiceAmountClass[ij].value) || 0;
+                        var totalCif = (invoiceAmount * invoiceRate)
+                            + ((Number(invoiceFreightAmountClass[ij].value) || 0) * freightRate)
+                            + ((Number(invoiceInsuranceAmountClass[ij].value) || 0) * insuranceRate)
+                            + (Number(invoiceOtherChargesClass[ij].value) || 0);
+
+                        goodsCifClass[ik].value = invoiceAmount > 0
+                            ? (((Number(goodsAmountClass[ik].value) || 0) * totalCif) / invoiceAmount).toFixed(2)
+                            : '0.00';
+                        matched = true;
+                        break;
+                    }
                 }
             }
-
+            if (!matched) {
+                goodsCifClass[ik].value = '';
+            }
+            goodsCifClass[ik].classList.toggle('is-invalid', !matched);
+            goodsCifClass[ik].title = matched ? '' : 'No invoice matches this Invoice No. - CIF cannot be calculated';
         }
-
     }
     //Customer auto-fill for Exporter/Importer/Agent
     function selectImporter(selectedName, selectedAddress, selectedReg, selectedIc, selectedIcColor, selectedPhone, selectedPostal){

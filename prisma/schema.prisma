@@ -70,6 +70,8 @@ model MarsDeclaration {
   dateGranted     String? @map("date_granted")
   departureDate   String? @map("departure_date")
   cept            String?
+  ceptFormNo      String? @map("cept_form_no")
+  ceptDate        String? @map("cept_date")
   declarationDate String? @map("declaration_date")
   shippingMark    String? @map("shipping_mark")
   postedBy        String? @map("posted_by")
